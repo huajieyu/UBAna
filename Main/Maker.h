@@ -47,7 +47,7 @@
 #include <TCanvas.h>
 #include "TMath.h"
 #include "TH2Poly.h"
-
+#include "TEnv.h"
 #include "ubana/DataTypes/UBTH2Poly.h"
 #include "ubana/DataTypes/BootstrapTH2DPoly.h"
 #include "ubana/DataTypes/UBXSecEventHisto.h"
@@ -233,7 +233,7 @@ namespace Main{
     UBXSecEventHisto1D * _event_histo_1d;
     UBXSecEventHisto   * _event_histo;
 
-
+    UBXSecEventHisto1D * _event_histo_cc1unp_1d;
 
     bool _maup_mecoff = false;
 

@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Fri Mar 23 16:26:16 2018 by ROOT version 6.06/06
+// Tue Nov 20 12:13:49 2018 by ROOT version 6.06/08
 // from TTree tree/
-// found on file: ../Files/ubxsec_output_mc_bnbcosmic_mcc8.7_test6.root
+// found on file: /build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/testing_pid_larana/ubxsec_output_mc_bnbcosmic.root
 //////////////////////////////////////////////////////////
 
 #ifndef UBXSecEvent_h
@@ -11,9 +11,7 @@
 #include <TROOT.h>
 #include <TChain.h>
 #include <TFile.h>
-
 using namespace std;
-
 // Header file for the classes stored in the TTree if any.
 
 class UBXSecEvent {
@@ -42,6 +40,7 @@ public :
    Double_t        muon_tag_score;
    Double_t        fm_score;
    Int_t           fv;
+   Int_t           fv_sce;
    Int_t           ccnc;
    Int_t           mode;
    Int_t           nupdg;
@@ -51,8 +50,39 @@ public :
    Double_t        lep_phi;
    Int_t           genie_mult;
    Int_t           genie_mult_ch;
+   Int_t           ngenie_muons;
+   Int_t           ngenie_protons;
+   Int_t           ngenie_electrons;
+   Int_t           ngenie_pipms;
+   Int_t           ngenie_pion0s;
+   Int_t           ngenie_protons_200;
+   Int_t           ngenie_protons_300;
+   Int_t           ngenie_protons_400;
+   vector<double>  genie_mcpar_pdgcode;
+   vector<double>  genie_mcpar_energy;
+   vector<double>  genie_mcpar_px;
+   vector<double>  genie_mcpar_py;
+   vector<double>  genie_mcpar_pz;
+   vector<double>  genie_mcpar_startx;
+   vector<double>  genie_mcpar_starty;
+   vector<double>  genie_mcpar_startz;
+   Double_t        genie_mcpar_W;
+   Double_t        genie_mcpar_QSqr;
+   vector<double>  geant_mcpar_pdgcode;
+   vector<double>  geant_mcpar_energy;
+   vector<double>  geant_mcpar_px;
+   vector<double>  geant_mcpar_py;
+   vector<double>  geant_mcpar_pz;
+   vector<double>  geant_mcpar_startx;
+   vector<double>  geant_mcpar_starty;
+   vector<double>  geant_mcpar_startz;
+   vector<string>  geant_mcpar_end_process;
    Double_t        bnb_weight;
    Bool_t          is_selected;
+   Int_t           selected_slice;
+   Double_t        sce_corr_x;
+   Double_t        sce_corr_y;
+   Double_t        sce_corr_z;
    Int_t           mc_muon_contained;
    Int_t           is_swtriggered;
    Double_t        vtx_resolution;
@@ -136,6 +166,18 @@ public :
    vector<double>  slc_muoncandidate_linearity;
    vector<double>  slc_muoncandidate_perc_used_hits_in_cluster;
    vector<double>  slc_muoncandidate_maxscatteringangle;
+   vector<double>  slc_muoncandidate_truth_origin;
+   vector<double>  slc_muoncandidate_truth_pdg;
+   vector<double>  slc_muoncandidate_truth_time;
+   vector<double>  slc_muoncandidate_truth_startx;
+   vector<double>  slc_muoncandidate_truth_starty;
+   vector<double>  slc_muoncandidate_truth_startz;
+   vector<double>  slc_muoncandidate_truth_endx;
+   vector<double>  slc_muoncandidate_truth_endy;
+   vector<double>  slc_muoncandidate_truth_endz;
+   vector<double>  slc_muoncandidate_truth_px;
+   vector<double>  slc_muoncandidate_truth_py;
+   vector<double>  slc_muoncandidate_truth_pz;
    Int_t           nbeamfls;
    vector<double>  beamfls_time;
    vector<double>  beamfls_pe;
@@ -168,6 +210,63 @@ public :
    vector<string>  evtwgt_flux_multisim_funcname;
    vector<int>     evtwgt_flux_multisim_nweight;
    vector<vector<double> > evtwgt_flux_multisim_weight;
+   Int_t           num_pfp;
+   Int_t           num_pfp_tracks;
+   Int_t           num_pfp_showers;
+   vector<int>     pfp_truth_pdg;
+   vector<int>     pfp_truth_origin;
+   vector<int>     pfp_truth_status;
+   vector<int>     pfp_truth_parId;
+   vector<float>   pfp_truth_theta;
+   vector<float>   pfp_truth_costheta;
+   vector<float>   pfp_truth_phi;
+   vector<float>   pfp_truth_mom;
+   vector<float>   pfp_truth_startx;
+   vector<float>   pfp_truth_starty;
+   vector<float>   pfp_truth_startz;
+   vector<float>   pfp_truth_endx;
+   vector<float>   pfp_truth_endy;
+   vector<float>   pfp_truth_endz;
+   vector<float>   pfp_truth_endE;
+   vector<float>   pfp_truth_KE;
+   vector<float>   pfp_truth_Mass;
+   vector<bool>    pfp_reco_isprimary;
+   vector<int>     pfp_reco_ndaughters;
+   vector<bool>    pfp_reco_ismuoncandidate;
+   vector<bool>    pfp_reco_istrack;
+   vector<bool>    pfp_reco_isshower;
+   vector<bool>    pfp_reco_upflag;
+   vector<int>     pfp_reco_Id;
+   vector<float>   pfp_reco_length;
+   vector<float>   pfp_reco_theta;
+   vector<float>   pfp_reco_costheta;
+   vector<float>   pfp_reco_phi;
+   vector<float>   pfp_reco_startx;
+   vector<float>   pfp_reco_starty;
+   vector<float>   pfp_reco_startz;
+   vector<float>   pfp_reco_endx;
+   vector<float>   pfp_reco_endy;
+   vector<float>   pfp_reco_endz;
+   vector<float>   pfp_reco_Mom;
+   vector<float>   pfp_reco_Mom_p;
+   vector<float>   pfp_reco_Mom_MCS;
+   vector<float>   pfp_reco_trunmeandqdx;
+   vector<float>   pfp_reco_trunmeandqdx_U;
+   vector<float>   pfp_reco_trunmeandqdx_V;
+   vector<float>   pfp_reco_newpid_pida;
+   vector<float>   pfp_reco_chi2_proton;
+   vector<float>   pfp_reco_chi2_kaon;
+   vector<float>   pfp_reco_chi2_muon;
+   vector<float>   pfp_reco_chi2_pion;
+   vector<float>   pfp_reco_bragg_ratio;
+   vector<float>   pfp_reco_bragg_proton;
+   vector<float>   pfp_reco_bragg_fwd_proton;
+   vector<float>   pfp_reco_bragg_bwd_proton;
+   vector<float>   pfp_reco_bragg_fwd_mip;
+   vector<int>     pfp_reco_nhits;
+   vector<vector<double> > pfp_reco_dEdx;
+   vector<vector<double> > pfp_reco_dQdx;
+   vector<vector<double> > pfp_reco_RR;
    Int_t           _default_value;
 
    // List of branches
@@ -188,6 +287,7 @@ public :
    TBranch        *b_ubxsec_event_split_muon_tag_score;   //!
    TBranch        *b_ubxsec_event_split_fm_score;   //!
    TBranch        *b_ubxsec_event_split_fv;   //!
+   TBranch        *b_ubxsec_event_split_fv_sce;   //!
    TBranch        *b_ubxsec_event_split_ccnc;   //!
    TBranch        *b_ubxsec_event_split_mode;   //!
    TBranch        *b_ubxsec_event_split_nupdg;   //!
@@ -197,8 +297,39 @@ public :
    TBranch        *b_ubxsec_event_split_lep_phi;   //!
    TBranch        *b_ubxsec_event_split_genie_mult;   //!
    TBranch        *b_ubxsec_event_split_genie_mult_ch;   //!
+   TBranch        *b_ubxsec_event_split_ngenie_muons;   //!
+   TBranch        *b_ubxsec_event_split_ngenie_protons;   //!
+   TBranch        *b_ubxsec_event_split_ngenie_electrons;   //!
+   TBranch        *b_ubxsec_event_split_ngenie_pipms;   //!
+   TBranch        *b_ubxsec_event_split_ngenie_pion0s;   //!
+   TBranch        *b_ubxsec_event_split_ngenie_protons_200;   //!
+   TBranch        *b_ubxsec_event_split_ngenie_protons_300;   //!
+   TBranch        *b_ubxsec_event_split_ngenie_protons_400;   //!
+   TBranch        *b_ubxsec_event_split_genie_mcpar_pdgcode;   //!
+   TBranch        *b_ubxsec_event_split_genie_mcpar_energy;   //!
+   TBranch        *b_ubxsec_event_split_genie_mcpar_px;   //!
+   TBranch        *b_ubxsec_event_split_genie_mcpar_py;   //!
+   TBranch        *b_ubxsec_event_split_genie_mcpar_pz;   //!
+   TBranch        *b_ubxsec_event_split_genie_mcpar_startx;   //!
+   TBranch        *b_ubxsec_event_split_genie_mcpar_starty;   //!
+   TBranch        *b_ubxsec_event_split_genie_mcpar_startz;   //!
+   TBranch        *b_ubxsec_event_split_genie_mcpar_W;   //!
+   TBranch        *b_ubxsec_event_split_genie_mcpar_QSqr;   //!
+   TBranch        *b_ubxsec_event_split_geant_mcpar_pdgcode;   //!
+   TBranch        *b_ubxsec_event_split_geant_mcpar_energy;   //!
+   TBranch        *b_ubxsec_event_split_geant_mcpar_px;   //!
+   TBranch        *b_ubxsec_event_split_geant_mcpar_py;   //!
+   TBranch        *b_ubxsec_event_split_geant_mcpar_pz;   //!
+   TBranch        *b_ubxsec_event_split_geant_mcpar_startx;   //!
+   TBranch        *b_ubxsec_event_split_geant_mcpar_starty;   //!
+   TBranch        *b_ubxsec_event_split_geant_mcpar_startz;   //!
+   TBranch        *b_ubxsec_event_split_geant_mcpar_end_process;   //!
    TBranch        *b_ubxsec_event_split_bnb_weight;   //!
    TBranch        *b_ubxsec_event_split_is_selected;   //!
+   TBranch        *b_ubxsec_event_split_selected_slice;   //!
+   TBranch        *b_ubxsec_event_split_sce_corr_x;   //!
+   TBranch        *b_ubxsec_event_split_sce_corr_y;   //!
+   TBranch        *b_ubxsec_event_split_sce_corr_z;   //!
    TBranch        *b_ubxsec_event_split_mc_muon_contained;   //!
    TBranch        *b_ubxsec_event_split_is_swtriggered;   //!
    TBranch        *b_ubxsec_event_split_vtx_resolution;   //!
@@ -282,6 +413,18 @@ public :
    TBranch        *b_ubxsec_event_split_slc_muoncandidate_linearity;   //!
    TBranch        *b_ubxsec_event_split_slc_muoncandidate_perc_used_hits_in_cluster;   //!
    TBranch        *b_ubxsec_event_split_slc_muoncandidate_maxscatteringangle;   //!
+   TBranch        *b_ubxsec_event_split_slc_muoncandidate_truth_origin;   //!
+   TBranch        *b_ubxsec_event_split_slc_muoncandidate_truth_pdg;   //!
+   TBranch        *b_ubxsec_event_split_slc_muoncandidate_truth_time;   //!
+   TBranch        *b_ubxsec_event_split_slc_muoncandidate_truth_startx;   //!
+   TBranch        *b_ubxsec_event_split_slc_muoncandidate_truth_starty;   //!
+   TBranch        *b_ubxsec_event_split_slc_muoncandidate_truth_startz;   //!
+   TBranch        *b_ubxsec_event_split_slc_muoncandidate_truth_endx;   //!
+   TBranch        *b_ubxsec_event_split_slc_muoncandidate_truth_endy;   //!
+   TBranch        *b_ubxsec_event_split_slc_muoncandidate_truth_endz;   //!
+   TBranch        *b_ubxsec_event_split_slc_muoncandidate_truth_px;   //!
+   TBranch        *b_ubxsec_event_split_slc_muoncandidate_truth_py;   //!
+   TBranch        *b_ubxsec_event_split_slc_muoncandidate_truth_pz;   //!
    TBranch        *b_ubxsec_event_split_nbeamfls;   //!
    TBranch        *b_ubxsec_event_split_beamfls_time;   //!
    TBranch        *b_ubxsec_event_split_beamfls_pe;   //!
@@ -314,6 +457,63 @@ public :
    TBranch        *b_ubxsec_event_split_evtwgt_flux_multisim_funcname;   //!
    TBranch        *b_ubxsec_event_split_evtwgt_flux_multisim_nweight;   //!
    TBranch        *b_ubxsec_event_split_evtwgt_flux_multisim_weight;   //!
+   TBranch        *b_ubxsec_event_split_num_pfp;   //!
+   TBranch        *b_ubxsec_event_split_num_pfp_tracks;   //!
+   TBranch        *b_ubxsec_event_split_num_pfp_showers;   //!
+   TBranch        *b_ubxsec_event_split_pfp_truth_pdg;   //!
+   TBranch        *b_ubxsec_event_split_pfp_truth_origin;   //!
+   TBranch        *b_ubxsec_event_split_pfp_truth_status;   //!
+   TBranch        *b_ubxsec_event_split_pfp_truth_parId;   //!
+   TBranch        *b_ubxsec_event_split_pfp_truth_theta;   //!
+   TBranch        *b_ubxsec_event_split_pfp_truth_costheta;   //!
+   TBranch        *b_ubxsec_event_split_pfp_truth_phi;   //!
+   TBranch        *b_ubxsec_event_split_pfp_truth_mom;   //!
+   TBranch        *b_ubxsec_event_split_pfp_truth_startx;   //!
+   TBranch        *b_ubxsec_event_split_pfp_truth_starty;   //!
+   TBranch        *b_ubxsec_event_split_pfp_truth_startz;   //!
+   TBranch        *b_ubxsec_event_split_pfp_truth_endx;   //!
+   TBranch        *b_ubxsec_event_split_pfp_truth_endy;   //!
+   TBranch        *b_ubxsec_event_split_pfp_truth_endz;   //!
+   TBranch        *b_ubxsec_event_split_pfp_truth_endE;   //!
+   TBranch        *b_ubxsec_event_split_pfp_truth_KE;   //!
+   TBranch        *b_ubxsec_event_split_pfp_truth_Mass;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_isprimary;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_ndaughters;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_ismuoncandidate;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_istrack;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_isshower;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_upflag;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_Id;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_length;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_theta;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_costheta;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_phi;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_startx;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_starty;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_startz;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_endx;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_endy;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_endz;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_Mom;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_Mom_p;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_Mom_MCS;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_trunmeandqdx;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_trunmeandqdx_U;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_trunmeandqdx_V;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_newpid_pida;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_chi2_proton;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_chi2_kaon;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_chi2_muon;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_chi2_pion;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_bragg_ratio;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_bragg_proton;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_bragg_fwd_proton;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_bragg_bwd_proton;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_bragg_fwd_mip;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_nhits;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_dEdx;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_dQdx;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_RR;   //!
    TBranch        *b_ubxsec_event_split__default_value;   //!
 
    UBXSecEvent(TTree *tree=0);
@@ -335,11 +535,11 @@ UBXSecEvent::UBXSecEvent(TTree *tree) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("../Files/ubxsec_output_mc_bnbcosmic_mcc8.7_test6.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/testing_pid_larana/ubxsec_output_mc_bnbcosmic.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("../Files/ubxsec_output_mc_bnbcosmic_mcc8.7_test6.root");
+         f = new TFile("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/testing_pid_larana/ubxsec_output_mc_bnbcosmic.root");
       }
-      TDirectory * dir = (TDirectory*)f->Get("../Files/ubxsec_output_mc_bnbcosmic_mcc8.7_test6.root:/UBXSec");
+      TDirectory * dir = (TDirectory*)f->Get("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/testing_pid_larana/ubxsec_output_mc_bnbcosmic.root:/UBXSec");
       dir->GetObject("tree",tree);
 
    }
@@ -404,6 +604,7 @@ void UBXSecEvent::Init(TTree *tree)
    fChain->SetBranchAddress("muon_tag_score", &muon_tag_score, &b_ubxsec_event_split_muon_tag_score);
    fChain->SetBranchAddress("fm_score", &fm_score, &b_ubxsec_event_split_fm_score);
    fChain->SetBranchAddress("fv", &fv, &b_ubxsec_event_split_fv);
+   fChain->SetBranchAddress("fv_sce", &fv_sce, &b_ubxsec_event_split_fv_sce);
    fChain->SetBranchAddress("ccnc", &ccnc, &b_ubxsec_event_split_ccnc);
    fChain->SetBranchAddress("mode", &mode, &b_ubxsec_event_split_mode);
    fChain->SetBranchAddress("nupdg", &nupdg, &b_ubxsec_event_split_nupdg);
@@ -413,8 +614,39 @@ void UBXSecEvent::Init(TTree *tree)
    fChain->SetBranchAddress("lep_phi", &lep_phi, &b_ubxsec_event_split_lep_phi);
    fChain->SetBranchAddress("genie_mult", &genie_mult, &b_ubxsec_event_split_genie_mult);
    fChain->SetBranchAddress("genie_mult_ch", &genie_mult_ch, &b_ubxsec_event_split_genie_mult_ch);
+   fChain->SetBranchAddress("ngenie_muons", &ngenie_muons, &b_ubxsec_event_split_ngenie_muons);
+   fChain->SetBranchAddress("ngenie_protons", &ngenie_protons, &b_ubxsec_event_split_ngenie_protons);
+   fChain->SetBranchAddress("ngenie_electrons", &ngenie_electrons, &b_ubxsec_event_split_ngenie_electrons);
+   fChain->SetBranchAddress("ngenie_pipms", &ngenie_pipms, &b_ubxsec_event_split_ngenie_pipms);
+   fChain->SetBranchAddress("ngenie_pion0s", &ngenie_pion0s, &b_ubxsec_event_split_ngenie_pion0s);
+   fChain->SetBranchAddress("ngenie_protons_200", &ngenie_protons_200, &b_ubxsec_event_split_ngenie_protons_200);
+   fChain->SetBranchAddress("ngenie_protons_300", &ngenie_protons_300, &b_ubxsec_event_split_ngenie_protons_300);
+   fChain->SetBranchAddress("ngenie_protons_400", &ngenie_protons_400, &b_ubxsec_event_split_ngenie_protons_400);
+   fChain->SetBranchAddress("genie_mcpar_pdgcode", &genie_mcpar_pdgcode, &b_ubxsec_event_split_genie_mcpar_pdgcode);
+   fChain->SetBranchAddress("genie_mcpar_energy", &genie_mcpar_energy, &b_ubxsec_event_split_genie_mcpar_energy);
+   fChain->SetBranchAddress("genie_mcpar_px", &genie_mcpar_px, &b_ubxsec_event_split_genie_mcpar_px);
+   fChain->SetBranchAddress("genie_mcpar_py", &genie_mcpar_py, &b_ubxsec_event_split_genie_mcpar_py);
+   fChain->SetBranchAddress("genie_mcpar_pz", &genie_mcpar_pz, &b_ubxsec_event_split_genie_mcpar_pz);
+   fChain->SetBranchAddress("genie_mcpar_startx", &genie_mcpar_startx, &b_ubxsec_event_split_genie_mcpar_startx);
+   fChain->SetBranchAddress("genie_mcpar_starty", &genie_mcpar_starty, &b_ubxsec_event_split_genie_mcpar_starty);
+   fChain->SetBranchAddress("genie_mcpar_startz", &genie_mcpar_startz, &b_ubxsec_event_split_genie_mcpar_startz);
+   fChain->SetBranchAddress("genie_mcpar_W", &genie_mcpar_W, &b_ubxsec_event_split_genie_mcpar_W);
+   fChain->SetBranchAddress("genie_mcpar_QSqr", &genie_mcpar_QSqr, &b_ubxsec_event_split_genie_mcpar_QSqr);
+   fChain->SetBranchAddress("geant_mcpar_pdgcode", &geant_mcpar_pdgcode, &b_ubxsec_event_split_geant_mcpar_pdgcode);
+   fChain->SetBranchAddress("geant_mcpar_energy", &geant_mcpar_energy, &b_ubxsec_event_split_geant_mcpar_energy);
+   fChain->SetBranchAddress("geant_mcpar_px", &geant_mcpar_px, &b_ubxsec_event_split_geant_mcpar_px);
+   fChain->SetBranchAddress("geant_mcpar_py", &geant_mcpar_py, &b_ubxsec_event_split_geant_mcpar_py);
+   fChain->SetBranchAddress("geant_mcpar_pz", &geant_mcpar_pz, &b_ubxsec_event_split_geant_mcpar_pz);
+   fChain->SetBranchAddress("geant_mcpar_startx", &geant_mcpar_startx, &b_ubxsec_event_split_geant_mcpar_startx);
+   fChain->SetBranchAddress("geant_mcpar_starty", &geant_mcpar_starty, &b_ubxsec_event_split_geant_mcpar_starty);
+   fChain->SetBranchAddress("geant_mcpar_startz", &geant_mcpar_startz, &b_ubxsec_event_split_geant_mcpar_startz);
+   fChain->SetBranchAddress("geant_mcpar_end_process", &geant_mcpar_end_process, &b_ubxsec_event_split_geant_mcpar_end_process);
    fChain->SetBranchAddress("bnb_weight", &bnb_weight, &b_ubxsec_event_split_bnb_weight);
    fChain->SetBranchAddress("is_selected", &is_selected, &b_ubxsec_event_split_is_selected);
+   fChain->SetBranchAddress("selected_slice", &selected_slice, &b_ubxsec_event_split_selected_slice);
+   fChain->SetBranchAddress("sce_corr_x", &sce_corr_x, &b_ubxsec_event_split_sce_corr_x);
+   fChain->SetBranchAddress("sce_corr_y", &sce_corr_y, &b_ubxsec_event_split_sce_corr_y);
+   fChain->SetBranchAddress("sce_corr_z", &sce_corr_z, &b_ubxsec_event_split_sce_corr_z);
    fChain->SetBranchAddress("mc_muon_contained", &mc_muon_contained, &b_ubxsec_event_split_mc_muon_contained);
    fChain->SetBranchAddress("is_swtriggered", &is_swtriggered, &b_ubxsec_event_split_is_swtriggered);
    fChain->SetBranchAddress("vtx_resolution", &vtx_resolution, &b_ubxsec_event_split_vtx_resolution);
@@ -498,6 +730,18 @@ void UBXSecEvent::Init(TTree *tree)
    fChain->SetBranchAddress("slc_muoncandidate_linearity", &slc_muoncandidate_linearity, &b_ubxsec_event_split_slc_muoncandidate_linearity);
    fChain->SetBranchAddress("slc_muoncandidate_perc_used_hits_in_cluster", &slc_muoncandidate_perc_used_hits_in_cluster, &b_ubxsec_event_split_slc_muoncandidate_perc_used_hits_in_cluster);
    fChain->SetBranchAddress("slc_muoncandidate_maxscatteringangle", &slc_muoncandidate_maxscatteringangle, &b_ubxsec_event_split_slc_muoncandidate_maxscatteringangle);
+   fChain->SetBranchAddress("slc_muoncandidate_truth_origin", &slc_muoncandidate_truth_origin, &b_ubxsec_event_split_slc_muoncandidate_truth_origin);
+   fChain->SetBranchAddress("slc_muoncandidate_truth_pdg", &slc_muoncandidate_truth_pdg, &b_ubxsec_event_split_slc_muoncandidate_truth_pdg);
+   fChain->SetBranchAddress("slc_muoncandidate_truth_time", &slc_muoncandidate_truth_time, &b_ubxsec_event_split_slc_muoncandidate_truth_time);
+   fChain->SetBranchAddress("slc_muoncandidate_truth_startx", &slc_muoncandidate_truth_startx, &b_ubxsec_event_split_slc_muoncandidate_truth_startx);
+   fChain->SetBranchAddress("slc_muoncandidate_truth_starty", &slc_muoncandidate_truth_starty, &b_ubxsec_event_split_slc_muoncandidate_truth_starty);
+   fChain->SetBranchAddress("slc_muoncandidate_truth_startz", &slc_muoncandidate_truth_startz, &b_ubxsec_event_split_slc_muoncandidate_truth_startz);
+   fChain->SetBranchAddress("slc_muoncandidate_truth_endx", &slc_muoncandidate_truth_endx, &b_ubxsec_event_split_slc_muoncandidate_truth_endx);
+   fChain->SetBranchAddress("slc_muoncandidate_truth_endy", &slc_muoncandidate_truth_endy, &b_ubxsec_event_split_slc_muoncandidate_truth_endy);
+   fChain->SetBranchAddress("slc_muoncandidate_truth_endz", &slc_muoncandidate_truth_endz, &b_ubxsec_event_split_slc_muoncandidate_truth_endz);
+   fChain->SetBranchAddress("slc_muoncandidate_truth_px", &slc_muoncandidate_truth_px, &b_ubxsec_event_split_slc_muoncandidate_truth_px);
+   fChain->SetBranchAddress("slc_muoncandidate_truth_py", &slc_muoncandidate_truth_py, &b_ubxsec_event_split_slc_muoncandidate_truth_py);
+   fChain->SetBranchAddress("slc_muoncandidate_truth_pz", &slc_muoncandidate_truth_pz, &b_ubxsec_event_split_slc_muoncandidate_truth_pz);
    fChain->SetBranchAddress("nbeamfls", &nbeamfls, &b_ubxsec_event_split_nbeamfls);
    fChain->SetBranchAddress("beamfls_time", &beamfls_time, &b_ubxsec_event_split_beamfls_time);
    fChain->SetBranchAddress("beamfls_pe", &beamfls_pe, &b_ubxsec_event_split_beamfls_pe);
@@ -530,6 +774,63 @@ void UBXSecEvent::Init(TTree *tree)
    fChain->SetBranchAddress("evtwgt_flux_multisim_funcname", &evtwgt_flux_multisim_funcname, &b_ubxsec_event_split_evtwgt_flux_multisim_funcname);
    fChain->SetBranchAddress("evtwgt_flux_multisim_nweight", &evtwgt_flux_multisim_nweight, &b_ubxsec_event_split_evtwgt_flux_multisim_nweight);
    fChain->SetBranchAddress("evtwgt_flux_multisim_weight", &evtwgt_flux_multisim_weight, &b_ubxsec_event_split_evtwgt_flux_multisim_weight);
+   fChain->SetBranchAddress("num_pfp", &num_pfp, &b_ubxsec_event_split_num_pfp);
+   fChain->SetBranchAddress("num_pfp_tracks", &num_pfp_tracks, &b_ubxsec_event_split_num_pfp_tracks);
+   fChain->SetBranchAddress("num_pfp_showers", &num_pfp_showers, &b_ubxsec_event_split_num_pfp_showers);
+   fChain->SetBranchAddress("pfp_truth_pdg", &pfp_truth_pdg, &b_ubxsec_event_split_pfp_truth_pdg);
+   fChain->SetBranchAddress("pfp_truth_origin", &pfp_truth_origin, &b_ubxsec_event_split_pfp_truth_origin);
+   fChain->SetBranchAddress("pfp_truth_status", &pfp_truth_status, &b_ubxsec_event_split_pfp_truth_status);
+   fChain->SetBranchAddress("pfp_truth_parId", &pfp_truth_parId, &b_ubxsec_event_split_pfp_truth_parId);
+   fChain->SetBranchAddress("pfp_truth_theta", &pfp_truth_theta, &b_ubxsec_event_split_pfp_truth_theta);
+   fChain->SetBranchAddress("pfp_truth_costheta", &pfp_truth_costheta, &b_ubxsec_event_split_pfp_truth_costheta);
+   fChain->SetBranchAddress("pfp_truth_phi", &pfp_truth_phi, &b_ubxsec_event_split_pfp_truth_phi);
+   fChain->SetBranchAddress("pfp_truth_mom", &pfp_truth_mom, &b_ubxsec_event_split_pfp_truth_mom);
+   fChain->SetBranchAddress("pfp_truth_startx", &pfp_truth_startx, &b_ubxsec_event_split_pfp_truth_startx);
+   fChain->SetBranchAddress("pfp_truth_starty", &pfp_truth_starty, &b_ubxsec_event_split_pfp_truth_starty);
+   fChain->SetBranchAddress("pfp_truth_startz", &pfp_truth_startz, &b_ubxsec_event_split_pfp_truth_startz);
+   fChain->SetBranchAddress("pfp_truth_endx", &pfp_truth_endx, &b_ubxsec_event_split_pfp_truth_endx);
+   fChain->SetBranchAddress("pfp_truth_endy", &pfp_truth_endy, &b_ubxsec_event_split_pfp_truth_endy);
+   fChain->SetBranchAddress("pfp_truth_endz", &pfp_truth_endz, &b_ubxsec_event_split_pfp_truth_endz);
+   fChain->SetBranchAddress("pfp_truth_endE", &pfp_truth_endE, &b_ubxsec_event_split_pfp_truth_endE);
+   fChain->SetBranchAddress("pfp_truth_KE", &pfp_truth_KE, &b_ubxsec_event_split_pfp_truth_KE);
+   fChain->SetBranchAddress("pfp_truth_Mass", &pfp_truth_Mass, &b_ubxsec_event_split_pfp_truth_Mass);
+   fChain->SetBranchAddress("pfp_reco_isprimary", &pfp_reco_isprimary, &b_ubxsec_event_split_pfp_reco_isprimary);
+   fChain->SetBranchAddress("pfp_reco_ndaughters", &pfp_reco_ndaughters, &b_ubxsec_event_split_pfp_reco_ndaughters);
+   fChain->SetBranchAddress("pfp_reco_ismuoncandidate", &pfp_reco_ismuoncandidate, &b_ubxsec_event_split_pfp_reco_ismuoncandidate);
+   fChain->SetBranchAddress("pfp_reco_istrack", &pfp_reco_istrack, &b_ubxsec_event_split_pfp_reco_istrack);
+   fChain->SetBranchAddress("pfp_reco_isshower", &pfp_reco_isshower, &b_ubxsec_event_split_pfp_reco_isshower);
+   fChain->SetBranchAddress("pfp_reco_upflag", &pfp_reco_upflag, &b_ubxsec_event_split_pfp_reco_upflag);
+   fChain->SetBranchAddress("pfp_reco_Id", &pfp_reco_Id, &b_ubxsec_event_split_pfp_reco_Id);
+   fChain->SetBranchAddress("pfp_reco_length", &pfp_reco_length, &b_ubxsec_event_split_pfp_reco_length);
+   fChain->SetBranchAddress("pfp_reco_theta", &pfp_reco_theta, &b_ubxsec_event_split_pfp_reco_theta);
+   fChain->SetBranchAddress("pfp_reco_costheta", &pfp_reco_costheta, &b_ubxsec_event_split_pfp_reco_costheta);
+   fChain->SetBranchAddress("pfp_reco_phi", &pfp_reco_phi, &b_ubxsec_event_split_pfp_reco_phi);
+   fChain->SetBranchAddress("pfp_reco_startx", &pfp_reco_startx, &b_ubxsec_event_split_pfp_reco_startx);
+   fChain->SetBranchAddress("pfp_reco_starty", &pfp_reco_starty, &b_ubxsec_event_split_pfp_reco_starty);
+   fChain->SetBranchAddress("pfp_reco_startz", &pfp_reco_startz, &b_ubxsec_event_split_pfp_reco_startz);
+   fChain->SetBranchAddress("pfp_reco_endx", &pfp_reco_endx, &b_ubxsec_event_split_pfp_reco_endx);
+   fChain->SetBranchAddress("pfp_reco_endy", &pfp_reco_endy, &b_ubxsec_event_split_pfp_reco_endy);
+   fChain->SetBranchAddress("pfp_reco_endz", &pfp_reco_endz, &b_ubxsec_event_split_pfp_reco_endz);
+   fChain->SetBranchAddress("pfp_reco_Mom", &pfp_reco_Mom, &b_ubxsec_event_split_pfp_reco_Mom);
+   fChain->SetBranchAddress("pfp_reco_Mom_p", &pfp_reco_Mom_p, &b_ubxsec_event_split_pfp_reco_Mom_p);
+   fChain->SetBranchAddress("pfp_reco_Mom_MCS", &pfp_reco_Mom_MCS, &b_ubxsec_event_split_pfp_reco_Mom_MCS);
+   fChain->SetBranchAddress("pfp_reco_trunmeandqdx", &pfp_reco_trunmeandqdx, &b_ubxsec_event_split_pfp_reco_trunmeandqdx);
+   fChain->SetBranchAddress("pfp_reco_trunmeandqdx_U", &pfp_reco_trunmeandqdx_U, &b_ubxsec_event_split_pfp_reco_trunmeandqdx_U);
+   fChain->SetBranchAddress("pfp_reco_trunmeandqdx_V", &pfp_reco_trunmeandqdx_V, &b_ubxsec_event_split_pfp_reco_trunmeandqdx_V);
+   fChain->SetBranchAddress("pfp_reco_newpid_pida", &pfp_reco_newpid_pida, &b_ubxsec_event_split_pfp_reco_newpid_pida);
+   fChain->SetBranchAddress("pfp_reco_chi2_proton", &pfp_reco_chi2_proton, &b_ubxsec_event_split_pfp_reco_chi2_proton);
+   fChain->SetBranchAddress("pfp_reco_chi2_kaon", &pfp_reco_chi2_kaon, &b_ubxsec_event_split_pfp_reco_chi2_kaon);
+   fChain->SetBranchAddress("pfp_reco_chi2_muon", &pfp_reco_chi2_muon, &b_ubxsec_event_split_pfp_reco_chi2_muon);
+   fChain->SetBranchAddress("pfp_reco_chi2_pion", &pfp_reco_chi2_pion, &b_ubxsec_event_split_pfp_reco_chi2_pion);
+   fChain->SetBranchAddress("pfp_reco_bragg_ratio", &pfp_reco_bragg_ratio, &b_ubxsec_event_split_pfp_reco_bragg_ratio);
+   fChain->SetBranchAddress("pfp_reco_bragg_proton", &pfp_reco_bragg_proton, &b_ubxsec_event_split_pfp_reco_bragg_proton);
+   fChain->SetBranchAddress("pfp_reco_bragg_fwd_proton", &pfp_reco_bragg_fwd_proton, &b_ubxsec_event_split_pfp_reco_bragg_fwd_proton);
+   fChain->SetBranchAddress("pfp_reco_bragg_bwd_proton", &pfp_reco_bragg_bwd_proton, &b_ubxsec_event_split_pfp_reco_bragg_bwd_proton);
+   fChain->SetBranchAddress("pfp_reco_bragg_fwd_mip", &pfp_reco_bragg_fwd_mip, &b_ubxsec_event_split_pfp_reco_bragg_fwd_mip);
+   fChain->SetBranchAddress("pfp_reco_nhits", &pfp_reco_nhits, &b_ubxsec_event_split_pfp_reco_nhits);
+   fChain->SetBranchAddress("pfp_reco_dEdx", &pfp_reco_dEdx, &b_ubxsec_event_split_pfp_reco_dEdx);
+   fChain->SetBranchAddress("pfp_reco_dQdx", &pfp_reco_dQdx, &b_ubxsec_event_split_pfp_reco_dQdx);
+   fChain->SetBranchAddress("pfp_reco_RR", &pfp_reco_RR, &b_ubxsec_event_split_pfp_reco_RR);
    fChain->SetBranchAddress("_default_value", &_default_value, &b_ubxsec_event_split__default_value);
    Notify();
 }
