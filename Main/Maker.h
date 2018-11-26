@@ -157,6 +157,8 @@ namespace Main{
 
     void DrawPOT2(double pot, double target = 6.6e20);
 
+    bool inFV(float x, float y, float z);
+
     double eff_uncertainty(int _n, int _N);
 
     void FillBootstrap(double fill_value,

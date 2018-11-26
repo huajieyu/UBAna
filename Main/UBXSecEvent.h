@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Sun Nov 25 23:04:26 2018 by ROOT version 6.06/08
+// Mon Nov 26 16:39:32 2018 by ROOT version 6.06/08
 // from TTree tree/
-// found on file: /build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/test_ntuples_Nov21/ubxsec_output_mc_bnbcosmic.root
+// found on file: /build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/testing_pid_larana/ubxsec_output_mc_bnbcosmic.root
 //////////////////////////////////////////////////////////
 
 #ifndef UBXSecEvent_h
@@ -14,7 +14,6 @@
 
 // Header file for the classes stored in the TTree if any.
 //#include "UBXSecEvent.h"
-
 using namespace std;
 class UBXSecEvent {
 public :
@@ -250,7 +249,8 @@ public :
    vector<float>   pfp_reco_endy;
    vector<float>   pfp_reco_endz;
    vector<float>   pfp_reco_Mom;
-   vector<float>   pfp_reco_Mom_p;
+   vector<float>   pfp_reco_Mom_proton;
+   vector<float>   pfp_reco_Mom_muon;
    vector<float>   pfp_reco_Mom_MCS;
    vector<float>   pfp_reco_trunmeandqdx;
    vector<float>   pfp_reco_trunmeandqdx_U;
@@ -497,7 +497,8 @@ public :
    TBranch        *b_ubxsec_event_split_pfp_reco_endy;   //!
    TBranch        *b_ubxsec_event_split_pfp_reco_endz;   //!
    TBranch        *b_ubxsec_event_split_pfp_reco_Mom;   //!
-   TBranch        *b_ubxsec_event_split_pfp_reco_Mom_p;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_Mom_proton;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_Mom_muon;   //!
    TBranch        *b_ubxsec_event_split_pfp_reco_Mom_MCS;   //!
    TBranch        *b_ubxsec_event_split_pfp_reco_trunmeandqdx;   //!
    TBranch        *b_ubxsec_event_split_pfp_reco_trunmeandqdx_U;   //!
@@ -537,11 +538,11 @@ UBXSecEvent::UBXSecEvent(TTree *tree) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/test_ntuples_Nov21/ubxsec_output_mc_bnbcosmic.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/testing_pid_larana/ubxsec_output_mc_bnbcosmic.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/test_ntuples_Nov21/ubxsec_output_mc_bnbcosmic.root");
+         f = new TFile("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/testing_pid_larana/ubxsec_output_mc_bnbcosmic.root");
       }
-      TDirectory * dir = (TDirectory*)f->Get("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/test_ntuples_Nov21/ubxsec_output_mc_bnbcosmic.root:/UBXSec");
+      TDirectory * dir = (TDirectory*)f->Get("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/testing_pid_larana/ubxsec_output_mc_bnbcosmic.root:/UBXSec");
       dir->GetObject("tree",tree);
 
    }
@@ -814,7 +815,8 @@ void UBXSecEvent::Init(TTree *tree)
    fChain->SetBranchAddress("pfp_reco_endy", &pfp_reco_endy, &b_ubxsec_event_split_pfp_reco_endy);
    fChain->SetBranchAddress("pfp_reco_endz", &pfp_reco_endz, &b_ubxsec_event_split_pfp_reco_endz);
    fChain->SetBranchAddress("pfp_reco_Mom", &pfp_reco_Mom, &b_ubxsec_event_split_pfp_reco_Mom);
-   fChain->SetBranchAddress("pfp_reco_Mom_p", &pfp_reco_Mom_p, &b_ubxsec_event_split_pfp_reco_Mom_p);
+   fChain->SetBranchAddress("pfp_reco_Mom_proton", &pfp_reco_Mom_proton, &b_ubxsec_event_split_pfp_reco_Mom_proton);
+   fChain->SetBranchAddress("pfp_reco_Mom_muon", &pfp_reco_Mom_muon, &b_ubxsec_event_split_pfp_reco_Mom_muon);
    fChain->SetBranchAddress("pfp_reco_Mom_MCS", &pfp_reco_Mom_MCS, &b_ubxsec_event_split_pfp_reco_Mom_MCS);
    fChain->SetBranchAddress("pfp_reco_trunmeandqdx", &pfp_reco_trunmeandqdx, &b_ubxsec_event_split_pfp_reco_trunmeandqdx);
    fChain->SetBranchAddress("pfp_reco_trunmeandqdx_U", &pfp_reco_trunmeandqdx_U, &b_ubxsec_event_split_pfp_reco_trunmeandqdx_U);
