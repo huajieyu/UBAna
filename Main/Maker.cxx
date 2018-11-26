@@ -612,7 +612,7 @@ void Main::Maker::MakeFile()
   bool chi2flag=true;
   bool trackfromneutrino=true;
   unsigned int muind=-999;
-
+  unsigned int pind=-999;
 
   std::map<std::string, double> selected_events_percut;
   selected_events_percut["initial"] = 0.;
@@ -1163,6 +1163,54 @@ void Main::Maker::MakeFile()
   hmap_trkmom_cc1unp["anumu"]=new TH1D("h_trkmom_cc1unp_anumu", ";Muon Candidate Track Momentum [GeV];", 30, 0.0, 2.5);
   hmap_trkmom_cc1unp["oofv"]=new TH1D("h_trkmom_cc1unp_oofv", ";Muon Candidate Track Momentum [GeV];", 30, 0.0, 2.5);
 
+  std::map<std::string,TH1D*> hmap_trkcostheta_cc1unp;
+  hmap_trkcostheta_cc1unp["total"]=new TH1D("h_trkcostheta_cc1unp_total", ";Muon Candidate Track CosTheta [GeV];", 30, -1.0, 1.0);
+  hmap_trkcostheta_cc1unp["signal"]=new TH1D("h_trkcostheta_cc1unp_signal", ";Muon Candidate Track CosTheta [GeV];", 30, -1.0, 1.0);
+  hmap_trkcostheta_cc1unp["background"]=new TH1D("h_trkcostheta_cc1unp_background", ";Muon Candidate Track CosTheta [GeV];", 30, -1.0, 1.0);
+  hmap_trkcostheta_cc1unp["cosmic"]=new TH1D("h_trkcostheta_cc1unp_cosmic", ";Muon Candidate Track CosTheta [GeV];", 30, -1.0, 1.0);
+  hmap_trkcostheta_cc1unp["cc0p0pi"]=new TH1D("h_trkcostheta_cc1unp_cc0p0pi", ";Muon Candidate Track CosTheta [GeV];", 30, -1.0, 1.0);
+  hmap_trkcostheta_cc1unp["ccNpNpi"]=new TH1D("h_trkcostheta_cc1unp_ccNpNpi", ";Muon Candidate Track CosTheta [GeV];", 30, -1.0, 1.0);
+  hmap_trkcostheta_cc1unp["CCnue"]=new TH1D("h_trkcostheta_cc1unp_CCnue", ";Muon Candidate Track CosTheta [GeV];", 30, -1.0, 1.0);
+  hmap_trkcostheta_cc1unp["NC"]=new TH1D("h_trkcostheta_cc1unp_NC", ";Muon Candidate Track CosTheta [GeV];", 30, 0.0, 1.0);
+  hmap_trkcostheta_cc1unp["anumu"]=new TH1D("h_trkcostheta_cc1unp_anumu", ";Muon Candidate Track CosTheta [GeV];", 30, 0.0, 1.0);
+  hmap_trkcostheta_cc1unp["oofv"]=new TH1D("h_trkcostheta_cc1unp_oofv", ";Muon Candidate Track CosTheta [GeV];", 30, 0.0, 1.0);
+
+  std::map<std::string,TH1D*> hmap_trklen_cc1unp;
+  hmap_trklen_cc1unp["total"]=new TH1D("h_trklen_cc1unp_total", ";Muon Candidate Track Length [cm];", 30, 0.0, 800);
+  hmap_trklen_cc1unp["signal"]=new TH1D("h_trklen_cc1unp_signal", ";Muon Candidate Track Length [cm];", 30, 0.0, 800);
+  hmap_trklen_cc1unp["background"]=new TH1D("h_trklen_cc1unp_background", ";Muon Candidate Track Length [cm];", 30, 0.0, 800);
+  hmap_trklen_cc1unp["cosmic"]=new TH1D("h_trklen_cc1unp_cosmic", ";Muon Candidate Track Length [cm];", 30, 0.0, 800);
+  hmap_trklen_cc1unp["cc0p0pi"]=new TH1D("h_trklen_cc1unp_cc0p0pi", ";Muon Candidate Track Length [cm];", 30, 0.0, 800);
+  hmap_trklen_cc1unp["ccNpNpi"]=new TH1D("h_trklen_cc1unp_ccNpNpi", ";Muon Candidate Track Length [cm];", 30, 0.0, 800);
+  hmap_trklen_cc1unp["CCnue"]=new TH1D("h_trklen_cc1unp_CCnue", ";Muon Candidate Track Length [cm];", 30, 0.0, 800);
+  hmap_trklen_cc1unp["NC"]=new TH1D("h_trklen_cc1unp_NC", ";Muon Candidate Track Length [cm];", 30, 0.0, 800);
+  hmap_trklen_cc1unp["anumu"]=new TH1D("h_trklen_cc1unp_anumu", ";Muon Candidate Track Length [cm];", 30, 0.0, 800);
+  hmap_trklen_cc1unp["oofv"]=new TH1D("h_trklen_cc1unp_oofv", ";Muon Candidate Track Length [cm];", 30, 0.0, 800);
+
+
+  std::map<std::string,TH1D*> hmap_trkpmom_cc1unp;
+  hmap_trkpmom_cc1unp["total"]=new TH1D("h_trkpmom_cc1unp_total", ";Proton Candidate Track Momentum [GeV];", 30, 0.0, 2.5);
+  hmap_trkpmom_cc1unp["signal"]=new TH1D("h_trkpmom_cc1unp_signal", ";Proton Candidate Track Momentum [GeV];", 30, 0.0, 2.5);
+  hmap_trkpmom_cc1unp["background"]=new TH1D("h_trkpmom_cc1unp_background", ";Proton Candidate Track Momentum [GeV];", 30, 0.0, 2.5);
+  hmap_trkpmom_cc1unp["cosmic"]=new TH1D("h_trkpmom_cc1unp_cosmic", ";Proton Candidate Track Momentum [GeV];", 30, 0.0, 2.5);
+  hmap_trkpmom_cc1unp["cc0p0pi"]=new TH1D("h_trkpmom_cc1unp_cc0p0pi", ";Proton Candidate Track Momentum [GeV];", 30, 0.0, 2.5);
+  hmap_trkpmom_cc1unp["ccNpNpi"]=new TH1D("h_trkpmom_cc1unp_ccNpNpi", ";Proton Candidate Track Momentum [GeV];", 30, 0.0, 2.5);
+  hmap_trkpmom_cc1unp["CCnue"]=new TH1D("h_trkpmom_cc1unp_CCnue", ";Proton Candidate Track Momentum [GeV];", 30, 0.0, 2.5);
+  hmap_trkpmom_cc1unp["NC"]=new TH1D("h_trkpmom_cc1unp_NC", ";Proton Candidate Track Momentum [GeV];", 30, 0.0, 2.5);
+  hmap_trkpmom_cc1unp["anumu"]=new TH1D("h_trkpmom_cc1unp_anumu", ";Proton Candidate Track Momentum [GeV];", 30, 0.0, 2.5);
+  hmap_trkpmom_cc1unp["oofv"]=new TH1D("h_trkpmom_cc1unp_oofv", ";Proton Candidate Track Momentum [GeV];", 30, 0.0, 2.5);
+
+  std::map<std::string,TH1D*> hmap_trkplen_cc1unp;
+  hmap_trkplen_cc1unp["total"]=new TH1D("h_trkplen_cc1unp_total", ";Proton Candidate Track Length [cm];", 30, 0.0, 200);
+  hmap_trkplen_cc1unp["signal"]=new TH1D("h_trkplen_cc1unp_signal", ";Proton Candidate Track Length [cm];", 30, 0.0, 200);
+  hmap_trkplen_cc1unp["background"]=new TH1D("h_trkplen_cc1unp_background", ";Proton Candidate Track Length [cm];", 30, 0.0, 200);
+  hmap_trkplen_cc1unp["cosmic"]=new TH1D("h_trkplen_cc1unp_cosmic", ";Proton Candidate Track Length [cm];", 30, 0.0, 200);
+  hmap_trkplen_cc1unp["cc0p0pi"]=new TH1D("h_trkplen_cc1unp_cc0p0pi", ";Proton Candidate Track Length [cm];", 30, 0.0, 200);
+  hmap_trkplen_cc1unp["ccNpNpi"]=new TH1D("h_trkplen_cc1unp_ccNpNpi", ";Proton Candidate Track Length [cm];", 30, 0.0, 200);
+  hmap_trkplen_cc1unp["CCnue"]=new TH1D("h_trkplen_cc1unp_CCnue", ";Proton Candidate Track Length [cm];", 30, 0.0, 200);
+  hmap_trkplen_cc1unp["NC"]=new TH1D("h_trkplen_cc1unp_NC", ";Proton Candidate Track Length [cm];", 30, 0.0, 200);
+  hmap_trkplen_cc1unp["anumu"]=new TH1D("h_trkplen_cc1unp_anumu", ";Proton Candidate Track Length [cm];", 30, 0.0, 200);
+  hmap_trkplen_cc1unp["oofv"]=new TH1D("h_trkplen_cc1unp_oofv", ";Proton Candidate Track Length [cm];", 30, 0.0, 200);
 
 
 
@@ -2562,6 +2610,15 @@ void Main::Maker::MakeFile()
     }
 
 
+    //# find out the most energetic protons index
+    float temp_mom=-0.0;
+    for(size_t np=0; np<t->pfp_reco_Mom_p[np]; np++){
+          if(np==muind) continue;
+          if(t->pfp_reco_Mom_p[np]> temp_mom) {pind=np;}
+    }
+
+
+
     
     //===============================================================================================================
     // EVENT IS SELECTED
@@ -3373,6 +3430,11 @@ void Main::Maker::MakeFile()
     if(isCC1uNP_sel){
        //loop over all the trkcands and fill the muon candidate histograms
           hmap_trkmom_cc1unp["total"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
+          hmap_trkpmom_cc1unp["total"]->Fill(t->pfp_reco_Mom_p[pind], event_weight);
+          hmap_trklen_cc1unp["total"]->Fill(t->pfp_reco_length[muind], event_weight);
+          hmap_trkplen_cc1unp["total"]->Fill(t->pfp_reco_length[pind], event_weight);
+          hmap_trkcostheta_cc1unp["total"]->Fill(t->pfp_reco_costheta[muind], event_weight);
+
        if(isCC1uNP && nu_origin && trackfromneutrino){
          cc1unp_sel += event_weight;
          if(t->mode==0) cc1unp_sel_qe +=event_weight;
@@ -3383,6 +3445,11 @@ void Main::Maker::MakeFile()
 
          pEff_cc1unp->Fill(true, t->nu_e);
          hmap_trkmom_cc1unp["signal"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
+         hmap_trkpmom_cc1unp["signal"]->Fill(t->pfp_reco_Mom_p[pind], event_weight);
+         hmap_trklen_cc1unp["signal"]->Fill(t->pfp_reco_length[muind], event_weight);
+         hmap_trkplen_cc1unp["signal"]->Fill(t->pfp_reco_length[pind], event_weight);
+         hmap_trkcostheta_cc1unp["signal"]->Fill(t->pfp_reco_costheta[muind], event_weight);
+
  
 
          _event_histo_cc1unp_1d->h_eff_onebin_num->Fill(0.5, event_weight);
@@ -3391,39 +3458,79 @@ void Main::Maker::MakeFile()
        }
        else{
           hmap_trkmom_cc1unp["background"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
+          hmap_trkpmom_cc1unp["background"]->Fill(t->pfp_reco_Mom_p[pind], event_weight);
+          hmap_trklen_cc1unp["background"]->Fill(t->pfp_reco_length[muind], event_weight);
+          hmap_trkplen_cc1unp["background"]->Fill(t->pfp_reco_length[pind], event_weight);
+          hmap_trkcostheta_cc1unp["background"]->Fill(t->pfp_reco_costheta[muind], event_weight);
+
   
        if(!trackfromneutrino && t->nupdg==14 && t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775)) //cosmic backgroup
        {
           hmap_trkmom_cc1unp["cosmic"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
+          hmap_trkpmom_cc1unp["cosmic"]->Fill(t->pfp_reco_Mom_p[pind], event_weight);
+          hmap_trklen_cc1unp["cosmic"]->Fill(t->pfp_reco_length[muind], event_weight);
+          hmap_trkplen_cc1unp["cosmic"]->Fill(t->pfp_reco_length[pind], event_weight);
+          hmap_trkcostheta_cc1unp["cosmic"]->Fill(t->pfp_reco_costheta[muind], event_weight);
+
        } 
        if(!trackfromneutrino && t->nupdg==14 && t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775) &&
                (t->ngenie_muons>0 && t->ngenie_protons<1) &&(t->ngenie_electrons<1) && (t->ngenie_pipms<1 && t->ngenie_pion0s<1)) //cc0p0pi background
        {
           hmap_trkmom_cc1unp["cc0p0pi"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
+          hmap_trkpmom_cc1unp["cc0p0pi"]->Fill(t->pfp_reco_Mom_p[pind], event_weight);
+          hmap_trklen_cc1unp["cc0p0pi"]->Fill(t->pfp_reco_length[muind], event_weight);
+          hmap_trkplen_cc1unp["cc0p0pi"]->Fill(t->pfp_reco_length[pind], event_weight);
+          hmap_trkcostheta_cc1unp["cc0p0pi"]->Fill(t->pfp_reco_costheta[muind], event_weight);
+
        } 
        if(!trackfromneutrino && t->nupdg==14 && t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775) &&
                (t->ngenie_muons>0 && t->ngenie_protons>0) &&(t->ngenie_electrons<1) && (t->ngenie_pipms>0 || t->ngenie_pion0s>0)) //ccNpNpi background
        {
           hmap_trkmom_cc1unp["ccNpNpi"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
+          hmap_trkpmom_cc1unp["ccNpNpi"]->Fill(t->pfp_reco_Mom_p[pind], event_weight);
+          hmap_trklen_cc1unp["ccNpNpi"]->Fill(t->pfp_reco_length[muind], event_weight);
+          hmap_trkplen_cc1unp["ccNpNpi"]->Fill(t->pfp_reco_length[pind], event_weight);
+          hmap_trkcostheta_cc1unp["ccNpNpi"]->Fill(t->pfp_reco_costheta[muind], event_weight);
+
        }
        if(!trackfromneutrino && t->nupdg==14 && t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775) &&
                (t->ngenie_electrons>0)) //Nue background
        {
           hmap_trkmom_cc1unp["CCnue"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
+          hmap_trkmom_cc1unp["CCnue"]->Fill(t->pfp_reco_Mom_p[pind], event_weight);
+          hmap_trklen_cc1unp["CCnue"]->Fill(t->pfp_reco_length[muind], event_weight);
+          hmap_trkplen_cc1unp["CCnue"]->Fill(t->pfp_reco_length[pind], event_weight);
+          hmap_trkcostheta_cc1unp["CCnue"]->Fill(t->pfp_reco_costheta[muind], event_weight);
+
        }
        if(!trackfromneutrino && t->nupdg==14 && t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775) &&
                t->ccnc==1) //NC background
        {
           hmap_trkmom_cc1unp["NC"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
+          hmap_trkpmom_cc1unp["NC"]->Fill(t->pfp_reco_Mom_p[pind], event_weight);
+          hmap_trklen_cc1unp["NC"]->Fill(t->pfp_reco_length[muind], event_weight);
+          hmap_trkplen_cc1unp["NC"]->Fill(t->pfp_reco_length[pind], event_weight);
+          hmap_trkcostheta_cc1unp["NC"]->Fill(t->pfp_reco_costheta[muind], event_weight);
+
        }
        if(!trackfromneutrino && t->nupdg==-14 && t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775) &&
                t->ccnc==1) //anumu background
        {
           hmap_trkmom_cc1unp["anumu"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
+          hmap_trkpmom_cc1unp["anumu"]->Fill(t->pfp_reco_Mom_p[pind], event_weight);
+          hmap_trklen_cc1unp["anumu"]->Fill(t->pfp_reco_length[muind], event_weight);
+          hmap_trkplen_cc1unp["anumu"]->Fill(t->pfp_reco_length[pind], event_weight);
+          hmap_trkcostheta_cc1unp["anumu"]->Fill(t->pfp_reco_costheta[muind], event_weight);
+
        }
         if(t->fv==0 || (t->tvtx_z[0] > 675 || t->tvtx_z[0] > 775))  //out of fv backgroud
        {
           hmap_trkmom_cc1unp["oofv"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
+          hmap_trkpmom_cc1unp["oofv"]->Fill(t->pfp_reco_Mom_p[pind], event_weight);
+          hmap_trklen_cc1unp["oofv"]->Fill(t->pfp_reco_length[muind], event_weight);
+          hmap_trkplen_cc1unp["oofv"]->Fill(t->pfp_reco_length[pind], event_weight);
+          hmap_trkcostheta_cc1unp["oofv"]->Fill(t->pfp_reco_costheta[muind], event_weight);
+
        }
        }//end of else
     }//end of if selecetd CC1uNP events
