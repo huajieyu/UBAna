@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Tue Nov 20 12:13:49 2018 by ROOT version 6.06/08
+// Sun Nov 25 23:04:26 2018 by ROOT version 6.06/08
 // from TTree tree/
-// found on file: /build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/testing_pid_larana/ubxsec_output_mc_bnbcosmic.root
+// found on file: /build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/test_ntuples_Nov21/ubxsec_output_mc_bnbcosmic.root
 //////////////////////////////////////////////////////////
 
 #ifndef UBXSecEvent_h
@@ -11,9 +11,11 @@
 #include <TROOT.h>
 #include <TChain.h>
 #include <TFile.h>
-using namespace std;
-// Header file for the classes stored in the TTree if any.
 
+// Header file for the classes stored in the TTree if any.
+//#include "UBXSecEvent.h"
+
+using namespace std;
 class UBXSecEvent {
 public :
    TTree          *fChain;   //!pointer to the analyzed TTree or TChain
@@ -535,11 +537,11 @@ UBXSecEvent::UBXSecEvent(TTree *tree) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/testing_pid_larana/ubxsec_output_mc_bnbcosmic.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/test_ntuples_Nov21/ubxsec_output_mc_bnbcosmic.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/testing_pid_larana/ubxsec_output_mc_bnbcosmic.root");
+         f = new TFile("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/test_ntuples_Nov21/ubxsec_output_mc_bnbcosmic.root");
       }
-      TDirectory * dir = (TDirectory*)f->Get("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/testing_pid_larana/ubxsec_output_mc_bnbcosmic.root:/UBXSec");
+      TDirectory * dir = (TDirectory*)f->Get("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/test_ntuples_Nov21/ubxsec_output_mc_bnbcosmic.root:/UBXSec");
       dir->GetObject("tree",tree);
 
    }
