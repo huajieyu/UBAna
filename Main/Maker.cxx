@@ -820,6 +820,18 @@ void Main::Maker::MakeFile()
   TH1D* h_eff_mec_num = new TH1D("h_eff_mec_num", "h_eff_mec_num", 15, 0, 3);
   TH1D* h_eff_mec_den = new TH1D("h_eff_mec_den", "h_eff_mec_den", 15, 0, 3);
 
+  TH1D* h_eff_cc1unp_qe_num = new TH1D("h_eff_cc1unp_qe_num", "h_eff_cc1unp_qe_num", 15, 0, 3);
+  TH1D* h_eff_cc1unp_qe_den = new TH1D("h_eff_cc1unp_qe_den", "h_eff_cc1unp_qe_den", 15, 0, 3);
+  TH1D* h_eff_cc1unp_res_num = new TH1D("h_eff_cc1unp_res_num", "h_eff_cc1unp_res_num", 15, 0, 3);
+  TH1D* h_eff_cc1unp_res_den = new TH1D("h_eff_cc1unp_res_den", "h_eff_cc1unp_res_den", 15, 0, 3);
+  TH1D* h_eff_cc1unp_dis_num = new TH1D("h_eff_cc1unp_dis_num", "h_eff_cc1unp_dis_num", 15, 0, 3);
+  TH1D* h_eff_cc1unp_dis_den = new TH1D("h_eff_cc1unp_dis_den", "h_eff_cc1unp_dis_den", 15, 0, 3);
+  TH1D* h_eff_cc1unp_coh_num = new TH1D("h_eff_cc1unp_coh_num", "h_eff_cc1unp_coh_num", 15, 0, 3);
+  TH1D* h_eff_cc1unp_coh_den = new TH1D("h_eff_cc1unp_coh_den", "h_eff_cc1unp_coh_den", 15, 0, 3);
+  TH1D* h_eff_cc1unp_mec_num = new TH1D("h_eff_cc1unp_mec_num", "h_eff_cc1unp_mec_num", 15, 0, 3);
+  TH1D* h_eff_cc1unp_mec_den = new TH1D("h_eff_cc1unp_mec_den", "h_eff_cc1unp_mec_den", 15, 0, 3);
+
+
   TH1D* h_truth_xsec_mumom = new TH1D("h_truth_xsec_mumom", "h_truth_xsec_mumom", n_bins_mumom, bins_mumom);
   TH1D* h_truth_xsec_muangle = new TH1D("h_truth_xsec_muangle", "h_truth_xsec_muangle", n_bins_mucostheta, bins_mucostheta);
 
@@ -1425,7 +1437,7 @@ void Main::Maker::MakeFile()
 
             // Single - Muon Momentum
             std::string histo_name = "h_genie_multisim_trkmom_" + this_name + "_" + fname_genie_multisim.at(i);
-            _event_histo_1d->hmap_trkmom_genie_multisim_bs[this_name][fname_genie_multisim.at(i)] = new TH1D(histo_name.c_str(), "; Track length;", n_bins_mumom, bins_mumom);
+            _event_histo_1d->hmap_trkmom_genie_multisim_bs[this_name][fname_genie_multisim.at(i)] = new TH1D(histo_name.c_str(), "; Track momentum;", n_bins_mumom, bins_mumom);
 
             // Signle - Muon Angle
             histo_name = "h_genie_multisim_trkangle_" + this_name + "_" + fname_genie_multisim.at(i); 
@@ -1433,7 +1445,7 @@ void Main::Maker::MakeFile()
 
             // Total
             histo_name = "h_genie_multisim_onebin_" + this_name + "_" + fname_genie_multisim.at(i); 
-            _event_histo_1d->hmap_onebin_genie_multisim_bs[this_name][fname_genie_multisim.at(i)] = new TH1D(histo_name.c_str(), "; Track angle;", 1, 0, 1);
+            _event_histo_1d->hmap_onebin_genie_multisim_bs[this_name][fname_genie_multisim.at(i)] = new TH1D(histo_name.c_str(), "; Track energy;", 1, 0, 1);
 
             // Double Diff
             histo_name = "h_genie_multisim_trkmom_trkangle_" + this_name + "_" + fname_genie_multisim.at(i); 
@@ -2122,6 +2134,12 @@ void Main::Maker::MakeFile()
     if(isCC1uNP){
       _event_histo_cc1unp_1d->h_eff_onebin_den->Fill(0.5, event_weight);
       h_eff_cc1unp_den->Fill(t->nu_e, event_weight);
+      if (t->mode == 0) h_eff_cc1unp_qe_den->Fill(t->nu_e, event_weight);
+      if (t->mode == 1) h_eff_cc1unp_res_den->Fill(t->nu_e, event_weight);
+      if (t->mode == 2) h_eff_cc1unp_dis_den->Fill(t->nu_e, event_weight);
+      if (t->mode == 3) h_eff_cc1unp_coh_den->Fill(t->nu_e, event_weight);
+      if (t->mode == 10) h_eff_cc1unp_mec_den->Fill(t->nu_e, event_weight);
+
       _event_histo_cc1unp_1d->h_eff_mumom_den->Fill(t->true_muon_mom, event_weight);
       _event_histo_cc1unp_1d->h_eff_muangle_den->Fill(t->lep_costheta, event_weight);
     }
@@ -2602,7 +2620,6 @@ void Main::Maker::MakeFile()
         if(t->pfp_reco_ismuoncandidate[ntrk]==1) continue;
         if(t->pfp_reco_chi2_proton[ntrk]>88) chi2flag=false;
     }
-    std::cout<<" test for muon and proton momentum "<<std::endl;
     //# 5 check if all the tracks are from neutrino events
     trackfromneutrino=true;
     for(size_t npfp=0; npfp<t->pfp_truth_origin.size(); npfp++){
@@ -3472,6 +3489,12 @@ void Main::Maker::MakeFile()
 
          _event_histo_cc1unp_1d->h_eff_onebin_num->Fill(0.5, event_weight);
          h_eff_cc1unp_num->Fill(t->nu_e, event_weight);
+         if (t->mode == 0) h_eff_qe_num->Fill(t->nu_e, event_weight);
+         if (t->mode == 1) h_eff_res_num->Fill(t->nu_e, event_weight);
+         if (t->mode == 2) h_eff_dis_num->Fill(t->nu_e, event_weight);
+         if (t->mode == 3) h_eff_coh_num->Fill(t->nu_e, event_weight);
+         if (t->mode == 10) h_eff_mec_num->Fill(t->nu_e, event_weight);
+
          _event_histo_cc1unp_1d->h_eff_mumom_num->Fill(t->true_muon_mom, event_weight);
          _event_histo_cc1unp_1d->h_eff_mumom_num->Fill(t->lep_costheta, event_weight);
        }
@@ -3940,6 +3963,67 @@ void Main::Maker::MakeFile()
   canvas_efficiency_mode->SaveAs(temp2 + ".C","C");
 
   //==========================================================================================
+  TCanvas * canvas_efficiency_cc1unp_mode = new TCanvas();
+  TEfficiency* pEff_cc1unp_qe = new TEfficiency(*h_eff_cc1unp_qe_num,*h_eff_cc1unp_qe_den);
+  pEff_cc1unp_qe->SetTitle(";True Neutrino Energy [GeV];Efficiency");
+  pEff_cc1unp_qe->SetLineColor(kGreen+2); 
+  pEff_cc1unp_qe->SetLineWidth(2);
+  pEff_cc1unp_qe->SetMarkerColor(kGreen+2);
+  pEff_cc1unp_qe->SetMarkerStyle(20);
+  pEff_cc1unp_qe->SetMarkerSize(0.5);
+  pEff_cc1unp_qe->Draw("ALP");
+  gPad->Update();
+  auto g_cc1unp_qe = pEff_cc1unp_qe->GetPaintedGraph();
+  g_cc1unp_qe->SetMinimum(0);
+  g_cc1unp_qe->SetMaximum(1);
+  gPad->Update();
+
+  TEfficiency* pEff_cc1unp_res = new TEfficiency(*h_eff_cc1unp_res_num,*h_eff_cc1unp_res_den);
+  pEff_cc1unp_res->SetLineColor(kRed+1);
+  pEff_cc1unp_res->SetMarkerColor(kRed+1);
+  pEff_cc1unp_res->SetLineWidth(2);
+  pEff_cc1unp_res->SetMarkerStyle(20);
+  pEff_cc1unp_res->SetMarkerSize(0.5);
+  pEff_cc1unp_res->Draw("LP same");
+
+  TEfficiency* pEff_cc1unp_dis = new TEfficiency(*h_eff_cc1unp_dis_num,*h_eff_cc1unp_dis_den);
+  pEff_cc1unp_dis->SetLineColor(kBlue+1);
+  pEff_cc1unp_dis->SetMarkerColor(kBlue+1);
+  pEff_cc1unp_dis->SetLineWidth(2);
+  pEff_cc1unp_dis->SetMarkerStyle(20);
+  pEff_cc1unp_dis->SetMarkerSize(0.5);
+  pEff_cc1unp_dis->Draw("LP same");
+
+  TEfficiency* pEff_cc1unp_coh = new TEfficiency(*h_eff_cc1unp_coh_num,*h_eff_cc1unp_coh_den);
+  pEff_cc1unp_coh->SetLineColor(kOrange-3);
+  pEff_cc1unp_coh->SetMarkerColor(kOrange-3);
+  pEff_cc1unp_coh->SetLineWidth(2);
+  pEff_cc1unp_coh->SetMarkerStyle(20);
+  pEff_cc1unp_coh->SetMarkerSize(0.5);
+  //pEff_cc1unp_coh->Draw("LP same");
+
+  TEfficiency* pEff_cc1unp_mec = new TEfficiency(*h_eff_cc1unp_mec_num,*h_eff_cc1unp_mec_den);
+  pEff_cc1unp_mec->SetLineColor(kMagenta+1); 
+  pEff_cc1unp_mec->SetMarkerColor(kMagenta+1);
+  pEff_cc1unp_mec->SetLineWidth(2);
+  pEff_cc1unp_mec->SetMarkerStyle(20);
+  pEff_cc1unp_mec->SetMarkerSize(0.5);
+  pEff_cc1unp_mec->Draw("LP same");
+
+  TLegend* leg_cc1unp_mode = new TLegend(0.6475645,0.1368421,0.8968481,0.3368421,NULL,"brNDC");
+  leg_cc1unp_mode->AddEntry(pEff_cc1unp_qe,"GENIE QE","lep");
+  leg_cc1unp_mode->AddEntry(pEff_cc1unp_res,"GENIE RES","lep");  
+  leg_cc1unp_mode->AddEntry(pEff_cc1unp_dis,"GENIE DIS","lep");  
+  // leg_cc1unp_mode->AddEntry(pEff_cc1unp_coh,"GENIE COH","lep");  
+  leg_cc1unp_mode->AddEntry(pEff_cc1unp_mec,"GENIE MEC","lep");  
+  leg_cc1unp_mode->Draw();
+
+  PlottingTools::DrawSimulation();
+
+  temp2 = "./output/efficiency_cc1unp_mode";
+  canvas_efficiency_cc1unp_mode->SaveAs(temp2 + ".pdf");
+  canvas_efficiency_cc1unp_mode->SaveAs(temp2 + ".C","C");
+
  
 
 
@@ -4399,6 +4483,7 @@ void Main::Maker::MakeFile()
        << " => " << selected_cc1unp_percut->GetBinContent(j+1) 
               << " & " << selected_cc1unp_signal_percut->GetBinContent(j+1)/selected_cc1unp_signal_percut->GetBinContent(1) * 100 
               << " & " << selected_cc1unp_signal_percut->GetBinContent(j+1)/selected_cc1unp_signal_percut->GetBinContent(j) * 100  << "\\\\" << std::endl;
+    generated_cc1unp_signal_percut->SetBinContent(j+1, (double)nsignal);
    }
 
   std::cout<<"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"<<std::endl;
