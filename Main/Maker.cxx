@@ -3489,14 +3489,14 @@ void Main::Maker::MakeFile()
 
          _event_histo_cc1unp_1d->h_eff_onebin_num->Fill(0.5, event_weight);
          h_eff_cc1unp_num->Fill(t->nu_e, event_weight);
-         if (t->mode == 0) h_eff_qe_num->Fill(t->nu_e, event_weight);
-         if (t->mode == 1) h_eff_res_num->Fill(t->nu_e, event_weight);
-         if (t->mode == 2) h_eff_dis_num->Fill(t->nu_e, event_weight);
-         if (t->mode == 3) h_eff_coh_num->Fill(t->nu_e, event_weight);
-         if (t->mode == 10) h_eff_mec_num->Fill(t->nu_e, event_weight);
+         if (t->mode == 0) h_eff_cc1unp_qe_num->Fill(t->nu_e, event_weight);
+         if (t->mode == 1) h_eff_cc1unp_res_num->Fill(t->nu_e, event_weight);
+         if (t->mode == 2) h_eff_cc1unp_dis_num->Fill(t->nu_e, event_weight);
+         if (t->mode == 3) h_eff_cc1unp_coh_num->Fill(t->nu_e, event_weight);
+         if (t->mode == 10) h_eff_cc1unp_mec_num->Fill(t->nu_e, event_weight);
 
          _event_histo_cc1unp_1d->h_eff_mumom_num->Fill(t->true_muon_mom, event_weight);
-         _event_histo_cc1unp_1d->h_eff_mumom_num->Fill(t->lep_costheta, event_weight);
+         _event_histo_cc1unp_1d->h_eff_muangle_num->Fill(t->lep_costheta, event_weight);
        }
        else{
           hmap_trkmom_cc1unp["background"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
@@ -3704,7 +3704,7 @@ void Main::Maker::MakeFile()
   gPad->Update();
   PlottingTools::DrawSimulationXSec();
   
-  temp2 = "./output/efficiency";
+  temp2 = "./output/efficiency_cc1unp";
   canvas_cc1unp_efficiency->SaveAs(temp2 + ".pdf");
   canvas_cc1unp_efficiency->SaveAs(temp2 + ".C","C");
 
@@ -3780,7 +3780,7 @@ void Main::Maker::MakeFile()
   gPad->Update();
   PlottingTools::DrawSimulationXSec();
 
-  temp2 = "./output/efficiency_mumom";
+  temp2 = "./output/efficiency_cc1unp_mumom";
   canvas_cc1unp_efficiency_mumom->SaveAs(temp2 + ".pdf");
   canvas_cc1unp_efficiency_mumom->SaveAs(temp2 + ".C","C");
   //===========================================================================================   
@@ -3818,7 +3818,7 @@ void Main::Maker::MakeFile()
   gPad->Update();
   PlottingTools::DrawSimulationXSec();
   
-  temp2 = "./output/efficiency_muangle";
+  temp2 = "./output/efficiency_cc1unp_muangle";
   canvas_cc1unp_efficiency_muangle->SaveAs(temp2 + ".pdf");
   canvas_cc1unp_efficiency_muangle->SaveAs(temp2 + ".C","C");
  
