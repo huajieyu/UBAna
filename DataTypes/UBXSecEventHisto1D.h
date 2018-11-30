@@ -73,7 +73,8 @@ namespace DataTypes {
     int n_bins_mumom = 6;
     int n_bins_mucostheta = 9;
 
-
+    int n_bins_pmom = 150;
+    
 
 
     //
@@ -106,6 +107,15 @@ namespace DataTypes {
     std::map<std::string,TH1D*> hmap_trkmom; ///< Number of events per channel - Single Differential (mumom)
     TH1D* h_eff_mumom_num = 0; ///< Efficiency Numerator - Single Differential (mumom)
     TH1D* h_eff_mumom_den = 0; ///< Efficiency Denominator - Single Differential (mumom)
+
+    TH1D* h_eff_pmom_num=0;
+    TH1D* h_eff_pmom_den=0;
+
+    TH1D* h_eff_muphi_num = 0;
+    TH1D* h_eff_muphi_den = 0;
+
+
+
     TH2D * h_true_reco_mom = 0; ///< Reco to true histogram - Single Differential (mumom)
 
     BootstrapTH1D * bs_genie_multisim_eff_mumom_num = 0; ///< Efficiency Numerator - Single Differential (mumom) - Genie Multisim
@@ -157,7 +167,8 @@ namespace DataTypes {
     BootstrapTH2D * bs_extra_syst_true_reco_muangle = 0; ///< Reco to true histograms for every universe - Single Differential (muangle) - Extra Syst
     BootstrapTH2D * bs_mc_stat_multisim_true_reco_muangle = 0; ///< Reco to true histograms for every universe - Single Differential (muangle) - MC Stat
 
-    
+    TH1D* h_eff_nproton_num=0;
+    TH1D* h_eff_nproton_den=0;    
 
   protected:
 

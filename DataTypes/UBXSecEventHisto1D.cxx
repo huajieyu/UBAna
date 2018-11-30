@@ -93,6 +93,14 @@ namespace DataTypes {
       h_eff_mumom_num = new TH1D("h_eff_mumom_num", "h_eff_mumom_num", n_bins_mumom, bins_mumom);
       h_eff_mumom_den = new TH1D("h_eff_mumom_den", "h_eff_mumom_den", n_bins_mumom, bins_mumom);
 
+      h_eff_pmom_num = new TH1D("h_eff_pmom_num", "h_eff_pmmom_num", n_bins_pmom, 0.0, 1.5);
+      h_eff_pmom_den = new TH1D("h_eff_pmom_den", "h_eff_pmmom_den", n_bins_pmom, 0.0, 1.5);
+
+      h_eff_muphi_num = new TH1D("h_eff_muphi_num", "h_eff_muphi_num", 15, -3.1415, 3.1415);
+      h_eff_muphi_den = new TH1D("h_eff_muphi_den", "h_eff_muphi_den", 15, -3.1415, 3.1415);
+
+      
+
       // Reco to true histograms - Single Differential (mumom)
       h_true_reco_mom= new TH2D("h_true_reco_mom", ";Muon Momentum (Truth) [GeV]; Muon Momentum (MCS) [GeV]", n_bins_mumom, bins_mumom, n_bins_mumom, bins_mumom);
 
@@ -177,6 +185,13 @@ namespace DataTypes {
 
       // Reco to true histograms - Single Differential (muangle)
       h_true_reco_costheta= new TH2D("h_true_reco_costheta", ";Muon cos(#theta) (Truth) [GeV]; Muon cos(#theta) (MCS) [GeV]", n_bins_mucostheta, bins_mucostheta, n_bins_mucostheta, bins_mucostheta);
+
+
+      h_eff_nproton_num = new TH1D("h_eff_nproton_num", "h_eff_nproton_num", 5, -0.5, 4.5);
+      h_eff_nproton_den = new TH1D("h_eff_nproton_den", "h_eff_nproton_den", 5, -0.5, 4.5);
+
+
+
 
       // Number of events per channel - Single Differential (muangle)
       hmap_trktheta["total"] = new TH1D("h_trktheta_total", "; Track cos(#theta);", n_bins_mucostheta, bins_mucostheta);

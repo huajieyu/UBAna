@@ -102,23 +102,29 @@ namespace Main {
   //int intimecosmic_total_events = 1000;
   int dirt_total_events = 1000;
   int bnbcosmic_total_events = 1000;
-  double mc_pot_sim = 6.e19;
+  double mc_pot_sim = 1.878e20;
   double mc_pot_sim_dirt = 6.e19;
 
   
   // *************************************
   // Opening files
   // *************************************
+  std::cout<<"Start open the input files "<<std::endl;
+
   TFile* mc_bnbcosmic_file = TFile::Open(mc_bnbcosmic_file_name.c_str(), "READ");
+  std::cout<<"Opened the MC input file "<<std::endl;
   //TFile* mc_intimecosmic_file = TFile::Open(mc_intimecosmic_file_name.c_str(), "READ");
   TFile* mc_dirt_file = TFile::Open(mc_dirt_file_name.c_str(), "READ");
+  std::cout<<"Tried to open a dirt file "<<std::endl;
   TFile* bnbon_file = TFile::Open(bnbon_file_name.c_str(), "READ");
-  TFile* extbnb_file = TFile::Open(extbnb_file_name.c_str(), "READ");
+  std::cout<<"Tried to open a bnb data file "<<std::endl;
 
+  TFile* extbnb_file = TFile::Open(extbnb_file_name.c_str(), "READ");
+  std::cout<<"Triend to open a extbnb data file "<<std::endl;
   if (!mc_dirt_file) 
     LOG_NORMAL() << "MC Dirt File not available. Will run without." << std::endl;
   
-
+  std::cout<<"Opened all the MC and Data file "<<std::endl;
   // *************************************
   // Getting number of events for bnbon
   // *************************************
@@ -157,7 +163,7 @@ namespace Main {
   //intimecosmic_total_events = h_nevts_intimecosmic->GetBinContent(1);
   //std::cout << "Number of events (InTimeCosmic): " << intimecosmic_total_events << std::endl;
   
-  std::cout << std::endl;
+  std::cout <<" Got the total number of events for mc, onbeam and off beam data"<<std::endl;
   
   
   // *************************************

@@ -162,7 +162,21 @@ bool Main::Maker::inFV(float x, float y, float z) {
     else return false;
 }
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+float Main::Maker::getAngle(float mom1, float theta1, float phi1, float mom2, float theta2, float phi2) {
+      float px1=mom1*TMath::Sin(theta1)*TMath::Cos(phi1);
+      float py1=mom1*TMath::Sin(theta1)*TMath::Sin(phi1);
+      float pz1=mom1*TMath::Cos(theta1);
 
+
+      float px2=mom2*TMath::Sin(theta2)*TMath::Cos(phi2);
+      float py2=mom2*TMath::Sin(theta2)*TMath::Sin(phi2);
+      float pz2=mom2*TMath::Cos(theta2);    
+
+      TVector3 p4_mom1(px1, py1, pz1);
+      TVector3 p4_mom2(px2, py2, pz2);
+      return p4_mom1.Angle(p4_mom2);
+
+}
 
 //____________________________________________________________________________________________________
 double Main::Maker::eff_uncertainty(int _n, int _N) {
@@ -614,6 +628,9 @@ void Main::Maker::MakeFile()
   unsigned int muind=-999;
   unsigned int pind=-999;
 
+
+  float thetamup=-999.0;
+
   std::map<std::string, double> selected_events_percut;
   selected_events_percut["initial"] = 0.;
   selected_events_percut["beamflash"] = 0.;
@@ -767,10 +784,26 @@ void Main::Maker::MakeFile()
   hmap_mctruth_muphi_gen["other"] = new TH1D("h_mctruth_muphi_gen_other", ";True Muon #phi [GeV];Selected Events", 20, -3.15, 3.15);
 
   //==============================================================================================================
-  TH1D* proton_muon_chi2=new TH1D("muon_chi2", "muon_chi2", 100, 0, 400);
-  TH1D* proton_proton_chi2=new TH1D("proton_chi2", "proton_chi2", 100, 0, 400);
-  TH1D* proton_pion_chi2=new TH1D("pion_chi2", "pion_chi2", 100, 0, 400);
-  TH1D* proton_kaon_chi2=new TH1D("kaon_chi2", "kaon_chi2", 100, 0, 400);
+  TH1D* proton_muon_chi2=new TH1D("proton_muon_chi2", "proton_muon_chi2", 100, 0, 400);
+  TH1D* proton_proton_chi2=new TH1D("proton_proton_chi2", "proton_proton_chi2", 100, 0, 400);
+  TH1D* proton_pion_chi2=new TH1D("proton_pion_chi2", "proton_pion_chi2", 100, 0, 400);
+  TH1D* proton_kaon_chi2=new TH1D("proton_kaon_chi2", "proton_kaon_chi2", 100, 0, 400);
+
+  TH1D* muon_muon_chi2=new TH1D("muon_muon_chi2", "muon_muon_chi2", 100, 0, 400);
+  TH1D* muon_proton_chi2=new TH1D("muon_proton_chi2", "muon_proton_chi2", 100, 0, 400);
+  TH1D* muon_pion_chi2=new TH1D("muon_pion_chi2", "muon_pion_chi2", 100, 0, 400);
+  TH1D* muon_kaon_chi2=new TH1D("muon_kaon_chi2", "muon_kaon_chi2", 100, 0, 400);
+
+  TH1D* pion_muon_chi2=new TH1D("pion_muon_chi2", "pion_muon_chi2", 100, 0, 400);
+  TH1D* pion_proton_chi2=new TH1D("pion_proton_chi2", "pion_proton_chi2", 100, 0, 400);
+  TH1D* pion_pion_chi2=new TH1D("pion_pion_chi2", "pion_pion_chi2", 100, 0, 400);
+  TH1D* pion_kaon_chi2=new TH1D("pion_kaon_chi2", "pion_kaon_chi2", 100, 0, 400);
+
+  TH1D* kaon_muon_chi2=new TH1D("kaon_muon_chi2", "kaon_muon_chi2", 100, 0, 400);
+  TH1D* kaon_proton_chi2=new TH1D("kaon_proton_chi2", "kaon_proton_chi2", 100, 0, 400);
+  TH1D* kaon_pion_chi2=new TH1D("kaon_pion_chi2", "kaon_pion_chi2", 100, 0, 400);
+  TH1D* kaon_kaon_chi2=new TH1D("kaon_chi2", "kaon_chi2", 100, 0, 400);
+
   TH1D* h_reco_ntrkhit=new TH1D("h_reco_ntrkhit", "h_reco_ntrkhit", 50, -0.5, 49.5);
   TH1D* h_reco_ntrkhit_lt5=new TH1D("h_reco_ntrkhit_lt5", "h_reco_ntrkhit_lt5", 5, -0.5, 4.5);
   TH1D* h_reco_ntrkhit_lt5_proton=new TH1D("h_reco_ntrkhit_lt5_proton", "h_reco_ntrkhit_lt5_proton", 5, -0.5, 4.5);
@@ -806,9 +839,7 @@ void Main::Maker::MakeFile()
   TH1D* h_eff_mult_den = new TH1D("h_eff_mult_den", "h_eff_mult_den", 20, 0, 20);
   TH1D* h_eff_mult_ch_num = new TH1D("h_eff_mult_ch_num", "h_eff_mult_ch_num", 10, 0, 15);
   TH1D* h_eff_mult_ch_den = new TH1D("h_eff_mult_ch_den", "h_eff_mult_ch_den", 10, 0, 15);
-  TH1D* h_eff_muphi_num = new TH1D("h_eff_muphi_num", "h_eff_muphi_num", 15, -3.1415, 3.1415);
-  TH1D* h_eff_muphi_den = new TH1D("h_eff_muphi_den", "h_eff_muphi_den", 15, -3.1415, 3.1415);
-
+ 
   TH1D* h_eff_qe_num = new TH1D("h_eff_qe_num", "h_eff_qe_num", 15, 0, 3);
   TH1D* h_eff_qe_den = new TH1D("h_eff_qe_den", "h_eff_qe_den", 15, 0, 3);
   TH1D* h_eff_res_num = new TH1D("h_eff_res_num", "h_eff_res_num", 15, 0, 3);
@@ -1184,9 +1215,21 @@ void Main::Maker::MakeFile()
   hmap_trkcostheta_cc1unp["cc0p0pi"]=new TH1D("h_trkcostheta_cc1unp_cc0p0pi", ";Muon Candidate Track CosTheta [GeV];", 30, -1.0, 1.0);
   hmap_trkcostheta_cc1unp["ccNpNpi"]=new TH1D("h_trkcostheta_cc1unp_ccNpNpi", ";Muon Candidate Track CosTheta [GeV];", 30, -1.0, 1.0);
   hmap_trkcostheta_cc1unp["CCnue"]=new TH1D("h_trkcostheta_cc1unp_CCnue", ";Muon Candidate Track CosTheta [GeV];", 30, -1.0, 1.0);
-  hmap_trkcostheta_cc1unp["NC"]=new TH1D("h_trkcostheta_cc1unp_NC", ";Muon Candidate Track CosTheta [GeV];", 30, 0.0, 1.0);
-  hmap_trkcostheta_cc1unp["anumu"]=new TH1D("h_trkcostheta_cc1unp_anumu", ";Muon Candidate Track CosTheta [GeV];", 30, 0.0, 1.0);
-  hmap_trkcostheta_cc1unp["oofv"]=new TH1D("h_trkcostheta_cc1unp_oofv", ";Muon Candidate Track CosTheta [GeV];", 30, 0.0, 1.0);
+  hmap_trkcostheta_cc1unp["NC"]=new TH1D("h_trkcostheta_cc1unp_NC", ";Muon Candidate Track CosTheta [GeV];", 30, -1.0, 1.0);
+  hmap_trkcostheta_cc1unp["anumu"]=new TH1D("h_trkcostheta_cc1unp_anumu", ";Muon Candidate Track CosTheta [GeV];", 30, -1.0, 1.0);
+  hmap_trkcostheta_cc1unp["oofv"]=new TH1D("h_trkcostheta_cc1unp_oofv", ";Muon Candidate Track CosTheta [GeV];", 30, -1.0, 1.0);
+
+  std::map<std::string,TH1D*> hmap_trkphi_cc1unp;
+  hmap_trkphi_cc1unp["total"]=new TH1D("h_trkphi_cc1unp_total", ";Muon Candidate Track Phi [GeV];", 30, -3.13159, 3.13159);
+  hmap_trkphi_cc1unp["signal"]=new TH1D("h_trkphi_cc1unp_signal", ";Muon Candidate Track Phi [GeV];", 30, -3.13159, 3.13159);
+  hmap_trkphi_cc1unp["background"]=new TH1D("h_trkphi_cc1unp_background", ";Muon Candidate Track Phi [GeV];", 30, -3.13159, 3.13159);
+  hmap_trkphi_cc1unp["cosmic"]=new TH1D("h_trkphi_cc1unp_cosmic", ";Muon Candidate Track Phi [GeV];", 30, -3.13159, 3.13159);
+  hmap_trkphi_cc1unp["cc0p0pi"]=new TH1D("h_trkphi_cc1unp_cc0p0pi", ";Muon Candidate Track Phi [GeV];", 30, -3.13159, 3.13159);
+  hmap_trkphi_cc1unp["ccNpNpi"]=new TH1D("h_trkphi_cc1unp_ccNpNpi", ";Muon Candidate Track Phi [GeV];", 30, -3.13159, 3.13159);
+  hmap_trkphi_cc1unp["CCnue"]=new TH1D("h_trkphi_cc1unp_CCnue", ";Muon Candidate Track Phi [GeV];", 30, -3.13159, 3.13159);
+  hmap_trkphi_cc1unp["NC"]=new TH1D("h_trkphi_cc1unp_NC", ";Muon Candidate Track Phi [GeV];", 30, -3.13159, 3.13159);
+  hmap_trkphi_cc1unp["anumu"]=new TH1D("h_trkphi_cc1unp_anumu", ";Muon Candidate Track Phi [GeV];", 30, -3.13159, 3.13159);
+  hmap_trkphi_cc1unp["oofv"]=new TH1D("h_trkphi_cc1unp_oofv", ";Muon Candidate Track Phi [GeV];", 30, -3.13159, 3.13159);
 
   std::map<std::string,TH1D*> hmap_trklen_cc1unp;
   hmap_trklen_cc1unp["total"]=new TH1D("h_trklen_cc1unp_total", ";Muon Candidate Track Length [cm];", 30, 0.0, 800);
@@ -1224,6 +1267,18 @@ void Main::Maker::MakeFile()
   hmap_trkplen_cc1unp["NC"]=new TH1D("h_trkplen_cc1unp_NC", ";Proton Candidate Track Length [cm];", 30, 0.0, 200);
   hmap_trkplen_cc1unp["anumu"]=new TH1D("h_trkplen_cc1unp_anumu", ";Proton Candidate Track Length [cm];", 30, 0.0, 200);
   hmap_trkplen_cc1unp["oofv"]=new TH1D("h_trkplen_cc1unp_oofv", ";Proton Candidate Track Length [cm];", 30, 0.0, 200);
+
+  std::map<std::string,TH1D*> hmap_thetamup_cc1unp;
+  hmap_thetamup_cc1unp["total"]=new TH1D("h_thetamup_cc1unp_total", ";#theta_{#mu p} [Rad];", 30, 0.0, 200);
+  hmap_thetamup_cc1unp["signal"]=new TH1D("h_thetamup_cc1unp_signal", ";#theta_{#mu p} [Rad];", 30, 0.0, 200);
+  hmap_thetamup_cc1unp["background"]=new TH1D("h_thetamup_cc1unp_background", ";#theta_{#mu p} [Rad];", 30, 0.0, 200);
+  hmap_thetamup_cc1unp["cosmic"]=new TH1D("h_thetamup_cc1unp_cosmic", ";#theta_{#mu p} [Rad];", 30, 0.0, 200);
+  hmap_thetamup_cc1unp["cc0p0pi"]=new TH1D("h_thetamup_cc1unp_cc0p0pi", ";#theta_{#mu p} [Rad];", 30, 0.0, 200);
+  hmap_thetamup_cc1unp["ccNpNpi"]=new TH1D("h_thetamup_cc1unp_ccNpNpi", ";#theta_{#mu p} [Rad];", 30, 0.0, 200);
+  hmap_thetamup_cc1unp["CCnue"]=new TH1D("h_thetamup_cc1unp_CCnue", ";#theta_{#mu p} [Rad];", 30, 0.0, 200);
+  hmap_thetamup_cc1unp["NC"]=new TH1D("h_thetamup_cc1unp_NC", ";#theta_{#mu p} [Rad];", 30, 0.0, 200);
+  hmap_thetamup_cc1unp["anumu"]=new TH1D("h_thetamup_cc1unp_anumu", ";#theta_{#mu p} [Rad];", 30, 0.0, 200);
+  hmap_thetamup_cc1unp["oofv"]=new TH1D("h_thetamup_cc1unp_oofv", ";#theta_{#mu p} [Rad];", 30, 0.0, 200);
 
 
 
@@ -2051,7 +2106,7 @@ void Main::Maker::MakeFile()
       _event_histo_1d->h_eff_muangle_den->Fill(t->lep_costheta, event_weight);
       _event_histo->h_eff_muangle_mumom_den->Fill(t->lep_costheta, t->true_muon_mom, event_weight);
       _event_histo->h_eff_muangle_mumom_poly_den->Fill(t->lep_costheta, t->true_muon_mom, event_weight);
-      h_eff_muphi_den->Fill(t->lep_phi, event_weight);
+      _event_histo_1d->h_eff_muphi_den->Fill(t->lep_phi, event_weight);
       h_eff_mult_den->Fill(t->genie_mult, event_weight);
       h_eff_mult_ch_den->Fill(t->genie_mult_ch, event_weight);
 
@@ -2142,6 +2197,20 @@ void Main::Maker::MakeFile()
 
       _event_histo_cc1unp_1d->h_eff_mumom_den->Fill(t->true_muon_mom, event_weight);
       _event_histo_cc1unp_1d->h_eff_muangle_den->Fill(t->lep_costheta, event_weight);
+      _event_histo_cc1unp_1d->h_eff_muphi_den->Fill(t->lep_phi, event_weight);
+      _event_histo_cc1unp_1d->h_eff_nproton_den->Fill(t->ngenie_protons, event_weight);
+      // loop over all the genie particles and get the denominator of the proton momentum efficiency
+      Double_t temp_pmom=-999.0;
+      for(size_t mpar=0; mpar<t->genie_mcpar_pdgcode.size(); mpar++){
+           std::cout<<"PDGCODE of GENIE Particle is "<<t->genie_mcpar_pdgcode[mpar]<<std::endl;
+           if(abs(t->genie_mcpar_pdgcode[mpar]==2212.) && t->genie_mcpar_energy[mpar]>temp_pmom) {
+               temp_pmom=TMath::Sqrt(t->genie_mcpar_px[mpar]*t->genie_mcpar_px[mpar]+
+                              t->genie_mcpar_py[mpar]*t->genie_mcpar_py[mpar]+
+                              t->genie_mcpar_pz[mpar]*t->genie_mcpar_pz[mpar]);
+           }
+      }      
+      _event_histo_cc1unp_1d->h_eff_pmom_den->Fill(temp_pmom, event_weight);
+
     }
 
     std::cout<<"Filled histograms for signal events!!!"<<std::endl;
@@ -2583,12 +2652,12 @@ void Main::Maker::MakeFile()
     // if (t->slc_muoncandidate_mom_mcs.at(scl_ll_max) > 2.5) continue;
     //===========================================================================================================
 
-    std::cout<<"Selected CCinclusive events"<<std::endl;
+    //std::cout<<"Selected CCinclusive events"<<std::endl;
     
     // Select CC1uNP events Here
     //#1 total number of track greater than 1    
     if(t->num_pfp_tracks>=2) {ntrk2flag=true;}
-    
+    //std::cout<<"Libo test 0 "<<std::endl;    
     pinCVflag=true;
     //#2 proton contained in containment volume
     // loop over all the proton candidates and select the events with all the proton candidates 
@@ -2597,29 +2666,31 @@ void Main::Maker::MakeFile()
         if(!inFV(t->pfp_reco_startx[n_trk_pfp], t->pfp_reco_starty[n_trk_pfp], t->pfp_reco_startz[n_trk_pfp]) ||
           !inFV(t->pfp_reco_endx[n_trk_pfp],   t->pfp_reco_endy[n_trk_pfp],   t->pfp_reco_endz[n_trk_pfp]))   {
            pinCVflag=false;
+           //std::cout<<"start point of the proton candidate is "<<t->pfp_reco_startx[n_trk_pfp]<<std::endl;
         }
-        /*if(t->pfp_reco_startx[n_trk_pfp]<10 || t->pfp_reco_startx[n_trk_pfp]>246.35) pinCVflag=false;
-        if(t->pfp_reco_starty[n_trk_pfp]<-96.5 || t->pfp_reco_starty[n_trk_pfp]>96.5) pinCVflag=false;
-        if(t->pfp_reco_startz[n_trk_pfp]<10 || t->pfp_reco_startz[n_trk_pfp]>1026.8) pinCVflag=false;
-
-        if(t->pfp_reco_endx[n_trk_pfp]<10 || t->pfp_reco_endx[n_trk_pfp]>246.35) pinCVflag=false;
-        if(t->pfp_reco_endy[n_trk_pfp]<-96.5 || t->pfp_reco_endy[n_trk_pfp]>96.5) pinCVflag=false;
-        if(t->pfp_reco_endz[n_trk_pfp]<10 || t->pfp_reco_endz[n_trk_pfp]>1026.8) pinCVflag=false;
+        /*
         */
        
     }
+
+    //std::cout<<"Libo test 1 "<<std::endl;    
+
     //#3 Min Col hits cut
     minColflag=true;
-    for(size_t ncand=0; ncand<t->pfp_reco_nhits.size(); ncand++){
-        if(t->pfp_reco_nhits[ncand]<5) minColflag=false;
-    }
+    //for(size_t ncand=0; ncand<t->pfp_reco_nhits.size(); ncand++){
+    //    if(t->pfp_reco_nhits[ncand]<5) minColflag=false;
+    //}
+    //std::cout<<"Libo test 2 "<<std::endl;    
 
     //#4 chi2 cut 
     chi2flag=true;
     for(size_t ntrk=0; ntrk<t->pfp_reco_chi2_proton.size(); ntrk++){
         if(t->pfp_reco_ismuoncandidate[ntrk]==1) continue;
+        if(t->pfp_reco_nhits[ntrk]<5) continue;
         if(t->pfp_reco_chi2_proton[ntrk]>88) chi2flag=false;
     }
+    //std::cout<<"Libo test 3 "<<std::endl;    
+
     //# 5 check if all the tracks are from neutrino events
     trackfromneutrino=true;
     for(size_t npfp=0; npfp<t->pfp_truth_origin.size(); npfp++){
@@ -2631,17 +2702,24 @@ void Main::Maker::MakeFile()
         }
     }
 
-
+    //std::cout<<"Libo test 4 "<<std::endl;    
     //# find out the most energetic protons index
     float temp_mom=-0.0;
     for(size_t np=0; np<t->pfp_reco_Mom_proton[np]; np++){
           if(np==muind) continue;
           if(t->pfp_reco_Mom_proton[np]> temp_mom) {pind=np;}
     }
+    //if(t->pfp_reco_chi2_proton[muind] < 88) chi2flag=false;
 
+    std::cout<<"Libo test 5 "<<std::endl;
 
-
-    
+    // Get the angle between muon candidate and leading proton candidate
+    //if(ntrk2flag==true){
+    //thetamup=getAngle(t->pfp_reco_Mom_MCS[muind], t->pfp_reco_theta[muind], t->pfp_reco_phi[muind], t->pfp_reco_Mom_proton[pind], t->pfp_reco_theta[pind], t->pfp_reco_phi[pind]);
+   
+    //}
+    std::cout<<"Setup the variable for CC1uNP selection!!!"<<std::endl;
+ 
     //===============================================================================================================
     // EVENT IS SELECTED
     //
@@ -2872,7 +2950,7 @@ void Main::Maker::MakeFile()
       }
     }
 
-
+    std::cout<<"Start filling histograms for signal and background !!!"<<std::endl;
     //
     // SIGNAL
     //
@@ -2914,7 +2992,7 @@ void Main::Maker::MakeFile()
       _event_histo_1d->h_eff_muangle_num->Fill(t->lep_costheta, event_weight);
       _event_histo->h_eff_muangle_mumom_num->Fill(t->lep_costheta, t->true_muon_mom, event_weight);
       _event_histo->h_eff_muangle_mumom_poly_num->Fill(t->lep_costheta, t->true_muon_mom, event_weight);
-      h_eff_muphi_num->Fill(t->lep_phi, event_weight);
+      _event_histo_1d->h_eff_muphi_num->Fill(t->lep_phi, event_weight);
       h_eff_mult_num->Fill(t->genie_mult, event_weight);
       h_eff_mult_ch_num->Fill(t->genie_mult_ch, event_weight);
       h_mu_eff_mom_sel->Fill(t->true_muon_mom, t->muon_reco_eff, event_weight);
@@ -3400,13 +3478,16 @@ void Main::Maker::MakeFile()
 
     //std::cout<<"Filled CCinclusive histograms after event selection"<<" event weight = "<<event_weight<<" ntrk2flag= "<<ntrk2flag<<std::endl;
     //std::cout<<"Filled CCinclusive histograms after event selection"<<" event weight = "<<event_weight<<" pinCVflag= "<<pinCVflag<<std::endl;
-     
+    std::cout<<"Start performing CC1uNP cut !!!!"<<std::endl; 
     if(ntrk2flag==1){
        selected_cc1unp_events_percut["ntrk2"] +=event_weight;
        if (isCC1uNP && nu_origin && trackfromneutrino) {selected_cc1unp_signal_events_percut["ntrk2"] +=event_weight;}
        //selected_cc1unp_events_percut["ntrk2"] +=event_weight;
+       std::cout<<"start point of the proton candidate is "<<t->pfp_reco_startx[pind] << "  "<<t->pfp_reco_starty[pind] <<" "<<t->pfp_reco_startz[pind] <<std::endl;
+       std::cout<<"end point of the proton candidate is "<<t->pfp_reco_endx[pind] << "  "<<t->pfp_reco_endy[pind] <<" "<<t->pfp_reco_endz[pind] <<std::endl;
 
-    
+
+       std::cout<<"pinCVflag = "<<pinCVflag<<std::endl; 
        if(pinCVflag==true){
           if (isCC1uNP && nu_origin && trackfromneutrino) selected_cc1unp_signal_events_percut["pinCV"] +=event_weight;
           selected_cc1unp_events_percut["pinCV"] +=event_weight;
@@ -3424,7 +3505,8 @@ void Main::Maker::MakeFile()
           
 
 
-          if(minColflag==true){
+          if(minColflag==true)
+          {
              if (isCC1uNP && nu_origin && trackfromneutrino) selected_cc1unp_signal_events_percut["minCol"] +=event_weight;
              selected_cc1unp_events_percut["minCol"] +=event_weight;
              //#4 chi2 cut
@@ -3433,18 +3515,30 @@ void Main::Maker::MakeFile()
                 if(t->pfp_reco_ismuoncandidate[npfp]==1) continue;
                 if(abs(t->pfp_truth_pdg[npfp])==2212) {
                   proton_proton_chi2->Fill(t->pfp_reco_chi2_proton[npfp],event_weight); 
+                  proton_muon_chi2->Fill(t->pfp_reco_chi2_muon[npfp],event_weight); 
+                  proton_pion_chi2->Fill(t->pfp_reco_chi2_pion[npfp],event_weight); 
+                  proton_kaon_chi2->Fill(t->pfp_reco_chi2_kaon[npfp],event_weight); 
                   std::cout<<"Found a Proton !!"<<std::endl;
                 }
                 if(abs(t->pfp_truth_pdg[npfp])==13  ) {
-                  proton_muon_chi2->Fill(t->pfp_reco_chi2_proton[npfp],event_weight);
+                  muon_proton_chi2->Fill(t->pfp_reco_chi2_proton[npfp],event_weight);
+                  muon_muon_chi2->Fill(t->pfp_reco_chi2_muon[npfp],event_weight); 
+                  muon_pion_chi2->Fill(t->pfp_reco_chi2_pion[npfp],event_weight); 
+                  muon_kaon_chi2->Fill(t->pfp_reco_chi2_kaon[npfp],event_weight); 
                   std::cout<<"Found a Muon !!"<<std::endl;
                 }
                 if(abs(t->pfp_truth_pdg[npfp])==211 || abs(t->pfp_truth_pdg[npfp])==111) {
-                  proton_pion_chi2->Fill(t->pfp_reco_chi2_proton[npfp],event_weight);
+                  pion_proton_chi2->Fill(t->pfp_reco_chi2_proton[npfp],event_weight);
+                  pion_muon_chi2->Fill(t->pfp_reco_chi2_muon[npfp],event_weight); 
+                  pion_pion_chi2->Fill(t->pfp_reco_chi2_pion[npfp],event_weight); 
+                  pion_kaon_chi2->Fill(t->pfp_reco_chi2_kaon[npfp],event_weight); 
                   std::cout<<"Found a pion !!"<<std::endl;
                 }
                 if(abs(t->pfp_truth_pdg[npfp])==321 || abs(t->pfp_truth_pdg[npfp])==311) {
-                  proton_kaon_chi2->Fill(t->pfp_reco_chi2_proton[npfp],event_weight);
+                  kaon_proton_chi2->Fill(t->pfp_reco_chi2_proton[npfp],event_weight); 
+                  kaon_muon_chi2->Fill(t->pfp_reco_chi2_muon[npfp],event_weight); 
+                  kaon_pion_chi2->Fill(t->pfp_reco_chi2_pion[npfp],event_weight); 
+                  kaon_kaon_chi2->Fill(t->pfp_reco_chi2_kaon[npfp],event_weight);
                   std::cout<<"Found a kaon !!"<<std::endl;
                 }
              }
@@ -3469,6 +3563,11 @@ void Main::Maker::MakeFile()
           hmap_trklen_cc1unp["total"]->Fill(t->pfp_reco_length[muind], event_weight);
           hmap_trkplen_cc1unp["total"]->Fill(t->pfp_reco_length[pind], event_weight);
           hmap_trkcostheta_cc1unp["total"]->Fill(t->pfp_reco_costheta[muind], event_weight);
+          hmap_trkphi_cc1unp["total"]->Fill(t->pfp_reco_phi[muind], event_weight);
+          hmap_thetamup_cc1unp["total"]->Fill(thetamup, event_weight);
+ 
+
+
 
        if(isCC1uNP && nu_origin && trackfromneutrino){
          cc1unp_sel += event_weight;
@@ -3484,6 +3583,8 @@ void Main::Maker::MakeFile()
          hmap_trklen_cc1unp["signal"]->Fill(t->pfp_reco_length[muind], event_weight);
          hmap_trkplen_cc1unp["signal"]->Fill(t->pfp_reco_length[pind], event_weight);
          hmap_trkcostheta_cc1unp["signal"]->Fill(t->pfp_reco_costheta[muind], event_weight);
+         hmap_trkphi_cc1unp["signal"]->Fill(t->pfp_reco_phi[muind], event_weight);
+         hmap_thetamup_cc1unp["signal"]->Fill(thetamup, event_weight);
 
  
 
@@ -3497,6 +3598,22 @@ void Main::Maker::MakeFile()
 
          _event_histo_cc1unp_1d->h_eff_mumom_num->Fill(t->true_muon_mom, event_weight);
          _event_histo_cc1unp_1d->h_eff_muangle_num->Fill(t->lep_costheta, event_weight);
+         _event_histo_cc1unp_1d->h_eff_muphi_num->Fill(t->lep_phi, event_weight);
+
+         _event_histo_cc1unp_1d->h_eff_nproton_num->Fill(t->ngenie_protons,event_weight);
+         // loop over all the genie particles and get the denominator of the proton momentum efficiency
+         Double_t temp_pmom=-999.0;
+         for(size_t mpar=0; mpar<t->genie_mcpar_pdgcode.size(); mpar++){
+           if(abs(t->genie_mcpar_pdgcode[mpar]==2212) && t->genie_mcpar_energy[mpar]>temp_pmom) {
+               temp_pmom=TMath::Sqrt(t->genie_mcpar_px[mpar]*t->genie_mcpar_px[mpar]+
+                              t->genie_mcpar_py[mpar]*t->genie_mcpar_py[mpar]+
+                              t->genie_mcpar_pz[mpar]*t->genie_mcpar_pz[mpar]);
+           }
+         }      
+         _event_histo_cc1unp_1d->h_eff_pmom_num->Fill(temp_pmom, event_weight);
+
+
+
        }
        else{
           hmap_trkmom_cc1unp["background"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
@@ -3504,6 +3621,8 @@ void Main::Maker::MakeFile()
           hmap_trklen_cc1unp["background"]->Fill(t->pfp_reco_length[muind], event_weight);
           hmap_trkplen_cc1unp["background"]->Fill(t->pfp_reco_length[pind], event_weight);
           hmap_trkcostheta_cc1unp["background"]->Fill(t->pfp_reco_costheta[muind], event_weight);
+          hmap_trkphi_cc1unp["background"]->Fill(t->pfp_reco_phi[muind], event_weight);
+          hmap_thetamup_cc1unp["background"]->Fill(thetamup, event_weight);
 
   
        if(!trackfromneutrino && t->nupdg==14 && t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775)) //cosmic backgroup
@@ -3513,9 +3632,11 @@ void Main::Maker::MakeFile()
           hmap_trklen_cc1unp["cosmic"]->Fill(t->pfp_reco_length[muind], event_weight);
           hmap_trkplen_cc1unp["cosmic"]->Fill(t->pfp_reco_length[pind], event_weight);
           hmap_trkcostheta_cc1unp["cosmic"]->Fill(t->pfp_reco_costheta[muind], event_weight);
+          hmap_trkphi_cc1unp["cosmic"]->Fill(t->pfp_reco_phi[muind], event_weight);
+          hmap_thetamup_cc1unp["cosmic"]->Fill(thetamup, event_weight);
 
        } 
-       if(!trackfromneutrino && t->nupdg==14 && t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775) &&
+       if(trackfromneutrino && t->nupdg==14 && t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775) &&
                (t->ngenie_muons>0 && t->ngenie_protons<1) &&(t->ngenie_electrons<1) && (t->ngenie_pipms<1 && t->ngenie_pion0s<1)) //cc0p0pi background
        {
           hmap_trkmom_cc1unp["cc0p0pi"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
@@ -3523,9 +3644,11 @@ void Main::Maker::MakeFile()
           hmap_trklen_cc1unp["cc0p0pi"]->Fill(t->pfp_reco_length[muind], event_weight);
           hmap_trkplen_cc1unp["cc0p0pi"]->Fill(t->pfp_reco_length[pind], event_weight);
           hmap_trkcostheta_cc1unp["cc0p0pi"]->Fill(t->pfp_reco_costheta[muind], event_weight);
+          hmap_trkphi_cc1unp["cc0p0pi"]->Fill(t->pfp_reco_phi[muind], event_weight);
+          hmap_thetamup_cc1unp["cc0p0pi"]->Fill(thetamup, event_weight);
 
        } 
-       if(!trackfromneutrino && t->nupdg==14 && t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775) &&
+       if(trackfromneutrino && t->nupdg==14 && t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775) &&
                (t->ngenie_muons>0 && t->ngenie_protons>0) &&(t->ngenie_electrons<1) && (t->ngenie_pipms>0 || t->ngenie_pion0s>0)) //ccNpNpi background
        {
           hmap_trkmom_cc1unp["ccNpNpi"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
@@ -3533,9 +3656,11 @@ void Main::Maker::MakeFile()
           hmap_trklen_cc1unp["ccNpNpi"]->Fill(t->pfp_reco_length[muind], event_weight);
           hmap_trkplen_cc1unp["ccNpNpi"]->Fill(t->pfp_reco_length[pind], event_weight);
           hmap_trkcostheta_cc1unp["ccNpNpi"]->Fill(t->pfp_reco_costheta[muind], event_weight);
+          hmap_trkphi_cc1unp["ccNpNpi"]->Fill(t->pfp_reco_phi[muind], event_weight);
+          hmap_thetamup_cc1unp["ccNpNpi"]->Fill(thetamup, event_weight);
 
        }
-       if(!trackfromneutrino && t->nupdg==14 && t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775) &&
+       if(trackfromneutrino && t->nupdg==14 && t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775) &&
                (t->ngenie_electrons>0)) //Nue background
        {
           hmap_trkmom_cc1unp["CCnue"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
@@ -3543,9 +3668,11 @@ void Main::Maker::MakeFile()
           hmap_trklen_cc1unp["CCnue"]->Fill(t->pfp_reco_length[muind], event_weight);
           hmap_trkplen_cc1unp["CCnue"]->Fill(t->pfp_reco_length[pind], event_weight);
           hmap_trkcostheta_cc1unp["CCnue"]->Fill(t->pfp_reco_costheta[muind], event_weight);
+          hmap_trkphi_cc1unp["CCnue"]->Fill(t->pfp_reco_phi[muind], event_weight);
+          hmap_thetamup_cc1unp["CCnue"]->Fill(thetamup, event_weight);
 
        }
-       if(!trackfromneutrino && t->nupdg==14 && t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775) &&
+       if(trackfromneutrino && t->nupdg==14 && t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775) &&
                t->ccnc==1) //NC background
        {
           hmap_trkmom_cc1unp["NC"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
@@ -3553,9 +3680,11 @@ void Main::Maker::MakeFile()
           hmap_trklen_cc1unp["NC"]->Fill(t->pfp_reco_length[muind], event_weight);
           hmap_trkplen_cc1unp["NC"]->Fill(t->pfp_reco_length[pind], event_weight);
           hmap_trkcostheta_cc1unp["NC"]->Fill(t->pfp_reco_costheta[muind], event_weight);
+          hmap_trkphi_cc1unp["NC"]->Fill(t->pfp_reco_phi[muind], event_weight);
+          hmap_thetamup_cc1unp["NC"]->Fill(thetamup, event_weight);
 
        }
-       if(!trackfromneutrino && t->nupdg==-14 && t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775) &&
+       if(trackfromneutrino && t->nupdg==-14 && t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775) &&
                t->ccnc==1) //anumu background
        {
           hmap_trkmom_cc1unp["anumu"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
@@ -3563,6 +3692,8 @@ void Main::Maker::MakeFile()
           hmap_trklen_cc1unp["anumu"]->Fill(t->pfp_reco_length[muind], event_weight);
           hmap_trkplen_cc1unp["anumu"]->Fill(t->pfp_reco_length[pind], event_weight);
           hmap_trkcostheta_cc1unp["anumu"]->Fill(t->pfp_reco_costheta[muind], event_weight);
+          hmap_trkphi_cc1unp["anumu"]->Fill(t->pfp_reco_phi[muind], event_weight);
+          hmap_thetamup_cc1unp["anumu"]->Fill(thetamup, event_weight);
 
        }
         if(t->fv==0 || (t->tvtx_z[0] > 675 || t->tvtx_z[0] > 775))  //out of fv backgroud
@@ -3572,11 +3703,14 @@ void Main::Maker::MakeFile()
           hmap_trklen_cc1unp["oofv"]->Fill(t->pfp_reco_length[muind], event_weight);
           hmap_trkplen_cc1unp["oofv"]->Fill(t->pfp_reco_length[pind], event_weight);
           hmap_trkcostheta_cc1unp["oofv"]->Fill(t->pfp_reco_costheta[muind], event_weight);
+          hmap_trkphi_cc1unp["oofv"]->Fill(t->pfp_reco_phi[muind], event_weight);
+          hmap_thetamup_cc1unp["oofv"]->Fill(thetamup, event_weight);
 
        }
        }//end of else
     }//end of if selecetd CC1uNP events
     //================================================================================
+
 
 
 
@@ -3784,6 +3918,29 @@ void Main::Maker::MakeFile()
   canvas_cc1unp_efficiency_mumom->SaveAs(temp2 + ".pdf");
   canvas_cc1unp_efficiency_mumom->SaveAs(temp2 + ".C","C");
   //===========================================================================================   
+
+  TCanvas * canvas_cc1unp_efficiency_pmom = new TCanvas();
+  TEfficiency* pEff4p_cc1unp = new TEfficiency(*_event_histo_cc1unp_1d->h_eff_pmom_num,*_event_histo_cc1unp_1d->h_eff_pmom_den);
+  pEff4p_cc1unp->SetTitle(";True Proton Momentum [GeV];Efficiency");
+  pEff4p_cc1unp->SetLineColor(kGreen+3);
+  pEff4p_cc1unp->SetMarkerColor(kGreen+3);
+  pEff4p_cc1unp->SetMarkerStyle(20);
+  pEff4p_cc1unp->SetMarkerSize(0.5);
+  pEff4p_cc1unp->Draw("AP");
+  gPad->Update();
+  g = pEff4p_cc1unp->GetPaintedGraph();
+  g->SetMinimum(0);
+  g->SetMaximum(1);
+  gPad->Update();
+  PlottingTools::DrawSimulationXSec();
+
+  temp2 = "./output/efficiency_cc1unp_pmom";
+  canvas_cc1unp_efficiency_pmom->SaveAs(temp2 + ".pdf");
+  canvas_cc1unp_efficiency_pmom->SaveAs(temp2 + ".C","C");
+ 
+
+  //==============================================================================================
+
   TCanvas * canvas_efficiency_muangle = new TCanvas();
   TEfficiency* pEff5 = new TEfficiency(*_event_histo_1d->h_eff_muangle_num,*_event_histo_1d->h_eff_muangle_den);
   pEff5->SetTitle(";True Muon cos(#theta);Efficiency");
@@ -3842,7 +3999,7 @@ void Main::Maker::MakeFile()
   
   //============================================================================================= 
   TCanvas * canvas_efficiency_muphi = new TCanvas();
-  TEfficiency* pEff5_2 = new TEfficiency(*h_eff_muphi_num,*h_eff_muphi_den);
+  TEfficiency* pEff5_2 = new TEfficiency(*_event_histo_1d->h_eff_muphi_num,*_event_histo_1d->h_eff_muphi_den);
   pEff5_2->SetTitle(";True Muon #phi angle;Efficiency");
   pEff5_2->SetLineColor(kGreen+3);
   pEff5_2->SetMarkerColor(kGreen+3);
@@ -3859,6 +4016,28 @@ void Main::Maker::MakeFile()
   temp2 = "./output/efficiency_muphi";
   canvas_efficiency_muphi->SaveAs(temp2 + ".pdf");
   canvas_efficiency_muphi->SaveAs(temp2 + ".C","C");
+  //==============================================================================================
+  TCanvas * canvas_efficiency_cc1unp_muphi = new TCanvas();
+  TEfficiency* pEff5_cc1unp_2 = new TEfficiency(*_event_histo_cc1unp_1d->h_eff_muphi_num,*_event_histo_cc1unp_1d->h_eff_muphi_den);
+  pEff5_cc1unp_2->SetTitle(";True Muon #phi angle;Efficiency");
+  pEff5_cc1unp_2->SetLineColor(kGreen+3);
+  pEff5_cc1unp_2->SetMarkerColor(kGreen+3);
+  pEff5_cc1unp_2->SetMarkerStyle(20);
+  pEff5_cc1unp_2->SetMarkerSize(0.5);
+  pEff5_cc1unp_2->Draw("AP");
+  gPad->Update();
+  g = pEff5_cc1unp_2->GetPaintedGraph();
+  g->SetMinimum(0);
+  g->SetMaximum(1);
+  gPad->Update();
+  PlottingTools::DrawSimulationXSec();
+  
+  temp2 = "./output/efficiency_cc1unp_muphi";
+  canvas_efficiency_cc1unp_muphi->SaveAs(temp2 + ".pdf");
+  canvas_efficiency_cc1unp_muphi->SaveAs(temp2 + ".C","C");
+ 
+
+
   //===============================================================================================
   
   TCanvas * canvas_efficiency_mult = new TCanvas();
@@ -3899,6 +4078,28 @@ void Main::Maker::MakeFile()
   temp2 = "./output/efficiency_mult_ch";
   canvas_efficiency_mult_ch->SaveAs(temp2 + ".pdf");
   canvas_efficiency_mult_ch->SaveAs(temp2 + ".C","C");
+  //==========================================================================================
+
+  TCanvas * canvas_efficiency_nproton = new TCanvas();
+  TEfficiency* pEff7_np = new TEfficiency(*_event_histo_cc1unp_1d->h_eff_nproton_num,*_event_histo_cc1unp_1d->h_eff_nproton_den);
+  pEff7_np->SetTitle(";True GENIE Proton Multiplicity;Efficiency");
+  pEff7_np->SetLineColor(kGreen+3);
+  pEff7_np->SetMarkerColor(kGreen+3);
+  pEff7_np->SetMarkerStyle(20);
+  pEff7_np->SetMarkerSize(0.5);
+  pEff7_np->Draw("AP");
+  gPad->Update();
+  g = pEff7_np->GetPaintedGraph();
+  g->SetMinimum(0);
+  g->SetMaximum(1);
+  gPad->Update();
+  PlottingTools::DrawSimulationXSec();
+  
+  temp2 = "./output/efficiency_nproton";
+  canvas_efficiency_nproton->SaveAs(temp2 + ".pdf");
+  canvas_efficiency_nproton->SaveAs(temp2 + ".C","C");
+
+
 
   //=============================================================================================
   TCanvas * canvas_efficiency_mode = new TCanvas();
@@ -4612,6 +4813,18 @@ void Main::Maker::MakeFile()
   file_out->WriteObject(&hmap_multpfp, "hmap_multpfp");
   file_out->WriteObject(&hmap_multtracktol, "hmap_multtracktol");
 
+  file_out->WriteObject(&hmap_trklen_cc1unp, "hmap_trklen_cc1unp");
+  file_out->WriteObject(&hmap_trkmom_cc1unp, "hmap_trkmom_cc1unp");
+  file_out->WriteObject(&hmap_trkcostheta_cc1unp, "hmap_trkcostheta_cc1unp");
+  file_out->WriteObject(&hmap_trkphi_cc1unp, "hmap_trkphi_cc1unp");
+  file_out->WriteObject(&hmap_trkplen_cc1unp, "hmap_trkplen_cc1unp");
+  file_out->WriteObject(&hmap_trkpmom_cc1unp, "hmap_trkpmom_cc1unp");
+  file_out->WriteObject(&hmap_thetamup_cc1unp, "hmap_thetamup_cc1unp");
+
+
+
+
+
   // Mc truth stacked in interaction type
   file_out->WriteObject(&hmap_mctruth_nuenergy, "hmap_mctruth_nuenergy");
   file_out->WriteObject(&hmap_mctruth_mumom, "hmap_mctruth_mumom");
@@ -4698,13 +4911,30 @@ void Main::Maker::MakeFile()
   proton_kaon_chi2->Write();
   proton_pion_chi2->Write();
 
+  muon_muon_chi2->Write();
+  muon_proton_chi2->Write();
+  muon_kaon_chi2->Write();
+  muon_pion_chi2->Write();
+
+  pion_muon_chi2->Write();
+  pion_proton_chi2->Write();
+  pion_kaon_chi2->Write();
+  pion_pion_chi2->Write();
+
+  kaon_muon_chi2->Write();
+  kaon_proton_chi2->Write();
+  kaon_kaon_chi2->Write();
+  kaon_pion_chi2->Write();
+
+
+
   h_reco_ntrkhit->Write();
 
 
   LOG_NORMAL() << "Saving 1D Event Histo." << std::endl;
   
   file_out->WriteObject(_event_histo_1d, "UBXSecEventHisto1D");
-
+  file_out->WriteObject(_event_histo_cc1unp_1d, "UBXSecEventHisto_CC1uNP_1D");
   LOG_NORMAL() << "1D Event Histo saved." << std::endl;
 
  
