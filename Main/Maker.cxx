@@ -1206,6 +1206,7 @@ void Main::Maker::MakeFile()
   hmap_trkmom_cc1unp["NC"]=new TH1D("h_trkmom_cc1unp_NC", ";Muon Candidate Track Momentum [GeV];", 30, 0.0, 2.5);
   hmap_trkmom_cc1unp["anumu"]=new TH1D("h_trkmom_cc1unp_anumu", ";Muon Candidate Track Momentum [GeV];", 30, 0.0, 2.5);
   hmap_trkmom_cc1unp["oofv"]=new TH1D("h_trkmom_cc1unp_oofv", ";Muon Candidate Track Momentum [GeV];", 30, 0.0, 2.5);
+  hmap_trkmom_cc1unp["cc0pNpi"]=new TH1D("h_trkmom_cc1unp_cc0pNpi", ";Muon Candidate Track Momentum [GeV];", 30, 0.0, 2.5);
 
   std::map<std::string,TH1D*> hmap_trkcostheta_cc1unp;
   hmap_trkcostheta_cc1unp["total"]=new TH1D("h_trkcostheta_cc1unp_total", ";Muon Candidate Track CosTheta [GeV];", 30, -1.0, 1.0);
@@ -1218,6 +1219,7 @@ void Main::Maker::MakeFile()
   hmap_trkcostheta_cc1unp["NC"]=new TH1D("h_trkcostheta_cc1unp_NC", ";Muon Candidate Track CosTheta [GeV];", 30, -1.0, 1.0);
   hmap_trkcostheta_cc1unp["anumu"]=new TH1D("h_trkcostheta_cc1unp_anumu", ";Muon Candidate Track CosTheta [GeV];", 30, -1.0, 1.0);
   hmap_trkcostheta_cc1unp["oofv"]=new TH1D("h_trkcostheta_cc1unp_oofv", ";Muon Candidate Track CosTheta [GeV];", 30, -1.0, 1.0);
+  hmap_trkcostheta_cc1unp["CC1uNpi"]=new TH1D("h_trkcostheta_cc1unp_CC1uNpi", ";Muon Candidate Track CosTheta [GeV];", 30, -1.0, 1.0);
 
   std::map<std::string,TH1D*> hmap_trkphi_cc1unp;
   hmap_trkphi_cc1unp["total"]=new TH1D("h_trkphi_cc1unp_total", ";Muon Candidate Track Phi [GeV];", 30, -3.13159, 3.13159);
@@ -1230,6 +1232,7 @@ void Main::Maker::MakeFile()
   hmap_trkphi_cc1unp["NC"]=new TH1D("h_trkphi_cc1unp_NC", ";Muon Candidate Track Phi [GeV];", 30, -3.13159, 3.13159);
   hmap_trkphi_cc1unp["anumu"]=new TH1D("h_trkphi_cc1unp_anumu", ";Muon Candidate Track Phi [GeV];", 30, -3.13159, 3.13159);
   hmap_trkphi_cc1unp["oofv"]=new TH1D("h_trkphi_cc1unp_oofv", ";Muon Candidate Track Phi [GeV];", 30, -3.13159, 3.13159);
+  hmap_trkphi_cc1unp["CC1uNpi"]=new TH1D("h_trkphi_cc1unp_CC1uNpi", ";Muon Candidate Track Phi [GeV];", 30, -3.13159, 3.13159);
 
   std::map<std::string,TH1D*> hmap_trklen_cc1unp;
   hmap_trklen_cc1unp["total"]=new TH1D("h_trklen_cc1unp_total", ";Muon Candidate Track Length [cm];", 30, 0.0, 800);
@@ -1242,6 +1245,7 @@ void Main::Maker::MakeFile()
   hmap_trklen_cc1unp["NC"]=new TH1D("h_trklen_cc1unp_NC", ";Muon Candidate Track Length [cm];", 30, 0.0, 800);
   hmap_trklen_cc1unp["anumu"]=new TH1D("h_trklen_cc1unp_anumu", ";Muon Candidate Track Length [cm];", 30, 0.0, 800);
   hmap_trklen_cc1unp["oofv"]=new TH1D("h_trklen_cc1unp_oofv", ";Muon Candidate Track Length [cm];", 30, 0.0, 800);
+  hmap_trklen_cc1unp["CC1uNpi"]=new TH1D("h_trklen_cc1unp_CC1uNpi", ";Muon Candidate Track Length [cm];", 30, 0.0, 800);
 
 
   std::map<std::string,TH1D*> hmap_trkpmom_cc1unp;
@@ -1255,6 +1259,7 @@ void Main::Maker::MakeFile()
   hmap_trkpmom_cc1unp["NC"]=new TH1D("h_trkpmom_cc1unp_NC", ";Proton Candidate Track Momentum [GeV];", 30, 0.0, 2.5);
   hmap_trkpmom_cc1unp["anumu"]=new TH1D("h_trkpmom_cc1unp_anumu", ";Proton Candidate Track Momentum [GeV];", 30, 0.0, 2.5);
   hmap_trkpmom_cc1unp["oofv"]=new TH1D("h_trkpmom_cc1unp_oofv", ";Proton Candidate Track Momentum [GeV];", 30, 0.0, 2.5);
+  hmap_trkpmom_cc1unp["CC1uNpi"]=new TH1D("h_trkpmom_cc1unp_CC1uNpi", ";Proton Candidate Track Momentum [GeV];", 30, 0.0, 2.5);
 
   std::map<std::string,TH1D*> hmap_trkplen_cc1unp;
   hmap_trkplen_cc1unp["total"]=new TH1D("h_trkplen_cc1unp_total", ";Proton Candidate Track Length [cm];", 30, 0.0, 200);
@@ -1267,6 +1272,7 @@ void Main::Maker::MakeFile()
   hmap_trkplen_cc1unp["NC"]=new TH1D("h_trkplen_cc1unp_NC", ";Proton Candidate Track Length [cm];", 30, 0.0, 200);
   hmap_trkplen_cc1unp["anumu"]=new TH1D("h_trkplen_cc1unp_anumu", ";Proton Candidate Track Length [cm];", 30, 0.0, 200);
   hmap_trkplen_cc1unp["oofv"]=new TH1D("h_trkplen_cc1unp_oofv", ";Proton Candidate Track Length [cm];", 30, 0.0, 200);
+  hmap_trkplen_cc1unp["CC1uNpi"]=new TH1D("h_trkplen_cc1unp_CC1uNpi", ";Proton Candidate Track Length [cm];", 30, 0.0, 200);
 
   std::map<std::string,TH1D*> hmap_thetamup_cc1unp;
   hmap_thetamup_cc1unp["total"]=new TH1D("h_thetamup_cc1unp_total", ";#theta_{#mu p} [Rad];", 30, 0.0, 200);
@@ -1279,6 +1285,7 @@ void Main::Maker::MakeFile()
   hmap_thetamup_cc1unp["NC"]=new TH1D("h_thetamup_cc1unp_NC", ";#theta_{#mu p} [Rad];", 30, 0.0, 200);
   hmap_thetamup_cc1unp["anumu"]=new TH1D("h_thetamup_cc1unp_anumu", ";#theta_{#mu p} [Rad];", 30, 0.0, 200);
   hmap_thetamup_cc1unp["oofv"]=new TH1D("h_thetamup_cc1unp_oofv", ";#theta_{#mu p} [Rad];", 30, 0.0, 200);
+  hmap_thetamup_cc1unp["CC1uNpi"]=new TH1D("h_thetamup_cc1unp_CC1uNpi", ";#theta_{#mu p} [Rad];", 30, 0.0, 200);
 
 
 
@@ -3625,7 +3632,7 @@ void Main::Maker::MakeFile()
           hmap_thetamup_cc1unp["background"]->Fill(thetamup, event_weight);
 
   
-       if(!trackfromneutrino && t->nupdg==14 && t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775)) //cosmic backgroup
+       if(!trackfromneutrino){ // && t->nupdg==14 && t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775)) //cosmic background
        {
           hmap_trkmom_cc1unp["cosmic"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
           hmap_trkpmom_cc1unp["cosmic"]->Fill(t->pfp_reco_Mom_proton[pind], event_weight);
@@ -3636,7 +3643,7 @@ void Main::Maker::MakeFile()
           hmap_thetamup_cc1unp["cosmic"]->Fill(thetamup, event_weight);
 
        } 
-       if(trackfromneutrino && t->nupdg==14 && t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775) &&
+       else if(t->nupdg==14 && t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775) &&
                (t->ngenie_muons>0 && t->ngenie_protons<1) &&(t->ngenie_electrons<1) && (t->ngenie_pipms<1 && t->ngenie_pion0s<1)) //cc0p0pi background
        {
           hmap_trkmom_cc1unp["cc0p0pi"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
@@ -3648,7 +3655,7 @@ void Main::Maker::MakeFile()
           hmap_thetamup_cc1unp["cc0p0pi"]->Fill(thetamup, event_weight);
 
        } 
-       if(trackfromneutrino && t->nupdg==14 && t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775) &&
+       else if(t->nupdg==14 && t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775) &&
                (t->ngenie_muons>0 && t->ngenie_protons>0) &&(t->ngenie_electrons<1) && (t->ngenie_pipms>0 || t->ngenie_pion0s>0)) //ccNpNpi background
        {
           hmap_trkmom_cc1unp["ccNpNpi"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
@@ -3660,7 +3667,19 @@ void Main::Maker::MakeFile()
           hmap_thetamup_cc1unp["ccNpNpi"]->Fill(thetamup, event_weight);
 
        }
-       if(trackfromneutrino && t->nupdg==14 && t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775) &&
+       else if(t->nupdg==14 && t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775) &&
+               (t->ngenie_muons>0 && t->ngenie_protons==0) &&(t->ngenie_electrons<1) && (t->ngenie_pipms>0 || t->ngenie_pion0s>0)) //ccNpNpi background
+       {
+          hmap_trkmom_cc1unp["cc0pNpi"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
+          hmap_trkpmom_cc1unp["cc0pNpi"]->Fill(t->pfp_reco_Mom_proton[pind], event_weight);
+          hmap_trklen_cc1unp["cc0pNpi"]->Fill(t->pfp_reco_length[muind], event_weight);
+          hmap_trkplen_cc1unp["cc0pNpi"]->Fill(t->pfp_reco_length[pind], event_weight);
+          hmap_trkcostheta_cc1unp["cc0pNpi"]->Fill(t->pfp_reco_costheta[muind], event_weight);
+          hmap_trkphi_cc1unp["cc0pNpi"]->Fill(t->pfp_reco_phi[muind], event_weight);
+          hmap_thetamup_cc1unp["cc0pNpi"]->Fill(thetamup, event_weight);
+       }
+
+       else if(t->nupdg==12 && t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775) && // AF - I changed the neutrino flavour to 12 - we were asking for a numu with an outgoing electron?
                (t->ngenie_electrons>0)) //Nue background
        {
           hmap_trkmom_cc1unp["CCnue"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
@@ -3672,8 +3691,8 @@ void Main::Maker::MakeFile()
           hmap_thetamup_cc1unp["CCnue"]->Fill(thetamup, event_weight);
 
        }
-       if(trackfromneutrino && t->nupdg==14 && t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775) &&
-               t->ccnc==1) //NC background
+       else if(t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775) && // AF - I removed the neutrino flavour requirement. Also the ccnc was required to be 1(cc) not 0(nc)
+               t->ccnc==0) //NC background
        {
           hmap_trkmom_cc1unp["NC"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
           hmap_trkpmom_cc1unp["NC"]->Fill(t->pfp_reco_Mom_proton[pind], event_weight);
@@ -3684,7 +3703,7 @@ void Main::Maker::MakeFile()
           hmap_thetamup_cc1unp["NC"]->Fill(thetamup, event_weight);
 
        }
-       if(trackfromneutrino && t->nupdg==-14 && t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775) &&
+       else if(t->nupdg==-14 && t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775) &&
                t->ccnc==1) //anumu background
        {
           hmap_trkmom_cc1unp["anumu"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
@@ -3696,7 +3715,7 @@ void Main::Maker::MakeFile()
           hmap_thetamup_cc1unp["anumu"]->Fill(thetamup, event_weight);
 
        }
-        if(t->fv==0 || (t->tvtx_z[0] > 675 || t->tvtx_z[0] > 775))  //out of fv backgroud
+        else if(t->fv==0 || (t->tvtx_z[0] > 675 && t->tvtx_z[0] < 775))  //out of fv backgroud // AF - fixed logic in the position check, and removed the neutrino requirement
        {
           hmap_trkmom_cc1unp["oofv"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
           hmap_trkpmom_cc1unp["oofv"]->Fill(t->pfp_reco_Mom_proton[pind], event_weight);
@@ -3706,6 +3725,10 @@ void Main::Maker::MakeFile()
           hmap_trkphi_cc1unp["oofv"]->Fill(t->pfp_reco_phi[muind], event_weight);
           hmap_thetamup_cc1unp["oofv"]->Fill(thetamup, event_weight);
 
+       }
+       else{
+       std::cout << "************** THIS EVENT DOESN'T FALL INTO ANY OF YOUR CATEGORIES *****************" << std::endl;
+       throw std::exception;
        }
        }//end of else
     }//end of if selecetd CC1uNP events
