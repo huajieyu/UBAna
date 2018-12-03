@@ -49,6 +49,7 @@
 #include <TVector3.h>
 #include "TH2Poly.h"
 #include "TEnv.h"
+#include <stdexcept>
 #include "ubana/DataTypes/UBTH2Poly.h"
 #include "ubana/DataTypes/BootstrapTH2DPoly.h"
 #include "ubana/DataTypes/UBXSecEventHisto.h"
