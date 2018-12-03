@@ -2700,24 +2700,25 @@ void Main::Maker::MakeFile()
 
     //# 5 check if all the tracks are from neutrino events
     trackfromneutrino=true;
-    if (t->pfp_truth_origin.size() != t->pfp_reco_ismuoncandidate.size()){
-      std::cout << "Truth and Reco vectors not the same length!" << std::endl;
-      throw std::exception;
-    }
+    //if (t->pfp_truth_origin.size() != t->pfp_reco_ismuoncandidate.size()){
+    //  std::cout << "Truth and Reco vectors not the same length!" << std::endl;
+    //  throw std::exception();
+    //}
     for(size_t npfp=0; npfp<t->pfp_truth_origin.size(); npfp++){
         if(t->pfp_truth_origin[npfp]!=1) {trackfromneutrino=false; }
         if(t->pfp_reco_ismuoncandidate[npfp]==1) {
            muind=npfp;
-           //std::cout<<"Muon Candidate Momentum from Track Range is "<<t->pfp_reco_Mom_muon[npfp]<<std::endl;
-           //std::cout<<"Muon Candidate Momentum from Track Range is "<<t->pfp_reco_Mom_proton[npfp]<<std::endl;
         }
     }
+
+   
+
+
 
     //std::cout<<"Libo test 4 "<<std::endl;    
     //# find out the most energetic protons index
     float temp_mom=-0.0;
     for(size_t np=0; np<t->pfp_reco_Mom_proton[np]; np++){
-//          if(np==muind) continue;
           if (t->pfp_reco_ismuoncandidate[np]) continue;
           if(t->pfp_reco_Mom_proton[np]> temp_mom) {pind=np;}
     }
