@@ -2706,12 +2706,7 @@ void Main::Maker::MakeFile()
     //}
     for(size_t npfp=0; npfp<t->pfp_truth_origin.size(); npfp++){
         if(t->pfp_truth_origin[npfp]!=1) {trackfromneutrino=false; }
-        if(t->pfp_reco_ismuoncandidate[npfp]==1) {
-           muind=npfp;
-        }
     }
-
-   
 
 
 
@@ -2719,8 +2714,11 @@ void Main::Maker::MakeFile()
     //# find out the most energetic protons index
     float temp_mom=-0.0;
     for(size_t np=0; np<t->pfp_reco_Mom_proton[np]; np++){
-          if (t->pfp_reco_ismuoncandidate[np]) continue;
-          if(t->pfp_reco_Mom_proton[np]> temp_mom) {pind=np;}
+        if(t->pfp_reco_ismuoncandidate[np]==1) {
+           muind=np;
+           continue;
+        }
+        if(t->pfp_reco_Mom_proton[np]> temp_mom) {pind=np;}
     }
     //if(t->pfp_reco_chi2_proton[muind] < 88) chi2flag=false;
 
