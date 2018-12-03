@@ -2664,7 +2664,7 @@ void Main::Maker::MakeFile()
     // Select CC1uNP events Here
     //#1 total number of track greater than 1    
     if(t->num_pfp_tracks>=2) {ntrk2flag=true;}
-    //std::cout<<"Libo test 0 "<<std::endl;    
+        
     pinCVflag=true;
     //#2 proton contained in containment volume
     // loop over all the proton candidates and select the events with all the proton candidates 
@@ -3720,7 +3720,7 @@ void Main::Maker::MakeFile()
 
        }
        else if(t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775) && // AF - I removed the neutrino flavour requirement. Also the ccnc was required to be 1(cc) not 0(nc)
-               t->ccnc==0) //NC background
+               t->ccnc==1) //NC background
        {
           hmap_trkmom_cc1unp["NC"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
           hmap_trkpmom_cc1unp["NC"]->Fill(t->pfp_reco_Mom_proton[pind], event_weight);
@@ -3733,7 +3733,7 @@ void Main::Maker::MakeFile()
 
        }
        else if(t->nupdg==-14 && t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775) &&
-               t->ccnc==1) //anumu background
+               t->ccnc==0) //anumu background
        {
           hmap_trkmom_cc1unp["anumu"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
           hmap_trkpmom_cc1unp["anumu"]->Fill(t->pfp_reco_Mom_proton[pind], event_weight);
