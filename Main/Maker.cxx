@@ -3632,7 +3632,7 @@ void Main::Maker::MakeFile()
           hmap_thetamup_cc1unp["background"]->Fill(thetamup, event_weight);
 
   
-       if(!trackfromneutrino){ // && t->nupdg==14 && t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775)) //cosmic background
+       if(!trackfromneutrino) // && t->nupdg==14 && t->fv==1&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775)) //cosmic background
        {
           hmap_trkmom_cc1unp["cosmic"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
           hmap_trkpmom_cc1unp["cosmic"]->Fill(t->pfp_reco_Mom_proton[pind], event_weight);
@@ -3728,7 +3728,7 @@ void Main::Maker::MakeFile()
        }
        else{
        std::cout << "************** THIS EVENT DOESN'T FALL INTO ANY OF YOUR CATEGORIES *****************" << std::endl;
-       throw std::exception;
+       //throw std::exception;
        }
        }//end of else
     }//end of if selecetd CC1uNP events
