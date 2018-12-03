@@ -2665,6 +2665,14 @@ void Main::Maker::MakeFile()
     //#1 total number of track greater than 1    
     if(t->num_pfp_tracks>=2) {ntrk2flag=true;}
         
+    //std::cout<<"Libo test 0 "<<std::endl;    
+    int ntracks_test(0);
+    for (int i(0); i < t->pfp_reco_istrack.size(); i++){
+      if (t->pfp_reco_istrack.at(i)){
+        ntracks_test++;
+      }
+    }
+    std::cout << "Andy's number = " << ntracks_test <<", old number = " << t->num_pfp_tracks << std::endl;
     pinCVflag=true;
     //#2 proton contained in containment volume
     // loop over all the proton candidates and select the events with all the proton candidates 
