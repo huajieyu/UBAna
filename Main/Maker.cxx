@@ -156,7 +156,7 @@ float borderz = 10.;
 
 
 //This function returns if a 3D point is within the fiducial volume
-bool Main::Maker::inFV(float x, float y, float z) {
+bool Main::Maker::inCV(float x, float y, float z) {
     if(x < (FVx - borderx) && (x > borderx) && (y < (FVy/2. - bordery)) && (y > (-FVy/2. + bordery)) && (z < (FVz - borderz)) && (z > borderz)) return true;
     //if(x < (FVx - borderx) && (x > borderx) && (y < (FVy/2. - bordery)) && (y > (-FVy/2. + bordery)) && (z < (FVz - 85)) && (z > borderz)) return true;
     else return false;
@@ -1288,7 +1288,7 @@ void Main::Maker::MakeFile()
   hmap_thetamup_cc1unp["cc0pNpi"]=new TH1D("h_thetamup_cc1unp_cc0pNpi", ";#theta_{#mu p} [Rad];", 30, -3.14159, 3.14159);
 
 
-
+ 
  
   TH1D* h_pot = new TH1D("h_pot", "First bin contains number of POT (not valid on data)", 1, 0, 1);
   TH1D* h_nevts = new TH1D("h_nevts", "First bin contains number of events", 1, 0, 1);
@@ -2663,32 +2663,31 @@ void Main::Maker::MakeFile()
     
     // Select CC1uNP events Here
     //#1 total number of track greater than 1    
-    if(t->num_pfp_tracks>=2) {ntrk2flag=true;}
+   ntrk2flag=false; 
+   if(t->num_pfp_tracks>=2) {ntrk2flag=true;}
         
     //std::cout<<"Libo test 0 "<<std::endl;    
-    int ntracks_test(0);
-    for (int i(0); i < t->pfp_reco_istrack.size(); i++){
-      if (t->pfp_reco_istrack.at(i)){
+    int ntracks_test=0;
+    for (unsigned int i=0; i < t->pfp_reco_istrack.size(); i++){
+      if (t->pfp_reco_istrack[i]){
         ntracks_test++;
       }
     }
-    std::cout << "Andy's number = " << ntracks_test <<", old number = " << t->num_pfp_tracks << std::endl;
+   
     pinCVflag=true;
     //#2 proton contained in containment volume
     // loop over all the proton candidates and select the events with all the proton candidates 
     for(size_t n_trk_pfp=0; n_trk_pfp<t->pfp_reco_startx.size(); n_trk_pfp++){
        if(t->pfp_reco_ismuoncandidate[n_trk_pfp] == 1) continue;
-        if(!inFV(t->pfp_reco_startx[n_trk_pfp], t->pfp_reco_starty[n_trk_pfp], t->pfp_reco_startz[n_trk_pfp]) ||
-          !inFV(t->pfp_reco_endx[n_trk_pfp],   t->pfp_reco_endy[n_trk_pfp],   t->pfp_reco_endz[n_trk_pfp]))   {
+       if(t->pfp_reco_istrack[n_trk_pfp] == 0) continue;
+         
+        if(!inCV(t->pfp_reco_startx[n_trk_pfp], t->pfp_reco_starty[n_trk_pfp], t->pfp_reco_startz[n_trk_pfp]) ||
+          !inCV(t->pfp_reco_endx[n_trk_pfp],   t->pfp_reco_endy[n_trk_pfp],   t->pfp_reco_endz[n_trk_pfp]))   {
            pinCVflag=false;
-           //std::cout<<"start point of the proton candidate is "<<t->pfp_reco_startx[n_trk_pfp]<<std::endl;
         }
-        /*
-        */
        
     }
 
-    //std::cout<<"Libo test 1 "<<std::endl;    
 
     //#3 Min Col hits cut
     minColflag=true;
@@ -2715,17 +2714,17 @@ void Main::Maker::MakeFile()
     for(size_t npfp=0; npfp<t->pfp_truth_origin.size(); npfp++){
         if(t->pfp_truth_origin[npfp]!=1) {trackfromneutrino=false; }
     }
-
-
-
-    //std::cout<<"Libo test 4 "<<std::endl;    
+    //for(size_t jj=0; jj<t->pfp_truth_origin.size(); jj++){
+    //for(size_t jj=0; jj<t->pfp_reco_length.size(); jj++){
+    for(unsigned int jj=0; jj<t->pfp_reco_ismuoncandidate.size(); jj++){
+       if(t->pfp_reco_ismuoncandidate[jj]==0) continue;
+       muind=jj;  
+    }
+    std::cout<<"muon candidate index is "<<muind<<std::endl;
     //# find out the most energetic protons index
     float temp_mom=-0.0;
     for(size_t np=0; np<t->pfp_reco_Mom_proton[np]; np++){
-        if(t->pfp_reco_ismuoncandidate[np]==1) {
-           muind=np;
-           continue;
-        }
+        if(t->pfp_reco_ismuoncandidate[np]==1)  continue;
         if(t->pfp_reco_Mom_proton[np]> temp_mom) {pind=np;}
     }
     //if(t->pfp_reco_chi2_proton[muind] < 88) chi2flag=false;
@@ -3498,22 +3497,19 @@ void Main::Maker::MakeFile()
     //std::cout<<"Filled CCinclusive histograms after event selection"<<" event weight = "<<event_weight<<" ntrk2flag= "<<ntrk2flag<<std::endl;
     //std::cout<<"Filled CCinclusive histograms after event selection"<<" event weight = "<<event_weight<<" pinCVflag= "<<pinCVflag<<std::endl;
     std::cout<<"Start performing CC1uNP cut !!!!"<<std::endl; 
+    isCC1uNP_sel=false;
+
     if(ntrk2flag==1){
        selected_cc1unp_events_percut["ntrk2"] +=event_weight;
        if (isCC1uNP && nu_origin && trackfromneutrino) {selected_cc1unp_signal_events_percut["ntrk2"] +=event_weight;}
-       //selected_cc1unp_events_percut["ntrk2"] +=event_weight;
-       std::cout<<"start point of the proton candidate is "<<t->pfp_reco_startx[pind] << "  "<<t->pfp_reco_starty[pind] <<" "<<t->pfp_reco_startz[pind] <<std::endl;
-       std::cout<<"end point of the proton candidate is "<<t->pfp_reco_endx[pind] << "  "<<t->pfp_reco_endy[pind] <<" "<<t->pfp_reco_endz[pind] <<std::endl;
 
-
-       std::cout<<"pinCVflag = "<<pinCVflag<<std::endl; 
        if(pinCVflag==1){
           if (isCC1uNP && nu_origin && trackfromneutrino) selected_cc1unp_signal_events_percut["pinCV"] +=event_weight;
           selected_cc1unp_events_percut["pinCV"] +=event_weight;
-          
           //fill the histogram of the number of hits
-          for(size_t ntrkhit=0; ntrkhit<t->pfp_reco_nhits.size(); ntrkhit++){
-               
+          //std::cout<<"The subtraction between the truth and reco vector size is "<<t->pfp_reco_nhits.size()-t->pfp_truth_pdg.size()<<std::endl;
+          if(t->pfp_reco_nhits.size()-t->pfp_truth_pdg.size()==0) {
+          for(size_t ntrkhit=0; ntrkhit<t->pfp_reco_nhits.size(); ntrkhit++){               
               if(t->pfp_reco_ismuoncandidate[ntrkhit]==1) continue;
               h_reco_ntrkhit->Fill(t->pfp_reco_nhits[ntrkhit]);
               h_reco_ntrkhit_lt5->Fill(t->pfp_reco_nhits[ntrkhit]);
@@ -3521,10 +3517,12 @@ void Main::Maker::MakeFile()
                  h_reco_ntrkhit_lt5_proton->Fill(t->pfp_reco_nhits[ntrkhit]); 
               }
           }
+          }
 
-
+           
           if(minColflag==true)
           {
+
              if (isCC1uNP && nu_origin && trackfromneutrino) selected_cc1unp_signal_events_percut["minCol"] +=event_weight;
              selected_cc1unp_events_percut["minCol"] +=event_weight;
              //#4 chi2 cut
@@ -3563,6 +3561,7 @@ void Main::Maker::MakeFile()
 
              
              if(chi2flag==true){
+
                 if (isCC1uNP && nu_origin && trackfromneutrino) selected_cc1unp_signal_events_percut["chi2"] +=event_weight;
                 selected_cc1unp_events_percut["chi2"] +=event_weight;
                 //perform the minimum proton momentum cut
@@ -3573,21 +3572,26 @@ void Main::Maker::MakeFile()
        } //end of if all the proton candidates are in FV
     }//end of if there are only two tracks
 
-    std::cout<<"Finished CC1uNP Event Selection "<<isCC1uNP_sel<<std::endl;
-    if(isCC1uNP_sel){
-       //loop over all the trkcands and fill the muon candidate histograms
+    std::cout<<"Finished CC1uNP Event Selection "<<isCC1uNP_sel<<" Muon index= "<<muind<<std::endl;
+    if(isCC1uNP_sel==1){
+          std::cout<<"muind= "<<muind<<"pfp candidate size  "<<t->pfp_reco_ismuoncandidate.size()<<std::endl;
+          std::cout<<" momentum of the muon cand is :"<<t->pfp_reco_Mom_MCS[muind]<< " event weight is "<<event_weight<<std::endl;
+          //loop over all the trkcands and fill the muon candidate histograms
           hmap_trkmom_cc1unp["total"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
+          std::cout<<"libo test hh1"<<std::endl;
           hmap_trkpmom_cc1unp["total"]->Fill(t->pfp_reco_Mom_proton[pind], event_weight);
           hmap_trklen_cc1unp["total"]->Fill(t->pfp_reco_length[muind], event_weight);
           hmap_trkplen_cc1unp["total"]->Fill(t->pfp_reco_length[pind], event_weight);
           hmap_trkcostheta_cc1unp["total"]->Fill(t->pfp_reco_costheta[muind], event_weight);
           hmap_trkphi_cc1unp["total"]->Fill(t->pfp_reco_phi[muind], event_weight);
           hmap_thetamup_cc1unp["total"]->Fill(thetamup, event_weight);
+          std::cout<<"libo test hh2"<<std::endl;
  
 
 
-       if(isCC1uNP && nu_origin && trackfromneutrino){
+       if(!isdata && isCC1uNP && nu_origin && trackfromneutrino){
          cc1unp_sel += event_weight;
+         std::cout<<"Check the interaction mode for a selected events "<<std::endl;
          if(t->mode==0) cc1unp_sel_qe +=event_weight;
          if(t->mode==1) cc1unp_sel_res +=event_weight;
          if(t->mode==2) cc1unp_sel_dis +=event_weight;
@@ -3620,6 +3624,11 @@ void Main::Maker::MakeFile()
          _event_histo_cc1unp_1d->h_eff_nproton_num->Fill(t->ngenie_protons,event_weight);
 
 
+         _event_histo_cc1unp_1d->h_true_reco_mom->Fill(t->true_muon_mom, t->pfp_reco_Mom_MCS[muind], event_weight);
+         _event_histo_cc1unp_1d->h_true_reco_costheta->Fill(t->lep_costheta, t->pfp_reco_costheta[muind], event_weight);
+         _event_histo_cc1unp_1d->h_true_reco_phi->Fill(t->lep_phi, t->pfp_reco_phi[muind], event_weight);
+         _event_histo_cc1unp_1d->h_true_reco_nproton->Fill(t->ngenie_protons,  event_weight);
+
          //if(!isdata && _fill_bootstrap_genie) _event_histo_cc1unp_1d->bs_genie_multisim_true_reco_mumom->Fill(_mom_true, _mom_mcs, event_weight, wgts_genie_multisim);
          //if(!isdata && _fill_bootstrap_genie) _event_histo_cc1unp_1d->bs_genie_multisim_true_reco_muangle->Fill(_angle_true, _angle_reco, event_weight, wgts_genie_multisim);
 
@@ -3633,7 +3642,7 @@ void Main::Maker::MakeFile()
          //if(!isdata && _fill_bootstrap_mc_stat) _event_histo_cc1unp_1d->bs_mc_stat_multisim_true_reco_muangle->Fill(_angle_true, _angle_reco, event_weight, wgts_mc_stat_multisim);
 
 
-
+         
          // loop over all the genie particles and get the denominator of the proton momentum efficiency
          Double_t temp_pmom=-999.0;
          for(size_t mpar=0; mpar<t->genie_mcpar_pdgcode.size(); mpar++){
@@ -3648,7 +3657,7 @@ void Main::Maker::MakeFile()
          std::cout<<"[Maker] It is a signal "<<std::endl;
 
        }
-       else{
+       else if(!isdata){
           hmap_trkmom_cc1unp["background"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
           hmap_trkpmom_cc1unp["background"]->Fill(t->pfp_reco_Mom_proton[pind], event_weight);
           hmap_trklen_cc1unp["background"]->Fill(t->pfp_reco_length[muind], event_weight);
@@ -3770,7 +3779,7 @@ void Main::Maker::MakeFile()
        throw std::exception();
        }
        
-       }//end of else
+       }//end of else if
     }//end of if selecetd CC1uNP events
     //================================================================================
     std::cout<<"Finished CC1uNP event categor  "<<std::endl;
@@ -4988,7 +4997,6 @@ void Main::Maker::MakeFile()
   kaon_proton_chi2->Write();
   kaon_kaon_chi2->Write();
   kaon_pion_chi2->Write();
-
 
 
   h_reco_ntrkhit->Write();

@@ -159,7 +159,7 @@ namespace Main{
 
     void DrawPOT2(double pot, double target = 6.6e20);
 
-    bool inFV(float x, float y, float z);
+    bool inCV(float x, float y, float z);
 
     float getAngle(float mom1, float theta1, float phi1, float mom2, float theta2, float phi2);
 
