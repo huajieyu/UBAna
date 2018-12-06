@@ -622,7 +622,7 @@ void Main::Maker::MakeFile()
   // add flags for the cc1unp selection
   bool ntrk2flag=false;
   bool pinCVflag=true;
-  bool minColflag=true;
+  bool minColflag=false;
   bool chi2flag=true;
   bool trackfromneutrino=true;
   unsigned int muind=-999;
@@ -786,6 +786,8 @@ void Main::Maker::MakeFile()
   //==============================================================================================================
   TH1D* proton_muon_chi2=new TH1D("proton_muon_chi2", "proton_muon_chi2", 100, 0, 400);
   TH1D* proton_proton_chi2=new TH1D("proton_proton_chi2", "proton_proton_chi2", 100, 0, 400);
+  TH1D* stopped_proton_proton_chi2=new TH1D("stopped_proton_proton_chi2", "stopped_proton_proton_chi2", 100, 0, 400);
+  TH1D* unstopped_proton_proton_chi2=new TH1D("unstopped_proton_proton_chi2", "unstopped_proton_proton_chi2", 100, 0, 400);
   TH1D* proton_pion_chi2=new TH1D("proton_pion_chi2", "proton_pion_chi2", 100, 0, 400);
   TH1D* proton_kaon_chi2=new TH1D("proton_kaon_chi2", "proton_kaon_chi2", 100, 0, 400);
 
@@ -1447,7 +1449,7 @@ void Main::Maker::MakeFile()
       bs_genie_pm1_eff_mumom_num.SetWeightNames(fname_genie_pm1);
       bs_genie_pm1_eff_mumom_den.SetWeightNames(fname_genie_pm1);
       
-    }
+    } //enf of if(i==_initial_entry && !isdata && _fill_bootstrap_genie
 
     // Prepare the vector of weights to be used for bootstraps
     std::vector<double> wgts_genie_pm1;
@@ -2690,10 +2692,11 @@ void Main::Maker::MakeFile()
 
 
     //#3 Min Col hits cut
-    minColflag=true;
-    //for(size_t ncand=0; ncand<t->pfp_reco_nhits.size(); ncand++){
-    //    if(t->pfp_reco_nhits[ncand]<5) minColflag=false;
-    //}
+    minColflag=false;
+    for(size_t ncand=0; ncand<t->pfp_reco_nhits.size(); ncand++){
+        if(t->pfp_reco_ismuoncandidate[ncand]==1) continue;
+        if(t->pfp_reco_nhits[ncand]>5) minColflag=true;
+    }
     //std::cout<<"Libo test 2 "<<std::endl;    
 
     //#4 chi2 cut 
@@ -3531,6 +3534,9 @@ void Main::Maker::MakeFile()
                 if(t->pfp_reco_ismuoncandidate[npfp]==1) continue;
                 if(abs(t->pfp_truth_pdg[npfp])==2212) {
                   proton_proton_chi2->Fill(t->pfp_reco_chi2_proton[npfp],event_weight); 
+
+                  if(t->pfp_reco_endz[npfp]>675 &&t->pfp_reco_endz[npfp]<775) {stopped_proton_proton_chi2->Fill(t->pfp_reco_chi2_proton[npfp],event_weight); }
+                  if(t->pfp_reco_endz[npfp]<675 ||t->pfp_reco_endz[npfp]>775) {unstopped_proton_proton_chi2->Fill(t->pfp_reco_chi2_proton[npfp],event_weight); }
                   proton_muon_chi2->Fill(t->pfp_reco_chi2_muon[npfp],event_weight); 
                   proton_pion_chi2->Fill(t->pfp_reco_chi2_pion[npfp],event_weight); 
                   proton_kaon_chi2->Fill(t->pfp_reco_chi2_kaon[npfp],event_weight); 
@@ -4980,6 +4986,9 @@ void Main::Maker::MakeFile()
   //save the cc1unp hisotgrams into the output root file
   proton_muon_chi2->Write();
   proton_proton_chi2->Write();
+  stopped_proton_proton_chi2->Write();
+  unstopped_proton_proton_chi2->Write();
+
   proton_kaon_chi2->Write();
   proton_pion_chi2->Write();
 

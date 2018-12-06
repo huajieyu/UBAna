@@ -103,7 +103,7 @@ namespace DataTypes {
 
       // Reco to true histograms - Single Differential (mumom)
       h_true_reco_mom= new TH2D("h_true_reco_mom", ";Muon Momentum (Truth) [GeV]; Muon Momentum (MCS) [GeV]", n_bins_mumom, bins_mumom, n_bins_mumom, bins_mumom);
-
+      h_true_reco_phi= new TH2D("h_true_reco_phi", ";Muon Phi (Truth); Muon Phi (Reco)[Rad]", 15, -3.14159, 3.14159, 15, -3.14159, 3.14159);
       // Number of events per channel - Single Differential (mumom)
       hmap_trkmom["total"] = new TH1D("h_trkmom_total", "; Track length;", n_bins_mumom, bins_mumom);
       hmap_trkmom["signal"] = new TH1D("h_trkmom_signal", "; Track length;", n_bins_mumom, bins_mumom);
@@ -187,10 +187,10 @@ namespace DataTypes {
       h_true_reco_costheta= new TH2D("h_true_reco_costheta", ";Muon cos(#theta) (Truth) [GeV]; Muon cos(#theta) (MCS) [GeV]", n_bins_mucostheta, bins_mucostheta, n_bins_mucostheta, bins_mucostheta);
 
 
-      h_eff_nproton_num = new TH1D("h_eff_nproton_num", "h_eff_nproton_num", 5, -0.5, 4.5);
-      h_eff_nproton_den = new TH1D("h_eff_nproton_den", "h_eff_nproton_den", 5, -0.5, 4.5);
+      h_eff_nproton_num = new TH1D("h_eff_nproton_num", "h_eff_nproton_num", 8, -0.5, 7.5);
+      h_eff_nproton_den = new TH1D("h_eff_nproton_den", "h_eff_nproton_den", 8, -0.5, 7.5);
 
-
+      h_true_reco_nproton = new TH2D("h_true_reco_nproton", ";Number of Proton(Truth); Number of Proton(Reco)", 8, -0.5, 7.5, 8, -0.5, 7.5);
 
 
       // Number of events per channel - Single Differential (muangle)

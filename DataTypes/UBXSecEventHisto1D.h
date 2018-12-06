@@ -113,10 +113,12 @@ namespace DataTypes {
 
     TH1D* h_eff_muphi_num = 0;
     TH1D* h_eff_muphi_den = 0;
-
+    
 
 
     TH2D * h_true_reco_mom = 0; ///< Reco to true histogram - Single Differential (mumom)
+    TH2D * h_true_reco_phi=0;
+
 
     BootstrapTH1D * bs_genie_multisim_eff_mumom_num = 0; ///< Efficiency Numerator - Single Differential (mumom) - Genie Multisim
     BootstrapTH1D * bs_genie_multisim_eff_mumom_den = 0; ///< Efficiency Denominator - Single Differential (mumom) - Genie Multisim
@@ -169,7 +171,7 @@ namespace DataTypes {
 
     TH1D* h_eff_nproton_num=0;
     TH1D* h_eff_nproton_den=0;    
-
+    TH2D* h_true_reco_nproton=0;
   protected:
 
 
