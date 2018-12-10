@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Mon Nov 26 16:39:32 2018 by ROOT version 6.06/08
+// Thu Dec  6 11:40:57 2018 by ROOT version 6.06/08
 // from TTree tree/
-// found on file: /build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/testing_pid_larana/ubxsec_output_mc_bnbcosmic.root
+// found on file: /build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/test_ntuples_Dec05/ubxsec_output_mc_bnbcosmic.root
 //////////////////////////////////////////////////////////
 
 #ifndef UBXSecEvent_h
@@ -12,9 +12,10 @@
 #include <TChain.h>
 #include <TFile.h>
 
-// Header file for the classes stored in the TTree if any.
-//#include "UBXSecEvent.h"
 using namespace std;
+
+// Header file for the classes stored in the TTree if any.
+
 class UBXSecEvent {
 public :
    TTree          *fChain;   //!pointer to the analyzed TTree or TChain
@@ -229,14 +230,17 @@ public :
    vector<float>   pfp_truth_endy;
    vector<float>   pfp_truth_endz;
    vector<float>   pfp_truth_endE;
+   vector<string>  pfp_truth_endProcess;
    vector<float>   pfp_truth_KE;
    vector<float>   pfp_truth_Mass;
-   vector<bool>    pfp_reco_isprimary;
+   vector<int>     pfp_reco_isprimary;
    vector<int>     pfp_reco_ndaughters;
-   vector<bool>    pfp_reco_ismuoncandidate;
-   vector<bool>    pfp_reco_istrack;
-   vector<bool>    pfp_reco_isshower;
-   vector<bool>    pfp_reco_upflag;
+   vector<int>     pfp_reco_ismuoncandidate;
+   vector<int>     pfp_reco_istrack;
+   vector<int>     pfp_reco_numtracks;
+   vector<int>     pfp_reco_isshower;
+   vector<int>     pfp_reco_numshowers;
+   vector<int>     pfp_reco_upflag;
    vector<int>     pfp_reco_Id;
    vector<float>   pfp_reco_length;
    vector<float>   pfp_reco_theta;
@@ -477,13 +481,16 @@ public :
    TBranch        *b_ubxsec_event_split_pfp_truth_endy;   //!
    TBranch        *b_ubxsec_event_split_pfp_truth_endz;   //!
    TBranch        *b_ubxsec_event_split_pfp_truth_endE;   //!
+   TBranch        *b_ubxsec_event_split_pfp_truth_endProcess;   //!
    TBranch        *b_ubxsec_event_split_pfp_truth_KE;   //!
    TBranch        *b_ubxsec_event_split_pfp_truth_Mass;   //!
    TBranch        *b_ubxsec_event_split_pfp_reco_isprimary;   //!
    TBranch        *b_ubxsec_event_split_pfp_reco_ndaughters;   //!
    TBranch        *b_ubxsec_event_split_pfp_reco_ismuoncandidate;   //!
    TBranch        *b_ubxsec_event_split_pfp_reco_istrack;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_numtracks;   //!
    TBranch        *b_ubxsec_event_split_pfp_reco_isshower;   //!
+   TBranch        *b_ubxsec_event_split_pfp_reco_numshowers;   //!
    TBranch        *b_ubxsec_event_split_pfp_reco_upflag;   //!
    TBranch        *b_ubxsec_event_split_pfp_reco_Id;   //!
    TBranch        *b_ubxsec_event_split_pfp_reco_length;   //!
@@ -538,11 +545,11 @@ UBXSecEvent::UBXSecEvent(TTree *tree) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/testing_pid_larana/ubxsec_output_mc_bnbcosmic.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/test_ntuples_Dec05/ubxsec_output_mc_bnbcosmic.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/testing_pid_larana/ubxsec_output_mc_bnbcosmic.root");
+         f = new TFile("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/test_ntuples_Dec05/ubxsec_output_mc_bnbcosmic.root");
       }
-      TDirectory * dir = (TDirectory*)f->Get("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/testing_pid_larana/ubxsec_output_mc_bnbcosmic.root:/UBXSec");
+      TDirectory * dir = (TDirectory*)f->Get("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/test_ntuples_Dec05/ubxsec_output_mc_bnbcosmic.root:/UBXSec");
       dir->GetObject("tree",tree);
 
    }
@@ -795,13 +802,16 @@ void UBXSecEvent::Init(TTree *tree)
    fChain->SetBranchAddress("pfp_truth_endy", &pfp_truth_endy, &b_ubxsec_event_split_pfp_truth_endy);
    fChain->SetBranchAddress("pfp_truth_endz", &pfp_truth_endz, &b_ubxsec_event_split_pfp_truth_endz);
    fChain->SetBranchAddress("pfp_truth_endE", &pfp_truth_endE, &b_ubxsec_event_split_pfp_truth_endE);
+   fChain->SetBranchAddress("pfp_truth_endProcess", &pfp_truth_endProcess, &b_ubxsec_event_split_pfp_truth_endProcess);
    fChain->SetBranchAddress("pfp_truth_KE", &pfp_truth_KE, &b_ubxsec_event_split_pfp_truth_KE);
    fChain->SetBranchAddress("pfp_truth_Mass", &pfp_truth_Mass, &b_ubxsec_event_split_pfp_truth_Mass);
    fChain->SetBranchAddress("pfp_reco_isprimary", &pfp_reco_isprimary, &b_ubxsec_event_split_pfp_reco_isprimary);
    fChain->SetBranchAddress("pfp_reco_ndaughters", &pfp_reco_ndaughters, &b_ubxsec_event_split_pfp_reco_ndaughters);
    fChain->SetBranchAddress("pfp_reco_ismuoncandidate", &pfp_reco_ismuoncandidate, &b_ubxsec_event_split_pfp_reco_ismuoncandidate);
    fChain->SetBranchAddress("pfp_reco_istrack", &pfp_reco_istrack, &b_ubxsec_event_split_pfp_reco_istrack);
+   fChain->SetBranchAddress("pfp_reco_numtracks", &pfp_reco_numtracks, &b_ubxsec_event_split_pfp_reco_numtracks);
    fChain->SetBranchAddress("pfp_reco_isshower", &pfp_reco_isshower, &b_ubxsec_event_split_pfp_reco_isshower);
+   fChain->SetBranchAddress("pfp_reco_numshowers", &pfp_reco_numshowers, &b_ubxsec_event_split_pfp_reco_numshowers);
    fChain->SetBranchAddress("pfp_reco_upflag", &pfp_reco_upflag, &b_ubxsec_event_split_pfp_reco_upflag);
    fChain->SetBranchAddress("pfp_reco_Id", &pfp_reco_Id, &b_ubxsec_event_split_pfp_reco_Id);
    fChain->SetBranchAddress("pfp_reco_length", &pfp_reco_length, &b_ubxsec_event_split_pfp_reco_length);
