@@ -2777,16 +2777,18 @@ void Main::Maker::MakeFile()
 
     //#3 Min Col hits cut
     minColflag=false;
+    // AF - find the leading proton candidate first!!
     for(size_t ncand=0; ncand<t->pfp_reco_nhits.size(); ncand++){
         if(t->pfp_reco_ismuoncandidate[ncand]==1) continue;
-        if(t->pfp_reco_nhits[ncand]>5) minColflag=true;
+//        if(t->pfp_reco_nhits[ncand]>5) minColflag=true;
+        if (t->pfp_reco_dEdx[ncand].size()>5)minColFlag=true; // Using length of dE/dx vector to get number of CP hits... Should be equivalent
     }
 
     //#4 chi2 cut 
     chi2flag=true;
     for(size_t ntrk=0; ntrk<t->pfp_reco_chi2_proton.size(); ntrk++){
         if(t->pfp_reco_ismuoncandidate[ntrk]==1) continue;
-        if(t->pfp_reco_nhits[ntrk]<5) continue;
+        if(t->pfp_reco_dEdx[ntrk].size()<5) continue; // Using length of dE/dx vector to get number of CP hits... Should be equivalent
         if(t->pfp_reco_chi2_proton[ntrk]>88) chi2flag=false;
     }
 
@@ -2801,6 +2803,7 @@ void Main::Maker::MakeFile()
         }
         if(t->pfp_reco_istrack[npfp] && t->pfp_truth_origin[npfp]!=1) {trackfromneutrino=false; }
     }
+    // AF - Move this upwards, before any cuts get applied
     for(unsigned int jj=0; jj<t->pfp_reco_ismuoncandidate.size(); jj++){
        if(t->pfp_reco_ismuoncandidate[jj]==0) continue;
        muind=jj;  
