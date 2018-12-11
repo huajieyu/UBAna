@@ -11,11 +11,11 @@ maker = Main.Maker()
 
 # BNBComisc
 
-#maker.SetInputFile("/uboone/data/users/mdeltutt/ubxsec_static/v06_26_01_22/ubxsec_output_mc_bnbcosmic_ubcodev06_26_01_22__v2.root"); # After Neutrino (run on gpvm)
-maker.SetInputFile("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/testing_pid_larana/ubxsec_output_mc_bnbcosmic.root");
+maker.SetInputFile("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/test_ntuples_Dec05/ubxsec_output_mc_bnbcosmic.root");
+maker.SetOutputFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Dec/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22.root") # Run1 After Neutrino
 
-maker.SetOutputFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22__v2.root"); # After Neutrino (run on gpvm)
-
+#maker.SetInputFile("/uboone/data/users/mdeltutt/ubxsec_static/v06_26_01_22/ubxsec_output_mc_dirt_ubcodev06_26_01_22__v3.root");
+#maker.SetOutputFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22/ubxsecana_output_mc_dirt_ubcodev06_26_01_22__v3.root");
 
 
 maker.SetEntries(-1)
@@ -27,21 +27,21 @@ maker.SetGainCalibration(198)
 maker.SetCalculatePOT(True)    
 maker.SetIsData(False)
 maker.SetExtraWeight(1.028); # Flux correction
-
-
+maker.SetAnalysisType("cc1unp_analysis");
+#maker.SetAnalysisType("ccinclusive_analysis");
 maker.SetMaUpMECOff(False)
 # maker.ScaleCosmics(0.54548) # For overlay systematics
 
-maker.FillBootstrapGenie(False)
+maker.FillBootstrapGenie(True)
 
 maker.FillBootstrapExtraSyst(False)
-maker.SetTargetExtraSystematic("model_q0q3_ccmec_HistogramWeight")
+#maker.SetTargetExtraSystematic("model_q0q3_ccmec_HistogramWeight")
 # maker.SetTargetExtraSystematic("model_q0q3_ccqe_HistogramWeight")
 # maker.SetTargetExtraSystematic("model_q0q3")
 # maker.SetTargetExtraSystematic("reinteractions_proton")
 # maker.SetTargetExtraSystematic("reinteractions_piplus")
 # maker.SetTargetExtraSystematic("reinteractions_piminus")
-# maker.SetTargetExtraSystematic("total")
+#maker.SetTargetExtraSystematic("total")
 
 maker.FillBootstrapFlux(False)
 #maker.SetTargetFluxSystematic("FluxUnisim");
@@ -50,7 +50,7 @@ maker.FillBootstrapFlux(False)
 #maker.SetTargetFluxSystematic("kzero_PrimaryHadronSanfordWang");
 #maker.SetTargetFluxSystematic("piminus_PrimaryHadronSWCentral");
 #maker.SetTargetFluxSystematic("piplus_PrimaryHadronSWCentralS");
-maker.SetTargetFluxSystematic("total")
+#maker.SetTargetFluxSystematic("total")
 
 maker.FillBootstrapMCStat(False)
 maker.SetNUniversesMCStat(1000)
