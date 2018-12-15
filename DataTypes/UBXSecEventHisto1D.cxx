@@ -263,6 +263,17 @@ namespace DataTypes {
       bs_extra_syst_true_reco_muangle = new BootstrapTH2D("bs_extra_syst_true_reco_muangle", ";Muon Momentum (Truth) [GeV]; Muon Momentum (MCS) [GeV]", n_bins_mucostheta, bins_mucostheta, n_bins_mucostheta, bins_mucostheta);
       bs_mc_stat_multisim_true_reco_muangle = new BootstrapTH2D("bs_mc_stat_multisim_true_reco_muangle", ";Muon Momentum (Truth) [GeV]; Muon Momentum (MCS) [GeV]", n_bins_mucostheta, bins_mucostheta, n_bins_mucostheta, bins_mucostheta);
 
+
+   selmuon_dEdx_vs_resrange = new TH2D("selmuon_dEdx_vs_resrange", "selmuon_dEdx_vs_resrange", 100,0,100,100, 0, 20);
+   selmuon_dEdx_vs_resrange->GetXaxis()->SetTitle("Residual Range[cm]");
+   selmuon_dEdx_vs_resrange->GetYaxis()->SetTitle("dEdx[MeV/cm]");
+   selproton_dEdx_vs_resrange = new TH2D("selproton_dEdx_vs_resrange", "selproton_dEdx_vs_resrange", 100,0,100,100, 0, 20);
+   selproton_dEdx_vs_resrange->GetXaxis()->SetTitle("Residual Range[cm]");
+   selproton_dEdx_vs_resrange->GetYaxis()->SetTitle("dEdx[MeV/cm]");
+
+      
+
+
     }
 
   }

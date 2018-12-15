@@ -7,29 +7,28 @@ from ROOT import Main
 
 analyser = Main.Analyse()
 
+analyser.SetBNBCosmicFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Dec/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22.root") # tune 1
+analyser.SetDirtFile ("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Dec/ubxsecana_output_mc_bnbdirt_ubcodev06_26_01_22.root")
+#analyser.SetInTimeCosmicFile  ("/Users/deltutto/RealWork/CCInclusiveEventSelection/Files/Output/ubxsecana_output_bnbcosmic_mcc8.7_test6.root") # Just a placeholder
+analyser.SetBNBONFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Dec/ubxsecana_output_data_onbeam_ubcodev06_26_01_22.root")    
+analyser.SetEXTBNBFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Dec/ubxsecana_output_data_offbeam_ubcodev06_26_01_22.root")
 
-analyser.SetBNBCosmicFile     ("/Users/deltutto/RealWork/CCInclusiveEventSelection/Files/Output/ubxsecana_output_bnbcosmic_mcc8.9_500k.root") # tune 1
-# analyser.SetBNBCosmicFile     ("/Users/deltutto/RealWork/CCInclusiveEventSelection/Files/Output/ubxsecana_output_mc_bnbcosmic_tune3_mcc8.9_test5.root") # tune 3
-# analyser.SetBNBCosmicFile     ("/Users/deltutto/RealWork/CCInclusiveEventSelection/Files/Output/ubxsecana_output_bnbcosmic_mcc8.7_test6.root")
 
-analyser.SetInTimeCosmicFile  ("/Users/deltutto/RealWork/CCInclusiveEventSelection/Files/Output/ubxsecana_output_bnbcosmic_mcc8.7_test6.root") # Just a placeholder
-analyser.SetBNBONFile         ("/Users/deltutto/RealWork/CCInclusiveEventSelection/Files/Output/ubxsecana_output_bnbon_mcc8.7_test6.root")    
-analyser.SetEXTBNBFile        ("/Users/deltutto/RealWork/CCInclusiveEventSelection/Files/Output/ubxsecana_output_extbnb_mcc8.7_test6.root")
 
-analyser.SetBNBPOT(4.852e+19);    
-analyser.SetBNBONTriggers(10820589)
-analyser.SetEXTBNBTriggers(15482261)
+analyser.SetBNBPOT(1.592e+20);    
+analyser.SetBNBONTriggers(35388924.0)
+analyser.SetEXTBNBTriggers(72299264.0)
 analyser.SetPrefix("cv");
 analyser.SetFluxCorrectionWeight(1.028)
 
 extra_unc = math.sqrt(0.02*0.02 + 0.06*0.06) # POT counting, beam window, cosmics (overlay)
 # analyser.SetExtraUncertainty(extra_unc)
 
-analyser.DoGenieSystematics(False)
-analyser.ImportGenieSystematics(False)
+analyser.DoGenieSystematics(True)
+analyser.ImportGenieSystematics(True)
 
-analyser.DoFluxSystematics(False)
-analyser.ImportFluxSystematics(False)
+analyser.DoFluxSystematics(True)
+analyser.ImportFluxSystematics(True)
 analyser.SetExtraFluxUncertainty(0.)
 #analyser.SetTargetFluxSystematic("FluxUnisim");
 #analyser.SetTargetFluxSystematic("kminus_PrimaryHadronNormalizat");

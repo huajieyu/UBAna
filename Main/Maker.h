@@ -61,7 +61,6 @@
 #include "ubana/Base/PlottingTools.h"
 
 #include "ubana/Base/LoggerFeature.h"
-
 using namespace DataTypes;
 using namespace Base;
 
@@ -149,6 +148,8 @@ namespace Main{
     /// Sets the target used for extra systematics
     void SetTargetExtraSystematic(std::string s) { _extra_syst_target_syst = s; }
 
+
+    void SetAnalysisType(std::string s) { _ana_int_type = s; }
 
   private:
 
@@ -253,7 +254,7 @@ namespace Main{
 
     std::string _target_flux_syst = "";
     std::string _extra_syst_target_syst = "";
-
+    std::string _ana_int_type = "";
     const bool _check_duplicate_events = false;
 
     double _beamSpillStarts = 3.2;  // us
@@ -321,7 +322,8 @@ namespace Main{
     int _mc_stat_n_events = 100; ///< Number of universes uses for poisson weights (mc stat)
 
     TRandom _random_engine; ///< The engine to generate random numbers
-    
+
+
   };
 }
 

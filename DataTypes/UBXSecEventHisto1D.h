@@ -172,6 +172,11 @@ namespace DataTypes {
     TH1D* h_eff_nproton_num=0;
     TH1D* h_eff_nproton_den=0;    
     TH2D* h_true_reco_nproton=0;
+
+    TH2D* selmuon_dEdx_vs_resrange;
+    TH2D* selproton_dEdx_vs_resrange;
+
+
   protected:
 
 
