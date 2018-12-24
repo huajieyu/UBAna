@@ -117,8 +117,6 @@ namespace DataTypes {
 
 
     TH2D * h_true_reco_mom = 0; ///< Reco to true histogram - Single Differential (mumom)
-    TH2D * h_true_reco_phi=0;
-
 
     BootstrapTH1D * bs_genie_multisim_eff_mumom_num = 0; ///< Efficiency Numerator - Single Differential (mumom) - Genie Multisim
     BootstrapTH1D * bs_genie_multisim_eff_mumom_den = 0; ///< Efficiency Denominator - Single Differential (mumom) - Genie Multisim
@@ -169,13 +167,7 @@ namespace DataTypes {
     BootstrapTH2D * bs_extra_syst_true_reco_muangle = 0; ///< Reco to true histograms for every universe - Single Differential (muangle) - Extra Syst
     BootstrapTH2D * bs_mc_stat_multisim_true_reco_muangle = 0; ///< Reco to true histograms for every universe - Single Differential (muangle) - MC Stat
 
-    TH1D* h_eff_nproton_num=0;
-    TH1D* h_eff_nproton_den=0;    
-    TH2D* h_true_reco_nproton=0;
-
-    TH2D* selmuon_dEdx_vs_resrange;
-    TH2D* selproton_dEdx_vs_resrange;
-
+    
 
   protected:
 

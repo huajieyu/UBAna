@@ -103,7 +103,7 @@ namespace DataTypes {
 
       // Reco to true histograms - Single Differential (mumom)
       h_true_reco_mom= new TH2D("h_true_reco_mom", ";Muon Momentum (Truth) [GeV]; Muon Momentum (MCS) [GeV]", n_bins_mumom, bins_mumom, n_bins_mumom, bins_mumom);
-      h_true_reco_phi= new TH2D("h_true_reco_phi", ";Muon Phi (Truth); Muon Phi (Reco)[Rad]", 15, -3.14159, 3.14159, 15, -3.14159, 3.14159);
+
       // Number of events per channel - Single Differential (mumom)
       hmap_trkmom["total"] = new TH1D("h_trkmom_total", "; Track length;", n_bins_mumom, bins_mumom);
       hmap_trkmom["signal"] = new TH1D("h_trkmom_signal", "; Track length;", n_bins_mumom, bins_mumom);
@@ -186,13 +186,6 @@ namespace DataTypes {
       // Reco to true histograms - Single Differential (muangle)
       h_true_reco_costheta= new TH2D("h_true_reco_costheta", ";Muon cos(#theta) (Truth) [GeV]; Muon cos(#theta) (MCS) [GeV]", n_bins_mucostheta, bins_mucostheta, n_bins_mucostheta, bins_mucostheta);
 
-
-      h_eff_nproton_num = new TH1D("h_eff_nproton_num", "h_eff_nproton_num", 8, -0.5, 7.5);
-      h_eff_nproton_den = new TH1D("h_eff_nproton_den", "h_eff_nproton_den", 8, -0.5, 7.5);
-
-      h_true_reco_nproton = new TH2D("h_true_reco_nproton", ";Number of Proton(Truth); Number of Proton(Reco)", 8, -0.5, 7.5, 8, -0.5, 7.5);
-
-
       // Number of events per channel - Single Differential (muangle)
       hmap_trktheta["total"] = new TH1D("h_trktheta_total", "; Track cos(#theta);", n_bins_mucostheta, bins_mucostheta);
       hmap_trktheta["signal"] = new TH1D("h_trktheta_signal", "; Track cos(#theta);", n_bins_mucostheta, bins_mucostheta);
@@ -262,17 +255,6 @@ namespace DataTypes {
       bs_flux_multisim_true_reco_muangle = new BootstrapTH2D("bs_flux_multisim_true_reco_muangle", ";Muon Momentum (Truth) [GeV]; Muon Momentum (MCS) [GeV]", n_bins_mucostheta, bins_mucostheta, n_bins_mucostheta, bins_mucostheta);
       bs_extra_syst_true_reco_muangle = new BootstrapTH2D("bs_extra_syst_true_reco_muangle", ";Muon Momentum (Truth) [GeV]; Muon Momentum (MCS) [GeV]", n_bins_mucostheta, bins_mucostheta, n_bins_mucostheta, bins_mucostheta);
       bs_mc_stat_multisim_true_reco_muangle = new BootstrapTH2D("bs_mc_stat_multisim_true_reco_muangle", ";Muon Momentum (Truth) [GeV]; Muon Momentum (MCS) [GeV]", n_bins_mucostheta, bins_mucostheta, n_bins_mucostheta, bins_mucostheta);
-
-
-   selmuon_dEdx_vs_resrange = new TH2D("selmuon_dEdx_vs_resrange", "selmuon_dEdx_vs_resrange", 100,0,100,100, 0, 20);
-   selmuon_dEdx_vs_resrange->GetXaxis()->SetTitle("Residual Range[cm]");
-   selmuon_dEdx_vs_resrange->GetYaxis()->SetTitle("dEdx[MeV/cm]");
-   selproton_dEdx_vs_resrange = new TH2D("selproton_dEdx_vs_resrange", "selproton_dEdx_vs_resrange", 100,0,100,100, 0, 20);
-   selproton_dEdx_vs_resrange->GetXaxis()->SetTitle("Residual Range[cm]");
-   selproton_dEdx_vs_resrange->GetYaxis()->SetTitle("dEdx[MeV/cm]");
-
-      
-
 
     }
 

@@ -102,8 +102,8 @@ namespace Main {
   //int intimecosmic_total_events = 1000;
   int dirt_total_events = 1000;
   int bnbcosmic_total_events = 1000;
-  double mc_pot_sim = 2.022e+20;
-  double mc_pot_sim_dirt = 7.2698e+20;
+  double mc_pot_sim = 1.8176e+20;
+  double mc_pot_sim_dirt = 3.7044e+20;
 
   
   // *************************************

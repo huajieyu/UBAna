@@ -46,10 +46,8 @@
 #include <TLatex.h>
 #include <TCanvas.h>
 #include "TMath.h"
-#include <TVector3.h>
 #include "TH2Poly.h"
-#include "TEnv.h"
-#include <stdexcept>
+
 #include "ubana/DataTypes/UBTH2Poly.h"
 #include "ubana/DataTypes/BootstrapTH2DPoly.h"
 #include "ubana/DataTypes/UBXSecEventHisto.h"
@@ -61,6 +59,7 @@
 #include "ubana/Base/PlottingTools.h"
 
 #include "ubana/Base/LoggerFeature.h"
+
 using namespace DataTypes;
 using namespace Base;
 
@@ -115,6 +114,9 @@ namespace Main{
     /// Sets if the file is a data one or not
     void SetIsData(bool);
 
+    /// Check if a certain track is within CV
+    bool inCV(float x, float y, float z); 
+
     /// If true, MEC events are turned off, and MA is scaled up
     void SetMaUpMECOff(bool option) {_maup_mecoff = option;};
 
@@ -148,9 +150,7 @@ namespace Main{
     /// Sets the target used for extra systematics
     void SetTargetExtraSystematic(std::string s) { _extra_syst_target_syst = s; }
 
-
-    void SetAnalysisType(std::string s) { _ana_int_type = s; }
-
+    void SetAnalysisType(std::string s) {_ana_int_type = s; }
   private:
 
     /// Prints a warning message if running with MA up and MEC off
@@ -159,10 +159,6 @@ namespace Main{
     void DrawProgressBar(double progress, double barWidth);
 
     void DrawPOT2(double pot, double target = 6.6e20);
-
-    bool inCV(float x, float y, float z);
-
-    float getAngle(float mom1, float theta1, float phi1, float mom2, float theta2, float phi2);
 
     double eff_uncertainty(int _n, int _N);
 
@@ -240,7 +236,7 @@ namespace Main{
     UBXSecEventHisto1D * _event_histo_1d;
     UBXSecEventHisto   * _event_histo;
 
-    UBXSecEventHisto1D * _event_histo_cc1unp_1d;
+
 
     bool _maup_mecoff = false;
 
@@ -322,8 +318,7 @@ namespace Main{
     int _mc_stat_n_events = 100; ///< Number of universes uses for poisson weights (mc stat)
 
     TRandom _random_engine; ///< The engine to generate random numbers
-
-
+    
   };
 }
 
