@@ -97,15 +97,13 @@ namespace Main {
   TH1::SetDefaultSumw2();
   TH2::SetDefaultSumw2();
 
-  //Set the number of events and POT*****
-
   int bnbon_total_events = 1000;
   int extbnb_total_events = 1000;
   //int intimecosmic_total_events = 1000;
   int dirt_total_events = 1000;
   int bnbcosmic_total_events = 1000;
-  double mc_pot_sim = 1.69644e+20;
-  double mc_pot_sim_dirt = 6.e19;
+  double mc_pot_sim = 1.8176e+20;
+  double mc_pot_sim_dirt = 3.7044e+20;
 
   
   // *************************************
@@ -152,7 +150,6 @@ namespace Main {
   // *************************************
   // Getting number of events for dirt
   // *************************************
-  mc_dirt_file=false;
   if (mc_dirt_file) {
     TH1D* h_nevts_dirt = (TH1D*)mc_dirt_file->Get("h_nevts");
     dirt_total_events = h_nevts_dirt->GetBinContent(1);
@@ -191,7 +188,7 @@ namespace Main {
   double scale_factor_mc_bnbcosmic = bnbon_pot_meas / mc_pot_sim;
   double scale_factor_mc_dirt = bnbon_pot_meas / mc_pot_sim_dirt;
 
-  LOG_NORMAL() << "Printing Data Scale Factors:" << std::endl;
+  LOG_NORMAL() << "Data Scale Factors:" << std::endl;
   LOG_NORMAL() << "\t BNBON: " << scale_factor_bnbon << std::endl;
   LOG_NORMAL() << "\t EXTBNB: " << scale_factor_extbnb << std::endl;
   LOG_NORMAL() << "MC Scale Factors:" << std::endl;
@@ -270,16 +267,7 @@ namespace Main {
   std::map<std::string,TH1D*> hmap_mctruth_muphi_gen_mc = *temp_map;
   TH1D* h_flsPe_wcut_mc = (TH1D*)mc_bnbcosmic_file->Get("h_flsPe_wcut");
 
-
-  //get the relevent histograms for CC1uNP cross section measurement
-  mc_bnbcosmic_file->GetObject("hmap_trkmom_cc1unp", temp_map);
-  std::map<std::string,TH1D*> hmap_trkmom_cc1unp_mc=*temp_map;
-
-
-
-
-  //Get the truncated mean dqdx of the MC sample
-  //and truncated mean dqdx vs track length 
+  
   mc_bnbcosmic_file->GetObject("hmap_dqdx_trunc", temp_map);
   std::map<std::string,TH1D*> hmap_dqdx_trunc_mc = *temp_map;
   TH2D* h_dqdx_trunc_length_mc = (TH2D*)mc_bnbcosmic_file->Get("h_dqdx_trunc_length");
@@ -289,18 +277,11 @@ namespace Main {
   std::map<std::string,std::map<std::string,TH1D*>>* temp_map_bs;
   BootstrapTH1D * temp_bs;
 
-  std::map<std::string,std::map<std::string,TH1D*>>* temp_map_cc1unp_bs;
-  BootstrapTH1D * temp_cc1unp_bs;
-
- 
 
   LOG_NORMAL() << "Checkpoint 1" << std::endl;
 
   mc_bnbcosmic_file->GetObject("hmap_trkmom_genie_pm1_bs", temp_map_bs);
   std::map<std::string,std::map<std::string,TH1D*>> map_bs = *temp_map_bs;
-
-  mc_bnbcosmic_file->GetObject("hmap_cc1unp_trkmom_genie_pm1_bs", temp_map_cc1unp_bs);
-  std::map<std::string,std::map<std::string,TH1D*>> map_cc1unp_bs = *temp_map_cc1unp_bs;
 
 
   LOG_NORMAL() << "Checkpoint 2" << std::endl;
@@ -321,29 +302,6 @@ namespace Main {
   mc_bnbcosmic_file->GetObject("bs_genie_pm1_true_reco_mom", temp_map_bs2);
   std::map<std::string,TH2D*> bs_true_reco_mom_mc = *temp_map_bs2;
   LOG_NORMAL() << "Checkpoint 7" << std::endl;
-
-  // Libo CC1uNP Calculation 
- 
-
-  // Bootstrap efficiency - GENIE pm1sigma
-  mc_bnbcosmic_file->GetObject("bs_genie_pm1_eff_cc1unp_mumom_num", temp_cc1unp_bs);
-  BootstrapTH1D bs_genie_pm1_eff_cc1unp_mumom_num = *temp_cc1unp_bs;
-  mc_bnbcosmic_file->GetObject("bs_genie_pm1_eff_cc1unp_mumom_den", temp_cc1unp_bs);
-  BootstrapTH1D bs_genie_pm1_eff_cc1unp_mumom_den = *temp_cc1unp_bs;
-  LOG_NORMAL() << "Checkpoint 8" << std::endl;
-  LOG_NORMAL() << "Checkpoint 9" << std::endl;
-  LOG_NORMAL() << "Checkpoint 10" << std::endl;
-  LOG_NORMAL() << "Checkpoint 11" << std::endl;
-
-  // Boostrap reco-true
-  std::map<std::string,TH2D*>* temp_map_cc1unp_bs2;
-  mc_bnbcosmic_file->GetObject("bs_genie_pm1_cc1unp_true_reco_mom", temp_map_cc1unp_bs2);
-  std::map<std::string,TH2D*> bs_cc1unp_true_reco_mom_mc = *temp_map_cc1unp_bs2;
-  LOG_NORMAL() << "Checkpoint 12" << std::endl;
-
- 
-
- //==============================================================================================
 
 
 
@@ -366,33 +324,6 @@ namespace Main {
     genie_rw_plotter.MakePlots(2, false, true);
     genie_rw_plotter.MakeBackgroundPlots(0, false, true);  
   }
-  //=========================================================================================
-  // Instantiate the GENIE reweighting plotter
-  ReweightingPlotter genie_rw_plotter_cc1unp;
-
-  if (_do_pm1sigma_plots) {
-
-    // Bootstrap number of events per type
-    std::map<std::string, BootstrapTH1D> bs_cc1unp;
-    for (auto it : map_cc1unp_bs) {
-      BootstrapTH1D temp_cc1unp;
-      temp_cc1unp.SetAllHistograms(it.second);
-      bs_cc1unp[it.first] = temp_cc1unp;
-    }
-    // Make +-1 sigma plots from GENIE
-    genie_rw_plotter.SetEventBootstrapMap(bs_cc1unp);
-    genie_rw_plotter.SetEfficiencyBootstraps(bs_genie_pm1_eff_cc1unp_mumom_num, bs_genie_pm1_eff_cc1unp_mumom_den);
-    genie_rw_plotter.MakePlots(0, false, true);
-    genie_rw_plotter.MakePlots(2, false, true);
-    genie_rw_plotter.MakeBackgroundPlots(0, false, true);  
-  }
-
-
-
-
-
-
-
 
   LOG_NORMAL() << "Checkpoint 8" << std::endl;
 
@@ -540,22 +471,9 @@ namespace Main {
   TH1D* h_mom_mcs_length_total_bnbon = (TH1D*)bnbon_file->Get("h_mom_mcs_length_total");
   TH1D* h_mom_mcs_length_total_extbnb = (TH1D*)extbnb_file->Get("h_mom_mcs_length_total");
 
-
-  TH1D* hmap_trkmom_cc1unp_bnbon=(TH1D*)bnbon_file->Get("hmap_trkmom_cc1unp_total");
-  TH1D* hmap_trkmom_cc1unp_extbnb=(TH1D*)extbnb_file->Get("hmap_trkmom_cc1unp_total");
-
-
-
-
-  //#######################################################################################################
-
   // Get the true histo from the data file, for when we run in fake data mode
   TH1D * h_truth_xsec_mumom_fake = (TH1D*)bnbon_file->Get("h_truth_xsec_mumom");
   TH1D * h_truth_xsec_muangle_fake = (TH1D*)bnbon_file->Get("h_truth_xsec_muangle");
-
-  TH1D * h_truth_cc1unp_xsec_mumom_fake = (TH1D*)bnbon_file->Get("h_truth_cc1unp_xsec_mumom");
-  //TH1D * h_truth_cc1unp_xsec_muangle_fake = (TH1D*)bnbon_file->Get("h_truth_cc1unp_xsec_muangle");
-
 
   TH1D* h_flsPe_wcut_bnbon = (TH1D*)bnbon_file->Get("h_flsPe_wcut");
   TH1D* h_flsPe_wcut_extbnb = (TH1D*)extbnb_file->Get("h_flsPe_wcut");
@@ -575,12 +493,6 @@ namespace Main {
   // Muon costheta
   TH1D * h_truth_xsec_muangle = (TH1D*)mc_bnbcosmic_file->Get("h_truth_xsec_muangle");
 
-  // Muon momentum
-  TH1D * h_truth_cc1unp_xsec_mumom = (TH1D*)mc_bnbcosmic_file->Get("h_truth_cc1unp_xsec_mumom");
-
-  // Muon costheta
-  //TH1D * h_truth_cc1unp_xsec_muangle = (TH1D*)mc_bnbcosmic_file->Get("h_truth_cc1unp_xsec_muangle");
-
 
 
 
@@ -593,11 +505,6 @@ namespace Main {
   mc_bnbcosmic_file->GetObject("UBXSecEventHisto", _event_histo_mc);
 
   LOG_NORMAL() << "Event Histo correclty loaded from BNBCosmic file." << std::endl;
-
-
-  UBXSecEventHisto1D * _event_histo_cc1unp_1d_mc = 0;
-  mc_bnbcosmic_file->GetObject("UBXSecEventHisto_CC1uNP_1D", _event_histo_cc1unp_1d_mc);
-
 
 
 
@@ -634,14 +541,14 @@ namespace Main {
 
   
     std::cout << "JJJJJ Just before" << std::endl;
-    //std::cout << "maximum " << _event_histo_mc->hmap_trktheta_trkmom_poly["signal"]->GetMaximum() << std::endl;
+    std::cout << "maximum " << _event_histo_mc->hmap_trktheta_trkmom_poly["signal"]->GetMaximum() << std::endl;
     std::cout << "calling ProjectionY " << std::endl;
     std::vector<int> bin_numbers;
     std::cout << "before calling GetCopyWithBinNumbers" << std::endl;
-    //UBTH2Poly* h_poly_binnumber = _event_histo_mc->hmap_trktheta_trkmom_poly["signal"]->GetCopyWithBinNumbers("bs");
+    UBTH2Poly* h_poly_binnumber = _event_histo_mc->hmap_trktheta_trkmom_poly["signal"]->GetCopyWithBinNumbers("bs");
     std::cout << "after calling GetCopyWithBinNumbers" << std::endl;
 
-    //std::cout << "Original   bin 2, content: " << _event_histo_mc->hmap_trktheta_trkmom_poly["signal"]->GetBinContent(9) << " +- " << _event_histo_mc->hmap_trktheta_trkmom_poly["signal"]->GetBinError(9) << std::endl;
+    std::cout << "Original   bin 2, content: " << _event_histo_mc->hmap_trktheta_trkmom_poly["signal"]->GetBinContent(9) << " +- " << _event_histo_mc->hmap_trktheta_trkmom_poly["signal"]->GetBinError(9) << std::endl;
     std::cout << "JJJJJ Just after" << std::endl;
 
 
@@ -705,9 +612,9 @@ namespace Main {
 
 
     // Create a list of the backgrounds that will be subtracted
-    std::vector<std::string> bkg_names = {"beam-off", "cosmic", "outfv", "nc", "nue", "anumu"};
+    std::vector<std::string> bkg_names = {"beam-off", "cosmic", "outfv", "nc", "nue", "anumu", "cc_other"};
     if (mc_dirt_file) {
-      bkg_names = {"beam-off", "cosmic", "outfv", "nc", "nue", "anumu", "dirt"};
+      bkg_names = {"beam-off", "cosmic", "outfv", "nc", "nue", "anumu", "cc_other",  "dirt"};
     }
 
 
@@ -938,7 +845,7 @@ namespace Main {
         unc_plotter.AddFracCovarianceMatrix("EXTRA", frac_covariance_matrix_extra_syst);
       }
 
-      std::cout<<"FLUX Multisim Systematics<<<<<<<<<<<<<<<<<"<<std::endl;
+
 
       //
       // FLUX Multisim Systematics
@@ -1058,9 +965,7 @@ namespace Main {
     //   std::cout << "TOTAL - Momentum - Uncertainties on the diagonal: " << i << " => " << covariance_matrix_mumom.GetBinContent(i+1, i+1) << std::endl;
     // }
 
-    //==================================================================================================
-
-
+    
     //
     // Muon Momentum Cross Section
     //
@@ -1118,77 +1023,13 @@ namespace Main {
     unc_plotter.SetCrossSection(*xsec_mumom);
     unc_plotter.MakePlot("relative_uncertainty_mumom.pdf");
 
-    //==================================================================================================
-    std::cout<<"Start getting the cross section of CC1uNP<<<<<<<<,"<<std::endl;
-
-    //Start of CC1uNP
-    //
-    // Muon Momentum Cross Section
-    //
-    TMatrix S_2d_cc1unp; S_2d_cc1unp.Clear(); S_2d_cc1unp.ResizeTo(n_bins_mumom, n_bins_mumom);
-    MigrationMatrix2D migrationmatrix2d_cc1unp;
-    migrationmatrix2d_cc1unp.SetOutDir("migration_matrix_2d_cc1unp_trkmom");
-    migrationmatrix2d_cc1unp.SetNBins(n_bins_mumom, n_bins_mumom);
-    migrationmatrix2d_cc1unp.SetTrueRecoHistogram(_event_histo_1d_mc->h_true_reco_mom);
-    S_2d_cc1unp = migrationmatrix2d_cc1unp.CalculateMigrationMatrix();
-    migrationmatrix2d_cc1unp.PlotMatrix();
-    migrationmatrix2d_cc1unp.SetOutputFileName("migration_matrix_2d_cc1unp_trkmom.tex");
-    migrationmatrix2d_cc1unp.PrintSmearingMatrixLatex();
-    std::cout<<"got the matrix already "<<std::endl;
-    _xsec_calc.Reset();
-    _xsec_calc.set_verbosity(Base::msg::kINFO);
-    _xsec_calc.SetMigrationMatrix(S_2d_cc1unp);
-    /*if (_event_histo_1d_dirt) _xsec_calc.SetHistograms(hmap_trkmom_cc1unp_mc, hmap_trkmom_cc1unp_bnbon, hmap_trkmom_cc1unp_extbnb, _event_histo_1d_dirt->hmap_trkmom);  
-    else*/                      _xsec_calc.SetHistograms(hmap_trkmom_cc1unp_mc, hmap_trkmom_cc1unp_bnbon, hmap_trkmom_cc1unp_extbnb);
-    _xsec_calc.SetTruthHistograms(_event_histo_cc1unp_1d_mc->h_eff_mumom_num, _event_histo_cc1unp_1d_mc->h_eff_mumom_den);
-    _xsec_calc.SetTruthXSec(h_truth_cc1unp_xsec_mumom);
-    /*if (_fake_data_mode) {
-      _xsec_calc.SetTruthXSec(h_truth_cc1unp_xsec_mumom_fake, n_bins_mumom, n_bins_mumom);
-    }*/
-
-
-    _xsec_calc.SetNameAndLabel("trkmom", ";p_{#mu}^{reco} [GeV]; Selected Events");
-    _xsec_calc.ProcessPlots();
-    _xsec_calc.SaveEventNumbers("trkmom_eventsperbin_table.tex");
-    std::cout<<"got the matrix already 4"<<std::endl;
-
-    _xsec_calc.Draw();
-    _xsec_calc.Draw(bkg_names);
-    _xsec_calc.Smear(n_bins_mumom, n_bins_mumom);
-    //if (frac_covariance_matrix_mumom.GetNbinsX() > 1) {
-    //  _xsec_calc.SetFractionalCovarianceMatrix(frac_covariance_matrix_mumom);
-    //}
-    //_xsec_calc.AddExtraDiagonalUncertainty(_extra_fractional_uncertainty);
-    /*if (_import_alternative_mc) {
-      TH1D* h = (TH1D*)file_alt_mc->Get("xsec_mumom_mc_cv_tune3");
-      _xsec_calc.ImportAlternativeMC(*h);
-    }
-    */
-    std::cout<<"Start call the xsec extraction "<<std::endl;
-    TH1D * cc1unp_xsec_mumom = _xsec_calc.ExtractCrossSection(bkg_names, "p_{#mu}^{reco} [GeV]", "d#sigma/dp_{#mu}^{reco} [10^{-38} cm^{2}/GeV]");
-
-    TH1D * cc1unp_xsec_mumom_mc = _xsec_calc.GetMCCrossSection();
-    file_out->cd();
-    save_name = "smearing_matrix_mumom_" + _prefix;
-    S_2d_cc1unp.Write(save_name.c_str());
-    save_name = "cc1unp_xsec_mumom_" + _prefix;
-    cc1unp_xsec_mumom->Write(save_name.c_str());
-    save_name = "cc1unp_xsec_mumom_mc_" + _prefix;
-    cc1unp_xsec_mumom_mc->Write(save_name.c_str());
-    save_name = "frac_covariance_matrix_cc1unp_mumom_" + _prefix;
-    frac_covariance_matrix_mumom.Write(save_name.c_str());
-
-
-    
-
-    unc_plotter.SetCrossSection(*cc1unp_xsec_mumom);
-    unc_plotter.MakePlot("relative_uncertainty_cc1unp_mumom.pdf");
 
 
 
 
 
-    //==================================================================================================
+
+
 
 
 
@@ -2164,6 +2005,7 @@ namespace Main {
   hmap_trklen_mc["outfv"]->Integral() +
   hmap_trklen_mc["nc"]->Integral() +
   hmap_trklen_mc["anumu"]->Integral() +
+  hmap_trklen_mc["cc_other"]->Integral() +
   hmap_trklen_mc["nue"]->Integral() +
   hmap_trklen_mc["beam-off"]->Integral();
 
@@ -2178,6 +2020,7 @@ namespace Main {
   hmap_trklen_mc["outfv"]->Integral(0, nbins+1) +
   hmap_trklen_mc["nc"]->Integral(0, nbins+1) +
   hmap_trklen_mc["anumu"]->Integral(0, nbins+1) +
+  hmap_trklen_mc["cc_other"]->Integral(0, nbins+1) +
   hmap_trklen_mc["nue"]->Integral(0, nbins+1) +
   hmap_trklen_mc["dirt"]->Integral(0, nbins+1) +
   hmap_trklen_mc["beam-off"]->Integral(0, nbins+1);
@@ -2187,6 +2030,7 @@ namespace Main {
   std::cout << "outfv: " << hmap_trklen_mc["outfv"]->Integral(0, nbins+1) << ", " << hmap_trklen_mc["outfv"]->Integral(0, nbins+1) / den << std::endl;
   std::cout << "nc: " << hmap_trklen_mc["nc"]->Integral(0, nbins+1) << ", " << hmap_trklen_mc["nc"]->Integral(0, nbins+1) / den << std::endl;
   std::cout << "anumu: " << hmap_trklen_mc["anumu"]->Integral(0, nbins+1) << ", " << hmap_trklen_mc["anumu"]->Integral(0, nbins+1) / den << std::endl;
+  std::cout << "cc_other: " << hmap_trklen_mc["cc_other"]->Integral(0, nbins+1) << ", " << hmap_trklen_mc["cc_other"]->Integral(0, nbins+1) / den << std::endl;
   std::cout << "nue: " << hmap_trklen_mc["nue"]->Integral(0, nbins+1) << ", " << hmap_trklen_mc["nue"]->Integral(0, nbins+1) / den << std::endl;
   std::cout << "dirt: " << hmap_trklen_mc["dirt"]->Integral(0, nbins+1) << ", " << hmap_trklen_mc["dirt"]->Integral(0, nbins+1) / den << std::endl;
   std::cout << "beam-off: " << hmap_trklen_mc["beam-off"]->Integral(0, nbins+1) << ", " << hmap_trklen_mc["beam-off"]->Integral(0, nbins+1) / den << std::endl;
@@ -2214,7 +2058,7 @@ namespace Main {
 
 TCanvas* canvas_binnumber_poly = new TCanvas("canvas_binnumber_poly", "canvas", 800, 700);
 
-  //h_poly_binnumber->Draw("text");
+  h_poly_binnumber->Draw("text");
 
   name = outdir + "binnumber_poly_signal";
   canvas_binnumber_poly->SaveAs(name + ".pdf");

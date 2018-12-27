@@ -117,7 +117,7 @@ namespace DataTypes {
 
 
     TH2D * h_true_reco_mom = 0; ///< Reco to true histogram - Single Differential (mumom)
-
+    TH2D * h_true_reco_pmom = 0;
     BootstrapTH1D * bs_genie_multisim_eff_mumom_num = 0; ///< Efficiency Numerator - Single Differential (mumom) - Genie Multisim
     BootstrapTH1D * bs_genie_multisim_eff_mumom_den = 0; ///< Efficiency Denominator - Single Differential (mumom) - Genie Multisim
     BootstrapTH1D * bs_flux_multisim_eff_mumom_num = 0; ///< Efficiency Numerator - Single Differential (mumom) - Flux Multisim

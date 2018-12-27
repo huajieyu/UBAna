@@ -110,7 +110,6 @@ namespace Main {
   // Opening files
   // *************************************
   std::cout<<"Start open the input files "<<std::endl;
-
   TFile* mc_bnbcosmic_file = TFile::Open(mc_bnbcosmic_file_name.c_str(), "READ");
   std::cout<<"Opened the MC input file "<<std::endl;
   //TFile* mc_intimecosmic_file = TFile::Open(mc_intimecosmic_file_name.c_str(), "READ");
