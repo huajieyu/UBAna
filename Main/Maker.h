@@ -47,7 +47,7 @@
 #include <TCanvas.h>
 #include "TMath.h"
 #include "TH2Poly.h"
-
+#include "TVector3.h"
 #include "ubana/DataTypes/UBTH2Poly.h"
 #include "ubana/DataTypes/BootstrapTH2DPoly.h"
 #include "ubana/DataTypes/UBXSecEventHisto.h"
@@ -116,6 +116,12 @@ namespace Main{
 
     /// Check if a certain track is within CV
     bool inCV(float x, float y, float z); 
+
+    float getAngle(float mom1, float theta1, float phi1, float mom2, float theta2, float phi2);
+
+    float getEta(vector<vector<double>> canddQdx, vector<vector<double>> trkRR, vector<float> trklen,  int muind, int pind);
+ 
+    float Ecalomiss(float Esum, float ptmis, int np);
 
     /// If true, MEC events are turned off, and MA is scaled up
     void SetMaUpMECOff(bool option) {_maup_mecoff = option;};

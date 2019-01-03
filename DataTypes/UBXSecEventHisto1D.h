@@ -103,7 +103,7 @@ namespace DataTypes {
     //
     // Single differential (mumom)
     //
-
+    std::map<std::string,TH1D*> hmap_trkpmom; 
     std::map<std::string,TH1D*> hmap_trkmom; ///< Number of events per channel - Single Differential (mumom)
     TH1D* h_eff_mumom_num = 0; ///< Efficiency Numerator - Single Differential (mumom)
     TH1D* h_eff_mumom_den = 0; ///< Efficiency Denominator - Single Differential (mumom)

@@ -105,23 +105,23 @@ namespace DataTypes {
       h_true_reco_mom= new TH2D("h_true_reco_mom", ";Muon Momentum (Truth) [GeV]; Muon Momentum (MCS) [GeV]", n_bins_mumom, bins_mumom, n_bins_mumom, bins_mumom);
       h_true_reco_pmom= new TH2D("h_true_reco_mom", ";Proton Momentum (Truth) [GeV]; Proton Momentum (Reco) [GeV]", n_bins_pmom, 0.0, 1.5, n_bins_pmom, 0.0, 1.5);
       // Number of events per channel - Single Differential (mumom)
-      hmap_trkmom["total"] = new TH1D("h_trkmom_total", "; Track length;", n_bins_mumom, bins_mumom);
-      hmap_trkmom["signal"] = new TH1D("h_trkmom_signal", "; Track length;", n_bins_mumom, bins_mumom);
-      hmap_trkmom["cosmic"] = new TH1D("h_trkmom_cosmic", "; Track length;", n_bins_mumom, bins_mumom);
-      hmap_trkmom["cosmic_stopmu"] = new TH1D("h_trkmom_cosmic_stopmu", "; Track length;", n_bins_mumom, bins_mumom);
-      hmap_trkmom["cosmic_nostopmu"] = new TH1D("h_trkmom_cosmic_nostopmu", "; Track length;", n_bins_mumom, bins_mumom);
-      hmap_trkmom["outfv"] = new TH1D("h_trkmom_outfv", "; Track length;", n_bins_mumom, bins_mumom);
-      hmap_trkmom["outfv_stopmu"] = new TH1D("h_trkmom_outfv_stopmu", "; Track length;", n_bins_mumom, bins_mumom);
-      hmap_trkmom["outfv_nostopmu"] = new TH1D("h_trkmom_outfv_nostopmu", "; Track length;", n_bins_mumom, bins_mumom);
-      hmap_trkmom["nc"] = new TH1D("h_trkmom_nc", "; Track length;", n_bins_mumom, bins_mumom);
-      hmap_trkmom["nc_proton"] = new TH1D("h_trkmom_nc_proton", "; Track length;", n_bins_mumom, bins_mumom);
-      hmap_trkmom["nc_pion"] = new TH1D("h_trkmom_nc_pion", "; Track length;", n_bins_mumom, bins_mumom);
-      hmap_trkmom["nc_other"] = new TH1D("h_trkmom_nc_other", "; Track length;", n_bins_mumom, bins_mumom);
-      hmap_trkmom["anumu"] = new TH1D("h_trkmom_anumu", "; Track length;", n_bins_mumom, bins_mumom);
-      hmap_trkmom["nue"] = new TH1D("h_trkmom_nue", "; Track length;", n_bins_mumom, bins_mumom);
-      hmap_trkmom["signal_stopmu"] = new TH1D("h_trkmom_signal_stopmu", "; Track length;", n_bins_mumom, bins_mumom);
-      hmap_trkmom["signal_nostopmu"] = new TH1D("h_trkmom_signal_nostopmu", "; Track length;", n_bins_mumom, bins_mumom);
-      hmap_trkmom["cc_other"] = new TH1D("h_trkmom_ccother", "; Track length;", n_bins_mumom, bins_mumom);
+      hmap_trkmom["total"] = new TH1D("h_trkmom_total", "; Track momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkmom["signal"] = new TH1D("h_trkmom_signal", "; Track momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkmom["cosmic"] = new TH1D("h_trkmom_cosmic", "; Track momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkmom["cosmic_stopmu"] = new TH1D("h_trkmom_cosmic_stopmu", "; Track momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkmom["cosmic_nostopmu"] = new TH1D("h_trkmom_cosmic_nostopmu", "; Track momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkmom["outfv"] = new TH1D("h_trkmom_outfv", "; Track momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkmom["outfv_stopmu"] = new TH1D("h_trkmom_outfv_stopmu", "; Track momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkmom["outfv_nostopmu"] = new TH1D("h_trkmom_outfv_nostopmu", "; Track momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkmom["nc"] = new TH1D("h_trkmom_nc", "; Track momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkmom["nc_proton"] = new TH1D("h_trkmom_nc_proton", "; Track momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkmom["nc_pion"] = new TH1D("h_trkmom_nc_pion", "; Track momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkmom["nc_other"] = new TH1D("h_trkmom_nc_other", "; Track momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkmom["anumu"] = new TH1D("h_trkmom_anumu", "; Track momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkmom["nue"] = new TH1D("h_trkmom_nue", "; Track momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkmom["signal_stopmu"] = new TH1D("h_trkmom_signal_stopmu", "; Track momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkmom["signal_nostopmu"] = new TH1D("h_trkmom_signal_nostopmu", "; Track momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkmom["cc_other"] = new TH1D("h_trkmom_ccother", "; Track momentum;", n_bins_mumom, bins_mumom);
       // Efficiency - Single Differential (mumom) - Multisim
       bs_genie_multisim_eff_mumom_num = new BootstrapTH1D("bs_genie_multisim_eff_mumom_num", "bs_genie_multisim_eff_mumom_num_title", n_bins_mumom, bins_mumom);
       bs_genie_multisim_eff_mumom_den = new BootstrapTH1D("bs_genie_multisim_eff_mumom_den", "bs_genie_multisim_eff_mumom_den_title", n_bins_mumom, bins_mumom);
@@ -255,6 +255,27 @@ namespace DataTypes {
       bs_flux_multisim_true_reco_muangle = new BootstrapTH2D("bs_flux_multisim_true_reco_muangle", ";Muon Momentum (Truth) [GeV]; Muon Momentum (MCS) [GeV]", n_bins_mucostheta, bins_mucostheta, n_bins_mucostheta, bins_mucostheta);
       bs_extra_syst_true_reco_muangle = new BootstrapTH2D("bs_extra_syst_true_reco_muangle", ";Muon Momentum (Truth) [GeV]; Muon Momentum (MCS) [GeV]", n_bins_mucostheta, bins_mucostheta, n_bins_mucostheta, bins_mucostheta);
       bs_mc_stat_multisim_true_reco_muangle = new BootstrapTH2D("bs_mc_stat_multisim_true_reco_muangle", ";Muon Momentum (Truth) [GeV]; Muon Momentum (MCS) [GeV]", n_bins_mucostheta, bins_mucostheta, n_bins_mucostheta, bins_mucostheta);
+      //==============================================================================================================
+      hmap_trkpmom["total"] = new TH1D("h_trkpmom_total", "; Track-pcand momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkpmom["signal"] = new TH1D("h_trkpmom_signal", "; Track-pcand momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkpmom["cosmic"] = new TH1D("h_trkpmom_cosmic", "; Track-pcand momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkpmom["cosmic_stopmu"] = new TH1D("h_trkpmom_cosmic_stopmu", "; Track-pcand momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkpmom["cosmic_nostopmu"] = new TH1D("h_trkpmom_cosmic_nostopmu", "; Track-pcand momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkpmom["outfv"] = new TH1D("h_trkpmom_outfv", "; Track-pcand momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkpmom["outfv_stopmu"] = new TH1D("h_trkpmom_outfv_stopmu", "; Track-pcand momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkpmom["outfv_nostopmu"] = new TH1D("h_trkpmom_outfv_nostopmu", "; Track-pcand momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkpmom["nc"] = new TH1D("h_trkpmom_nc", "; Track-pcand momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkpmom["nc_proton"] = new TH1D("h_trkpmom_nc_proton", "; Track-pcand momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkpmom["nc_pion"] = new TH1D("h_trkpmom_nc_pion", "; Track-pcand momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkpmom["nc_other"] = new TH1D("h_trkpmom_nc_other", "; Track-pcand momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkpmom["anumu"] = new TH1D("h_trkpmom_anumu", "; Track-pcand momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkpmom["nue"] = new TH1D("h_trkpmom_nue", "; Track-pcand momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkpmom["signal_stopmu"] = new TH1D("h_trkpmom_signal_stopmu", "; Track-pcand momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkpmom["signal_nostopmu"] = new TH1D("h_trkpmom_signal_nostopmu", "; Track-pcand momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkpmom["cc_other"] = new TH1D("h_trkpmom_ccother", "; Track-pcand momentum;", n_bins_mumom, bins_mumom);
+ 
+
+
 
     }
 
