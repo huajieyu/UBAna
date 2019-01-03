@@ -2775,7 +2775,7 @@ void Main::Maker::MakeFile()
     for(size_t ntrk=0; ntrk<t->pfp_reco_chi2_proton.size(); ntrk++){
         if(t->pfp_reco_ismuoncandidate[ntrk]==1) continue;
         if(t->pfp_reco_istrack[ntrk]==0) continue;
-        if(t->pfp_reco_dEdx[ntrk].size()>5 && t->pfp_reco_chi2_proton[ntrk]>88) {npcand_fail_chi2++;}
+        if(t->pfp_reco_dEdx[ntrk].size()>=5 && t->pfp_reco_chi2_proton[ntrk]>88) {npcand_fail_chi2++;}
     }
     
 
