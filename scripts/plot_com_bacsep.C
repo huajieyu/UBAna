@@ -32,19 +32,11 @@ void stackHists(THStack *stack, TH1D *histarray_sig[], TH1D *histarray_bac[], TH
   histarray_data[1]->SetLineWidth(1);
   histarray_data[1]->Scale(scale_onoffbeam);
 
-<<<<<<< HEAD
-  const double scale_ondirtbeam=1.592/3.704;
-  histarray_data[3]->SetFillStyle(3144);
-  histarray_data[3]->SetFillColor(28);
-  histarray_data[3]->Scale(scale_ondirtbeam);
-  
-=======
   histarray_data[3]->SetFillStyle(3004);
   histarray_data[3]->SetFillColor(11);
   histarray_data[3]->SetLineWidth(1);
   histarray_data[3]->Scale(scale_dirt_MC*normfac);
 
->>>>>>> cc5aadb0656e2abc82636b470fa6b1b1b02a7a27
   // Merge background histograms as needed
   //histarray_bac[1]->Add(histarray_bac[2]); // CC0p0pi add CC0pNpi
   //histarray_bac[1]->Add(histarray_bac[3]); // CC0p0pi add CCNpNpi
@@ -176,10 +168,7 @@ void plot_com_bacsep(){
   h_range_allsel[2]->Sumw2();
 
   h_range_allsel[3]=(TH1D*)input3->Get("h_trklen_total");
-<<<<<<< HEAD
-=======
   //h_range_allsel[2]->Rebin(4);
->>>>>>> cc5aadb0656e2abc82636b470fa6b1b1b02a7a27
   h_range_allsel[3]->Sumw2();
 
 
@@ -229,13 +218,10 @@ void plot_com_bacsep(){
   h_prange_allsel[2]=(TH1D*)input2->Get("h_trkplen_total");
   //h_prange_allsel[2]->Rebin(4);
   h_prange_allsel[2]->Sumw2();
-<<<<<<< HEAD
   h_prange_allsel[3]=(TH1D*)input3->Get("h_trkplen_total");
-=======
   
   h_prange_allsel[3]=(TH1D*)input3->Get("h_trkplen_total");
   //h_prange_allsel[2]->Rebin(4);
->>>>>>> cc5aadb0656e2abc82636b470fa6b1b1b02a7a27
   h_prange_allsel[3]->Sumw2();
 
   TH1D               *h_prange_sig[2];
@@ -288,12 +274,9 @@ void plot_com_bacsep(){
   h_phi_allsel[2]=(TH1D*)input2->Get("h_trkphi_total");
   //h_phi_allsel[2]->Rebin(4);
   h_phi_allsel[2]->Sumw2();
-<<<<<<< HEAD
   
   h_phi_allsel[3]=(TH1D*)input3->Get("h_trkphi_total");
   h_phi_allsel[3]->Sumw2();
-=======
->>>>>>> cc5aadb0656e2abc82636b470fa6b1b1b02a7a27
 
   h_phi_allsel[3]=(TH1D*)input3->Get("h_trkphi_total");
   //h_phi_allsel[2]->Rebin(4);
@@ -349,15 +332,10 @@ void plot_com_bacsep(){
   h_pphi_allsel[2]->Sumw2();
 
   h_pphi_allsel[3]=(TH1D*)input3->Get("h_trkpphi_total");
-<<<<<<< HEAD
   h_pphi_allsel[3]->Sumw2();
 
 
-=======
-  //h_pphi_allsel[2]->Rebin(4);
-  h_pphi_allsel[3]->Sumw2();
 
->>>>>>> cc5aadb0656e2abc82636b470fa6b1b1b02a7a27
   TH1D               *h_pphi_sig[2];
   TH1D               *h_pphi_bac[8];
   h_pphi_sig[0]=(TH1D*)input2->Get("h_trkpphi_signal");
@@ -404,19 +382,11 @@ void plot_com_bacsep(){
 
   h_costheta_allsel[2]=(TH1D*)input2->Get("h_trktheta_classic_total");
   //h_costheta_allsel[2]->Rebin(5);
-<<<<<<< HEAD
-  //h_costheta_allsel[2]->Sumw2();
+  h_costheta_allsel[2]->Sumw2();
   
   h_costheta_allsel[3]=(TH1D*)input3->Get("h_trktheta_classic_total");
   h_costheta_allsel[3]->Sumw2();
 
-=======
-  h_costheta_allsel[2]->Sumw2();
-
-  h_costheta_allsel[3]=(TH1D*)input3->Get("h_trktheta_classic_total");
-  //h_costheta_allsel[3]->Rebin(5);
-  h_costheta_allsel[3]->Sumw2();
->>>>>>> cc5aadb0656e2abc82636b470fa6b1b1b02a7a27
 
   TH1D               *h_costheta_sig[2];
   TH1D               *h_costheta_bac[8];
@@ -467,15 +437,9 @@ void plot_com_bacsep(){
   h_pcostheta_allsel[2]->Sumw2();
 
   h_pcostheta_allsel[3]=(TH1D*)input3->Get("h_trkptheta_classic_total");
-<<<<<<< HEAD
   h_pcostheta_allsel[3]->Sumw2();
 
 
-=======
-  //h_pcostheta_allsel[3]->Rebin(5);
-  h_pcostheta_allsel[3]->Sumw2();
-
->>>>>>> cc5aadb0656e2abc82636b470fa6b1b1b02a7a27
   TH1D               *h_pcostheta_sig[2];
   TH1D               *h_pcostheta_bac[8];
   h_pcostheta_sig[0]=(TH1D*)input2->Get("h_trkptheta_classic_signal");
@@ -525,15 +489,9 @@ void plot_com_bacsep(){
   h_plep_allsel[2]->Sumw2();
 
   h_plep_allsel[3]=(TH1D*)input3->Get("h_trkmom_classic_total");
-<<<<<<< HEAD
   h_plep_allsel[3]->Sumw2();
 
 
-=======
-  //h_plep_allsel[3]->Rebin(5);
-  h_plep_allsel[3]->Sumw2();
-
->>>>>>> cc5aadb0656e2abc82636b470fa6b1b1b02a7a27
   TH1D               *h_plep_sig[2];
   TH1D               *h_plep_bac[8];
   h_plep_sig[0]=(TH1D*)input2->Get("h_trkmom_classic_signal");
@@ -585,15 +543,8 @@ void plot_com_bacsep(){
   //h_phad_allsel[2]->Sumw2();
   
   h_phad_allsel[3]=(TH1D*)input3->Get("h_trkpmom_classic_total");
-<<<<<<< HEAD
-  h_phad_allsel[3]->Sumw2();
-
-  
-=======
   h_phad_allsel[3]->Rebin(5);
-  //h_phad_allsel[3]->GetXaxis()->SetRange(1,15);
   //h_phad_allsel[3]->Sumw2();
->>>>>>> cc5aadb0656e2abc82636b470fa6b1b1b02a7a27
   
   
   TH1D               *h_phad_sig[2];
@@ -656,15 +607,9 @@ void plot_com_bacsep(){
   h_thetamup_allsel[2]->Sumw2();
 
   h_thetamup_allsel[3]=(TH1D*)input3->Get("h_thetamup_total");
-<<<<<<< HEAD
   h_thetamup_allsel[3]->Sumw2();
 
 
-=======
-  //h_thetamup_allsel[3]->Rebin(4);
-  h_thetamup_allsel[3]->Sumw2();
-
->>>>>>> cc5aadb0656e2abc82636b470fa6b1b1b02a7a27
   TH1D               *h_thetamup_sig[2];
   TH1D               *h_thetamup_bac[8];
   h_thetamup_sig[0]=(TH1D*)input2->Get("h_thetamup_signal");
@@ -772,15 +717,9 @@ void plot_com_bacsep(){
   h_etatest_allsel[2]->Sumw2();
 
   h_etatest_allsel[3]=(TH1D*)input3->Get("h_etatest_total");
-<<<<<<< HEAD
-  h_etatest_allsel[3]->Sumw2();
-
-
-=======
   //h_etatest_allsel[3]->Rebin(4);
   h_etatest_allsel[3]->Sumw2();
 
->>>>>>> cc5aadb0656e2abc82636b470fa6b1b1b02a7a27
   TH1D               *h_etatest_sig[2];
   TH1D               *h_etatest_bac[8];
   h_etatest_sig[0]=(TH1D*)input2->Get("h_etatest_signal");
@@ -834,15 +773,10 @@ void plot_com_bacsep(){
   h_enucal_allsel[2]->Sumw2();
 
   h_enucal_allsel[3]=(TH1D*)input3->Get("h_enucal_total");
-<<<<<<< HEAD
   h_enucal_allsel[3]->Sumw2();
 
    
-=======
-  //h_enucal_allsel[3]->Rebin(4);
-  h_enucal_allsel[3]->Sumw2();
 
->>>>>>> cc5aadb0656e2abc82636b470fa6b1b1b02a7a27
   TH1D               *h_enucal_sig[2];
   TH1D               *h_enucal_bac[8];
   h_enucal_sig[0]=(TH1D*)input2->Get("h_enucal_signal");
@@ -891,16 +825,10 @@ void plot_com_bacsep(){
   h_alphat_allsel[2]->Sumw2();
 
   h_alphat_allsel[3]=(TH1D*)input3->Get("h_alphat_total");
-<<<<<<< HEAD
   h_alphat_allsel[3]->Sumw2();
 
 
 
-=======
-  //h_alphat_allsel[3]->Rebin(4);
-  h_alphat_allsel[3]->Sumw2();
-
->>>>>>> cc5aadb0656e2abc82636b470fa6b1b1b02a7a27
   TH1D               *h_alphat_sig[2];
   TH1D               *h_alphat_bac[8];
   h_alphat_sig[0]=(TH1D*)input2->Get("h_alphat_signal");
@@ -1668,20 +1596,17 @@ void plot_com_bacsep(){
  
 
   Float_t mcbnbcos_POT;
-<<<<<<< HEAD
   Float_t mcbnbdirt_POT;
   if (tune==3){mcbnbcos_POT=1.8e20;} // Tune1
   else{mcbnbcos_POT=1.8e20;} // Tune1
   if (tune==3){mcbnbdirt_POT=3.704e20;}
   else{mcbnbdirt_POT=3.704e20;}
-=======
   Float_t dirt_POT;
 
   if (tune==3){mcbnbcos_POT=1.8e20;} // Tune1
   else{mcbnbcos_POT=1.8e20;} // Tune1
 
   dirt_POT=3.70426e+20;//Dirt
->>>>>>> cc5aadb0656e2abc82636b470fa6b1b1b02a7a27
 
 
   Float_t dataPOT=1.592e20;// ??????????????/
