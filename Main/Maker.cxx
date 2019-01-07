@@ -3521,7 +3521,7 @@ void Main::Maker::MakeFile()
       _event_histo->hmap_trktheta_trkmom["cc_other"]->Fill(t->slc_longesttrack_theta.at(scl_ll_max), t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight);
       _event_histo->hmap_trktheta_trkmom_poly["cc_other"]->Fill(t->slc_longesttrack_theta.at(scl_ll_max), t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight);
       //characterize the cc background
-      if(t->ngenie_protons_300==0 ) {
+      if(t->ngenie_protons_300==0 && t->ngenie_pipms+t->ngenie_pion0s==0) {
         hmap_trklen["cc_0proton"]->Fill(t->pfp_reco_length[muind], event_weight);
         hmap_trkmom_classic["cc_0proton"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
         hmap_trktheta_classic["cc_0proton"]->Fill(t->pfp_reco_costheta[pind], event_weight);
