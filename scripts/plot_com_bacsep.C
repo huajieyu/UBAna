@@ -1,28 +1,41 @@
-void stackHists(THStack *stack, TH1D *histarray_sig[], TH1D *histarray_bac[], TH1D *histarray_data[], const double &normfac, const double &scale_onoffbeam){
+void stackHists(THStack *stack, TH1D *histarray_sig[], TH1D *histarray_bac[], TH1D *histarray_data[], const double &normfac, const double &scale_onoffbeam, const double &scale_dirt_MC){
   histarray_data[0]->SetLineColor(kBlack);
   histarray_data[0]->SetLineWidth(2);
   histarray_data[0]->SetLineStyle(1);
 
   histarray_sig[0]-> SetFillColor(2); 
+  histarray_sig[0]-> SetLineWidth(1); 
   histarray_sig[0]->Scale(normfac);
   histarray_bac[0]-> SetFillColor(kBlue+1);
+  histarray_bac[0]-> SetLineWidth(1);
   histarray_bac[0]->Scale(normfac);
 
   histarray_bac[1]-> SetFillColor(kGreen+2);
+  histarray_bac[1]-> SetLineWidth(1);
   histarray_bac[1]->Scale(normfac);
   histarray_bac[2]-> SetFillColor(kGray+1);
+  histarray_bac[2]-> SetLineWidth(1);
   histarray_bac[2]->Scale(normfac);
   histarray_bac[3]-> SetFillColor(kOrange+1);
+  histarray_bac[3]-> SetLineWidth(1);
   histarray_bac[3]->Scale(normfac);
 
   histarray_bac[4]-> SetFillColor(kMagenta);
+  histarray_bac[4]-> SetLineWidth(1);
   histarray_bac[4]->Scale(normfac);
   histarray_bac[5]->SetFillColor(46);
+  histarray_bac[5]->SetLineWidth(1);
   histarray_bac[5]->Scale(normfac);
  
   histarray_data[1]->SetFillStyle(3005);
   histarray_data[1]->SetFillColor(28);
+  histarray_data[1]->SetLineWidth(1);
   histarray_data[1]->Scale(scale_onoffbeam);
+
+  histarray_data[3]->SetFillStyle(3004);
+  histarray_data[3]->SetFillColor(11);
+  histarray_data[3]->SetLineWidth(1);
+  histarray_data[3]->Scale(scale_dirt_MC*normfac);
 
   // Merge background histograms as needed
   //histarray_bac[1]->Add(histarray_bac[2]); // CC0p0pi add CC0pNpi
@@ -35,6 +48,7 @@ void stackHists(THStack *stack, TH1D *histarray_sig[], TH1D *histarray_bac[], TH
   stack->Add(histarray_bac[3]); // 
   stack->Add(histarray_bac[4]); // 
   stack->Add(histarray_bac[5]);
+  stack->Add(histarray_data[3]); // Dirt MC
   stack->Add(histarray_data[1]); // EXT data
 }
 float Chi2Calc(TH1D *histo_MC, TH1D *histo_bnb, TH1D *histo_extbnb, float scale_offbeam, float norm_MC){
@@ -66,9 +80,10 @@ void plot_com_bacsep(){
   int tune=1;
   int cosmicCut=1;
   
-  TFile *input0;
-  TFile *input1;
-  TFile *input2;
+  TFile *input0; // on-beam
+  TFile *input1; // off-beam
+  TFile *input2; // MC
+  TFile *input3; // dirt
   std::cout<<"Setup input root files "<<std::endl;
   if (cosmicCut){
     input0 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Dec20/ubxsecana_output_data_onbeam_ubcodev06_26_01_22.root");
@@ -87,6 +102,7 @@ void plot_com_bacsep(){
     if (cosmicCut){input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Dec20/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22.root");}
     else{input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Dec20/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22.root");}
   }
+  input3 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Dec20/ubxsecana_output_mc_bnbdirt_ubcodev06_26_01_22.root");
 
   gROOT->SetBatch();
 /*  
@@ -132,7 +148,7 @@ void plot_com_bacsep(){
 */   //==========================================================
   std::cout<<"Setup the global enviromment "<<std::endl;
 
-  TH1D                  *h_range_allsel[3];
+  TH1D                  *h_range_allsel[4];
 
   h_range_allsel[0]=(TH1D*)input0->Get("h_trklen_total");
   //h_range_allsel[0]->Rebin(4); 
@@ -145,6 +161,11 @@ void plot_com_bacsep(){
   h_range_allsel[2]=(TH1D*)input2->Get("h_trklen_total");
   //h_range_allsel[2]->Rebin(4);
   h_range_allsel[2]->Sumw2();
+
+  h_range_allsel[3]=(TH1D*)input3->Get("h_trklen_total");
+  //h_range_allsel[2]->Rebin(4);
+  h_range_allsel[3]->Sumw2();
+
 
   TH1D               *h_range_sig[2];
   TH1D               *h_range_bac[8];
@@ -179,7 +200,7 @@ void plot_com_bacsep(){
   //===============================================================
   cout<<"get the histogram of track mucand range<<<<<<<<<<<"<<endl; 
   //===================================================================
-  TH1D                  *h_prange_allsel[3];
+  TH1D                  *h_prange_allsel[4];
 
   h_prange_allsel[0]=(TH1D*)input0->Get("h_trkplen_total");
   //h_prange_allsel[0]->Rebin(4); 
@@ -192,6 +213,10 @@ void plot_com_bacsep(){
   h_prange_allsel[2]=(TH1D*)input2->Get("h_trkplen_total");
   //h_prange_allsel[2]->Rebin(4);
   h_prange_allsel[2]->Sumw2();
+  
+  h_prange_allsel[3]=(TH1D*)input3->Get("h_trkplen_total");
+  //h_prange_allsel[2]->Rebin(4);
+  h_prange_allsel[3]->Sumw2();
 
   TH1D               *h_prange_sig[2];
   TH1D               *h_prange_bac[8];
@@ -229,21 +254,25 @@ void plot_com_bacsep(){
 
 
   //=============================================================
-  TH1D                  *h_phi_allsel[3];
+  TH1D                  *h_phi_allsel[4];
 
   h_phi_allsel[0]=(TH1D*)input0->Get("h_trkphi_total");
   //h_phi_allsel[0]->Rebin(4); 
-  //h_phi_allsel[0]->Sumw2();
+  h_phi_allsel[0]->Sumw2();
  
 
   h_phi_allsel[1]=(TH1D*)input1->Get("h_trkphi_total");
   //h_phi_allsel[1]->Rebin(4);
-  //h_phi_allsel[1]->Sumw2();
+  h_phi_allsel[1]->Sumw2();
 
   h_phi_allsel[2]=(TH1D*)input2->Get("h_trkphi_total");
   //h_phi_allsel[2]->Rebin(4);
-  //h_phi_allsel[2]->Sumw2();
+  h_phi_allsel[2]->Sumw2();
 
+  h_phi_allsel[3]=(TH1D*)input3->Get("h_trkphi_total");
+  //h_phi_allsel[2]->Rebin(4);
+  h_phi_allsel[3]->Sumw2();
+  //
   TH1D               *h_phi_sig[2];
   TH1D               *h_phi_bac[8];
   h_phi_sig[0]=(TH1D*)input2->Get("h_trkphi_signal");
@@ -278,7 +307,7 @@ void plot_com_bacsep(){
    //==================================================================== 
   cout<<"get the histogram of track phi <<<<<<<<<<<"<<endl; 
   //========================================================================
-  TH1D                  *h_pphi_allsel[3];
+  TH1D                  *h_pphi_allsel[4];
 
   h_pphi_allsel[0]=(TH1D*)input0->Get("h_trkpphi_total");
   //h_pphi_allsel[0]->Rebin(4); 
@@ -292,6 +321,10 @@ void plot_com_bacsep(){
   h_pphi_allsel[2]=(TH1D*)input2->Get("h_trkpphi_total");
   //h_pphi_allsel[2]->Rebin(4);
   h_pphi_allsel[2]->Sumw2();
+
+  h_pphi_allsel[3]=(TH1D*)input3->Get("h_trkpphi_total");
+  //h_pphi_allsel[2]->Rebin(4);
+  h_pphi_allsel[3]->Sumw2();
 
   TH1D               *h_pphi_sig[2];
   TH1D               *h_pphi_bac[8];
@@ -326,20 +359,24 @@ void plot_com_bacsep(){
  
    
   //========================================================================
-  TH1D                  *h_costheta_allsel[3];
+  TH1D                  *h_costheta_allsel[4];
 
   h_costheta_allsel[0]=(TH1D*)input0->Get("h_trktheta_classic_total");
   //h_costheta_allsel[0]->Rebin(5); 
-  //h_costheta_allsel[0]->Sumw2();
+  h_costheta_allsel[0]->Sumw2();
  
 
   h_costheta_allsel[1]=(TH1D*)input1->Get("h_trktheta_classic_total");
   //h_costheta_allsel[1]->Rebin(5);
-  //h_costheta_allsel[1]->Sumw2();
+  h_costheta_allsel[1]->Sumw2();
 
   h_costheta_allsel[2]=(TH1D*)input2->Get("h_trktheta_classic_total");
   //h_costheta_allsel[2]->Rebin(5);
-  //h_costheta_allsel[2]->Sumw2();
+  h_costheta_allsel[2]->Sumw2();
+
+  h_costheta_allsel[3]=(TH1D*)input3->Get("h_trktheta_classic_total");
+  //h_costheta_allsel[3]->Rebin(5);
+  h_costheta_allsel[3]->Sumw2();
 
   TH1D               *h_costheta_sig[2];
   TH1D               *h_costheta_bac[8];
@@ -374,7 +411,7 @@ void plot_com_bacsep(){
    //========================================================
   cout<<"get histograms of muon candidate angular distirbution<<<<<<"<<endl;
    //===============================================================
-  TH1D                  *h_pcostheta_allsel[3];
+  TH1D                  *h_pcostheta_allsel[4];
 
   h_pcostheta_allsel[0]=(TH1D*)input0->Get("h_trkptheta_classic_total");
   //h_pcostheta_allsel[0]->Rebin(5); 
@@ -388,6 +425,10 @@ void plot_com_bacsep(){
   h_pcostheta_allsel[2]=(TH1D*)input2->Get("h_trkptheta_classic_total");
   //h_pcostheta_allsel[2]->Rebin(5);
   h_pcostheta_allsel[2]->Sumw2();
+
+  h_pcostheta_allsel[3]=(TH1D*)input3->Get("h_trkptheta_classic_total");
+  //h_pcostheta_allsel[3]->Rebin(5);
+  h_pcostheta_allsel[3]->Sumw2();
 
   TH1D               *h_pcostheta_sig[2];
   TH1D               *h_pcostheta_bac[8];
@@ -422,7 +463,7 @@ void plot_com_bacsep(){
    //========================================================
  
   //========================================================================
-  TH1D                  *h_plep_allsel[3];
+  TH1D                  *h_plep_allsel[4];
 
   h_plep_allsel[0]=(TH1D*)input0->Get("h_trkmom_classic_total");
   //h_plep_allsel[0]->Rebin(5); 
@@ -436,6 +477,10 @@ void plot_com_bacsep(){
   h_plep_allsel[2]=(TH1D*)input2->Get("h_trkmom_classic_total");
   //h_plep_allsel[2]->Rebin(5);
   h_plep_allsel[2]->Sumw2();
+
+  h_plep_allsel[3]=(TH1D*)input3->Get("h_trkmom_classic_total");
+  //h_plep_allsel[3]->Rebin(5);
+  h_plep_allsel[3]->Sumw2();
 
   TH1D               *h_plep_sig[2];
   TH1D               *h_plep_bac[8];
@@ -469,7 +514,7 @@ void plot_com_bacsep(){
  
   std::cout<<"get histograms of the muon momentum "<<std::endl;
    //=============================================================== 
-  TH1D                  *h_phad_allsel[3];
+  TH1D                  *h_phad_allsel[4];
 
   h_phad_allsel[0]=(TH1D*)input0->Get("h_trkpmom_classic_total");
   h_phad_allsel[0]->Rebin(5); 
@@ -486,6 +531,13 @@ void plot_com_bacsep(){
   h_phad_allsel[2]->Rebin(5);
   //h_phad_allsel[2]->GetXaxis()->SetRange(1,15);
   //h_phad_allsel[2]->Sumw2();
+  
+  h_phad_allsel[3]=(TH1D*)input3->Get("h_trkpmom_classic_total");
+  h_phad_allsel[3]->Rebin(5);
+  //h_phad_allsel[3]->GetXaxis()->SetRange(1,15);
+  //h_phad_allsel[3]->Sumw2();
+  
+  
   TH1D               *h_phad_sig[2];
   TH1D               *h_phad_bac[8];
   h_phad_sig[0]=(TH1D*)input2->Get("h_trkpmom_classic_signal");
@@ -530,7 +582,7 @@ void plot_com_bacsep(){
   */
 
   //======================================================================
-  TH1D                  *h_thetamup_allsel[3];
+  TH1D                  *h_thetamup_allsel[4];
 
   h_thetamup_allsel[0]=(TH1D*)input0->Get("h_thetamup_total");
   //h_thetamup_allsel[0]->Rebin(4); 
@@ -544,6 +596,10 @@ void plot_com_bacsep(){
   h_thetamup_allsel[2]=(TH1D*)input2->Get("h_thetamup_total");
   //h_thetamup_allsel[2]->Rebin(4);
   h_thetamup_allsel[2]->Sumw2();
+
+  h_thetamup_allsel[3]=(TH1D*)input3->Get("h_thetamup_total");
+  //h_thetamup_allsel[3]->Rebin(4);
+  h_thetamup_allsel[3]->Sumw2();
 
   TH1D               *h_thetamup_sig[2];
   TH1D               *h_thetamup_bac[8];
@@ -579,7 +635,7 @@ void plot_com_bacsep(){
 
   cout<<"get the histogram of thetamup<<<<<<<<<<<<<<<"<<endl;
   //===================================================
-  TH1D                  *h_ptmis_allsel[3];
+  TH1D                  *h_ptmis_allsel[4];
 
   h_ptmis_allsel[0]=(TH1D*)input0->Get("h_ptmis_total");
   //h_ptmis_allsel[0]->Rebin(4); 
@@ -593,6 +649,10 @@ void plot_com_bacsep(){
   h_ptmis_allsel[2]=(TH1D*)input2->Get("h_ptmis_total");
   //h_ptmis_allsel[2]->Rebin(4);
   h_ptmis_allsel[2]->Sumw2();
+  
+  h_ptmis_allsel[3]=(TH1D*)input3->Get("h_ptmis_total");
+  //h_ptmis_allsel[3]->Rebin(4);
+  h_ptmis_allsel[3]->Sumw2();
 
   TH1D               *h_ptmis_sig[2];
   TH1D               *h_ptmis_bac[8];
@@ -626,7 +686,7 @@ void plot_com_bacsep(){
   //===================================================
   cout<<"get the histogram of ptmis<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"<<endl;
   //====================================================
-  TH1D                  *h_etatest_allsel[3];
+  TH1D                  *h_etatest_allsel[4];
 
   h_etatest_allsel[0]=(TH1D*)input0->Get("h_etatest_total");
   //h_etatest_allsel[0]->Rebin(4); 
@@ -640,6 +700,10 @@ void plot_com_bacsep(){
   h_etatest_allsel[2]=(TH1D*)input2->Get("h_etatest_total");
   //h_etatest_allsel[2]->Rebin(4);
   h_etatest_allsel[2]->Sumw2();
+
+  h_etatest_allsel[3]=(TH1D*)input3->Get("h_etatest_total");
+  //h_etatest_allsel[3]->Rebin(4);
+  h_etatest_allsel[3]->Sumw2();
 
   TH1D               *h_etatest_sig[2];
   TH1D               *h_etatest_bac[8];
@@ -678,7 +742,7 @@ void plot_com_bacsep(){
 
 
   //======================================================================
-  TH1D                  *h_enucal_allsel[3];
+  TH1D                  *h_enucal_allsel[4];
 
   h_enucal_allsel[0]=(TH1D*)input0->Get("h_enucal_total");
   //h_enucal_allsel[0]->Rebin(4); 
@@ -692,6 +756,10 @@ void plot_com_bacsep(){
   h_enucal_allsel[2]=(TH1D*)input2->Get("h_enucal_total");
   //h_enucal_allsel[2]->Rebin(4);
   h_enucal_allsel[2]->Sumw2();
+
+  h_enucal_allsel[3]=(TH1D*)input3->Get("h_enucal_total");
+  //h_enucal_allsel[3]->Rebin(4);
+  h_enucal_allsel[3]->Sumw2();
 
   TH1D               *h_enucal_sig[2];
   TH1D               *h_enucal_bac[8];
@@ -725,7 +793,7 @@ void plot_com_bacsep(){
   //===================================================
   cout<<"get the histogram of enucal<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"<<endl;
   //==========================================================
-  TH1D                  *h_alphat_allsel[3];
+  TH1D                  *h_alphat_allsel[4];
 
   h_alphat_allsel[0]=(TH1D*)input0->Get("h_alphat_total");
   //h_alphat_allsel[0]->Rebin(4); 
@@ -739,6 +807,10 @@ void plot_com_bacsep(){
   h_alphat_allsel[2]=(TH1D*)input2->Get("h_alphat_total");
   //h_alphat_allsel[2]->Rebin(4);
   h_alphat_allsel[2]->Sumw2();
+
+  h_alphat_allsel[3]=(TH1D*)input3->Get("h_alphat_total");
+  //h_alphat_allsel[3]->Rebin(4);
+  h_alphat_allsel[3]->Sumw2();
 
   TH1D               *h_alphat_sig[2];
   TH1D               *h_alphat_bac[8];
@@ -772,7 +844,7 @@ void plot_com_bacsep(){
   //===================================================
   cout<<"get the histogram of alphat<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"<<endl;
   //======================================================
-  TH1D                  *h_pmult_allsel[3];
+  TH1D                  *h_pmult_allsel[4];
 
   h_pmult_allsel[0]=(TH1D*)input0->Get("h_pmult_total");
   //h_pmult_allsel[0]->Rebin(4); 
@@ -786,6 +858,10 @@ void plot_com_bacsep(){
   h_pmult_allsel[2]=(TH1D*)input2->Get("h_pmult_total");
   //h_pmult_allsel[2]->Rebin(4);
   h_pmult_allsel[2]->Sumw2();
+  
+  h_pmult_allsel[3]=(TH1D*)input3->Get("h_pmult_total");
+  //h_pmult_allsel[3]->Rebin(4);
+  h_pmult_allsel[3]->Sumw2();
 
   TH1D               *h_pmult_sig[2];
   TH1D               *h_pmult_bac[8];
@@ -1500,10 +1576,12 @@ void plot_com_bacsep(){
  
 
   Float_t mcbnbcos_POT;
+  Float_t dirt_POT;
 
   if (tune==3){mcbnbcos_POT=1.8e20;} // Tune1
   else{mcbnbcos_POT=1.8e20;} // Tune1
 
+  dirt_POT=3.70426e+20;//Dirt
 
 
   Float_t dataPOT=1.592e20;// ??????????????/
@@ -1517,6 +1595,10 @@ void plot_com_bacsep(){
   Double_t scale_onoffbeam=0.0;
   scale_onoffbeam=scalefac;
   cout<<"scale factor for extbnb is : "<<scale_onoffbeam<<endl;
+
+  Double_t scale_dirt_MC = mcbnbcos_POT/dirt_POT;
+  cout<<"scale factor for dirt to MC is : " << scale_dirt_MC << endl;
+  cout<<"scale factor for dirt to data is : " << scale_dirt_MC*normfac << endl;
 
   bool areanorm=false;
 
@@ -1569,7 +1651,7 @@ prelim->SetTextAlign(32);
   std::cout<<"start stacking the mc and off beam data "<<std::endl;  
   //~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
   THStack *hs_range = new THStack("hs_range","");
-  stackHists(hs_range, h_range_sig, h_range_bac, h_range_allsel, normfac, scale_onoffbeam);
+  stackHists(hs_range, h_range_sig, h_range_bac, h_range_allsel, normfac, scale_onoffbeam, scale_dirt_MC);
   hs_range -> Draw("HIST,SAME");
   std::cout<<"stacked the backgrounds to signal"<<std::endl;
   
@@ -1590,6 +1672,7 @@ prelim->SetTextAlign(32);
   legendR -> AddEntry(h_range_bac[3], "#bar{#nu}_{#mu} CC", "f");
   legendR -> AddEntry(h_range_bac[4], "#nu_{e}, #bar{#nu}_{e} CC", "f");
   legendR -> AddEntry(h_range_bac[5], "CC0P, CCpion", "f");
+  legendR -> AddEntry(h_range_allsel[3], "dirt");
 
   legendL->AddEntry(h_range_allsel[0], "on_beam");
   legendL->AddEntry(h_range_allsel[1], "off_beam");
@@ -1600,6 +1683,7 @@ prelim->SetTextAlign(32);
   legendL -> AddEntry(h_range_bac[3], "#bar{#nu}_{#mu} CC", "f");
   legendL -> AddEntry(h_range_bac[4], "#nu_{e}, #bar{#nu}_{e} CC", "f");
   legendL -> AddEntry(h_range_bac[5], "CC0P, CCpion", "f");
+  legendL -> AddEntry(h_range_allsel[3], "dirt");
 
 
   
@@ -1671,7 +1755,7 @@ prelim->SetTextAlign(32);
   std::cout<<"start stacking the mc and off beam data "<<std::endl;  
   //~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
   THStack *hs_prange = new THStack("hs_prange","");
-  stackHists(hs_prange, h_prange_sig, h_prange_bac, h_prange_allsel, normfac, scale_onoffbeam);
+  stackHists(hs_prange, h_prange_sig, h_prange_bac, h_prange_allsel, normfac, scale_onoffbeam, scale_dirt_MC);
   hs_prange -> Draw("HIST,SAME");
   std::cout<<"stacked the backgrounds to signal"<<std::endl;
   
@@ -1753,7 +1837,7 @@ prelim->SetTextAlign(32);
   h_phi_allsel[0]->Draw();
   
   THStack *hs_phi = new THStack("hs_phi","");
-  stackHists(hs_phi, h_phi_sig, h_phi_bac, h_phi_allsel, normfac, scale_onoffbeam);
+  stackHists(hs_phi, h_phi_sig, h_phi_bac, h_phi_allsel, normfac, scale_onoffbeam, scale_dirt_MC);
   hs_phi -> Draw("HIST,SAME");
 
   h_phi_allsel[0]->Scale(areanorm_fac);
@@ -1827,7 +1911,7 @@ prelim->SetTextAlign(32);
   h_pphi_allsel[0]->Draw();
   
   THStack *hs_pphi = new THStack("hs_pphi","");
-  stackHists(hs_pphi, h_pphi_sig, h_pphi_bac, h_pphi_allsel, normfac, scale_onoffbeam);
+  stackHists(hs_pphi, h_pphi_sig, h_pphi_bac, h_pphi_allsel, normfac, scale_onoffbeam, scale_dirt_MC);
   hs_pphi -> Draw("HIST,SAME");
 
   h_pphi_allsel[0]->Scale(areanorm_fac);
@@ -1909,7 +1993,7 @@ prelim->SetTextAlign(32);
   h_costheta_allsel[0]->Draw();
   
   THStack *hs_costheta = new THStack("hs_costheta","");
-  stackHists(hs_costheta, h_costheta_sig, h_costheta_bac, h_costheta_allsel, normfac, scale_onoffbeam);
+  stackHists(hs_costheta, h_costheta_sig, h_costheta_bac, h_costheta_allsel, normfac, scale_onoffbeam, scale_dirt_MC);
   hs_costheta -> Draw("HIST,SAME");
 
   h_costheta_allsel[0]->Scale(areanorm_fac);
@@ -1983,7 +2067,7 @@ prelim->SetTextAlign(32);
   h_pcostheta_allsel[0]->Draw();
   
   THStack *hs_pcostheta = new THStack("hs_pcostheta","");
-  stackHists(hs_pcostheta, h_pcostheta_sig, h_pcostheta_bac, h_pcostheta_allsel, normfac, scale_onoffbeam);
+  stackHists(hs_pcostheta, h_pcostheta_sig, h_pcostheta_bac, h_pcostheta_allsel, normfac, scale_onoffbeam, scale_dirt_MC);
   hs_pcostheta -> Draw("HIST,SAME");
 
   h_pcostheta_allsel[0]->Scale(areanorm_fac);
@@ -2062,7 +2146,7 @@ prelim->SetTextAlign(32);
   h_plep_allsel[0]->Draw();  
 
   THStack *hs_plep = new THStack("hs_plep","");
-  stackHists(hs_plep, h_plep_sig, h_plep_bac, h_plep_allsel, normfac, scale_onoffbeam);
+  stackHists(hs_plep, h_plep_sig, h_plep_bac, h_plep_allsel, normfac, scale_onoffbeam, scale_dirt_MC);
   hs_plep -> Draw("HIST,SAME");
 
   h_plep_allsel[0]->Scale(areanorm_fac);
@@ -2151,7 +2235,7 @@ prelim->SetTextAlign(32);
   h_phad_allsel[0]->Draw();  
 
   THStack *hs_phad = new THStack("hs_phad","");
-  stackHists(hs_phad, h_phad_sig, h_phad_bac, h_phad_allsel, normfac, scale_onoffbeam);
+  stackHists(hs_phad, h_phad_sig, h_phad_bac, h_phad_allsel, normfac, scale_onoffbeam, scale_dirt_MC);
   hs_phad -> Draw("HIST,SAME");
 
   h_phad_allsel[0]->Scale(areanorm_fac);
@@ -2238,7 +2322,7 @@ prelim->SetTextAlign(32);
   h_thetamup_allsel[0]->Draw();  
 
   THStack *hs_thetamup = new THStack("hs_thetamup","");
-  stackHists(hs_thetamup, h_thetamup_sig, h_thetamup_bac, h_thetamup_allsel, normfac, scale_onoffbeam);
+  stackHists(hs_thetamup, h_thetamup_sig, h_thetamup_bac, h_thetamup_allsel, normfac, scale_onoffbeam, scale_dirt_MC);
   hs_thetamup -> Draw("HIST,SAME");
 
   h_thetamup_allsel[0]->Scale(areanorm_fac);
@@ -2325,7 +2409,7 @@ prelim->SetTextAlign(32);
   h_ptmis_allsel[0]->Draw();  
 
   THStack *hs_ptmis = new THStack("hs_ptmis","");
-  stackHists(hs_ptmis, h_ptmis_sig, h_ptmis_bac, h_ptmis_allsel, normfac, scale_onoffbeam);
+  stackHists(hs_ptmis, h_ptmis_sig, h_ptmis_bac, h_ptmis_allsel, normfac, scale_onoffbeam, scale_dirt_MC);
   hs_ptmis -> Draw("HIST,SAME");
 
   h_ptmis_allsel[0]->Scale(areanorm_fac);
@@ -2412,7 +2496,7 @@ prelim->SetTextAlign(32);
   h_etatest_allsel[0]->Draw();  
 
   THStack *hs_etatest = new THStack("hs_etatest","");
-  stackHists(hs_etatest, h_etatest_sig, h_etatest_bac, h_etatest_allsel, normfac, scale_onoffbeam);
+  stackHists(hs_etatest, h_etatest_sig, h_etatest_bac, h_etatest_allsel, normfac, scale_onoffbeam, scale_dirt_MC);
   hs_etatest -> Draw("HIST,SAME");
 
   h_etatest_allsel[0]->Scale(areanorm_fac);
@@ -2498,7 +2582,7 @@ prelim->SetTextAlign(32);
   h_enucal_allsel[0]->Draw();  
 
   THStack *hs_enucal = new THStack("hs_enucal","");
-  stackHists(hs_enucal, h_enucal_sig, h_enucal_bac, h_enucal_allsel, normfac, scale_onoffbeam);
+  stackHists(hs_enucal, h_enucal_sig, h_enucal_bac, h_enucal_allsel, normfac, scale_onoffbeam, scale_dirt_MC);
   hs_enucal -> Draw("HIST,SAME");
 
   h_enucal_allsel[0]->Scale(areanorm_fac);
@@ -2585,7 +2669,7 @@ prelim->SetTextAlign(32);
   h_pmult_allsel[0]->Draw();  
 
   THStack *hs_pmult = new THStack("hs_pmult","");
-  stackHists(hs_pmult, h_pmult_sig, h_pmult_bac, h_pmult_allsel, normfac, scale_onoffbeam);
+  stackHists(hs_pmult, h_pmult_sig, h_pmult_bac, h_pmult_allsel, normfac, scale_onoffbeam, scale_dirt_MC);
   hs_pmult -> Draw("HIST,SAME");
 
   h_pmult_allsel[0]->Scale(areanorm_fac);
@@ -2671,7 +2755,7 @@ prelim->SetTextAlign(32);
   h_alphat_allsel[0]->Draw();  
 
   THStack *hs_alphat = new THStack("hs_alphat","");
-  stackHists(hs_alphat, h_alphat_sig, h_alphat_bac, h_alphat_allsel, normfac, scale_onoffbeam);
+  stackHists(hs_alphat, h_alphat_sig, h_alphat_bac, h_alphat_allsel, normfac, scale_onoffbeam, scale_dirt_MC);
   hs_alphat -> Draw("HIST,SAME");
 
   h_alphat_allsel[0]->Scale(areanorm_fac);
@@ -2733,5 +2817,83 @@ prelim->SetTextAlign(32);
   float chi2_alphat=Chi2Calc(h_alphat_allsel[2], h_alphat_allsel[0], h_alphat_allsel[1],scalefac, normfac);
   cout<<"chi2_alphat = "<<chi2_alphat<<"  number of bins: "<<nbins_alphat<<"  chi2/dof is : "<<chi2_alphat/nbins_alphat<<endl;
   
+  
+  //==========================================================================
+  // Dirt plots
+  //==========================================================================
+  
+  // Dirt-only distributions
+  c1->cd();
+  c1->Clear();
+  h_range_allsel[3]->Draw();
+  c1->Print("figures/Dirt/h_range_dirt.png");
+  
+  c1->cd();
+  c1->Clear();
+  h_prange_allsel[3]->Draw();
+  c1->Print("figures/Dirt/h_prange_dirt.png");
+  
+  c1->cd();
+  c1->Clear();
+  h_phi_allsel[3]->Draw();
+  c1->Print("figures/Dirt/h_phi_dirt.png");
+  
+  c1->cd();
+  c1->Clear();
+  h_pphi_allsel[3]->Draw();
+  c1->Print("figures/Dirt/h_pphi_dirt.png");
+  
+  c1->cd();
+  c1->Clear();
+  h_costheta_allsel[3]->Draw();
+  c1->Print("figures/Dirt/h_costheta_dirt.png");
+  
+  c1->cd();
+  c1->Clear();
+  h_pcostheta_allsel[3]->Draw();
+  c1->Print("figures/Dirt/h_pcostheta_dirt.png");
+  
+  c1->cd();
+  c1->Clear();
+  h_plep_allsel[3]->Draw();
+  c1->Print("figures/Dirt/h_plep_dirt.png");
+  
+  c1->cd();
+  c1->Clear();
+  h_phad_allsel[3]->Draw();
+  c1->Print("figures/Dirt/h_phad_dirt.png");
+  
+  c1->cd();
+  c1->Clear();
+  h_thetamup_allsel[3]->Draw();
+  c1->Print("figures/Dirt/h_thetamup_dirt.png");
+  
+  c1->cd();
+  c1->Clear();
+  h_ptmis_allsel[3]->Draw();
+  c1->Print("figures/Dirt/h_ptmis_dirt.png");
+  
+  c1->cd();
+  c1->Clear();
+  h_etatest_allsel[3]->Draw();
+  c1->Print("figures/Dirt/h_etatest_dirt.png");
+  
+  c1->cd();
+  c1->Clear();
+  h_enucal_allsel[3]->Draw();
+  c1->Print("figures/Dirt/h_enucal_dirt.png");
+  
+  c1->cd();
+  c1->Clear();
+  h_alphat_allsel[3]->Draw();
+  c1->Print("figures/Dirt/h_alphat_dirt.png");
+  
+  c1->cd();
+  c1->Clear();
+  h_pmult_allsel[3]->Draw();
+  c1->Print("figures/Dirt/h_pmult_dirt.png");
+  
+  // Dirt as a fraction of MC stack (with off-beam)
+
+  
  }
-//==========================================================================
