@@ -93,8 +93,8 @@ namespace DataTypes {
       h_eff_mumom_num = new TH1D("h_eff_mumom_num", "h_eff_mumom_num", n_bins_mumom, bins_mumom);
       h_eff_mumom_den = new TH1D("h_eff_mumom_den", "h_eff_mumom_den", n_bins_mumom, bins_mumom);
 
-      h_eff_pmom_num = new TH1D("h_eff_pmom_num", "h_eff_pmmom_num", n_bins_pmom, 0.0, 1.5);
-      h_eff_pmom_den = new TH1D("h_eff_pmom_den", "h_eff_pmmom_den", n_bins_pmom, 0.0, 1.5);
+      h_eff_pmom_num = new TH1D("h_eff_pmom_num", "h_eff_pmmom_num", n_bins_pmom, bins_pmom);
+      h_eff_pmom_den = new TH1D("h_eff_pmom_den", "h_eff_pmmom_den", n_bins_pmom, bins_pmom);
 
       h_eff_muphi_num = new TH1D("h_eff_muphi_num", "h_eff_muphi_num", 15, -3.1415, 3.1415);
       h_eff_muphi_den = new TH1D("h_eff_muphi_den", "h_eff_muphi_den", 15, -3.1415, 3.1415);
@@ -103,7 +103,8 @@ namespace DataTypes {
 
       // Reco to true histograms - Single Differential (mumom)
       h_true_reco_mom= new TH2D("h_true_reco_mom", ";Muon Momentum (Truth) [GeV]; Muon Momentum (MCS) [GeV]", n_bins_mumom, bins_mumom, n_bins_mumom, bins_mumom);
-      h_true_reco_pmom= new TH2D("h_true_reco_mom", ";Proton Momentum (Truth) [GeV]; Proton Momentum (Reco) [GeV]", n_bins_pmom, 0.0, 1.5, n_bins_pmom, 0.0, 1.5);
+      h_true_reco_pmom= new TH2D("h_true_reco_mom", ";Proton Momentum (Truth) [GeV]; Proton Momentum (Reco) [GeV]", n_bins_pmom, 0.3, 1.5, n_bins_pmom, 0.3, 1.5);
+
       // Number of events per channel - Single Differential (mumom)
       hmap_trkmom["total"] = new TH1D("h_trkmom_total", "; Track momentum;", n_bins_mumom, bins_mumom);
       hmap_trkmom["signal"] = new TH1D("h_trkmom_signal", "; Track momentum;", n_bins_mumom, bins_mumom);
@@ -127,11 +128,29 @@ namespace DataTypes {
       bs_genie_multisim_eff_mumom_den = new BootstrapTH1D("bs_genie_multisim_eff_mumom_den", "bs_genie_multisim_eff_mumom_den_title", n_bins_mumom, bins_mumom);
       bs_flux_multisim_eff_mumom_num = new BootstrapTH1D("bs_flux_multisim_eff_mumom_num", "bs_flux_multisim_eff_mumom_num_title", n_bins_mumom, bins_mumom);
       bs_flux_multisim_eff_mumom_den = new BootstrapTH1D("bs_flux_multisim_eff_mumom_den", "bs_flux_multisim_eff_mumom_den_title", n_bins_mumom, bins_mumom);
+
       bs_extra_syst_multisim_eff_mumom_num = new BootstrapTH1D("bs_extra_syst_multisim_eff_mumom_num", "bs_extra_syst_eff_mumom_num_title", n_bins_mumom, bins_mumom);
       bs_extra_syst_multisim_eff_mumom_den = new BootstrapTH1D("bs_extra_syst_multisim_eff_mumom_den", "bs_extra_syst_eff_mumom_den_title", n_bins_mumom, bins_mumom);
       bs_mc_stat_multisim_eff_mumom_num = new BootstrapTH1D("bs_mc_stat_multisim_eff_mumom_num", "bs_mc_stat_eff_mumom_num_title", n_bins_mumom, bins_mumom);
       bs_mc_stat_multisim_eff_mumom_den = new BootstrapTH1D("bs_mc_stat_multisim_eff_mumom_den", "bs_mc_stat_eff_mumom_den_title", n_bins_mumom, bins_mumom);
 
+      bs_genie_multisim_eff_pmom_num = new BootstrapTH1D("bs_genie_multisim_eff_pmom_num", "bs_genie_multisim_eff_pmom_num_title", n_bins_pmom, bins_pmom);
+      bs_genie_multisim_eff_pmom_den = new BootstrapTH1D("bs_genie_multisim_eff_pmom_den", "bs_genie_multisim_eff_pmom_den_title", n_bins_pmom, bins_pmom);
+      bs_flux_multisim_eff_pmom_num = new BootstrapTH1D("bs_flux_multisim_eff_pmom_num", "bs_flux_multisim_eff_pmom_num_title", n_bins_pmom, bins_pmom);
+      bs_flux_multisim_eff_pmom_den = new BootstrapTH1D("bs_flux_multisim_eff_pmom_den", "bs_flux_multisim_eff_pmom_den_title", n_bins_pmom, bins_pmom);
+
+      bs_extra_syst_multisim_eff_pmom_num = new BootstrapTH1D("bs_extra_syst_multisim_eff_pmom_num", "bs_extra_syst_eff_pmom_num_title", n_bins_pmom, bins_pmom);
+      bs_extra_syst_multisim_eff_pmom_den = new BootstrapTH1D("bs_extra_syst_multisim_eff_pmom_den", "bs_extra_syst_eff_pmom_den_title", n_bins_pmom, bins_pmom);
+      bs_mc_stat_multisim_eff_pmom_num = new BootstrapTH1D("bs_mc_stat_multisim_eff_pmom_num", "bs_mc_stat_eff_pmom_num_title", n_bins_pmom, bins_pmom);
+      bs_mc_stat_multisim_eff_pmom_den = new BootstrapTH1D("bs_mc_stat_multisim_eff_pmom_den", "bs_mc_stat_eff_pmom_den_title", n_bins_pmom, bins_pmom);
+
+  
+      bs_genie_multisim_eff_thetamup_num = new BootstrapTH1D("bs_genie_multisim_eff_thetamup_num", "bs_genie_multisim_eff_thetamup_num_title", n_bins_muptheta, bins_muptheta);
+      bs_genie_multisim_eff_thetamup_den = new BootstrapTH1D("bs_genie_multisim_eff_thetamup_den", "bs_genie_multisim_eff_thetamup_den_title", n_bins_muptheta, bins_muptheta);
+      bs_flux_multisim_eff_thetamup_num = new BootstrapTH1D("bs_flux_multisim_eff_thetamup_num", "bs_flux_multisim_eff_thetamup_num_title", n_bins_muptheta, bins_muptheta);
+      bs_flux_multisim_eff_thetamup_den = new BootstrapTH1D("bs_flux_multisim_eff_thetamup_den", "bs_flux_multisim_eff_thetamup_den_title", n_bins_muptheta, bins_muptheta);
+      
+  
       // Number of events per channel and universe - Single Differential (mumom) - Genie Multisim
       hmap_trkmom_genie_multisim_bs["total"]["nominal"] = new TH1D("h_trkmom_total_genie_mulinominal", "; Track length;", n_bins_mumom, bins_mumom); // 20, 0, 2.5
       hmap_trkmom_genie_multisim_bs["signal"]["nominal"] = new TH1D("h_trkmom_signal_genie_mulinominal", "; Track length;", n_bins_mumom, bins_mumom);
@@ -141,6 +160,29 @@ namespace DataTypes {
       hmap_trkmom_genie_multisim_bs["anumu"]["nominal"] = new TH1D("h_trkmom_anumu_genie_mulinominal", "; Track length;", n_bins_mumom, bins_mumom);
       hmap_trkmom_genie_multisim_bs["nue"]["nominal"] = new TH1D("h_trkmom_nue_genie_mulinominal", "; Track length;", n_bins_mumom, bins_mumom);
       hmap_trkmom_genie_multisim_bs["cc_other"]["nominal"] = new TH1D("h_trkmom_ccother_genie_mulinominal", "; Track length;", n_bins_mumom, bins_mumom);
+
+      // Number of events per channel and universe - Single Differential (pmom) - Genie Multisim
+      hmap_trkpmom_genie_multisim_bs["total"]["nominal"] = new TH1D("h_trkpmom_total_genie_mulinominal", "; Track length;", n_bins_pmom, bins_pmom); // 20, 0, 2.5
+      hmap_trkpmom_genie_multisim_bs["signal"]["nominal"] = new TH1D("h_trkpmom_signal_genie_mulinominal", "; Track length;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_genie_multisim_bs["cosmic"]["nominal"] = new TH1D("h_trkpmom_cosmic_genie_mulinominal", "; Track length;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_genie_multisim_bs["outfv"]["nominal"] = new TH1D("h_trkpmom_outfv_genie_mulinominal", "; Track length;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_genie_multisim_bs["nc"]["nominal"] = new TH1D("h_trkpmom_nc_genie_mulinominal", "; Track length;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_genie_multisim_bs["anumu"]["nominal"] = new TH1D("h_trkpmom_anumu_genie_mulinominal", "; Track length;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_genie_multisim_bs["nue"]["nominal"] = new TH1D("h_trkpmom_nue_genie_mulinominal", "; Track length;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_genie_multisim_bs["cc_other"]["nominal"] = new TH1D("h_trkpmom_ccother_genie_mulinominal", "; Track length;", n_bins_pmom, bins_pmom);
+
+      // Number of events per channel and universe - Single Differential (pmom) - Genie Multisim
+      hmap_thetamup_genie_multisim_bs["total"]["nominal"] = new TH1D("h_thetamup_total_genie_mulinominal", "; MuP angle;", n_bins_muptheta, bins_muptheta); // 20, 0, 2.5
+      hmap_thetamup_genie_multisim_bs["signal"]["nominal"] = new TH1D("h_thetamup_signal_genie_mulinominal", "; MuP angle;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_genie_multisim_bs["cosmic"]["nominal"] = new TH1D("h_thetamup_cosmic_genie_mulinominal", "; MuP angle;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_genie_multisim_bs["outfv"]["nominal"] = new TH1D("h_thetamup_outfv_genie_mulinominal", "; MuP angle;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_genie_multisim_bs["nc"]["nominal"] = new TH1D("h_thetamup_nc_genie_mulinominal", "; MuP angle;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_genie_multisim_bs["anumu"]["nominal"] = new TH1D("h_thetamup_anumu_genie_mulinominal", "; MuP angle;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_genie_multisim_bs["nue"]["nominal"] = new TH1D("h_thetamup_nue_genie_mulinominal", "; MuP angle;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_genie_multisim_bs["cc_other"]["nominal"] = new TH1D("h_thetamup_ccother_genie_mulinominal", "; MuP angle;", n_bins_muptheta, bins_muptheta);
+
+
+
       // Number of events per channel and universe - Single Differential (mumom) - Flux Multisim
       hmap_trkmom_flux_multisim_bs["total"]["nominal"] = new TH1D("h_trkmom_total_flux_mulinominal", "; Track length;", n_bins_mumom, bins_mumom); // 20, 0, 2.5
       hmap_trkmom_flux_multisim_bs["signal"]["nominal"] = new TH1D("h_trkmom_signal_flux_mulinominal", "; Track length;", n_bins_mumom, bins_mumom);
@@ -150,7 +192,28 @@ namespace DataTypes {
       hmap_trkmom_flux_multisim_bs["anumu"]["nominal"] = new TH1D("h_trkmom_anumu_flux_mulinominal", "; Track length;", n_bins_mumom, bins_mumom);
       hmap_trkmom_flux_multisim_bs["nue"]["nominal"] = new TH1D("h_trkmom_nue_flux_mulinominal", "; Track length;", n_bins_mumom, bins_mumom);
       hmap_trkmom_flux_multisim_bs["cc_other"]["nominal"] = new TH1D("h_trkmom_ccother_flux_mulinominal", "; Track length;", n_bins_mumom, bins_mumom);
-      // Number of events per channel and universe - Single Differential (mumom) - Extra Syst
+
+      // Number of events per channel and universe - Single Differential (mumom) - Flux Multisim
+      hmap_trkpmom_flux_multisim_bs["total"]["nominal"] = new TH1D("h_trkpmom_total_flux_mulinominal", "; Track length;", n_bins_pmom, bins_pmom); // 20, 0, 2.5
+      hmap_trkpmom_flux_multisim_bs["signal"]["nominal"] = new TH1D("h_trkpmom_signal_flux_mulinominal", "; Track length;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_flux_multisim_bs["cosmic"]["nominal"] = new TH1D("h_trkpmom_cosmic_flux_mulinominal", "; Track length;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_flux_multisim_bs["outfv"]["nominal"] = new TH1D("h_trkpmom_outfv_flux_mulinominal", "; Track length;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_flux_multisim_bs["nc"]["nominal"] = new TH1D("h_trkpmom_nc_flux_mulinominal", "; Track length;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_flux_multisim_bs["anumu"]["nominal"] = new TH1D("h_trkpmom_anumu_flux_mulinominal", "; Track length;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_flux_multisim_bs["nue"]["nominal"] = new TH1D("h_trkpmom_nue_flux_mulinominal", "; Track length;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_flux_multisim_bs["cc_other"]["nominal"] = new TH1D("h_trkpmom_ccother_flux_mulinominal", "; Track length;", n_bins_pmom, bins_pmom);
+
+      // Number of events per channel and universe - Single Differential (mumom) - Flux Multisim
+      hmap_thetamup_flux_multisim_bs["total"]["nominal"] = new TH1D("h_thetamup_total_flux_mulinominal", "; Track length;", n_bins_muptheta, bins_muptheta); // 20, 0, 2.5
+      hmap_thetamup_flux_multisim_bs["signal"]["nominal"] = new TH1D("h_thetamup_signal_flux_mulinominal", "; Track length;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_flux_multisim_bs["cosmic"]["nominal"] = new TH1D("h_thetamup_cosmic_flux_mulinominal", "; Track length;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_flux_multisim_bs["outfv"]["nominal"] = new TH1D("h_thetamup_outfv_flux_mulinominal", "; Track length;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_flux_multisim_bs["nc"]["nominal"] = new TH1D("h_thetamup_nc_flux_mulinominal", "; Track length;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_flux_multisim_bs["anumu"]["nominal"] = new TH1D("h_thetamup_anumu_flux_mulinominal", "; Track length;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_flux_multisim_bs["nue"]["nominal"] = new TH1D("h_thetamup_nue_flux_mulinominal", "; Track length;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_flux_multisim_bs["cc_other"]["nominal"] = new TH1D("h_thetamup_ccother_flux_mulinominal", "; Track length;", n_bins_muptheta, bins_muptheta);
+
+       // Number of events per channel and universe - Single Differential (mumom) - Extra Syst
       hmap_trkmom_extra_syst_multisim_bs["total"]["nominal"] = new TH1D("h_trkmom_total_extra_syst_multisim_nominal", "; Track length;", n_bins_mumom, bins_mumom); // 20, 0, 2.5
       hmap_trkmom_extra_syst_multisim_bs["signal"]["nominal"] = new TH1D("h_trkmom_signal_extra_syst_multisim_nominal", "; Track length;", n_bins_mumom, bins_mumom);
       hmap_trkmom_extra_syst_multisim_bs["cosmic"]["nominal"] = new TH1D("h_trkmom_cosmic_extra_syst_multisim_nominal", "; Track length;", n_bins_mumom, bins_mumom);
@@ -159,6 +222,28 @@ namespace DataTypes {
       hmap_trkmom_extra_syst_multisim_bs["anumu"]["nominal"] = new TH1D("h_trkmom_anumu_extra_syst_multisim_nominal", "; Track length;", n_bins_mumom, bins_mumom);
       hmap_trkmom_extra_syst_multisim_bs["nue"]["nominal"] = new TH1D("h_trkmom_nue_extra_syst_multisim_nominal", "; Track length;", n_bins_mumom, bins_mumom);
       hmap_trkmom_extra_syst_multisim_bs["cc_other"]["nominal"] = new TH1D("h_trkmom_ccother_extra_syst_multisim_nominal", "; Track length;", n_bins_mumom, bins_mumom);
+
+       // Number of events per channel and universe - Single Differential (pmom) - Extra Syst
+      hmap_trkpmom_extra_syst_multisim_bs["total"]["nominal"] = new TH1D("h_trkpmom_total_extra_syst_multisim_nominal", "; Track length;", n_bins_pmom, bins_pmom); // 20, 0, 2.5
+      hmap_trkpmom_extra_syst_multisim_bs["signal"]["nominal"] = new TH1D("h_trkpmom_signal_extra_syst_multisim_nominal", "; Track length;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_extra_syst_multisim_bs["cosmic"]["nominal"] = new TH1D("h_trkpmom_cosmic_extra_syst_multisim_nominal", "; Track length;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_extra_syst_multisim_bs["outfv"]["nominal"] = new TH1D("h_trkpmom_outfv_extra_syst_multisim_nominal", "; Track length;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_extra_syst_multisim_bs["nc"]["nominal"] = new TH1D("h_trkpmom_nc_extra_syst_multisim_nominal", "; Track length;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_extra_syst_multisim_bs["anumu"]["nominal"] = new TH1D("h_trkpmom_anumu_extra_syst_multisim_nominal", "; Track length;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_extra_syst_multisim_bs["nue"]["nominal"] = new TH1D("h_trkpmom_nue_extra_syst_multisim_nominal", "; Track length;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_extra_syst_multisim_bs["cc_other"]["nominal"] = new TH1D("h_trkpmom_ccother_extra_syst_multisim_nominal", "; Track length;", n_bins_pmom, bins_pmom);
+
+       // Number of events per channel and universe - Single Differential (thetamup) - Extra Syst
+      hmap_thetamup_extra_syst_multisim_bs["total"]["nominal"] = new TH1D("h_thetamup_total_extra_syst_multisim_nominal", "; Track length;", n_bins_muptheta, bins_muptheta); // 20, 0, 2.5
+      hmap_thetamup_extra_syst_multisim_bs["signal"]["nominal"] = new TH1D("h_thetamup_signal_extra_syst_multisim_nominal", "; Track length;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_extra_syst_multisim_bs["cosmic"]["nominal"] = new TH1D("h_thetamup_cosmic_extra_syst_multisim_nominal", "; Track length;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_extra_syst_multisim_bs["outfv"]["nominal"] = new TH1D("h_thetamup_outfv_extra_syst_multisim_nominal", "; Track length;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_extra_syst_multisim_bs["nc"]["nominal"] = new TH1D("h_thetamup_nc_extra_syst_multisim_nominal", "; Track length;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_extra_syst_multisim_bs["anumu"]["nominal"] = new TH1D("h_thetamup_anumu_extra_syst_multisim_nominal", "; Track length;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_extra_syst_multisim_bs["nue"]["nominal"] = new TH1D("h_thetamup_nue_extra_syst_multisim_nominal", "; Track length;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_extra_syst_multisim_bs["cc_other"]["nominal"] = new TH1D("h_thetamup_ccother_extra_syst_multisim_nominal", "; Track length;", n_bins_muptheta, bins_muptheta);
+
+
       // Number of events per channel and universe - Single Differential (mumom) - MC Stat
       hmap_trkmom_mc_stat_multisim_bs["total"]["nominal"] = new TH1D("h_trkmom_total_mc_stat_multisim_nominal", "; Track length;", n_bins_mumom, bins_mumom); // 20, 0, 2.5
       hmap_trkmom_mc_stat_multisim_bs["signal"]["nominal"] = new TH1D("h_trkmom_signal_mc_stat_multisim_nominal", "; Track length;", n_bins_mumom, bins_mumom);
@@ -168,11 +253,41 @@ namespace DataTypes {
       hmap_trkmom_mc_stat_multisim_bs["anumu"]["nominal"] = new TH1D("h_trkmom_anumu_mc_stat_multisim_nominal", "; Track length;", n_bins_mumom, bins_mumom);
       hmap_trkmom_mc_stat_multisim_bs["nue"]["nominal"] = new TH1D("h_trkmom_nue_mc_stat_multisim_nominal", "; Track length;", n_bins_mumom, bins_mumom);
       hmap_trkmom_mc_stat_multisim_bs["cc_other"]["nominal"] = new TH1D("h_trkmom_ccother_mc_stat_multisim_nominal", "; Track length;", n_bins_mumom, bins_mumom);
+
+      // Number of events per channel and universe - Single Differential (pmom) - MC Stat
+      hmap_trkpmom_mc_stat_multisim_bs["total"]["nominal"] = new TH1D("h_trkpmom_total_mc_stat_multisim_nominal", "; Track length;", n_bins_pmom, bins_pmom); // 20, 0, 2.5
+      hmap_trkpmom_mc_stat_multisim_bs["signal"]["nominal"] = new TH1D("h_trkpmom_signal_mc_stat_multisim_nominal", "; Track length;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_mc_stat_multisim_bs["cosmic"]["nominal"] = new TH1D("h_trkpmom_cosmic_mc_stat_multisim_nominal", "; Track length;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_mc_stat_multisim_bs["outfv"]["nominal"] = new TH1D("h_trkpmom_outfv_mc_stat_multisim_nominal", "; Track length;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_mc_stat_multisim_bs["nc"]["nominal"] = new TH1D("h_trkpmom_nc_mc_stat_multisim_nominal", "; Track length;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_mc_stat_multisim_bs["anumu"]["nominal"] = new TH1D("h_trkpmom_anumu_mc_stat_multisim_nominal", "; Track length;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_mc_stat_multisim_bs["nue"]["nominal"] = new TH1D("h_trkpmom_nue_mc_stat_multisim_nominal", "; Track length;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_mc_stat_multisim_bs["cc_other"]["nominal"] = new TH1D("h_trkpmom_ccother_mc_stat_multisim_nominal", "; Track length;", n_bins_pmom, bins_pmom);
+
+      // Number of events per channel and universe - Single Differential (thetamup) - MC Stat
+      hmap_thetamup_mc_stat_multisim_bs["total"]["nominal"] = new TH1D("h_thetamup_total_mc_stat_multisim_nominal", "; Track length;", n_bins_muptheta, bins_muptheta); // 20, 0, 2.5
+      hmap_thetamup_mc_stat_multisim_bs["signal"]["nominal"] = new TH1D("h_thetamup_signal_mc_stat_multisim_nominal", "; Track length;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_mc_stat_multisim_bs["cosmic"]["nominal"] = new TH1D("h_thetamup_cosmic_mc_stat_multisim_nominal", "; Track length;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_mc_stat_multisim_bs["outfv"]["nominal"] = new TH1D("h_thetamup_outfv_mc_stat_multisim_nominal", "; Track length;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_mc_stat_multisim_bs["nc"]["nominal"] = new TH1D("h_thetamup_nc_mc_stat_multisim_nominal", "; Track length;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_mc_stat_multisim_bs["anumu"]["nominal"] = new TH1D("h_thetamup_anumu_mc_stat_multisim_nominal", "; Track length;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_mc_stat_multisim_bs["nue"]["nominal"] = new TH1D("h_thetamup_nue_mc_stat_multisim_nominal", "; Track length;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_mc_stat_multisim_bs["cc_other"]["nominal"] = new TH1D("h_thetamup_ccother_mc_stat_multisim_nominal", "; Track length;", n_bins_muptheta, bins_muptheta);
+
+
+
+
       // Reco to true histograms for every universe - Single Differential (mumom) - Genie Multisim
       bs_genie_multisim_true_reco_mumom = new BootstrapTH2D("bs_genie_multisim_true_reco_mumom", ";Muon Momentum (Truth) [GeV]; Muon Momentum (MCS) [GeV]", n_bins_mumom, bins_mumom, n_bins_mumom, bins_mumom);
       bs_flux_multisim_true_reco_mumom = new BootstrapTH2D("bs_flux_multisim_true_reco_mumom", ";Muon Momentum (Truth) [GeV]; Muon Momentum (MCS) [GeV]", n_bins_mumom, bins_mumom, n_bins_mumom, bins_mumom);
       bs_extra_syst_true_reco_mumom = new BootstrapTH2D("bs_extra_syst_true_reco_mumom", ";Muon Momentum (Truth) [GeV]; Muon Momentum (MCS) [GeV]", n_bins_mumom, bins_mumom, n_bins_mumom, bins_mumom);
       bs_mc_stat_multisim_true_reco_mumom = new BootstrapTH2D("bs_mc_stat_multisim_true_reco_mumom", ";Muon Momentum (Truth) [GeV]; Muon Momentum (MCS) [GeV]", n_bins_mumom, bins_mumom, n_bins_mumom, bins_mumom);
+
+      bs_genie_multisim_true_reco_pmom = new BootstrapTH2D("bs_genie_multisim_true_reco_pmom", ";Proton Momentum (Truth) [GeV]; Proton Momentum (MCS) [GeV]", n_bins_pmom, bins_pmom, n_bins_pmom, bins_pmom);
+      bs_flux_multisim_true_reco_pmom = new BootstrapTH2D("bs_flux_multisim_true_reco_pmom", ";Proton Momentum (Truth) [GeV]; Proton Momentum (MCS) [GeV]", n_bins_pmom, bins_pmom, n_bins_pmom, bins_pmom);
+      bs_extra_syst_true_reco_pmom = new BootstrapTH2D("bs_extra_syst_true_reco_pmom", ";Proton Momentum (Truth) [GeV]; Proton Momentum (MCS) [GeV]", n_bins_pmom, bins_pmom, n_bins_pmom, bins_pmom);
+      bs_mc_stat_multisim_true_reco_pmom = new BootstrapTH2D("bs_mc_stat_multisim_true_reco_pmom", ";Proton Momentum (Truth) [GeV]; Proton Momentum (MCS) [GeV]", n_bins_pmom, bins_pmom, n_bins_pmom, bins_pmom);
+
 
 
       //
@@ -183,8 +298,17 @@ namespace DataTypes {
       h_eff_muangle_num = new TH1D("h_eff_muangle_num", "h_eff_muangle_num", n_bins_mucostheta, bins_mucostheta);
       h_eff_muangle_den = new TH1D("h_eff_muangle_den", "h_eff_muangle_den", n_bins_mucostheta, bins_mucostheta);
 
+      // Efficiency - Single Differential (pangle)
+      h_eff_pangle_num = new TH1D("h_eff_pangle_num", "h_eff_pangle_num", n_bins_pcostheta, bins_pcostheta);
+      h_eff_pangle_den = new TH1D("h_eff_pangle_den", "h_eff_pangle_den", n_bins_pcostheta, bins_pcostheta);
+
+
       // Reco to true histograms - Single Differential (muangle)
       h_true_reco_costheta= new TH2D("h_true_reco_costheta", ";Muon cos(#theta) (Truth) [GeV]; Muon cos(#theta) (MCS) [GeV]", n_bins_mucostheta, bins_mucostheta, n_bins_mucostheta, bins_mucostheta);
+
+      // Reco to true histograms - Single Differential (pangle)
+      h_true_reco_pcostheta= new TH2D("h_true_reco_pcostheta", ";Muon cos(#theta) (Truth) [GeV]; Proton cos(#theta) (MCS) [GeV]", n_bins_pcostheta, bins_pcostheta, n_bins_pcostheta, bins_pcostheta);
+
 
       // Number of events per channel - Single Differential (muangle)
       hmap_trktheta["total"] = new TH1D("h_trktheta_total", "; Track cos(#theta);", n_bins_mucostheta, bins_mucostheta);

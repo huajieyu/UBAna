@@ -73,9 +73,16 @@ namespace DataTypes {
     int n_bins_mumom = 6;
     int n_bins_mucostheta = 9;
 
-    int n_bins_pmom = 150;
-    
 
+    double bins_pmom[7] = {0.30, 0.35, 0.40, 0.45, 0.77, 1.28, 2.50};
+    double bins_pcostheta[10]={-1.00, -0.50, 0.00, 0.27, 0.45, 0.62, 0.76, 0.86, 0.94, 1.00};
+    int n_bins_pmom = 6;
+    int n_bins_pcostheta = 9;
+    
+    double bins_muptheta[7] = {0.00, 0.18, 0.30, 0.45, 0.77, 1.28, 3.14};
+    int n_bins_muptheta = 6;
+    
+  
 
     //
     // Total Cross Section
@@ -120,22 +127,68 @@ namespace DataTypes {
     TH2D * h_true_reco_pmom = 0;
     BootstrapTH1D * bs_genie_multisim_eff_mumom_num = 0; ///< Efficiency Numerator - Single Differential (mumom) - Genie Multisim
     BootstrapTH1D * bs_genie_multisim_eff_mumom_den = 0; ///< Efficiency Denominator - Single Differential (mumom) - Genie Multisim
+    BootstrapTH1D * bs_genie_multisim_eff_pmom_num = 0; ///< Efficiency Numerator - Single Differential (pmom) - Genie Multisim
+    BootstrapTH1D * bs_genie_multisim_eff_pmom_den = 0; ///< Efficiency Denominator - Single Differential (pmom) - Genie Multisim
+    BootstrapTH1D * bs_genie_multisim_eff_thetamup_num = 0; ///< Efficiency Numerator - Single Differential (thetamup) - Genie Multisim
+    BootstrapTH1D * bs_genie_multisim_eff_thetamup_den = 0; ///< Efficiency Denominator - Single Differential (thetamup) - Genie Multisim
+
+
+
     BootstrapTH1D * bs_flux_multisim_eff_mumom_num = 0; ///< Efficiency Numerator - Single Differential (mumom) - Flux Multisim
     BootstrapTH1D * bs_flux_multisim_eff_mumom_den = 0; ///< Efficiency Denominator - Single Differential (mumom) - Flux Multisim
+    BootstrapTH1D * bs_flux_multisim_eff_pmom_num = 0; ///< Efficiency Numerator - Single Differential (pmom) - Flux Multisim
+    BootstrapTH1D * bs_flux_multisim_eff_pmom_den = 0; ///< Efficiency Denominator - Single Differential (pmom) - Flux Multisim
+    BootstrapTH1D * bs_flux_multisim_eff_thetamup_num = 0; ///< Efficiency Numerator - Single Differential (thetamup) - Flux Multisim
+    BootstrapTH1D * bs_flux_multisim_eff_thetamup_den = 0; ///< Efficiency Denominator - Single Differential (thetamup) - Flux Multisim
+
+
     BootstrapTH1D * bs_extra_syst_multisim_eff_mumom_num = 0; ///< Efficiency Numerator - Single Differential (mumom) - Extra Syst
     BootstrapTH1D * bs_extra_syst_multisim_eff_mumom_den = 0; ///< Efficiency Denominator - Single Differential (mumom) - Extra Syst
+    BootstrapTH1D * bs_extra_syst_multisim_eff_pmom_num = 0; ///< Efficiency Numerator - Single Differential (pmom) - Extra Syst
+    BootstrapTH1D * bs_extra_syst_multisim_eff_pmom_den = 0; ///< Efficiency Denominator - Single Differential (pmom) - Extra Syst
+    BootstrapTH1D * bs_extra_syst_multisim_eff_thetamup_num = 0; ///< Efficiency Numerator - Single Differential (thetamup) - Extra Syst
+    BootstrapTH1D * bs_extra_syst_multisim_eff_thetamup_den = 0; ///< Efficiency Denominator - Single Differential (thetamup) - Extra Syst
+
+
     BootstrapTH1D * bs_mc_stat_multisim_eff_mumom_num = 0; ///< Efficiency Numerator - Single Differential (mumom) - MC Stat
     BootstrapTH1D * bs_mc_stat_multisim_eff_mumom_den = 0; ///< Efficiency Denominator - Single Differential (mumom) - MC Stat
+    BootstrapTH1D * bs_mc_stat_multisim_eff_pmom_num = 0; ///< Efficiency Numerator - Single Differential (mumom) - MC Stat
+    BootstrapTH1D * bs_mc_stat_multisim_eff_pmom_den = 0; ///< Efficiency Denominator - Single Differential (mumom) - MC Stat
+    BootstrapTH1D * bs_mc_stat_multisim_eff_thetamup_num = 0; ///< Efficiency Numerator - Single Differential (mumom) - MC Stat
+    BootstrapTH1D * bs_mc_stat_multisim_eff_thetmup_den = 0; ///< Efficiency Denominator - Single Differential (mumom) - MC Stat
 
+
+
+ 
     std::map<std::string,std::map<std::string,TH1D*>> hmap_trkmom_genie_multisim_bs; ///< Number of events per channel and universe - Single Differential (mumom) - Genie Multisim
+    std::map<std::string,std::map<std::string,TH1D*>> hmap_trkpmom_genie_multisim_bs; ///< Number of events per channel and universe - Single Differential (pmom) - Genie Multisim
+    std::map<std::string,std::map<std::string,TH1D*>> hmap_thetamup_genie_multisim_bs; ///< Number of events per channel and universe - Single Differential (thetamup) - Genie Multisim
+
+
     std::map<std::string,std::map<std::string,TH1D*>> hmap_trkmom_flux_multisim_bs; ///< Number of events per channel and universe - Single Differential (mumom) - Flux Multisim
+    std::map<std::string,std::map<std::string,TH1D*>> hmap_trkpmom_flux_multisim_bs; ///< Number of events per channel and universe - Single Differential (pmom) - Flux Multisim
+    std::map<std::string,std::map<std::string,TH1D*>> hmap_thetamup_flux_multisim_bs; ///< Number of events per channel and universe - Single Differential (thetamup) - Flux Multisim
+
     std::map<std::string,std::map<std::string,TH1D*>> hmap_trkmom_extra_syst_multisim_bs; ///< Number of events per channel and universe - Single Differential (mumom) - Extra Syst
+    std::map<std::string,std::map<std::string,TH1D*>> hmap_trkpmom_extra_syst_multisim_bs; ///< Number of events per channel and universe - Single Differential (pmom) - Extra Syst
+    std::map<std::string,std::map<std::string,TH1D*>> hmap_thetamup_extra_syst_multisim_bs; ///< Number of events per channel and universe - Single Differential (thetamup) - Extra Syst
+
+
     std::map<std::string,std::map<std::string,TH1D*>> hmap_trkmom_mc_stat_multisim_bs; ///< Number of events per channel and universe - Single Differential (mumom) - MC Stat
+    std::map<std::string,std::map<std::string,TH1D*>> hmap_trkpmom_mc_stat_multisim_bs; ///< Number of events per channel and universe - Single Differential (pmom) - MC Stat
+    std::map<std::string,std::map<std::string,TH1D*>> hmap_thetamup_mc_stat_multisim_bs; ///< Number of events per channel and universe - Single Differential (thetamup) - MC Stat
+
+
 
     BootstrapTH2D * bs_genie_multisim_true_reco_mumom = 0; ///< Reco to true histograms for every universe - Single Differential (mumom) - Genie Multisim
     BootstrapTH2D * bs_flux_multisim_true_reco_mumom = 0; ///< Reco to true histograms for every universe - Single Differential (mumom) - Flux Multisim
     BootstrapTH2D * bs_extra_syst_true_reco_mumom = 0; ///< Reco to true histograms for every universe - Single Differential (mumom) - Extra Syst
     BootstrapTH2D * bs_mc_stat_multisim_true_reco_mumom = 0; ///< Reco to true histograms for every universe - Single Differential (mumom) - MC Stat
+
+    BootstrapTH2D * bs_genie_multisim_true_reco_pmom = 0; ///< Reco to true histograms for every universe - Single Differential (pmom) - Genie Multisim
+    BootstrapTH2D * bs_flux_multisim_true_reco_pmom = 0; ///< Reco to true histograms for every universe - Single Differential (pmom) - Flux Multisim
+    BootstrapTH2D * bs_extra_syst_true_reco_pmom = 0; ///< Reco to true histograms for every universe - Single Differential (pmom) - Extra Syst
+    BootstrapTH2D * bs_mc_stat_multisim_true_reco_pmom = 0; ///< Reco to true histograms for every universe - Single Differential (pmom) - MC Stat
 
 
 
@@ -146,8 +199,10 @@ namespace DataTypes {
     std::map<std::string,TH1D*> hmap_trktheta; ///< Number of events per channel - Single Differential (mumom)
     TH1D* h_eff_muangle_num = 0; ///< Efficiency Numerator - Single Differential (mumom)
     TH1D* h_eff_muangle_den = 0; ///< Efficiency Denominator - Single Differential (mumom)
+    TH1D* h_eff_pangle_num=0;
+    TH1D* h_eff_pangle_den=0;
     TH2D * h_true_reco_costheta = 0; ///< Reco to true histogram - Single Differential (mumom)
-
+    TH2D * h_true_reco_pcostheta = 0;
     BootstrapTH1D * bs_genie_multisim_eff_muangle_num = 0; ///< Efficiency Numerator - Single Differential (muangle) - Genie Multisim
     BootstrapTH1D * bs_genie_multisim_eff_muangle_den = 0; ///< Efficiency Denominator - Single Differential (muangle) - Genie Multisim
     BootstrapTH1D * bs_flux_multisim_eff_muangle_num = 0; ///< Efficiency Numerator - Single Differential (muangle) - Flux Multisim
