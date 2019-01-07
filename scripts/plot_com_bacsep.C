@@ -2894,6 +2894,137 @@ prelim->SetTextAlign(32);
   c1->Print("figures/Dirt/h_pmult_dirt.png");
   
   // Dirt as a fraction of MC stack (with off-beam)
+  TH1 *data_cl;
+  TH1 *dirt_cl;
 
-  
+  // range
+  c1->cd();
+  c1->Clear();
+  data_cl = (TH1*)h_range_allsel[0]->Clone();
+  dirt_cl = (TH1*)h_range_allsel[3]->Clone();
+  dirt_cl->Divide(data_cl);
+  c1->Clear();
+  dirt_cl->Draw();
+  c1->Print("figures/Dirt/h_range_dirtfrac.png");
+
+  // prange
+  c1->cd();
+  c1->Clear();
+  data_cl = (TH1*)h_prange_allsel[0]->Clone();
+  dirt_cl = (TH1*)h_prange_allsel[3]->Clone();
+  dirt_cl->Divide(data_cl);
+  c1->Clear();
+  dirt_cl->Draw();
+  c1->Print("figures/Dirt/h_prange_dirtfrac.png");
+
+  // phi
+  c1->cd();
+  c1->Clear();
+  data_cl = (TH1*)h_phi_allsel[0]->Clone();
+  dirt_cl = (TH1*)h_phi_allsel[3]->Clone();
+  dirt_cl->Divide(data_cl);
+  c1->Clear();
+  dirt_cl->Draw();
+  c1->Print("figures/Dirt/h_phi_dirtfrac.png");
+
+  // pphi
+  c1->cd();
+  c1->Clear();
+  data_cl = (TH1*)h_pphi_allsel[0]->Clone();
+  dirt_cl = (TH1*)h_pphi_allsel[3]->Clone();
+  dirt_cl->Divide(data_cl);
+  c1->Clear();
+  dirt_cl->Draw();
+  c1->Print("figures/Dirt/h_pphi_dirtfrac.png");
+
+  // costheta
+  c1->cd();
+  c1->Clear();
+  data_cl = (TH1*)h_costheta_allsel[0]->Clone();
+  dirt_cl = (TH1*)h_costheta_allsel[3]->Clone();
+  dirt_cl->Divide(data_cl);
+  c1->Clear();
+  dirt_cl->Draw();
+  c1->Print("figures/Dirt/h_costheta_dirtfrac.png");
+
+  // pcostheta
+  c1->cd();
+  c1->Clear();
+  data_cl = (TH1*)h_pcostheta_allsel[0]->Clone();
+  dirt_cl = (TH1*)h_pcostheta_allsel[3]->Clone();
+  dirt_cl->Divide(data_cl);
+  c1->Clear();
+  dirt_cl->Draw();
+  c1->Print("figures/Dirt/h_pcostheta_dirtfrac.png");
+
+  // plep
+  c1->cd();
+  c1->Clear();
+  data_cl = (TH1*)h_plep_allsel[0]->Clone();
+  dirt_cl = (TH1*)h_plep_allsel[3]->Clone();
+  dirt_cl->Divide(data_cl);
+  c1->Clear();
+  dirt_cl->Draw();
+  c1->Print("figures/Dirt/h_plep_dirtfrac.png");
+
+  // phad
+  c1->cd();
+  c1->Clear();
+  data_cl = (TH1*)h_phad_allsel[0]->Clone();
+  dirt_cl = (TH1*)h_phad_allsel[3]->Clone();
+  dirt_cl->Divide(data_cl);
+  c1->Clear();
+  dirt_cl->Draw();
+  c1->Print("figures/Dirt/h_phad_dirtfrac.png");
+
+  // ptmis
+  c1->cd();
+  c1->Clear();
+  data_cl = (TH1*)h_ptmis_allsel[0]->Clone();
+  dirt_cl = (TH1*)h_ptmis_allsel[3]->Clone();
+  dirt_cl->Divide(data_cl);
+  c1->Clear();
+  dirt_cl->Draw();
+  c1->Print("figures/Dirt/h_ptmis_dirtfrac.png");
+
+  // etatest
+  c1->cd();
+  c1->Clear();
+  data_cl = (TH1*)h_etatest_allsel[0]->Clone();
+  dirt_cl = (TH1*)h_etatest_allsel[3]->Clone();
+  dirt_cl->Divide(data_cl);
+  c1->Clear();
+  dirt_cl->Draw();
+  c1->Print("figures/Dirt/h_etatest_dirtfrac.png");
+
+  // enucal
+  c1->cd();
+  c1->Clear();
+  data_cl = (TH1*)h_enucal_allsel[0]->Clone();
+  dirt_cl = (TH1*)h_enucal_allsel[3]->Clone();
+  dirt_cl->Divide(data_cl);
+  c1->Clear();
+  dirt_cl->Draw();
+  c1->Print("figures/Dirt/h_enucal_dirtfrac.png");
+
+  // alphat
+  c1->cd();
+  c1->Clear();
+  data_cl = (TH1*)h_alphat_allsel[0]->Clone();
+  dirt_cl = (TH1*)h_alphat_allsel[3]->Clone();
+  dirt_cl->Divide(data_cl);
+  c1->Clear();
+  dirt_cl->Draw();
+  c1->Print("figures/Dirt/h_alphat_dirtfrac.png");
+
+  // pmult
+  c1->cd();
+  c1->Clear();
+  data_cl = (TH1*)h_pmult_allsel[0]->Clone();
+  dirt_cl = (TH1*)h_pmult_allsel[3]->Clone();
+  dirt_cl->Divide(data_cl);
+  c1->Clear();
+  dirt_cl->Draw();
+  c1->Print("figures/Dirt/h_pmult_dirtfrac.png");
+
  }
