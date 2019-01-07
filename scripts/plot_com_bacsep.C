@@ -51,7 +51,6 @@ void stackHists(THStack *stack, TH1D *histarray_sig[], TH1D *histarray_bac[], TH
   stack->Add(histarray_data[3]); // Dirt MC
   stack->Add(histarray_data[1]); // EXT data
 
-  stack->Add(histarray_data[3]);
 }
 float Chi2Calc(TH1D *histo_MC, TH1D *histo_bnb, TH1D *histo_extbnb, float scale_offbeam, float norm_MC){
    int nbins=histo_MC->GetNbinsX();
