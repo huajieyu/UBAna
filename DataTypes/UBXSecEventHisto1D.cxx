@@ -103,7 +103,7 @@ namespace DataTypes {
 
       // Reco to true histograms - Single Differential (mumom)
       h_true_reco_mom= new TH2D("h_true_reco_mom", ";Muon Momentum (Truth) [GeV]; Muon Momentum (MCS) [GeV]", n_bins_mumom, bins_mumom, n_bins_mumom, bins_mumom);
-      h_true_reco_pmom= new TH2D("h_true_reco_mom", ";Proton Momentum (Truth) [GeV]; Proton Momentum (Reco) [GeV]", n_bins_pmom, 0.3, 1.5, n_bins_pmom, 0.3, 1.5);
+      h_true_reco_pmom= new TH2D("h_true_reco_mom", ";Proton Momentum (Truth) [GeV]; Proton Momentum (Reco) [GeV]", n_bins_pmom, bins_pmom, n_bins_pmom, bins_pmom);
 
       // Number of events per channel - Single Differential (mumom)
       hmap_trkmom["total"] = new TH1D("h_trkmom_total", "; Track momentum;", n_bins_mumom, bins_mumom);
