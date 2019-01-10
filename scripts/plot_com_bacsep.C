@@ -52,6 +52,18 @@ void stackHists(THStack *stack, TH1D *histarray_sig[], TH1D *histarray_bac[], TH
   stack->Add(histarray_data[1]); // EXT data
 
 }
+
+void stack_dirt(THStack *h_stack,TH1D *h_cosmic,TH1D *h_all,const double &normfac, const double &scale_dirt_MC){
+
+  h_cosmic->SetLineColor(11);
+  h_cosmic->SetFillStyle(3005);
+  h_cosmic->Scale(scale_dirt_MC*normfac);
+  TH1D *h_nu = (TH1D*)h_all->Clone("h_nu");
+  h_nu->Add(h_cosmic,-1);
+  h_stack->Add(h_nu);
+  h_stack->Add(h_cosmic);
+}
+
 float Chi2Calc(TH1D *histo_MC, TH1D *histo_bnb, TH1D *histo_extbnb, float scale_offbeam, float norm_MC){
    int nbins=histo_MC->GetNbinsX();
    float N_MC[nbins], N_BNB[nbins], N_EXTBNB[nbins];
@@ -105,7 +117,7 @@ void plot_com_bacsep(){
   }
   input3 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Dec20/ubxsecana_output_mc_bnbdirt_ubcodev06_26_01_22.root");
 
-  TFile *input3;
+  //TFile *input3;
   input3=new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Jan/ubxsecana_output_mc_bnbdirt_ubcodev06_26_01_22.root");
 
   gROOT->SetBatch();
@@ -2849,14 +2861,22 @@ prelim->SetTextAlign(32);
   //==========================================================================
   
   // Dirt-only distributions
+  THStack *h_stack = new THStack();
   c1->cd();
   c1->Clear();
-  h_range_allsel[3]->Draw();
+  h_range_allsel[3]->Draw("hist");
+  TH1D *h_range_cos_dirt = (TH1D*)input3->Get("h_trklen_cosmic");
+  stack_dirt(h_stack, h_range_cos_dirt,h_range_allsel[3],normfac, scale_dirt_MC);
+  //h_range_cos_dirt->Draw("hist same");
+  h_stack->Draw("hist");
+
   c1->Print("figures/Dirt/h_range_dirt.png");
-  
+  delete h_stack;
+  h_stack = new THStack();
   c1->cd();
   c1->Clear();
   h_prange_allsel[3]->Draw();
+  TH1D *h_prange_cos_dirt = (TH1D*)input3->Get("h_trkplen_cosmic");
   c1->Print("figures/Dirt/h_prange_dirt.png");
   
   c1->cd();
