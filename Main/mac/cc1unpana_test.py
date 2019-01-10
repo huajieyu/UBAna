@@ -7,11 +7,11 @@ from ROOT import Main
 
 analyser = Main.CC1uNPAna()
 
-analyser.SetBNBCosmicFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Dec20/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22.root") # tune 1
-analyser.SetDirtFile ("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Dec20/ubxsecana_output_mc_bnbdirt_ubcodev06_26_01_22.root")
+analyser.SetBNBCosmicFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Jan/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22.root") # tune 1
+analyser.SetDirtFile ("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Jan/ubxsecana_output_mc_bnbdirt_ubcodev06_26_01_22.root")
 #analyser.SetInTimeCosmicFile  ("/Users/deltutto/RealWork/CCInclusiveEventSelection/Files/Output/ubxsecana_output_bnbcosmic_mcc8.7_test6.root") # Just a placeholder
-analyser.SetBNBONFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Dec20/ubxsecana_output_data_onbeam_ubcodev06_26_01_22.root")    
-analyser.SetEXTBNBFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Dec20/ubxsecana_output_data_offbeam_ubcodev06_26_01_22.root")
+analyser.SetBNBONFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Jan/ubxsecana_output_data_onbeam_ubcodev06_26_01_22.root")    
+analyser.SetEXTBNBFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Jan/ubxsecana_output_data_offbeam_ubcodev06_26_01_22.root")
 
 
 

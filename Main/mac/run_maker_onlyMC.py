@@ -11,11 +11,11 @@ maker = Main.Maker()
 
 # BNBComisc
 
-#maker.SetInputFile("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/test_ntuples_Dec10/ubxsec_output_mc_bnbcosmic.root");
-#maker.SetOutputFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Dec/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22.root") # Run1 After Neutrino
+maker.SetInputFile("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/test_ntuples_Dec10/ubxsec_output_mc_bnbcosmic.root");
+maker.SetOutputFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Dec/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22.root") # Run1 After Neutrino
 
-maker.SetInputFile("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/test_ntuples_Dec10/ubxsec_output_mc_bnbdirt.root");
-maker.SetOutputFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Dec/ubxsecana_output_mc_bnbdirt_ubcodev06_26_01_22.root");
+#maker.SetInputFile("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/test_ntuples_Dec10/ubxsec_output_mc_bnbdirt.root");
+#maker.SetOutputFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Dec/ubxsecana_output_mc_bnbdirt_ubcodev06_26_01_22.root");
 
 
 maker.SetEntries(-1)

@@ -62,6 +62,7 @@ int muind=-999;
 int pind=-999;
 
 bool pion_reco=false;
+bool pion_reint=false;
 float thetamup = -999.0;
 float ptmis = -999.0;
 float alphat= -999.0;
@@ -1218,7 +1219,7 @@ void Main::Maker::MakeFile()
   TH2D* h_pcand_reso= new TH2D("h_pcand_reso", ";Proton Momentum (Reco) [GeV]; Proton Momentum (Reco-True) [GeV]", 60, 0.3, 1.5, 60, -1.2, 0.3);
   TH2D* h_pangle_reso= new TH2D("h_pangle_reso", ";Proton CosTheta (Reco); Proton CosTheta (Reco-True)", 60, -1.0, 1.0, 60, -0.5, 0.5);
   TH1D* h_pion_reco= new TH1D("h_pion_reco", ";pion_reco ; Nevts", 2, -0.5, 1.5);
-
+  TH1D* h_pion_reint=new TH1D("h_pion_reint",";pion_reint; Nevts", 2, -0.5, 1.5);
   //==========================================================================================================
   std::map<std::string,TH1D*> hmap_trkplen;
   hmap_trkplen["total"] = new TH1D("h_trkplen_total", "; Track length;", 30, 0, 150); // 20, 0, 2.5
@@ -2912,13 +2913,19 @@ void Main::Maker::MakeFile()
       px_total=t->pfp_reco_Mom_MCS[muind]*TMath::Sin(t->pfp_reco_theta[muind])*TMath::Cos(t->pfp_reco_phi[muind]);
       py_total=t->pfp_reco_Mom_MCS[muind]*TMath::Sin(t->pfp_reco_theta[muind])*TMath::Sin(t->pfp_reco_phi[muind]);
       Esum=sqrt(t->pfp_reco_Mom_MCS[muind]*t->pfp_reco_Mom_MCS[muind]+muonmass*muonmass);
+
+      pion_reco=false;
+      pion_reint=false;
       for(size_t ii=0; ii<t->pfp_reco_ismuoncandidate.size(); ii++){
          if(t->pfp_reco_ismuoncandidate[ii]==1) continue;  //proton candidate
          if(t->pfp_reco_istrack[ii]==0) continue; 
          Esum=Esum+sqrt(t->pfp_reco_Mom_proton[ii]*t->pfp_reco_Mom_proton[ii]+protonmass*protonmass)-protonmass; 
          px_total=px_total+t->pfp_reco_Mom_proton[ii]*TMath::Sin(t->pfp_reco_theta[ii])*TMath::Cos(t->pfp_reco_phi[ii]);
          py_total=py_total+t->pfp_reco_Mom_proton[ii]*TMath::Sin(t->pfp_reco_theta[ii])*TMath::Sin(t->pfp_reco_phi[ii]);
-         if(abs(t->pfp_truth_pdg[ii]==211) || abs(t->pfp_truth_pdg[ii]==111)){pion_reco=true;}
+         if(abs(t->pfp_truth_pdg[ii]==211) || abs(t->pfp_truth_pdg[ii]==111)){
+             pion_reco=true;
+             if(t->pfp_truth_endProcess[ii]=="protonInelastic") {pion_reint=true;}
+         }
       }
       
       ptmis=TMath::Sqrt(px_total*px_total+py_total*py_total); 
@@ -3540,8 +3547,11 @@ void Main::Maker::MakeFile()
         hmap_trkpmom_classic["cc_pion"]->Fill(t->pfp_reco_Mom_proton[pind], event_weight);
         hmap_trkptheta_classic["cc_pion"]->Fill(t->pfp_reco_costheta[pind], event_weight);
         hmap_trkpphi["cc_pion"]->Fill(t->pfp_reco_phi[pind], event_weight);
+
+        h_pion_reco->Fill(pion_reco, event_weight);   
+        h_pion_reint->Fill(pion_reint, event_weight); 
+ 
       }
-      h_pion_reco->Fill(pion_reco, event_weight);    
     }
     //=======================================================================================================
     //
