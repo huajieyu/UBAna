@@ -55,11 +55,16 @@ void stackHists(THStack *stack, TH1D *histarray_sig[], TH1D *histarray_bac[], TH
 
 void stack_dirt(THStack *h_stack,TH1D *h_cosmic,TH1D *h_all,const double &normfac, const double &scale_dirt_MC){
 
-  h_cosmic->SetLineColor(11);
-  h_cosmic->SetFillStyle(3005);
+  h_cosmic->SetLineColor(1);
+  h_cosmic->SetFillColor(3);
+  h_cosmic->SetFillStyle(1001);
   h_cosmic->Scale(scale_dirt_MC*normfac);
   TH1D *h_nu = (TH1D*)h_all->Clone("h_nu");
   h_nu->Add(h_cosmic,-1);
+  h_nu->SetLineColor(1);
+  h_nu->SetFillColor(2);
+  h_nu->SetFillStyle(1001);
+  h_nu->GetXaxis()->SetTitle(h_cosmic->GetXaxis()->GetTitle());
   h_stack->Add(h_nu);
   h_stack->Add(h_cosmic);
 }
@@ -91,7 +96,7 @@ float Chi2Calc(TH1D *histo_MC, TH1D *histo_bnb, TH1D *histo_extbnb, float scale_
 void plot_com_bacsep(){
   //loadStyle();
   int tune=1;
-  int cosmicCut=1;
+  int cosmicCut=0;
   
   TFile *input0; // on-beam
   TFile *input1; // off-beam
@@ -2868,76 +2873,137 @@ prelim->SetTextAlign(32);
   //h_range_cos_dirt->Draw("hist same");
   h_stack->Draw("hist");
 
+  TLegend *leg_cos = new TLegend(0.7, 0.7, 0.89, 0.89);
+  leg_cos->SetFillColor(0);
+  leg_cos->SetFillColor(0);
+  TList *hists = h_stack->GetHists();
+  leg_cos->AddEntry(hists->At(0),"dirt-nu","f");
+  leg_cos->AddEntry(hists->At(1),"dirt-cos","f");
+  leg_cos->Draw();
   c1->Print("figures/Dirt/h_range_dirt.png");
+
   delete h_stack;
   h_stack = new THStack();
-  c1->cd();
   c1->Clear();
-  h_prange_allsel[3]->Draw();
   TH1D *h_prange_cos_dirt = (TH1D*)input3->Get("h_trkplen_cosmic");
+  stack_dirt(h_stack, h_prange_cos_dirt,h_prange_allsel[3],normfac, scale_dirt_MC);
+  h_stack->Draw("hist");
+  leg_cos->Draw();
   c1->Print("figures/Dirt/h_prange_dirt.png");
   
-  c1->cd();
+  delete h_stack;
+  h_stack = new THStack();
   c1->Clear();
-  h_phi_allsel[3]->Draw();
+  TH1D *h_phi_cos_dirt = (TH1D*)input3->Get("h_trkphi_cosmic");
+  stack_dirt(h_stack, h_phi_cos_dirt,h_phi_allsel[3],normfac, scale_dirt_MC);
+  h_stack->Draw("hist");
+  leg_cos->Draw();
   c1->Print("figures/Dirt/h_phi_dirt.png");
   
-  c1->cd();
+  delete h_stack;
+  h_stack = new THStack();
   c1->Clear();
-  h_pphi_allsel[3]->Draw();
+  TH1D *h_pphi_cos_dirt = (TH1D*)input3->Get("h_trkpphi_cosmic");
+  stack_dirt(h_stack, h_pphi_cos_dirt,h_pphi_allsel[3],normfac, scale_dirt_MC);
+  h_stack->Draw("hist");
+  leg_cos->Draw();
   c1->Print("figures/Dirt/h_pphi_dirt.png");
   
-  c1->cd();
+  delete h_stack;
+  h_stack = new THStack();
   c1->Clear();
-  h_costheta_allsel[3]->Draw();
+  TH1D *h_costheta_cos_dirt = (TH1D*)input3->Get("h_trktheta_classic_cosmic");
+  stack_dirt(h_stack, h_costheta_cos_dirt,h_costheta_allsel[3],normfac, scale_dirt_MC);
+  h_stack->Draw("hist");
+  leg_cos->Draw();
   c1->Print("figures/Dirt/h_costheta_dirt.png");
   
-  c1->cd();
+  
+  delete h_stack;
+  h_stack = new THStack();
   c1->Clear();
-  h_pcostheta_allsel[3]->Draw();
+  TH1D *h_pcostheta_cos_dirt = (TH1D*)input3->Get("h_trkptheta_classic_cosmic");
+  stack_dirt(h_stack, h_pcostheta_cos_dirt,h_pcostheta_allsel[3],normfac, scale_dirt_MC);
+  h_stack->Draw("hist");
+  leg_cos->Draw();
   c1->Print("figures/Dirt/h_pcostheta_dirt.png");
   
-  c1->cd();
+  delete h_stack;
+  h_stack = new THStack();
   c1->Clear();
-  h_plep_allsel[3]->Draw();
+  TH1D *h_plep_cos_dirt = (TH1D*)input3->Get("h_trkmom_classic_cosmic");
+  stack_dirt(h_stack, h_plep_cos_dirt,h_plep_allsel[3],normfac, scale_dirt_MC);
+  h_stack->Draw("hist");
+  leg_cos->Draw();
   c1->Print("figures/Dirt/h_plep_dirt.png");
   
-  c1->cd();
+  delete h_stack;
+  h_stack = new THStack();
   c1->Clear();
-  h_phad_allsel[3]->Draw();
+  TH1D *h_phad_cos_dirt = (TH1D*)input3->Get("h_trkpmom_classic_cosmic");
+  h_phad_cos_dirt->Rebin(5);
+  stack_dirt(h_stack, h_phad_cos_dirt,h_phad_allsel[3],normfac, scale_dirt_MC);
+  h_stack->Draw("hist");
+  leg_cos->Draw();
   c1->Print("figures/Dirt/h_phad_dirt.png");
   
-  c1->cd();
+  delete h_stack;
+  h_stack = new THStack();
   c1->Clear();
-  h_thetamup_allsel[3]->Draw();
+  TH1D *h_thetamup_cos_dirt = (TH1D*)input3->Get("h_thetamup_cosmic");
+  stack_dirt(h_stack, h_thetamup_cos_dirt,h_thetamup_allsel[3],normfac, scale_dirt_MC);
+  h_stack->Draw("hist");
+  leg_cos->Draw();
   c1->Print("figures/Dirt/h_thetamup_dirt.png");
   
-  c1->cd();
+  delete h_stack;
+  h_stack = new THStack();
   c1->Clear();
-  h_ptmis_allsel[3]->Draw();
+  TH1D *h_ptmis_cos_dirt = (TH1D*)input3->Get("h_ptmis_cosmic");
+  stack_dirt(h_stack, h_ptmis_cos_dirt,h_ptmis_allsel[3],normfac, scale_dirt_MC);
+  h_stack->Draw("hist");
+  leg_cos->Draw();
   c1->Print("figures/Dirt/h_ptmis_dirt.png");
   
-  c1->cd();
+  delete h_stack;
+  h_stack = new THStack();
   c1->Clear();
-  h_etatest_allsel[3]->Draw();
+  TH1D *h_etatest_cos_dirt = (TH1D*)input3->Get("h_etatest_cosmic");
+  stack_dirt(h_stack, h_etatest_cos_dirt,h_etatest_allsel[3],normfac, scale_dirt_MC);
+  h_stack->Draw("hist");
+  leg_cos->Draw();
   c1->Print("figures/Dirt/h_etatest_dirt.png");
   
-  c1->cd();
+  delete h_stack;
+  h_stack = new THStack();
   c1->Clear();
-  h_enucal_allsel[3]->Draw();
+  TH1D *h_enucal_cos_dirt = (TH1D*)input3->Get("h_enucal_cosmic");
+  stack_dirt(h_stack, h_enucal_cos_dirt,h_enucal_allsel[3],normfac, scale_dirt_MC);
+  h_stack->Draw("hist");
+  leg_cos->Draw();
   c1->Print("figures/Dirt/h_enucal_dirt.png");
   
-  c1->cd();
+  delete h_stack;
+  h_stack = new THStack();
   c1->Clear();
-  h_alphat_allsel[3]->Draw();
+  TH1D *h_alphat_cos_dirt = (TH1D*)input3->Get("h_alphat_cosmic");
+  stack_dirt(h_stack, h_alphat_cos_dirt,h_alphat_allsel[3],normfac, scale_dirt_MC);
+  h_stack->Draw("hist");
+  leg_cos->Draw();
   c1->Print("figures/Dirt/h_alphat_dirt.png");
   
-  c1->cd();
+  delete h_stack;
+  h_stack = new THStack();
   c1->Clear();
-  h_pmult_allsel[3]->Draw();
+  TH1D *h_pmult_cos_dirt = (TH1D*)input3->Get("h_pmult_cosmic");
+  stack_dirt(h_stack, h_pmult_cos_dirt,h_pmult_allsel[3],normfac, scale_dirt_MC);
+  h_stack->Draw("hist");
+  leg_cos->Draw();
   c1->Print("figures/Dirt/h_pmult_dirt.png");
   
+  ///////////////////////////////////////////////////////
   // Dirt as a fraction of MC stack (with off-beam)
+  ///////////////////////////////////////////////////////
   TH1 *data_cl;
   TH1 *dirt_cl;
 
