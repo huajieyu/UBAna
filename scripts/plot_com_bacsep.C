@@ -99,24 +99,24 @@ void plot_com_bacsep(){
   TFile *input3; // dirt
   std::cout<<"Setup input root files "<<std::endl;
   if (cosmicCut){
-    input0 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Jan/ubxsecana_output_data_onbeam_ubcodev06_26_01_22.root");
-    input1 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Jan/ubxsecana_output_data_offbeam_ubcodev06_26_01_22.root");
+    input0 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Jan11/ubxsecana_output_data_onbeam_ubcodev06_26_01_22.root");
+    input1 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Jan11/ubxsecana_output_data_offbeam_ubcodev06_26_01_22.root");
   }
   else{
-    input0 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Jan/ubxsecana_output_data_onbeam_ubcodev06_26_01_22.root");
-    input1 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Jan/ubxsecana_output_data_offbeam_ubcodev06_26_01_22.root");
+    input0 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Jan11/ubxsecana_output_data_onbeam_ubcodev06_26_01_22.root");
+    input1 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Jan11/ubxsecana_output_data_offbeam_ubcodev06_26_01_22.root");
   }
   
   if (tune==3){
-    if (cosmicCut){input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Jan/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22.root");}
-    else{input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Jan/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22.root");}
+    if (cosmicCut){input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Jan11/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22.root");}
+    else{input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Jan11/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22.root");}
   }
   else{
-    if (cosmicCut){input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Jan/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22.root");}
-    else{input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Jan/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22.root");}
+    if (cosmicCut){input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Jan11/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22.root");}
+    else{input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Jan11/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22.root");}
   }
 
-  input3=new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Jan/ubxsecana_output_mc_bnbdirt_ubcodev06_26_01_22.root");
+  input3=new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Jan11/ubxsecana_output_mc_bnbdirt_ubcodev06_26_01_22.root");
 
   gROOT->SetBatch();
 /*  
@@ -2795,12 +2795,12 @@ prelim->SetTextAlign(32);
   hs_alphat -> Draw("HIST,SAME");
 
   h_alphat_allsel[0]->Scale(areanorm_fac);
-  h_alphat_allsel[0]->SetMaximum(1800);
+  h_alphat_allsel[0]->SetMaximum(800);
   h_alphat_allsel[0]->Draw("same");  
   //h_onoff_alphat->Draw("E1CSAME");
   //~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
  
-  legendR->Draw("same"); prelim->Draw("same");
+  legendL->Draw("same"); prelim->Draw("same");
 
   //Draw ratio between two histograms and save the plot
   // lower plot will be in pad2
