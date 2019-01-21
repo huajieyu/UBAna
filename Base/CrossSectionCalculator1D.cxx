@@ -1117,7 +1117,8 @@ namespace Base {
 
     for (auto hname : histos_to_subtract) 
     {
-      LOG_INFO() << "Going to subtract histogram " << hname << std::endl;
+      LOG_INFO() << "_h_data_subtracted integral is "<<_h_data_subtracted->Integral()<<std::endl;
+      LOG_INFO() << "Going to subtract histogram " << hname << ": "<<_hmap_bnbcosmic[hname]->Integral()<<std::endl;
       // Need to remove from the data histogram
       _h_data_subtracted->Add(_hmap_bnbcosmic[hname], -1.);
       // But also form the total MC one, to properly propagate unc

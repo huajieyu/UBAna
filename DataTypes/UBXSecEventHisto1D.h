@@ -79,9 +79,9 @@ namespace DataTypes {
     int n_bins_pmom = 12;
     int n_bins_pcostheta = 9;
     
-    double bins_muptheta[10] = {0.00, 0.18, 0.30, 0.45, 0.77, 0.9, 1.0, 1.1, 1.28, 3.14};
-    int n_bins_muptheta = 9;
-    
+    double bins_muptheta[7] = {0.00, 1.00, 1.31, 1.5, 1.7, 2.04, 3.14};
+    int n_bins_muptheta = 6;
+     
   
 
     //
@@ -110,14 +110,16 @@ namespace DataTypes {
     //
     // Single differential (mumom, pmom, thetamup)
     //
-    std::map<std::string,TH1D*> hmap_trkpmom; 
-    std::map<std::string,TH1D*> hmap_trkmom; ///< Number of events per channel - Single Differential (mumom)
+    std::map<std::string,TH1D*> hmap_trkmom;  ///< Number of events per channel - Single Differential (mumom) 
+    std::map<std::string,TH1D*> hmap_trkpmom; ///< Number of events per channel - Single Differential (pmom)
     std::map<std::string,TH1D*> hmap_thetamup;
  
     TH1D* h_eff_mumom_num = 0; ///< Efficiency Numerator - Single Differential (mumom)
     TH1D* h_eff_mumom_den = 0; ///< Efficiency Denominator - Single Differential (mumom)
+
     TH1D* h_eff_pmom_num=0;
     TH1D* h_eff_pmom_den=0;
+
     TH1D* h_eff_thetamup_num=0;
     TH1D* h_eff_thetamup_den=0;
 
