@@ -496,12 +496,15 @@ namespace Main {
   // Get the true histo from the data file, for when we run in fake data mode
   TH1D * h_truth_xsec_pmom_fake = (TH1D*)bnbon_file->Get("h_truth_xsec_pmom");
   TH1D * h_truth_xsec_pangle_fake = (TH1D*)bnbon_file->Get("h_truth_xsec_pangle");
-
+  TH1D * h_truth_xsec_thetamup_fake = (TH1D*)bnbon_file->Get("h_truth_xsec_thetamup");
   // Proton momentum
   TH1D * h_truth_xsec_pmom = (TH1D*)mc_bnbcosmic_file->Get("h_truth_xsec_pmom");
 
   // Proton costheta
   TH1D * h_truth_xsec_pangle = (TH1D*)mc_bnbcosmic_file->Get("h_truth_xsec_pangle");
+
+  //Thetamup
+  TH1D * h_truth_xsec_thetamup = (TH1D*)mc_bnbcosmic_file->Get("h_truth_xsec_thetamup");
 
 
   LOG_NORMAL() << "Preparing to load Event Histo from BNBCosmic file." << std::endl;
@@ -1285,7 +1288,7 @@ namespace Main {
       _xsec_calc.ImportAlternativeMC(*h);
     }
 
-    TH1D * xsec_pmom = _xsec_calc.ExtractCrossSection(bkg_names, "p_{p}^{reco} [GeV]", "d#sigma/dp_{#mu}^{reco} [10^{-38} cm^{2}/GeV]");
+    TH1D * xsec_pmom = _xsec_calc.ExtractCrossSection(bkg_names, "p_{p}^{reco} [GeV]", "d#sigma/dp_{p}^{reco} [10^{-38} cm^{2}/GeV]");
 
     TH1D * xsec_pmom_mc = _xsec_calc.GetMCCrossSection();
     file_out->cd();
@@ -1407,7 +1410,7 @@ namespace Main {
       //
       if (_do_flux_systs) {
         _xsec_bs_calc.Reset();
-        _xsec_bs_calc.SetNameAndLabel("trkcostheta_flux_multisim", ";Candidate Track cos(#theta_{#mu}^{reco}) [GeV]; Selected Events");
+        _xsec_bs_calc.SetNameAndLabel("trkcostheta_flux_multisim", ";Candidate Track cos(#theta_{#mu}^{reco}); Selected Events");
         if (_event_histo_1d_dirt) _xsec_bs_calc.SetHistograms(_event_histo_1d_mc->hmap_trkangle_flux_multisim_bs, _event_histo_1d_bnbon->hmap_trktheta["total"], _event_histo_1d_extbnb->hmap_trktheta["total"], _event_histo_1d_dirt->hmap_trktheta);
         else                      _xsec_bs_calc.SetHistograms(_event_histo_1d_mc->hmap_trkangle_flux_multisim_bs, _event_histo_1d_bnbon->hmap_trktheta["total"], _event_histo_1d_extbnb->hmap_trktheta["total"]);
         _xsec_bs_calc.SetTruthHistograms(*_event_histo_1d_mc->bs_flux_multisim_eff_muangle_num, *_event_histo_1d_mc->bs_flux_multisim_eff_muangle_den, *_event_histo_1d_mc->bs_flux_multisim_true_reco_muangle);
@@ -1668,7 +1671,7 @@ namespace Main {
       //
       if (_do_flux_systs) {
         _xsec_bs_calc.Reset();
-        _xsec_bs_calc.SetNameAndLabel("trkpcostheta_flux_multisim", ";Candidate Track cos(#theta_{p}^{reco}) [GeV]; Selected Events");
+        _xsec_bs_calc.SetNameAndLabel("trkpcostheta_flux_multisim", ";Candidate Track cos(#theta_{p}^{reco}); Selected Events");
         if (_event_histo_1d_dirt) _xsec_bs_calc.SetHistograms(_event_histo_1d_mc->hmap_trkpangle_flux_multisim_bs, _event_histo_1d_bnbon->hmap_trkptheta["total"], _event_histo_1d_extbnb->hmap_trkptheta["total"], _event_histo_1d_dirt->hmap_trkptheta);
         else                      _xsec_bs_calc.SetHistograms(_event_histo_1d_mc->hmap_trkpangle_flux_multisim_bs, _event_histo_1d_bnbon->hmap_trkptheta["total"], _event_histo_1d_extbnb->hmap_trkptheta["total"]);
         _xsec_bs_calc.SetTruthHistograms(*_event_histo_1d_mc->bs_flux_multisim_eff_pangle_num, *_event_histo_1d_mc->bs_flux_multisim_eff_pangle_den, *_event_histo_1d_mc->bs_flux_multisim_true_reco_pangle);
@@ -1818,7 +1821,7 @@ namespace Main {
       TH1D* h = (TH1D*)file_alt_mc->Get("xsec_pangle_mc_cv_tune3");
       _xsec_calc.ImportAlternativeMC(*h);
     }
-    TH1D * xsec_pangle = _xsec_calc.ExtractCrossSection(bkg_names, "cos(#theta_{p}^{reco})", "d#sigma/dcos(#theta_{#mu}^{reco}) [10^{-38} cm^{2}]");
+    TH1D * xsec_pangle = _xsec_calc.ExtractCrossSection(bkg_names, "cos(#theta_{p}^{reco})", "d#sigma/dcos(#theta_{p}^{reco}) [10^{-38} cm^{2}]");
     TH1D * xsec_pangle_mc = _xsec_calc.GetMCCrossSection();
 
     file_out->cd();
@@ -1832,6 +1835,277 @@ namespace Main {
 
     unc_plotter.SetCrossSection(*xsec_pangle);
     unc_plotter.MakePlot("relative_uncertainty_pangle.pdf");
+
+    //====================================================================================================================
+
+    std::cout << "***************" << std::endl;
+    std::cout << "* thetamup cross section" << std::endl;
+    std::cout << "***************" << std::endl;
+
+
+    unc_plotter.Reset();
+
+    // 
+    // Muon CosTheta: Cross section reweighting
+    //
+    int n_bins_muptheta = _event_histo_1d_mc->hmap_thetamup["total"]->GetNbinsX();
+
+    if (_do_reweighting_plots) {
+
+      //
+      // GENIE Multisim Systematics
+      //
+      
+      CrossSectionBootstrapCalculator1D _xsec_bs_calc;
+      _xsec_bs_calc.SetFluxCorrectionWeight(_flux_correction_weight);
+      _xsec_bs_calc.set_verbosity(Base::msg::kINFO); 
+      _xsec_bs_calc.SetScaleFactors(scale_factor_mc_bnbcosmic, scale_factor_bnbon, scale_factor_extbnb, scale_factor_mc_dirt);
+      _xsec_bs_calc.SetPOT(bnbon_pot_meas);
+      _xsec_bs_calc.SetMigrationMatrixDimensions(n_bins_muptheta, n_bins_muptheta);
+      _xsec_bs_calc.SetBkgToSubtract(bkg_names);
+      std::cout<<"start to do genie systematics"<<std::endl;
+      if (_do_genie_systs) {
+        _xsec_bs_calc.Reset();
+        _xsec_bs_calc.SetNameAndLabel("thetamup_genie_multisim", ";#theta_{#mu,p}^{reco}; Selected Events");
+        if (_event_histo_1d_dirt) _xsec_bs_calc.SetHistograms(_event_histo_1d_mc->hmap_thetamup_genie_multisim_bs, _event_histo_1d_bnbon->hmap_thetamup["total"], _event_histo_1d_extbnb->hmap_thetamup["total"], _event_histo_1d_dirt->hmap_thetamup);
+        else                      _xsec_bs_calc.SetHistograms(_event_histo_1d_mc->hmap_thetamup_genie_multisim_bs, _event_histo_1d_bnbon->hmap_thetamup["total"], _event_histo_1d_extbnb->hmap_thetamup["total"]);
+        _xsec_bs_calc.SetTruthHistograms(*_event_histo_1d_mc->bs_genie_multisim_eff_thetamup_num, *_event_histo_1d_mc->bs_genie_multisim_eff_thetamup_den, *_event_histo_1d_mc->bs_genie_multisim_true_reco_thetamup);
+
+        std::cout<<"first bin center is "<<_event_histo_1d_mc->hmap_thetamup["total"]->GetBinCenter(1)<<std::endl;
+        std::cout<<"first bin center is "<<_event_histo_1d_bnbon->hmap_thetamup["total"]->GetBinCenter(1)<<std::endl;
+        std::cout<<"first bin center is "<<_event_histo_1d_extbnb->hmap_thetamup["total"]->GetBinCenter(1)<<std::endl;
+        std::cout<<"first bin center is "<<_event_histo_1d_dirt->hmap_thetamup["total"]->GetBinCenter(1)<<std::endl;
+
+        _xsec_bs_calc.SetSavePrefix("genie_multisim_thetamup");
+        _xsec_bs_calc.SetUpperLabel("GENIE Re-Weighting Only");
+        _xsec_bs_calc.Run();
+
+        _xsec_bs_calc.SaveCovarianceMatrix("covariance_genie.root", "covariance_matrix_genie_thetamup");
+        _xsec_bs_calc.SaveFractionalCovarianceMatrix("covariance_genie.root", "frac_covariance_matrix_genie_thetamup");
+        _xsec_bs_calc.GetCovarianceMatrix(covariance_matrix_genie);
+        _xsec_bs_calc.GetFractionalCovarianceMatrix(frac_covariance_matrix_genie);
+        //std::cout<<"loop over the covariance_matrix_genie "<<std::endl; 
+        for (int i = 0; i < covariance_matrix_genie.GetNbinsX(); i++) {
+          std::cout << "GENIE Multisim - Uncertainties on the diagonal: " << i << " => " << covariance_matrix_genie.GetBinContent(i+1, i+1) << std::endl;
+        }
+
+        unc_plotter.AddFracCovarianceMatrix("XSEC", frac_covariance_matrix_genie);
+      }
+      std::cout<<"start to import genie systematics"<<std::endl;
+      if (_import_genie_systs) {
+
+        TFile* cov_file = TFile::Open("covariance_genie.root", "READ");
+        TH2D* m = (TH2D*)cov_file->Get("frac_covariance_matrix_genie_thetamup");
+        frac_covariance_matrix_genie = *m;
+        
+        unc_plotter.AddFracCovarianceMatrix("XSEC", frac_covariance_matrix_genie);
+      }
+      std::cout<<"start to do extra systematics"<<std::endl;
+      if (_do_extra_syst_systs) {
+        _xsec_bs_calc.Reset();
+        _xsec_bs_calc.SetNameAndLabel("thetamup_extra_syst", ";#theta_{#mu,p}^{reco}; Selected Events");
+        if (_event_histo_1d_dirt) _xsec_bs_calc.SetHistograms(_event_histo_1d_mc->hmap_thetamup_extra_syst_multisim_bs, _event_histo_1d_bnbon->hmap_thetamup["total"], _event_histo_1d_extbnb->hmap_thetamup["total"], _event_histo_1d_dirt->hmap_thetamup);
+        else                      _xsec_bs_calc.SetHistograms(_event_histo_1d_mc->hmap_thetamup_extra_syst_multisim_bs, _event_histo_1d_bnbon->hmap_thetamup["total"], _event_histo_1d_extbnb->hmap_thetamup["total"]);
+        _xsec_bs_calc.SetTruthHistograms(*_event_histo_1d_mc->bs_extra_syst_multisim_eff_thetamup_num, *_event_histo_1d_mc->bs_extra_syst_multisim_eff_thetamup_den, *_event_histo_1d_mc->bs_extra_syst_true_reco_thetamup);
+        _xsec_bs_calc.SetSavePrefix("extra_syst_thetamup");
+        _xsec_bs_calc.SetUpperLabel("EXTRA SYSTS Re-Weighting Only");
+        _xsec_bs_calc.Run();
+
+        _xsec_bs_calc.SaveCovarianceMatrix("covariance_extra_syst.root", "covariance_matrix_extra_syst_thetamup");
+        _xsec_bs_calc.SaveFractionalCovarianceMatrix("covariance_extra_syst.root", "frac_covariance_matrix_extra_syst_thetamup");
+        _xsec_bs_calc.GetCovarianceMatrix(covariance_matrix_extra_syst);
+        _xsec_bs_calc.GetFractionalCovarianceMatrix(frac_covariance_matrix_extra_syst);
+
+        for (int i = 0; i < covariance_matrix_extra_syst.GetNbinsX(); i++) {
+          std::cout << "EXTRA SYSTS - Uncertainties on the diagonal: " << i << " => " << covariance_matrix_extra_syst.GetBinContent(i+1, i+1) << std::endl;
+        }
+
+        unc_plotter.AddFracCovarianceMatrix("EXTRA SYST", frac_covariance_matrix_extra_syst);
+      }
+      std::cout<<"start to import extra systematics"<<std::endl;
+      if (_import_extra_syst_systs) {
+
+        TFile* cov_file = TFile::Open("covariance_extra_syst.root", "READ");
+        TH2D* m = (TH2D*)cov_file->Get("frac_covariance_matrix_extra_syst_thetamup");
+        frac_covariance_matrix_extra_syst = *m;
+        
+        unc_plotter.AddFracCovarianceMatrix("EXTRA SYST", frac_covariance_matrix_extra_syst);
+      }
+
+      std::cout<<"start to do flux systematics "<<std::endl;
+      //
+      // FLUX Multisim Systematics
+      //
+      if (_do_flux_systs) {
+        _xsec_bs_calc.Reset();
+        _xsec_bs_calc.SetNameAndLabel("thetamup_flux_multisim", ";Candidate Track #theta_{#mu,p}^{reco}; Selected Events");
+        if (_event_histo_1d_dirt) _xsec_bs_calc.SetHistograms(_event_histo_1d_mc->hmap_thetamup_flux_multisim_bs, _event_histo_1d_bnbon->hmap_thetamup["total"], _event_histo_1d_extbnb->hmap_thetamup["total"], _event_histo_1d_dirt->hmap_thetamup);
+        else                      _xsec_bs_calc.SetHistograms(_event_histo_1d_mc->hmap_thetamup_flux_multisim_bs, _event_histo_1d_bnbon->hmap_thetamup["total"], _event_histo_1d_extbnb->hmap_thetamup["total"]);
+        _xsec_bs_calc.SetTruthHistograms(*_event_histo_1d_mc->bs_flux_multisim_eff_thetamup_num, *_event_histo_1d_mc->bs_flux_multisim_eff_thetamup_den, *_event_histo_1d_mc->bs_flux_multisim_true_reco_thetamup);
+        _xsec_bs_calc.SetSavePrefix("flux_multisim_thetamup");
+        _xsec_bs_calc.SetUpperLabel("FLUX Re-Weighting Only");
+        _xsec_bs_calc.SetFluxHistogramType(true, _target_flux_syst); // Also reweight the flux
+        _xsec_bs_calc.AddExtraDiagonalUncertainty(_extra_flux_fractional_uncertainty); // For POT uncertainty
+        _xsec_bs_calc.Run();
+
+        _xsec_bs_calc.SaveCovarianceMatrix("covariance_flux.root", "covariance_matrix_flux_thetamup");
+        _xsec_bs_calc.SaveFractionalCovarianceMatrix("covariance_flux.root", "frac_covariance_matrix_flux_thetamup");
+        _xsec_bs_calc.GetCovarianceMatrix(covariance_matrix_flux);
+        _xsec_bs_calc.GetFractionalCovarianceMatrix(frac_covariance_matrix_flux);
+
+        file_out->cd();
+        covariance_matrix_flux.Write(("flux_syst_covariance_matrix_thetamup_" + _target_flux_syst).c_str());
+
+        for (int i = 0; i < covariance_matrix_flux.GetNbinsX(); i++) {
+          std::cout << "FLUX Multisim - Uncertainties on the diagonal: " << i << " => " << covariance_matrix_flux.GetBinContent(i+1, i+1) << std::endl;
+        }
+
+        unc_plotter.AddFracCovarianceMatrix("FLUX", frac_covariance_matrix_flux);
+      }
+      std::cout<<"start to import flux systematics "<<std::endl;
+      if (_import_flux_systs) {
+
+        TFile* cov_file = TFile::Open("covariance_flux.root", "READ");
+        TH2D* m = (TH2D*)cov_file->Get("frac_covariance_matrix_flux_thetamup");
+        frac_covariance_matrix_flux = *m;
+
+        unc_plotter.AddFracCovarianceMatrix("FLUX", frac_covariance_matrix_flux);
+      }
+
+      std::cout<<"start to do mc static systematics "<<std::endl;
+      if (_do_mc_stat_systs) {
+        _xsec_bs_calc.Reset();
+        _xsec_bs_calc.SetNameAndLabel("thetamup_mc_stat_multisim", ";#theta_{#mu,p}^{reco}; Selected Events");
+        if (_event_histo_1d_dirt) _xsec_bs_calc.SetHistograms(_event_histo_1d_mc->hmap_thetamup_mc_stat_multisim_bs, _event_histo_1d_bnbon->hmap_thetamup["total"], _event_histo_1d_extbnb->hmap_thetamup["total"], _event_histo_1d_dirt->hmap_thetamup);
+        else                      _xsec_bs_calc.SetHistograms(_event_histo_1d_mc->hmap_thetamup_mc_stat_multisim_bs, _event_histo_1d_bnbon->hmap_thetamup["total"], _event_histo_1d_extbnb->hmap_thetamup["total"]);
+        _xsec_bs_calc.SetTruthHistograms(*_event_histo_1d_mc->bs_mc_stat_multisim_eff_thetamup_num, *_event_histo_1d_mc->bs_mc_stat_multisim_eff_thetamup_den, *_event_histo_1d_mc->bs_mc_stat_multisim_true_reco_thetamup);
+        _xsec_bs_calc.SetSavePrefix("mc_stat_multisim_thetamup");
+        _xsec_bs_calc.SetUpperLabel("MC Stats. Re-Weighting Only");
+        _xsec_bs_calc.Run();
+        std::cout<<"set up all the histograms for the mc stat systematics"<<std::endl;
+        _xsec_bs_calc.SaveCovarianceMatrix("covariance_mc_stat.root", "covariance_matrix_mc_stat_thetamup");
+        _xsec_bs_calc.SaveFractionalCovarianceMatrix("covariance_mc_stat.root", "frac_covariance_matrix_mc_stat_thetamup");
+        _xsec_bs_calc.GetCovarianceMatrix(covariance_matrix_mc_stat);
+        _xsec_bs_calc.GetFractionalCovarianceMatrix(frac_covariance_matrix_mc_stat);
+        std::cout<<"Get the covariance and Fractional Covariance matrix of MC STAT "<<std::endl;
+        for (int i = 0; i < covariance_matrix_mc_stat.GetNbinsX(); i++) {
+          std::cout << "MC STAT Multisim - Uncertainties on the diagonal: " << i << " => " << covariance_matrix_mc_stat.GetBinContent(i+1, i+1) << std::endl;
+        }
+
+        unc_plotter.AddFracCovarianceMatrix("MC STAT", frac_covariance_matrix_mc_stat);
+      }
+      std::cout<<"start to import mc static systematics "<<std::endl;
+      if (_import_mc_stat_systs) {
+
+        TFile* cov_file = TFile::Open("covariance_mc_stat.root", "READ");
+        TH2D* m = (TH2D*)cov_file->Get("frac_covariance_matrix_mc_stat_thetamup");
+        frac_covariance_matrix_mc_stat = *m;
+        
+        unc_plotter.AddFracCovarianceMatrix("MC STAT", frac_covariance_matrix_mc_stat);
+      }
+
+    } // _do_reweighting_plots
+    std::cout<<"start to import detector systematics "<<std::endl;
+    /*if (_import_detector_systs) {
+
+      TFile* cov_file = TFile::Open("covariance_detector.root", "WRITE");
+      TH2D* m = (TH2D*)cov_file->Get("frac_covariance_matrix_detector_mumom");
+      frac_covariance_matrix_detector = *m;
+
+      unc_plotter.AddFracCovarianceMatrix("DETECTOR", frac_covariance_matrix_detector);
+    }
+
+    std::cout<<"start to import cosmic systematic "<<std::endl;
+    if (_import_cosmic_systs) {
+
+      TFile* cov_file = TFile::Open("covariance_cosmic.root", "WRITE");
+      TH2D* m = (TH2D*)cov_file->Get("frac_covariance_matrix_cosmic_mumom");
+      frac_covariance_matrix_cosmic = *m; 
+
+      unc_plotter.AddFracCovarianceMatrix("COSMIC MC BKG", frac_covariance_matrix_cosmic);
+    }
+
+    std::cout<<"start to import dirt systematics"<<std::endl;
+    if (_import_dirt_systs) {
+
+      TFile* cov_file = TFile::Open("covariance_dirt.root", "WRITE");
+      TH2D* m = (TH2D*)cov_file->Get("frac_covariance_matrix_dirt_mumom");
+      frac_covariance_matrix_dirt = *m; 
+
+      unc_plotter.AddFracCovarianceMatrix("DIRT", frac_covariance_matrix_dirt);
+    }
+    */
+
+
+
+    TH2D frac_covariance_matrix_thetamup = * ((TH2D*)frac_covariance_matrix_genie.Clone("frac_covariance_matrix_thetamup"));
+    frac_covariance_matrix_thetamup.Add(&frac_covariance_matrix_extra_syst);
+    frac_covariance_matrix_thetamup.Add(&frac_covariance_matrix_flux);
+    frac_covariance_matrix_thetamup.Add(&frac_covariance_matrix_mc_stat);
+    frac_covariance_matrix_thetamup.Add(&frac_covariance_matrix_detector);
+    frac_covariance_matrix_thetamup.Add(&frac_covariance_matrix_cosmic);
+    frac_covariance_matrix_thetamup.Add(&frac_covariance_matrix_dirt);
+
+    //for (int i = 0; i < covariance_matrix_thetamup.GetNbinsX(); i++) {
+    //   std::cout << "TOTAL - Angle - Uncertainties on the diagonal: " << i << " => " << covariance_matrix_thetamup.GetBinContent(i+1, i+1) << std::endl;
+    //}
+
+
+    //
+    // Proton CosTheta Cross Section
+    // 
+    S_2d.Clear(); S_2d.ResizeTo(n_bins_muptheta, n_bins_muptheta);
+    migrationmatrix2d.SetOutDir("migration_matrix_2d_trkthetamup");
+    migrationmatrix2d.SetVerbosity(false);
+    migrationmatrix2d.SetNBins(n_bins_muptheta, n_bins_muptheta);
+    migrationmatrix2d.SetTrueRecoHistogram(_event_histo_1d_mc->h_true_reco_thetamup);
+    S_2d = migrationmatrix2d.CalculateMigrationMatrix();
+    migrationmatrix2d.PlotMatrix();
+    migrationmatrix2d.SetOutputFileName("migration_matrix_2d_thetamup.tex");
+    migrationmatrix2d.PrintSmearingMatrixLatex();
+
+    _xsec_calc.Reset();
+    _xsec_calc.set_verbosity(Base::msg::kINFO);
+    _xsec_calc.SetMigrationMatrix(S_2d);
+    if (_event_histo_1d_dirt) _xsec_calc.SetHistograms(_event_histo_1d_mc->hmap_thetamup, _event_histo_1d_bnbon->hmap_thetamup["total"], _event_histo_1d_extbnb->hmap_thetamup["total"], _event_histo_1d_dirt->hmap_thetamup); 
+    else                      _xsec_calc.SetHistograms(_event_histo_1d_mc->hmap_thetamup, _event_histo_1d_bnbon->hmap_thetamup["total"], _event_histo_1d_extbnb->hmap_thetamup["total"]);  
+    _xsec_calc.SetTruthHistograms(_event_histo_1d_mc->h_eff_thetamup_num, _event_histo_1d_mc->h_eff_thetamup_den);
+    _xsec_calc.SetTruthXSec(h_truth_xsec_thetamup);
+    if (_fake_data_mode) {
+      _xsec_calc.SetTruthXSec(h_truth_xsec_thetamup_fake, n_bins_muptheta, n_bins_muptheta);
+    }
+    _xsec_calc.SetNameAndLabel("thetamup", ";#theta_{#mu,p}^{reco}); Selected Events");
+    _xsec_calc.ProcessPlots();
+    _xsec_calc.SaveEventNumbers("thetamup_eventsperbin_table.tex");
+    _xsec_calc.Draw();
+    _xsec_calc.Draw(bkg_names);
+    _xsec_calc.Smear(n_bins_muptheta, n_bins_muptheta);
+    if (frac_covariance_matrix_thetamup.GetNbinsX() > 1) {
+      _xsec_calc.SetFractionalCovarianceMatrix(frac_covariance_matrix_thetamup);
+    }
+    _xsec_calc.AddExtraDiagonalUncertainty(_extra_fractional_uncertainty);
+    if (_import_alternative_mc) {
+      TH1D* h = (TH1D*)file_alt_mc->Get("xsec_thetamup_mc_cv_tune3");
+      _xsec_calc.ImportAlternativeMC(*h);
+    }
+
+    TH1D * xsec_thetamup = _xsec_calc.ExtractCrossSection(bkg_names, "#theta_{#mu,p}^{reco})", "d#sigma/d#theta_{#mu,p}^{reco}) [10^{-38} cm^{2}]");
+
+    TH1D * xsec_thetamup_mc = _xsec_calc.GetMCCrossSection();
+
+    file_out->cd();
+    save_name = "smearing_matrix_thetamup+" + _prefix;
+    S_2d.Write(save_name.c_str());
+    save_name = "xsec_thetamup_" + _prefix;
+    xsec_thetamup->Write(save_name.c_str());
+    save_name = "xsec_thetamup_mc_" + _prefix;
+    xsec_thetamup_mc->Write(save_name.c_str());
+    save_name = "frac_covariance_matrix_thetamup_" + _prefix;
+    frac_covariance_matrix_thetamup.Write(save_name.c_str());
+
+
+    unc_plotter.SetCrossSection(*xsec_thetamup);
+    unc_plotter.MakePlot("relative_uncertainty_thetamup.pdf");
 
 
 

@@ -289,9 +289,9 @@ namespace Main{
     int n_bins_pmom = 12; 
     int n_bins_pcostheta = 9;
 
-    double bins_muptheta[7] = {0.00, 0.18, 0.30, 0.45, 0.77, 1.28, 2.50};
-    int n_bins_muptheta = 6; 
-
+    double bins_muptheta[7] = {0.00, 1.00, 1.31, 1.5, 1.7, 2.04, 3.14};
+    int n_bins_muptheta = 6;
+  
 
 
 
