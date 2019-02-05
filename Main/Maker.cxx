@@ -61,6 +61,9 @@ float temp_pangle;
 float temp_pphi;
 float temp_thetamup;
 
+float temp_geantpmom;
+float temp_geantpenergy;
+
 
 int muind=-999;
 int pind=-999;
@@ -799,7 +802,7 @@ void Main::Maker::MakeFile()
   hmap_mctruth_muphi_gen["other"] = new TH1D("h_mctruth_muphi_gen_other", ";True Muon #phi [GeV];Selected Events", 20, -3.15, 3.15);
 
 
-
+  //-----------------------------------------------------------------------------------------------------------------------------
   //
   // True v.s. reco histograms for constructing smearing matrices
   //
@@ -817,7 +820,7 @@ void Main::Maker::MakeFile()
   BootstrapTH1D bs_genie_pm1_eff_mumom_num("bs_genie_pm1_eff_mumom_num", "bs_genie_pm1_eff_mumom_num_title", n_bins_mumom, bins_mumom);
   BootstrapTH1D bs_genie_pm1_eff_mumom_den("bs_genie_pm1_eff_mumom_den", "bs_genie_pm1_eff_mumom_den_title", n_bins_mumom, bins_mumom);
 
-  
+  //-------------------------------------------------------------------------------------------------------------------------------------
   
 
   TH1D* h_eff_mult_num = new TH1D("h_eff_mult_num", "h_eff_mult_num", 20, 0, 20);
@@ -826,8 +829,15 @@ void Main::Maker::MakeFile()
   TH1D* h_eff_mult_ch_den = new TH1D("h_eff_mult_ch_den", "h_eff_mult_ch_den", 10, 0, 15);
   TH1D* h_eff_muphi_num = new TH1D("h_eff_muphi_num", "h_eff_muphi_num", 15, -3.1415, 3.1415);
   TH1D* h_eff_muphi_den = new TH1D("h_eff_muphi_den", "h_eff_muphi_den", 15, -3.1415, 3.1415);
-  TH1D* h_eff_thetamup_den=new TH1D("h_eff_thetamup_den", "h_eff_thetamup_den", n_bins_muptheta, bins_muptheta);
-  TH1D* h_eff_thetamup_num=new TH1D("h_eff_thetamup_num", "h_eff_thetamup_num", n_bins_muptheta, bins_muptheta);
+  //TH1D* h_eff_thetamup_den=new TH1D("h_eff_thetamup_den", "h_eff_thetamup_den", n_bins_muptheta, bins_muptheta);
+  //TH1D* h_eff_thetamup_num=new TH1D("h_eff_thetamup_num", "h_eff_thetamup_num", n_bins_muptheta, bins_muptheta);
+  TH1D* h_eff_allprotons_den=new TH1D("h_eff_allprotons_den", "h_eff_allprotons_den", 30, 0.3, 1.5); 
+  TH1D* h_eff_nonreintprotons_den=new TH1D("h_eff_nonreintprotons_den", "h_eff_nonreintprotons_den", 30, 0.3, 1.5); 
+  TH1D* h_eff_reintprotons_den=new TH1D("h_eff_reintprotons_den", "h_eff_reintprotons_den", 30, 0.3, 1.5); 
+
+  TH1D* h_eff_allprotons_num=new TH1D("h_eff_allprotons_num", "h_eff_allprotons_num", 30, 0.3, 1.5); 
+  TH1D* h_eff_nonreintprotons_num=new TH1D("h_eff_nonreintprotons_num", "h_eff_nonreintprotons_num", 30, 0.3, 1.5); 
+  TH1D* h_eff_reintprotons_num=new TH1D("h_eff_reintprotons_num", "h_eff_reintprotons_num", 30, 0.3, 1.5); 
 
 
   TH1D* h_eff_qe_num = new TH1D("h_eff_qe_num", "h_eff_qe_num", 15, 0, 3);
@@ -1227,7 +1237,7 @@ void Main::Maker::MakeFile()
   chi2_kaon_hypothesis["other"] = new TH1D("kaon_other_chi2", "kaon_other_chi2", 100, 0, 400);
 
   //proton resolution
-
+  //======================================================================================
   TH1D* h_nhits_lt5=new TH1D("h_nhits_lt5", "h_nhits_lt5", 5, -0.5, 4.5);
   TH1D* h_nhits_lt5_proton=new TH1D("h_nhits_lt5_proton", "h_nhits_lt5_proton", 5, -0.5, 4.5);
 
@@ -1239,7 +1249,11 @@ void Main::Maker::MakeFile()
   TH1D* h_true_photonmom_cc0p= new TH1D("h_true_photonmom_cc0p", ";Photon's Momentum(True)[GeV/c];Ntracks", 30, 0.0, 1.0);
   TH1D* h_reco_photonmom_cc0p= new TH1D("h_reco_photonmom_cc0p", ";Photon's Momentum(True)[GeV/c];Ntracks", 30, 0.0, 1.0);
   TH1D* h_true_thetamup_cc0p=new TH1D("h_true_thetamup_cc0p", "h_true_thetamup_cc0p", 60, 0.0, 3.14);
+  TH1D* h_reco_thetamup_cc0p=new TH1D("h_reco_thetamup_cc0p", "h_reco_thetamup_cc0p", 60, 0.0, 3.14);
 
+  TH2D* h_true_reco_protonmom_cc0p= new TH2D("h_true_reco_protonmom_cc0p", ";Proton's Momentum(True)[GeV/c];Proton's Momentum(Reco) [GeV]", 30, 0.0, 1.0, 30, 0.0, 1.0);
+  TH2D* h_true_reco_protonlen_cc0p= new TH2D("h_true_reco_protonlen_cc0p", ";Proton's Track Length(True)[cm];Proton's Track Length(Reco) [cm]", 40, 0.0, 10.0, 40, 0.0, 10.0);
+ 
   //***************************************************************************************
   TH1D* h_true_pmom_cc0p=new TH1D("h_true_pmom_cc0p", "h_true_pmom_cc0p", 80, 0, 0.8);
   //check if the pions reinteracted or reconstructed
@@ -1250,7 +1264,12 @@ void Main::Maker::MakeFile()
   TH1D* h_pimom_reint=new TH1D("h_pimom_reint", ";Pion Momentum [GeV/c]; Ntracks", 30, 0.0,1.2);
   TH1D* h_pimom_total=new TH1D("h_pimom_total", ";Pion Momentum [GeV/c]; Ntracks", 30, 0.0,1.2);
 
-  TH1D* h_pimom_noreco=new TH1D("h_pimom_noreco", ";Pion Momentum [GeV/c]; Ntracks", 30, 0.0, 1.2);
+  TH1D* h_true_pimom_noreco=new TH1D("h_true_pimom_noreco", ";Pion Momentum [GeV/c]; Ntracks", 30, 0.0, 1.2);
+  TH1D* h_true_pilen_noreco=new TH1D("h_true_pilen_noreco", ";Pion Length [cm]; Ntracks", 40, 0.0, 20.0);
+  TH1D* h_true_pizlen_noreco=new TH1D("h_true_pizlen_noreco", ";Pion Length [cm]; Ntracks", 40, 0.0, 20.0);
+
+  TH2D* htest_true_reco_pcostheta=new TH2D("htest_true_reco_pcostheta", "htest_true_reco_pcostheta", n_bins_pcostheta, bins_pcostheta, n_bins_pcostheta, bins_pcostheta);
+
   //==========================================================================================================
   std::map<std::string,TH1D*> hmap_trkplen;
   hmap_trkplen["total"] = new TH1D("h_trkplen_total", "; Track length;", 30, 0, 150); // 20, 0, 2.5
@@ -2270,7 +2289,28 @@ void Main::Maker::MakeFile()
       _event_histo_1d->h_eff_pangle_den->Fill(temp_pangle, event_weight);
       //get the den of thetamup
       _event_histo_1d->h_eff_thetamup_den->Fill(temp_thetamup, event_weight);
-      h_eff_thetamup_den->Fill(temp_thetamup, event_weight);
+      //h_eff_thetamup_den->Fill(temp_thetamup, event_weight);
+      h_eff_allprotons_den->Fill(temp_pmom, event_weight);
+      //loop over g4 stage and select the contained cc1unp and reinteracted or non reinteracted protons
+      //vector<double>  geant_mcpar_pdgcode;
+      temp_geantpmom=-999.0;
+      temp_geantpenergy=-999.0;
+      for(size_t g4par=0; g4par<t->geant_mcpar_pdgcode.size(); g4par++){
+         if(t->geant_mcpar_pdgcode[g4par] != 2212) continue;
+         if(t->geant_mcpar_end_process[g4par] != "protonInelastic") continue;
+         if(t->geant_mcpar_energy[g4par]>temp_geantpenergy) {
+           temp_geantpenergy=t->geant_mcpar_energy[g4par];
+           temp_geantpmom=TMath::Sqrt(t->geant_mcpar_px[g4par]*t->geant_mcpar_px[g4par]+
+                                      t->geant_mcpar_py[g4par]*t->geant_mcpar_py[g4par]+
+                                      t->geant_mcpar_pz[g4par]*t->geant_mcpar_pz[g4par]);
+         }
+      }
+      h_eff_reintprotons_den->Fill(temp_geantpmom, event_weight);
+
+
+
+
+      
     } //end of if this is signal and cc1unp analysis
     
     // Check if it's a nue event
@@ -3052,7 +3092,7 @@ void Main::Maker::MakeFile()
          Esum=Esum+sqrt(t->pfp_reco_Mom_proton[ii]*t->pfp_reco_Mom_proton[ii]+protonmass*protonmass)-protonmass; 
          px_total=px_total+t->pfp_reco_Mom_proton[ii]*TMath::Sin(t->pfp_reco_theta[ii])*TMath::Cos(t->pfp_reco_phi[ii]);
          py_total=py_total+t->pfp_reco_Mom_proton[ii]*TMath::Sin(t->pfp_reco_theta[ii])*TMath::Sin(t->pfp_reco_phi[ii]);
-         if(abs(t->pfp_truth_pdg[ii])==211 || abs(t->pfp_truth_pdg[ii])==111){
+         if(abs(t->pfp_truth_pdg[ii])==211){
              pion_reco=true;
              h_pimom_total->Fill(t->pfp_truth_mom[ii], event_weight);
              if(t->pfp_truth_endProcess[ii]=="pi+Inelastic" ||t->pfp_truth_endProcess[ii]=="pi-Inelastic" ||t->pfp_truth_endProcess[ii]=="pi0Inelastic") {
@@ -3089,6 +3129,8 @@ void Main::Maker::MakeFile()
 
     //get the momentum of the leading proton momentum 
     if(isSignal && trackfromneutrino && _ana_int_type == "cc1unp_analysis"){
+      //check if the isprimary variable filled correctly
+      //std::cout<<"check the variable isprimary ??   "<<"pind= "<<pind<<" isprimary "<<t->pfp_reco_isprimary[pind]<<std::endl;
       // loop over all the genie particles and get the denominator of the proton momentum efficiency
       temp_pmom=-999.0;
       temp_pangle=-999.0;
@@ -3111,7 +3153,25 @@ void Main::Maker::MakeFile()
       _event_histo_1d->h_eff_pmom_num->Fill(temp_pmom, event_weight);
       _event_histo_1d->h_eff_pangle_num->Fill(temp_pangle, event_weight);
       _event_histo_1d->h_eff_thetamup_num->Fill(temp_thetamup, event_weight);
-      h_eff_thetamup_num->Fill(temp_thetamup, event_weight);
+      //h_eff_thetamup_num->Fill(temp_thetamup, event_weight);
+      h_eff_allprotons_num->Fill(temp_pmom, event_weight);
+      //loop over g4 stage and select the contained cc1unp and reinteracted or non reinteracted protons
+      //vector<double>  geant_mcpar_pdgcode;
+      temp_geantpmom=-999.0;
+      temp_geantpenergy=-999.0;
+      for(size_t g4par=0; g4par<t->geant_mcpar_pdgcode.size(); g4par++){
+         if(t->geant_mcpar_pdgcode[g4par] != 2212) continue;
+         if(t->geant_mcpar_end_process[g4par] != "protonInelastic") continue;
+         if(t->geant_mcpar_energy[g4par]>temp_geantpenergy) {
+           temp_geantpenergy=t->geant_mcpar_energy[g4par];
+           temp_geantpmom=TMath::Sqrt(t->geant_mcpar_px[g4par]*t->geant_mcpar_px[g4par]+
+                                      t->geant_mcpar_py[g4par]*t->geant_mcpar_py[g4par]+
+                                      t->geant_mcpar_pz[g4par]*t->geant_mcpar_pz[g4par]);
+         }
+      }
+      h_eff_reintprotons_num->Fill(temp_geantpmom, event_weight);
+
+
     } //end of if this is signal and cc1unp analysis
   
 
@@ -3256,6 +3316,9 @@ void Main::Maker::MakeFile()
       _event_histo_1d->h_true_reco_pmom->Fill(t->pfp_truth_mom[pind], t->pfp_reco_Mom_proton[pind], event_weight);
       _event_histo_1d->h_true_reco_pcostheta->Fill(temp_pangle, t->pfp_reco_costheta[pind], event_weight);
       _event_histo_1d->h_true_reco_thetamup->Fill(temp_thetamup, thetamup, event_weight);
+      
+      htest_true_reco_pcostheta->Fill(temp_pangle, t->pfp_reco_costheta[pind]);
+
       //std::cout<<"Start to calculate the resolution of the proton momentum and angle "<<std::endl;
       //std::cout<<"End of calculating the resolution of the proton momentum and angle "<<std::endl;
       _event_histo_1d->h_true_reco_mom->Fill(_mom_true, _mom_mcs, event_weight);
@@ -3779,7 +3842,7 @@ void Main::Maker::MakeFile()
       _event_histo->hmap_trktheta_trkmom["cc_other"]->Fill(t->slc_longesttrack_theta.at(scl_ll_max), t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight);
       _event_histo->hmap_trktheta_trkmom_poly["cc_other"]->Fill(t->slc_longesttrack_theta.at(scl_ll_max), t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight);
       //characterize the cc background
-      if(t->ngenie_protons_300==0 && (t->ngenie_pipms+t->ngenie_pion0s)==0&& t->ngenie_electrons==0) {
+      if(t->ngenie_protons_300==0 && (t->ngenie_pipms+t->ngenie_pion0s)==0&& t->ngenie_electrons==0) {  //CC0P0Pi
         hmap_trklen["cc_0proton"]->Fill(t->pfp_reco_length[muind], event_weight);
         hmap_trkmom_classic["cc_0proton"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
         hmap_trktheta_classic["cc_0proton"]->Fill(t->pfp_reco_costheta[pind], event_weight);
@@ -3795,17 +3858,6 @@ void Main::Maker::MakeFile()
         for(unsigned int ii=0; ii<t->pfp_reco_ismuoncandidate.size(); ii++){
                 if(t->pfp_truth_pdg[ii]==13) munum++;
         } 
-        //std::cout<<"libo test 0 "<<std::endl;         
-        if(munum>=2){
-          if(t->pfp_truth_pdg[muind]==13 && t->pfp_truth_pdg[pind]==13){
-            h_true_thetamup_cc0p->Fill(getAngle(t->pfp_truth_mom[muind], t->pfp_truth_theta[muind], t->pfp_truth_phi[muind], t->pfp_truth_mom[pind], t->pfp_truth_theta[pind], t->pfp_truth_phi[pind]), event_weight);
-          } else if(t->pfp_truth_pdg[muind]==13 && t->pfp_truth_pdg[pind]==22){
-            h_true_photonmom_cc0p->Fill(t->pfp_truth_mom[pind], event_weight);
-            h_reco_photonmom_cc0p->Fill(t->pfp_reco_Mom_proton[pind], event_weight);
-          }
-        }
-        
-        //std::cout<<"libo test 1 "<<std::endl;
         int pnum_03_new=0;
         for(unsigned int jj=0; jj<t->genie_mcpar_pdgcode.size(); jj++){
            if(abs(t->genie_mcpar_pdgcode[jj]) !=2212) continue;
@@ -3823,11 +3875,31 @@ void Main::Maker::MakeFile()
                std::cout<<"ll = "<<ll<<" PDGcode is "<<t->genie_mcpar_pdgcode[ll]<<" Momentum is "<<TMath::Sqrt(t->genie_mcpar_energy[ll]*t->genie_mcpar_energy[ll]-0.938*0.938)<<std::endl;
             }  
         }
+        if(pnum_03_new==0 && munum>=2){
+          if(t->pfp_truth_pdg[muind]==13 && t->pfp_truth_pdg[pind]==13){
+            h_true_thetamup_cc0p->Fill(getAngle(t->pfp_truth_mom[muind], t->pfp_truth_theta[muind], t->pfp_truth_phi[muind], t->pfp_truth_mom[pind], t->pfp_truth_theta[pind], t->pfp_truth_phi[pind]), event_weight);
+            h_reco_thetamup_cc0p->Fill(thetamup, event_weight);
+          } 
+          //else if(t->pfp_truth_pdg[muind]==13 && t->pfp_truth_pdg[pind]==22){
+            //no this kind of events
+            //h_true_photonmom_cc0p->Fill(t->pfp_truth_mom[pind], event_weight);
+            //h_reco_photonmom_cc0p->Fill(t->pfp_reco_Mom_proton[pind], event_weight);
+          //}
+        } else if(pnum_03_new==0 && t->pfp_truth_pdg[muind]==2212 && t->pfp_truth_pdg[pind]==22){
+            h_true_photonmom_cc0p->Fill(t->pfp_truth_mom[pind], event_weight);
+            h_reco_photonmom_cc0p->Fill(t->pfp_reco_Mom_proton[pind], event_weight);
+         
+        } else if(pnum_03_new==0 && t->pfp_truth_pdg[muind]==13 && t->pfp_truth_pdg[pind]==2212){
+            h_true_reco_protonmom_cc0p->Fill(t->pfp_truth_mom[pind], t->pfp_reco_Mom_proton[pind], event_weight);
+            h_true_reco_protonlen_cc0p->Fill(TMath::Sqrt((t->pfp_truth_startx[pind]-t->pfp_truth_endx[pind])*(t->pfp_truth_startx[pind]-t->pfp_truth_endx[pind])
+                                                         +(t->pfp_truth_starty[pind]-t->pfp_truth_endy[pind])*(t->pfp_truth_starty[pind]-t->pfp_truth_endy[pind])
+                                                         +(t->pfp_truth_startz[pind]-t->pfp_truth_endz[pind])*(t->pfp_truth_startz[pind]-t->pfp_truth_endz[pind])),t->pfp_reco_length[pind], event_weight);
+        }
 
 
 
       }
-      if(t->ngenie_pipms+t->ngenie_pion0s>0){
+      if(t->ngenie_pipms+t->ngenie_pion0s>0 || t->ngenie_electrons>0){
         hmap_trklen["cc_pion"]->Fill(t->pfp_reco_length[muind], event_weight);
         hmap_trkmom_classic["cc_pion"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
         hmap_trktheta_classic["cc_pion"]->Fill(t->pfp_reco_costheta[pind], event_weight);
@@ -3836,18 +3908,25 @@ void Main::Maker::MakeFile()
         hmap_trkpmom_classic["cc_pion"]->Fill(t->pfp_reco_Mom_proton[pind], event_weight);
         hmap_trkptheta_classic["cc_pion"]->Fill(t->pfp_reco_costheta[pind], event_weight);
         hmap_trkpphi["cc_pion"]->Fill(t->pfp_reco_phi[pind], event_weight);
-
-        h_pion_reco->Fill(pion_reco, event_weight);   
-        h_pion_reint->Fill(pion_reint, event_weight);
-        //check the momentum of the pions that are not reconstructed
-        if(pion_reco==false){
-            for(unsigned int kk=0; kk<t->genie_mcpar_pdgcode.size(); kk++){
-                  if(abs(t->genie_mcpar_pdgcode[kk])==211 ||abs(t->genie_mcpar_pdgcode[kk])==111) {
-                      h_pimom_noreco->Fill(TMath::Sqrt(t->genie_mcpar_px[kk]*t->genie_mcpar_px[kk]+t->genie_mcpar_py[kk]*t->genie_mcpar_py[kk]+t->genie_mcpar_pz[kk]*t->genie_mcpar_pz[kk]), event_weight);
+        if(t->ngenie_pipms>0 && t->ngenie_electrons==0){
+           h_pion_reco->Fill(pion_reco, event_weight);   
+           h_pion_reint->Fill(pion_reint, event_weight);
+           //check the momentum of the pions that are not reconstructed
+           if(pion_reco==false){ //check the pions not reconstructed interacted or not
+              for(unsigned int kk=0; kk<t->genie_mcpar_pdgcode.size(); kk++){
+                  if(abs(t->genie_mcpar_pdgcode[kk])==211) {
+                      h_true_pimom_noreco->Fill(TMath::Sqrt(t->genie_mcpar_px[kk]*t->genie_mcpar_px[kk]+t->genie_mcpar_py[kk]*t->genie_mcpar_py[kk]+t->genie_mcpar_pz[kk]*t->genie_mcpar_pz[kk]), event_weight);
+                      h_true_pilen_noreco->Fill(TMath::Sqrt((t->pfp_truth_startx[kk]-t->pfp_truth_endx[kk])*(t->pfp_truth_startx[kk]-t->pfp_truth_endx[kk])
+                                                           +(t->pfp_truth_starty[kk]-t->pfp_truth_endy[kk])*(t->pfp_truth_starty[kk]-t->pfp_truth_endy[kk])
+                                                           +(t->pfp_truth_startz[kk]-t->pfp_truth_endz[kk])*(t->pfp_truth_startz[kk]-t->pfp_truth_endz[kk])), event_weight);
+                      h_true_pizlen_noreco->Fill(TMath::Sqrt(t->pfp_truth_startz[kk]-t->pfp_truth_endz[kk])*(t->pfp_truth_startz[kk]-t->pfp_truth_endz[kk]), event_weight);
                   }
-            }
-        }  
- 
+              }
+           }  
+        }//end of there are charged pions produced
+        //if(t->ngenie_pion0s>0){
+           //std::cout<<"background with pi0 produced, the pdg code of leading proton candidate is : "<<t->pfp_truth_pdg[pind]<<" is it primary? "<<t->pfp_reco_isprimary[pind]<<std::endl;
+        //}
       }
       //std::cout<<"libo test at the end of other cc background"<<std::endl;
     }
