@@ -708,6 +708,8 @@ void Main::Maker::MakeFile()
   TTree* _true_reco_tree = new TTree("true_reco_tree", "true_reco_tree");
   _true_reco_tree->Branch("mom_true", &_mom_true, "mom_true/D");
   _true_reco_tree->Branch("mom_mcs", &_mom_mcs, "mom_mcs/D");
+  _true_reco_tree->Branch("pmom_true",&_pmom_true, "pmom_true/D");
+  _true_reco_tree->Branch("pmom_reco",&_pmom_reco, "pmom_reco/D");
   _true_reco_tree->Branch("contained", &_contained, "contained/O");
   _true_reco_tree->Branch("selected", &_selected, "selected/O");
   _true_reco_tree->Branch("angle_true", &_angle_true, "angle_true/D");
@@ -834,10 +836,13 @@ void Main::Maker::MakeFile()
   TH1D* h_eff_allprotons_den=new TH1D("h_eff_allprotons_den", "h_eff_allprotons_den", 30, 0.3, 1.5); 
   TH1D* h_eff_nonreintprotons_den=new TH1D("h_eff_nonreintprotons_den", "h_eff_nonreintprotons_den", 30, 0.3, 1.5); 
   TH1D* h_eff_reintprotons_den=new TH1D("h_eff_reintprotons_den", "h_eff_reintprotons_den", 30, 0.3, 1.5); 
-
+  TH1D* h_eff_containedprotons_den=new TH1D("h_eff_containedprotons_den", "h_eff_containedprotons_den", 30, 0.3, 1.5); 
+  
   TH1D* h_eff_allprotons_num=new TH1D("h_eff_allprotons_num", "h_eff_allprotons_num", 30, 0.3, 1.5); 
   TH1D* h_eff_nonreintprotons_num=new TH1D("h_eff_nonreintprotons_num", "h_eff_nonreintprotons_num", 30, 0.3, 1.5); 
   TH1D* h_eff_reintprotons_num=new TH1D("h_eff_reintprotons_num", "h_eff_reintprotons_num", 30, 0.3, 1.5); 
+  TH1D* h_eff_containedprotons_num=new TH1D("h_eff_containedprotons_num", "h_eff_containedprotons_num", 30, 0.3, 1.5); 
+
 
 
   TH1D* h_eff_qe_num = new TH1D("h_eff_qe_num", "h_eff_qe_num", 15, 0, 3);
@@ -2295,9 +2300,11 @@ void Main::Maker::MakeFile()
       //vector<double>  geant_mcpar_pdgcode;
       temp_geantpmom=-999.0;
       temp_geantpenergy=-999.0;
+      bool geant_pcontained=true;
       for(size_t g4par=0; g4par<t->geant_mcpar_pdgcode.size(); g4par++){
          if(t->geant_mcpar_pdgcode[g4par] != 2212) continue;
-         if(t->geant_mcpar_end_process[g4par] != "protonInelastic") continue;
+         if(!inCV(t->geant_mcpar_startx[g4par], t->geant_mcpar_starty[g4par], t->geant_mcpar_startz[g4par]) || !inCV(t->geant_mcpar_endx[g4par], t->geant_mcpar_endy[g4par], t->geant_mcpar_endz[g4par])) geant_pcontained=false;   
+         //if(t->geant_mcpar_end_process[g4par] != "protonInelastic") continue;
          if(t->geant_mcpar_energy[g4par]>temp_geantpenergy) {
            temp_geantpenergy=t->geant_mcpar_energy[g4par];
            temp_geantpmom=TMath::Sqrt(t->geant_mcpar_px[g4par]*t->geant_mcpar_px[g4par]+
@@ -2306,10 +2313,9 @@ void Main::Maker::MakeFile()
          }
       }
       h_eff_reintprotons_den->Fill(temp_geantpmom, event_weight);
-
-
-
-
+      if(geant_pcontained==true){
+         h_eff_containedprotons_den->Fill(temp_geantpmom, event_weight);
+      }
       
     } //end of if this is signal and cc1unp analysis
     
@@ -2921,7 +2927,9 @@ void Main::Maker::MakeFile()
     
     
     //#1 number of tracks>=2
-    if(_ana_int_type=="cc1unp_analysis" && t->num_pfp_tracks<2)  continue;
+    if(_ana_int_type=="cc1unp_analysis" && t->num_pfp<2)  continue;
+ 
+    //if(_ana_int_type=="cc1unp_analysis" && t->num_pfp_tracks<2)  continue;
     if (isSignal && nu_origin && trackfromneutrino) {selected_signal_events_percut["ntrk2"] +=event_weight;}
     selected_events_percut["ntrk2"] +=event_weight;
     
@@ -2949,7 +2957,8 @@ void Main::Maker::MakeFile()
 
     for(size_t n_trk_pfp=0; n_trk_pfp<t->pfp_reco_startx.size(); n_trk_pfp++){
        if(t->pfp_reco_ismuoncandidate[n_trk_pfp] == 1) continue;
-       if(t->pfp_reco_istrack[n_trk_pfp] == 0) continue;
+       if(t->pfp_reco_isshower[n_trk_pfp] == 1 && t->pfp_reco_numtracks[n_trk_pfp]<=0) continue;
+       //if(t->pfp_reco_istrack[n_trk_pfp] == 0) continue;
         
         if(!inCV(t->pfp_reco_startx[n_trk_pfp], t->pfp_reco_starty[n_trk_pfp], t->pfp_reco_startz[n_trk_pfp]) ||
            !inCV(t->pfp_reco_endx[n_trk_pfp],   t->pfp_reco_endy[n_trk_pfp],   t->pfp_reco_endz[n_trk_pfp]))  pcontained_flag=false;
@@ -2967,7 +2976,7 @@ void Main::Maker::MakeFile()
     float temp_length=-0.0;
     for(size_t np=0; np<t->pfp_reco_length[np]; np++){
         if(t->pfp_reco_ismuoncandidate[np]==1)  continue;
-        if(t->pfp_reco_istrack[np]==0) continue;
+        if(t->pfp_reco_istrack[np]==0) continue;        
         if(t->pfp_reco_length[np]> temp_length) {pind=np;}
     }
             
@@ -3044,7 +3053,8 @@ void Main::Maker::MakeFile()
     Int_t npcand_fail_chi2=0;
     for(size_t ntrk=0; ntrk<t->pfp_reco_chi2_proton.size(); ntrk++){
         if(t->pfp_reco_ismuoncandidate[ntrk]==1) continue;
-        if(t->pfp_reco_istrack[ntrk]==0) continue;
+        //if(t->pfp_reco_istrack[ntrk]==0) continue;
+        if(t->pfp_reco_isshower[ntrk] == 1 && t->pfp_reco_numtracks[ntrk]==1) {std::cout<<" a shower with a track reconstructed"<<std::endl;}
         if(t->pfp_reco_dEdx[ntrk].size()>=5 && t->pfp_reco_chi2_proton[ntrk]>88) {npcand_fail_chi2++;}
     }
     
@@ -3159,9 +3169,11 @@ void Main::Maker::MakeFile()
       //vector<double>  geant_mcpar_pdgcode;
       temp_geantpmom=-999.0;
       temp_geantpenergy=-999.0;
+      bool geant_pcontained = true;
       for(size_t g4par=0; g4par<t->geant_mcpar_pdgcode.size(); g4par++){
          if(t->geant_mcpar_pdgcode[g4par] != 2212) continue;
-         if(t->geant_mcpar_end_process[g4par] != "protonInelastic") continue;
+         if(!inCV(t->geant_mcpar_startx[g4par], t->geant_mcpar_starty[g4par], t->geant_mcpar_startz[g4par]) || !inCV(t->geant_mcpar_endx[g4par], t->geant_mcpar_endy[g4par], t->geant_mcpar_endz[g4par])) {geant_pcontained=false;}
+         //if(t->geant_mcpar_end_process[g4par] != "protonInelastic") continue;
          if(t->geant_mcpar_energy[g4par]>temp_geantpenergy) {
            temp_geantpenergy=t->geant_mcpar_energy[g4par];
            temp_geantpmom=TMath::Sqrt(t->geant_mcpar_px[g4par]*t->geant_mcpar_px[g4par]+
@@ -3170,7 +3182,9 @@ void Main::Maker::MakeFile()
          }
       }
       h_eff_reintprotons_num->Fill(temp_geantpmom, event_weight);
-
+      if(geant_pcontained==true){
+         h_eff_containedprotons_num->Fill(temp_geantpmom, event_weight);
+      } 
 
     } //end of if this is signal and cc1unp analysis
   
@@ -3227,6 +3241,7 @@ void Main::Maker::MakeFile()
     hmap_alphat["total"]->Fill(alphat, event_weight);
     hmap_enucal["total"]->Fill(enucal, event_weight);
     hmap_pmult["total"]->Fill(t->num_pfp_tracks-1, event_weight);
+    //hmap_pmult["total"]->Fill(t->num_pfp-1, event_weight);
 
     if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_genie_multisim_bs, "total", fname_genie_multisim, wgts_genie_multisim);
     if (!isdata && _fill_bootstrap_flux) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_flux_multisim_bs, "total", fname_flux_multisim, wgts_flux_multisim);
@@ -3264,6 +3279,8 @@ void Main::Maker::MakeFile()
       // Fill the true-reco TTree for the nominal case
       _mom_true = t->true_muon_mom;
       _mom_mcs = t->slc_muoncandidate_mom_mcs.at(scl_ll_max);
+      _pmom_true = temp_pmom;
+      _pmom_reco = t->pfp_reco_Mom_proton[pind];
       _contained = t->slc_muoncandidate_contained.at(scl_ll_max);
       _selected = true;
 
@@ -3632,6 +3649,7 @@ void Main::Maker::MakeFile()
       hmap_alphat["signal"]->Fill(alphat, event_weight);
       hmap_enucal["signal"]->Fill(enucal, event_weight);
       hmap_pmult["signal"]->Fill(t->num_pfp_tracks-1, event_weight);
+      //hmap_pmult["signal"]->Fill(t->num_pfp-1, event_weight);
 
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_genie_multisim_bs, "signal", fname_genie_multisim, wgts_genie_multisim);      
       if (!isdata && _fill_bootstrap_flux) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_flux_multisim_bs, "signal", fname_flux_multisim, wgts_flux_multisim);
@@ -3741,6 +3759,7 @@ void Main::Maker::MakeFile()
       hmap_alphat["anumu"]->Fill(alphat, event_weight);
       hmap_enucal["anumu"]->Fill(enucal, event_weight);
       hmap_pmult["anumu"]->Fill(t->num_pfp_tracks-1, event_weight);
+      //hmap_pmult["anumu"]->Fill(t->num_pfp-1, event_weight);
 
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_genie_multisim_bs, "anumu", fname_genie_multisim, wgts_genie_multisim);      
       if (!isdata && _fill_bootstrap_flux) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_flux_multisim_bs, "anumu", fname_flux_multisim, wgts_flux_multisim);
@@ -3817,6 +3836,8 @@ void Main::Maker::MakeFile()
       hmap_alphat["cc_other"]->Fill(alphat, event_weight);
       hmap_enucal["cc_other"]->Fill(enucal, event_weight); 
       hmap_pmult["cc_other"]->Fill(t->num_pfp_tracks-1, event_weight);
+      //hmap_pmult["cc_other"]->Fill(t->num_pfp-1, event_weight);
+
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_genie_multisim_bs, "cc_other", fname_genie_multisim, wgts_genie_multisim);      
       if (!isdata && _fill_bootstrap_flux) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_flux_multisim_bs, "cc_other", fname_flux_multisim, wgts_flux_multisim);
       if (!isdata && _fill_bootstrap_extra_syst) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_extra_syst_multisim_bs, "cc_other", fname_extra_syst, wgts_extra_syst);
@@ -3981,6 +4002,8 @@ void Main::Maker::MakeFile()
       hmap_alphat["nue"]->Fill(alphat, event_weight);
       hmap_enucal["nue"]->Fill(enucal, event_weight); 
       hmap_pmult["nue"]->Fill(t->num_pfp_tracks-1, event_weight);
+      //hmap_pmult["nue"]->Fill(t->num_pfp-1, event_weight);
+
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_genie_multisim_bs, "nue", fname_genie_multisim, wgts_genie_multisim);      
       if (!isdata && _fill_bootstrap_flux) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_flux_multisim_bs, "nue", fname_flux_multisim, wgts_flux_multisim);
       if (!isdata && _fill_bootstrap_extra_syst) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_extra_syst_multisim_bs, "nue", fname_extra_syst, wgts_extra_syst);
@@ -4057,6 +4080,8 @@ void Main::Maker::MakeFile()
       hmap_alphat["nc"]->Fill(alphat, event_weight);
       hmap_enucal["nc"]->Fill(enucal, event_weight);
       hmap_pmult["nc"]->Fill(t->num_pfp_tracks-1, event_weight);
+      //hmap_pmult["nc"]->Fill(t->num_pfp-1, event_weight);
+
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_genie_multisim_bs, "nc", fname_genie_multisim, wgts_genie_multisim);      
       if (!isdata && _fill_bootstrap_flux) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_flux_multisim_bs, "nc", fname_flux_multisim, wgts_flux_multisim);
       if (!isdata && _fill_bootstrap_extra_syst) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_extra_syst_multisim_bs, "nc", fname_extra_syst, wgts_extra_syst);
@@ -4179,6 +4204,8 @@ void Main::Maker::MakeFile()
       hmap_alphat["outfv"]->Fill(alphat, event_weight);
       hmap_enucal["outfv"]->Fill(enucal, event_weight);
       hmap_pmult["outfv"]->Fill(t->num_pfp_tracks-1, event_weight);
+      //hmap_pmult["outfv"]->Fill(t->num_pfp-1, event_weight);
+
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_genie_multisim_bs, "outfv", fname_genie_multisim, wgts_genie_multisim);      
       if (!isdata && _fill_bootstrap_flux) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_flux_multisim_bs, "outfv", fname_flux_multisim, wgts_flux_multisim);
       if (!isdata && _fill_bootstrap_extra_syst) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_extra_syst_multisim_bs, "outfv", fname_extra_syst, wgts_extra_syst);
@@ -4285,6 +4312,8 @@ void Main::Maker::MakeFile()
       hmap_alphat["cosmic"]->Fill(alphat, event_weight);
       hmap_enucal["cosmic"]->Fill(enucal, event_weight);
       hmap_pmult["cosmic"]->Fill(t->num_pfp_tracks-1, event_weight);
+      //hmap_pmult["cosmic"]->Fill(t->num_pfp-1, event_weight);
+
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_genie_multisim_bs, "cosmic", fname_genie_multisim, wgts_genie_multisim);      
       if (!isdata && _fill_bootstrap_flux) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_flux_multisim_bs, "cosmic", fname_flux_multisim, wgts_flux_multisim);
       if (!isdata && _fill_bootstrap_extra_syst) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_extra_syst_multisim_bs, "cosmic", fname_extra_syst, wgts_extra_syst);
