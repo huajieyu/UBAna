@@ -157,6 +157,9 @@ namespace Main{
     void SetTargetExtraSystematic(std::string s) { _extra_syst_target_syst = s; }
 
     void SetAnalysisType(std::string s) {_ana_int_type = s; }
+
+    void RecoShowerAsTrack(bool option) {_showerastrack = option; }
+
   private:
 
     /// Prints a warning message if running with MA up and MEC off
@@ -254,9 +257,14 @@ namespace Main{
     bool _fill_bootstrap_genie = false;
     bool _fill_bootstrap_extra_syst = false;
 
+
+
     std::string _target_flux_syst = "";
     std::string _extra_syst_target_syst = "";
     std::string _ana_int_type = "";
+    bool _showerastrack = false;
+
+
     const bool _check_duplicate_events = false;
 
     double _beamSpillStarts = 3.2;  // us

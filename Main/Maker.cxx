@@ -2927,9 +2927,11 @@ void Main::Maker::MakeFile()
     
     
     //#1 number of tracks>=2
-    //if(_ana_int_type=="cc1unp_analysis" && t->num_pfp<2)  continue;
- 
+    if(_showerastrack){
+    if(_ana_int_type=="cc1unp_analysis" && t->num_pfp<2)  continue;
+    } else {
     if(_ana_int_type=="cc1unp_analysis" && t->num_pfp_tracks<2)  continue;
+    }
     if (isSignal && nu_origin && trackfromneutrino) {selected_signal_events_percut["ntrk2"] +=event_weight;}
     selected_events_percut["ntrk2"] +=event_weight;
     
@@ -2941,8 +2943,8 @@ void Main::Maker::MakeFile()
     // loop over all the proton candidates and select the events with all the proton candidates 
     for(size_t n_trk_pfp=0; n_trk_pfp<t->pfp_reco_startx.size(); n_trk_pfp++){
        if(t->pfp_reco_ismuoncandidate[n_trk_pfp] == 1) continue;
-       //if(t->pfp_reco_isshower[n_trk_pfp] == 1 && t->pfp_reco_numtracks[n_trk_pfp] !=1) continue;
-       if(t->pfp_reco_numtracks[n_trk_pfp] !=1) continue;  
+       if(t->pfp_reco_isshower[n_trk_pfp] == 1 && t->pfp_reco_numtracks[n_trk_pfp] !=1) continue;
+       //if(t->pfp_reco_numtracks[n_trk_pfp] !=1) continue;  
         if(!inCV(t->pfp_reco_startx[n_trk_pfp], t->pfp_reco_starty[n_trk_pfp], t->pfp_reco_startz[n_trk_pfp]) ||
            !inCV(t->pfp_reco_endx[n_trk_pfp],   t->pfp_reco_endy[n_trk_pfp],   t->pfp_reco_endz[n_trk_pfp]))   {
            uncontained_proton +=1;
