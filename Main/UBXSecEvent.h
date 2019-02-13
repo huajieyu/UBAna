@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Tue Dec 11 19:46:20 2018 by ROOT version 6.06/08
+// Sat Feb  9 09:07:51 2019 by ROOT version 6.06/08
 // from TTree tree/
-// found on file: /build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/test_ntuples_Dec10/ubxsec_output_mc_bnbcosmic.root
+// found on file: /uboone/data/users/kirby/cc1muNp_ubxsec_ntuples/ntuples_Jan27_merge/ubxsec_output_mc_bnbcosmic.root
 //////////////////////////////////////////////////////////
 
 #ifndef UBXSecEvent_h
@@ -67,6 +67,7 @@ public :
    vector<double>  genie_mcpar_startx;
    vector<double>  genie_mcpar_starty;
    vector<double>  genie_mcpar_startz;
+   vector<int>     genie_mcpar_statuscode;
    Double_t        genie_mcpar_W;
    Double_t        genie_mcpar_QSqr;
    vector<double>  geant_mcpar_pdgcode;
@@ -77,6 +78,9 @@ public :
    vector<double>  geant_mcpar_startx;
    vector<double>  geant_mcpar_starty;
    vector<double>  geant_mcpar_startz;
+   vector<double>  geant_mcpar_endx;
+   vector<double>  geant_mcpar_endy;
+   vector<double>  geant_mcpar_endz;
    vector<string>  geant_mcpar_end_process;
    Double_t        bnb_weight;
    Bool_t          is_selected;
@@ -230,6 +234,7 @@ public :
    vector<float>   pfp_truth_endz;
    vector<float>   pfp_truth_endE;
    vector<string>  pfp_truth_endProcess;
+   vector<string>  pfp_truth_Process;
    vector<float>   pfp_truth_KE;
    vector<float>   pfp_truth_Mass;
    vector<int>     pfp_reco_isprimary;
@@ -318,6 +323,7 @@ public :
    TBranch        *b_ubxsec_event_split_genie_mcpar_startx;   //!
    TBranch        *b_ubxsec_event_split_genie_mcpar_starty;   //!
    TBranch        *b_ubxsec_event_split_genie_mcpar_startz;   //!
+   TBranch        *b_ubxsec_event_split_genie_mcpar_statuscode;   //!
    TBranch        *b_ubxsec_event_split_genie_mcpar_W;   //!
    TBranch        *b_ubxsec_event_split_genie_mcpar_QSqr;   //!
    TBranch        *b_ubxsec_event_split_geant_mcpar_pdgcode;   //!
@@ -328,6 +334,9 @@ public :
    TBranch        *b_ubxsec_event_split_geant_mcpar_startx;   //!
    TBranch        *b_ubxsec_event_split_geant_mcpar_starty;   //!
    TBranch        *b_ubxsec_event_split_geant_mcpar_startz;   //!
+   TBranch        *b_ubxsec_event_split_geant_mcpar_endx;   //!
+   TBranch        *b_ubxsec_event_split_geant_mcpar_endy;   //!
+   TBranch        *b_ubxsec_event_split_geant_mcpar_endz;   //!
    TBranch        *b_ubxsec_event_split_geant_mcpar_end_process;   //!
    TBranch        *b_ubxsec_event_split_bnb_weight;   //!
    TBranch        *b_ubxsec_event_split_is_selected;   //!
@@ -481,6 +490,7 @@ public :
    TBranch        *b_ubxsec_event_split_pfp_truth_endz;   //!
    TBranch        *b_ubxsec_event_split_pfp_truth_endE;   //!
    TBranch        *b_ubxsec_event_split_pfp_truth_endProcess;   //!
+   TBranch        *b_ubxsec_event_split_pfp_truth_Process;   //!
    TBranch        *b_ubxsec_event_split_pfp_truth_KE;   //!
    TBranch        *b_ubxsec_event_split_pfp_truth_Mass;   //!
    TBranch        *b_ubxsec_event_split_pfp_reco_isprimary;   //!
@@ -544,11 +554,11 @@ UBXSecEvent::UBXSecEvent(TTree *tree) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/test_ntuples_Dec10/ubxsec_output_mc_bnbcosmic.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/uboone/data/users/kirby/cc1muNp_ubxsec_ntuples/ntuples_Jan27_merge/ubxsec_output_mc_bnbcosmic.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/test_ntuples_Dec10/ubxsec_output_mc_bnbcosmic.root");
+         f = new TFile("/uboone/data/users/kirby/cc1muNp_ubxsec_ntuples/ntuples_Jan27_merge/ubxsec_output_mc_bnbcosmic.root");
       }
-      TDirectory * dir = (TDirectory*)f->Get("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/test_ntuples_Dec10/ubxsec_output_mc_bnbcosmic.root:/UBXSec");
+      TDirectory * dir = (TDirectory*)f->Get("/uboone/data/users/kirby/cc1muNp_ubxsec_ntuples/ntuples_Jan27_merge/ubxsec_output_mc_bnbcosmic.root:/UBXSec");
       dir->GetObject("tree",tree);
 
    }
@@ -639,6 +649,7 @@ void UBXSecEvent::Init(TTree *tree)
    fChain->SetBranchAddress("genie_mcpar_startx", &genie_mcpar_startx, &b_ubxsec_event_split_genie_mcpar_startx);
    fChain->SetBranchAddress("genie_mcpar_starty", &genie_mcpar_starty, &b_ubxsec_event_split_genie_mcpar_starty);
    fChain->SetBranchAddress("genie_mcpar_startz", &genie_mcpar_startz, &b_ubxsec_event_split_genie_mcpar_startz);
+   fChain->SetBranchAddress("genie_mcpar_statuscode", &genie_mcpar_statuscode, &b_ubxsec_event_split_genie_mcpar_statuscode);
    fChain->SetBranchAddress("genie_mcpar_W", &genie_mcpar_W, &b_ubxsec_event_split_genie_mcpar_W);
    fChain->SetBranchAddress("genie_mcpar_QSqr", &genie_mcpar_QSqr, &b_ubxsec_event_split_genie_mcpar_QSqr);
    fChain->SetBranchAddress("geant_mcpar_pdgcode", &geant_mcpar_pdgcode, &b_ubxsec_event_split_geant_mcpar_pdgcode);
@@ -649,6 +660,9 @@ void UBXSecEvent::Init(TTree *tree)
    fChain->SetBranchAddress("geant_mcpar_startx", &geant_mcpar_startx, &b_ubxsec_event_split_geant_mcpar_startx);
    fChain->SetBranchAddress("geant_mcpar_starty", &geant_mcpar_starty, &b_ubxsec_event_split_geant_mcpar_starty);
    fChain->SetBranchAddress("geant_mcpar_startz", &geant_mcpar_startz, &b_ubxsec_event_split_geant_mcpar_startz);
+   fChain->SetBranchAddress("geant_mcpar_endx", &geant_mcpar_endx, &b_ubxsec_event_split_geant_mcpar_endx);
+   fChain->SetBranchAddress("geant_mcpar_endy", &geant_mcpar_endy, &b_ubxsec_event_split_geant_mcpar_endy);
+   fChain->SetBranchAddress("geant_mcpar_endz", &geant_mcpar_endz, &b_ubxsec_event_split_geant_mcpar_endz);
    fChain->SetBranchAddress("geant_mcpar_end_process", &geant_mcpar_end_process, &b_ubxsec_event_split_geant_mcpar_end_process);
    fChain->SetBranchAddress("bnb_weight", &bnb_weight, &b_ubxsec_event_split_bnb_weight);
    fChain->SetBranchAddress("is_selected", &is_selected, &b_ubxsec_event_split_is_selected);
@@ -802,6 +816,7 @@ void UBXSecEvent::Init(TTree *tree)
    fChain->SetBranchAddress("pfp_truth_endz", &pfp_truth_endz, &b_ubxsec_event_split_pfp_truth_endz);
    fChain->SetBranchAddress("pfp_truth_endE", &pfp_truth_endE, &b_ubxsec_event_split_pfp_truth_endE);
    fChain->SetBranchAddress("pfp_truth_endProcess", &pfp_truth_endProcess, &b_ubxsec_event_split_pfp_truth_endProcess);
+   fChain->SetBranchAddress("pfp_truth_Process", &pfp_truth_Process, &b_ubxsec_event_split_pfp_truth_Process);
    fChain->SetBranchAddress("pfp_truth_KE", &pfp_truth_KE, &b_ubxsec_event_split_pfp_truth_KE);
    fChain->SetBranchAddress("pfp_truth_Mass", &pfp_truth_Mass, &b_ubxsec_event_split_pfp_truth_Mass);
    fChain->SetBranchAddress("pfp_reco_isprimary", &pfp_reco_isprimary, &b_ubxsec_event_split_pfp_reco_isprimary);

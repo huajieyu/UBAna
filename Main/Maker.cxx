@@ -2927,22 +2927,22 @@ void Main::Maker::MakeFile()
     
     
     //#1 number of tracks>=2
-    if(_ana_int_type=="cc1unp_analysis" && t->num_pfp<2)  continue;
+    //if(_ana_int_type=="cc1unp_analysis" && t->num_pfp<2)  continue;
  
-    //if(_ana_int_type=="cc1unp_analysis" && t->num_pfp_tracks<2)  continue;
+    if(_ana_int_type=="cc1unp_analysis" && t->num_pfp_tracks<2)  continue;
     if (isSignal && nu_origin && trackfromneutrino) {selected_signal_events_percut["ntrk2"] +=event_weight;}
     selected_events_percut["ntrk2"] +=event_weight;
     
     
     
     //#2 all the protons contained in FV
-    /*int uncontained_proton=0;
+    int uncontained_proton=0;
     
     // loop over all the proton candidates and select the events with all the proton candidates 
     for(size_t n_trk_pfp=0; n_trk_pfp<t->pfp_reco_startx.size(); n_trk_pfp++){
        if(t->pfp_reco_ismuoncandidate[n_trk_pfp] == 1) continue;
-       if(t->pfp_reco_istrack[n_trk_pfp] == 0) continue;
-         
+       //if(t->pfp_reco_isshower[n_trk_pfp] == 1 && t->pfp_reco_numtracks[n_trk_pfp] !=1) continue;
+       if(t->pfp_reco_numtracks[n_trk_pfp] !=1) continue;  
         if(!inCV(t->pfp_reco_startx[n_trk_pfp], t->pfp_reco_starty[n_trk_pfp], t->pfp_reco_startz[n_trk_pfp]) ||
            !inCV(t->pfp_reco_endx[n_trk_pfp],   t->pfp_reco_endy[n_trk_pfp],   t->pfp_reco_endz[n_trk_pfp]))   {
            uncontained_proton +=1;
@@ -2951,15 +2951,15 @@ void Main::Maker::MakeFile()
     }
     
    
-    if(uncontained_proton>0)  continue;
-    */
+    if(_ana_int_type=="cc1unp_analysis" && uncontained_proton>0)  continue;
+    /*
     bool pcontained_flag=true;
 
     for(size_t n_trk_pfp=0; n_trk_pfp<t->pfp_reco_startx.size(); n_trk_pfp++){
        if(t->pfp_reco_ismuoncandidate[n_trk_pfp] == 1) continue;
-       if(t->pfp_reco_isshower[n_trk_pfp] == 1 && t->pfp_reco_numtracks[n_trk_pfp]<=0) continue;
+       //if(t->pfp_reco_istrack[n_trk_pfp] ==0 && t->pfp_reco_numtracks[n_trk_pfp] ==0) continue;
        //if(t->pfp_reco_istrack[n_trk_pfp] == 0) continue;
-        
+       if(t->pfp_reco_numtracks[n_trk_pfp] ==0) continue; 
         if(!inCV(t->pfp_reco_startx[n_trk_pfp], t->pfp_reco_starty[n_trk_pfp], t->pfp_reco_startz[n_trk_pfp]) ||
            !inCV(t->pfp_reco_endx[n_trk_pfp],   t->pfp_reco_endy[n_trk_pfp],   t->pfp_reco_endz[n_trk_pfp]))  pcontained_flag=false;
         
@@ -2967,21 +2967,26 @@ void Main::Maker::MakeFile()
     }
  
     if(_ana_int_type=="cc1unp_analysis" && pcontained_flag==0) continue;
-
+    */
     if (isSignal && nu_origin && trackfromneutrino) selected_signal_events_percut["pinCV"] +=event_weight;
     selected_events_percut["pinCV"] +=event_weight;
      
     //#3 find the leading proton candidate and perform the minCol cut
     pind=-999;
-    float temp_length=-0.0;
-    for(size_t np=0; np<t->pfp_reco_length[np]; np++){
+    float temp_length=-999.0;
+    for(size_t np=0; np<t->pfp_reco_length.size(); np++){
         if(t->pfp_reco_ismuoncandidate[np]==1)  continue;
-        if(t->pfp_reco_istrack[np]==0) continue;        
-        if(t->pfp_reco_length[np]> temp_length) {pind=np;}
+        if(t->pfp_reco_istrack[np]==0) continue;       
+        //if(t->pfp_reco_numtracks[np] ==0) continue;
+        if(t->pfp_reco_length[np]> temp_length) {
+           temp_length=t->pfp_reco_length[np];
+           pind=np;
+
+        }
     }
-            
-    if(_ana_int_type=="cc1unp_analysis" && t->pfp_reco_dEdx[pind].size()<5)  continue; 
-    //if(_ana_int_type=="cc1unp_analysis" && t->pfp_reco_dEdx[muind].size()<5)  continue; 
+    //std::cout<<"proton index is "<<pind<<"total number of track like PF particles is "<<t->num_pfp_tracks<<std::endl;        
+    if(_ana_int_type=="cc1unp_analysis" && pind>-999 && t->pfp_reco_dEdx[pind].size()<5)  continue; 
+    
 
     if (isSignal && nu_origin && trackfromneutrino) selected_signal_events_percut["minCol"] +=event_weight;
     selected_events_percut["minCol"] +=event_weight;
@@ -3053,8 +3058,8 @@ void Main::Maker::MakeFile()
     Int_t npcand_fail_chi2=0;
     for(size_t ntrk=0; ntrk<t->pfp_reco_chi2_proton.size(); ntrk++){
         if(t->pfp_reco_ismuoncandidate[ntrk]==1) continue;
-        //if(t->pfp_reco_istrack[ntrk]==0) continue;
-        if(t->pfp_reco_isshower[ntrk] == 1 && t->pfp_reco_numtracks[ntrk]==1) {std::cout<<" a shower with a track reconstructed"<<std::endl;}
+        if(t->pfp_reco_istrack[ntrk]==0) continue;
+        //if(t->pfp_reco_numtracks[ntrk]==0) continue;
         if(t->pfp_reco_dEdx[ntrk].size()>=5 && t->pfp_reco_chi2_proton[ntrk]>88) {npcand_fail_chi2++;}
     }
     
