@@ -2928,9 +2928,9 @@ void Main::Maker::MakeFile()
     
     //#1 number of tracks>=2
     if(_showerastrack){
-    if(_ana_int_type=="cc1unp_analysis" && t->num_pfp<2)  continue;
+       if(_ana_int_type=="cc1unp_analysis" && t->num_pfp<2)  continue;
     } else {
-    if(_ana_int_type=="cc1unp_analysis" && t->num_pfp_tracks<2)  continue;
+       if(_ana_int_type=="cc1unp_analysis" && t->num_pfp_tracks<2)  continue;
     }
     if (isSignal && nu_origin && trackfromneutrino) {selected_signal_events_percut["ntrk2"] +=event_weight;}
     selected_events_percut["ntrk2"] +=event_weight;
@@ -2943,8 +2943,11 @@ void Main::Maker::MakeFile()
     // loop over all the proton candidates and select the events with all the proton candidates 
     for(size_t n_trk_pfp=0; n_trk_pfp<t->pfp_reco_startx.size(); n_trk_pfp++){
        if(t->pfp_reco_ismuoncandidate[n_trk_pfp] == 1) continue;
+       if(_showerastrack){
        if(t->pfp_reco_isshower[n_trk_pfp] == 1 && t->pfp_reco_numtracks[n_trk_pfp] !=1) continue;
-       //if(t->pfp_reco_numtracks[n_trk_pfp] !=1) continue;  
+       } else{
+         if(t->pfp_reco_istrack[n_trk_pfp] !=1) continue;  
+       }
         if(!inCV(t->pfp_reco_startx[n_trk_pfp], t->pfp_reco_starty[n_trk_pfp], t->pfp_reco_startz[n_trk_pfp]) ||
            !inCV(t->pfp_reco_endx[n_trk_pfp],   t->pfp_reco_endy[n_trk_pfp],   t->pfp_reco_endz[n_trk_pfp]))   {
            uncontained_proton +=1;
@@ -2978,7 +2981,11 @@ void Main::Maker::MakeFile()
     float temp_length=-999.0;
     for(size_t np=0; np<t->pfp_reco_length.size(); np++){
         if(t->pfp_reco_ismuoncandidate[np]==1)  continue;
-        if(t->pfp_reco_istrack[np]==0) continue;       
+        if(_showerastrack){
+         if(t->pfp_reco_isshower[np] == 1 && t->pfp_reco_numtracks[np] !=1) continue;
+        } else {
+           if(t->pfp_reco_istrack[np]==0) continue;       
+        }
         //if(t->pfp_reco_numtracks[np] ==0) continue;
         if(t->pfp_reco_length[np]> temp_length) {
            temp_length=t->pfp_reco_length[np];
@@ -3060,7 +3067,11 @@ void Main::Maker::MakeFile()
     Int_t npcand_fail_chi2=0;
     for(size_t ntrk=0; ntrk<t->pfp_reco_chi2_proton.size(); ntrk++){
         if(t->pfp_reco_ismuoncandidate[ntrk]==1) continue;
-        if(t->pfp_reco_istrack[ntrk]==0) continue;
+        if(_showerastrack){
+          if(t->pfp_reco_isshower[ntrk]==1 && t->pfp_reco_numtracks[ntrk] !=1) continue;
+        } else {
+          if(t->pfp_reco_istrack[ntrk]==0) continue;
+        }
         //if(t->pfp_reco_numtracks[ntrk]==0) continue;
         if(t->pfp_reco_dEdx[ntrk].size()>=5 && t->pfp_reco_chi2_proton[ntrk]>88) {npcand_fail_chi2++;}
     }
