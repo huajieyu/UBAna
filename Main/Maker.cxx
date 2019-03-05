@@ -829,10 +829,7 @@ void Main::Maker::MakeFile()
   TH1D* h_eff_mult_den = new TH1D("h_eff_mult_den", "h_eff_mult_den", 20, 0, 20);
   TH1D* h_eff_mult_ch_num = new TH1D("h_eff_mult_ch_num", "h_eff_mult_ch_num", 10, 0, 15);
   TH1D* h_eff_mult_ch_den = new TH1D("h_eff_mult_ch_den", "h_eff_mult_ch_den", 10, 0, 15);
-  TH1D* h_eff_muphi_num = new TH1D("h_eff_muphi_num", "h_eff_muphi_num", 15, -3.1415, 3.1415);
-  TH1D* h_eff_muphi_den = new TH1D("h_eff_muphi_den", "h_eff_muphi_den", 15, -3.1415, 3.1415);
-  //TH1D* h_eff_thetamup_den=new TH1D("h_eff_thetamup_den", "h_eff_thetamup_den", n_bins_muptheta, bins_muptheta);
-  //TH1D* h_eff_thetamup_num=new TH1D("h_eff_thetamup_num", "h_eff_thetamup_num", n_bins_muptheta, bins_muptheta);
+
   TH1D* h_eff_allprotons_den=new TH1D("h_eff_allprotons_den", "h_eff_allprotons_den", 30, 0.3, 1.5); 
   TH1D* h_eff_nonreintprotons_den=new TH1D("h_eff_nonreintprotons_den", "h_eff_nonreintprotons_den", 30, 0.3, 1.5); 
   TH1D* h_eff_reintprotons_den=new TH1D("h_eff_reintprotons_den", "h_eff_reintprotons_den", 30, 0.3, 1.5); 
@@ -1216,6 +1213,8 @@ void Main::Maker::MakeFile()
   TH1D* h_trklen_first = new TH1D("h_trklen_first", "h_trklen_first", 60, 0, 700);
   TH1D* h_trklen_second = new TH1D("h_trklen_second", "h_trklen_second", 60, 0, 700);
   //=========================================================================================================
+  TH1D* chi2_proton_hypothesis_pcand=new TH1D("proton_hypothesis_pcand", "proton_hypothesis_pcand", 100, 0, 400);
+
   std::map<std::string, TH1D*> chi2_proton_hypothesis;
   chi2_proton_hypothesis["proton"] = new TH1D("proton_proton_chi2", "proton_proton_chi2", 100, 0, 400);
   chi2_proton_hypothesis["muon"] = new TH1D("proton_muon_chi2", "proton_muon_chi2", 100, 0, 400);
@@ -1243,6 +1242,7 @@ void Main::Maker::MakeFile()
 
   //proton resolution
   //======================================================================================
+  //check how many percent of protons of all the tracks with number of hits less than 5
   TH1D* h_nhits_lt5=new TH1D("h_nhits_lt5", "h_nhits_lt5", 5, -0.5, 4.5);
   TH1D* h_nhits_lt5_proton=new TH1D("h_nhits_lt5_proton", "h_nhits_lt5_proton", 5, -0.5, 4.5);
 
@@ -1274,7 +1274,9 @@ void Main::Maker::MakeFile()
   TH1D* h_true_pizlen_noreco=new TH1D("h_true_pizlen_noreco", ";Pion Length [cm]; Ntracks", 40, 0.0, 20.0);
 
   TH2D* htest_true_reco_pcostheta=new TH2D("htest_true_reco_pcostheta", "htest_true_reco_pcostheta", n_bins_pcostheta, bins_pcostheta, n_bins_pcostheta, bins_pcostheta);
-
+  TH2D* h_dEdx_vs_rr_pcand=new TH2D("h_dEdx_vs_rr_pcand", "h_dEdx_vs_rr_pcand",100,0,100,100, 0, 20);
+  h_dEdx_vs_rr_pcand->GetXaxis()->SetTitle("Residual Range [cm]");
+  h_dEdx_vs_rr_pcand->GetYaxis()->SetTitle("dEdx [MeV/cm]"); 
   //==========================================================================================================
   std::map<std::string,TH1D*> hmap_trkplen;
   hmap_trkplen["total"] = new TH1D("h_trkplen_total", "; Track length;", 30, 0, 150); // 20, 0, 2.5
@@ -2294,7 +2296,7 @@ void Main::Maker::MakeFile()
       _event_histo_1d->h_eff_pangle_den->Fill(temp_pangle, event_weight);
       //get the den of thetamup
       _event_histo_1d->h_eff_thetamup_den->Fill(temp_thetamup, event_weight);
-      //h_eff_thetamup_den->Fill(temp_thetamup, event_weight);
+      
       h_eff_allprotons_den->Fill(temp_pmom, event_weight);
       //loop over g4 stage and select the contained cc1unp and reinteracted or non reinteracted protons
       //vector<double>  geant_mcpar_pdgcode;
@@ -2986,19 +2988,23 @@ void Main::Maker::MakeFile()
         } else {
            if(t->pfp_reco_istrack[np]==0) continue;       
         }
-        //if(t->pfp_reco_numtracks[np] ==0) continue;
         if(t->pfp_reco_length[np]> temp_length) {
            temp_length=t->pfp_reco_length[np];
            pind=np;
 
         }
     }
-    //std::cout<<"proton index is "<<pind<<"total number of track like PF particles is "<<t->num_pfp_tracks<<std::endl;        
+            
     if(_ana_int_type=="cc1unp_analysis" && pind>-999 && t->pfp_reco_dEdx[pind].size()<5)  continue; 
     
 
     if (isSignal && nu_origin && trackfromneutrino) selected_signal_events_percut["minCol"] +=event_weight;
     selected_events_percut["minCol"] +=event_weight;
+
+    for(size_t nchi2=0; nchi2<t->pfp_reco_ismuoncandidate.size(); nchi2++){
+      if(t->pfp_reco_ismuoncandidate[nchi2] ==1) continue;
+      chi2_proton_hypothesis_pcand->Fill(t->pfp_reco_chi2_proton[nchi2], event_weight);
+    }
 
     if(!isdata && _ana_int_type =="cc1unp_analysis"){
     //#4 check the chi2 distribution and perform the chi2 cut
@@ -3158,7 +3164,6 @@ void Main::Maker::MakeFile()
     //get the momentum of the leading proton momentum 
     if(isSignal && trackfromneutrino && _ana_int_type == "cc1unp_analysis"){
       //check if the isprimary variable filled correctly
-      //std::cout<<"check the variable isprimary ??   "<<"pind= "<<pind<<" isprimary "<<t->pfp_reco_isprimary[pind]<<std::endl;
       // loop over all the genie particles and get the denominator of the proton momentum efficiency
       temp_pmom=-999.0;
       temp_pangle=-999.0;
@@ -3181,7 +3186,7 @@ void Main::Maker::MakeFile()
       _event_histo_1d->h_eff_pmom_num->Fill(temp_pmom, event_weight);
       _event_histo_1d->h_eff_pangle_num->Fill(temp_pangle, event_weight);
       _event_histo_1d->h_eff_thetamup_num->Fill(temp_thetamup, event_weight);
-      //h_eff_thetamup_num->Fill(temp_thetamup, event_weight);
+      
       h_eff_allprotons_num->Fill(temp_pmom, event_weight);
       //loop over g4 stage and select the contained cc1unp and reinteracted or non reinteracted protons
       //vector<double>  geant_mcpar_pdgcode;
@@ -3203,9 +3208,27 @@ void Main::Maker::MakeFile()
       if(geant_pcontained==true){
          h_eff_containedprotons_num->Fill(temp_geantpmom, event_weight);
       } 
+      //fill dEdx_vs_residual_range
+      //h_dEdx_vs_rr_pcand
+      
+      /*for(unsigned int ii =0; ii< t->pfp_reco_ismuoncandidate.size(); ++ii){
+         if(t->pfp_reco_ismuoncandidate[ii]==1) continue;
+         if(t->pfp_reco_dEdx[ii].size()<5) continue;
+         for(unsigned int jj=0; jj<t->pfp_reco_dEdx[ii].size(); ++jj){
+        	 h_dEdx_vs_rr_pcand->Fill(t->pfp_reco_RR[ii][jj], t->pfp_reco_dEdx[ii][jj]);
+         }
+      } 
+      */
+      for(size_t i =0; i< t->pfp_reco_dEdx[pind].size(); ++i){
+         if(t->pfp_truth_pdg[pind] !=2212) continue;
+	 h_dEdx_vs_rr_pcand->Fill(t->pfp_reco_RR[pind][i],t->pfp_reco_dEdx[pind][i]);
+      }
+ 
 
     } //end of if this is signal and cc1unp analysis
-  
+    /*for(int i =0; i< t->pfp_reco_dEdx[pind].size(); ++i){   
+	 h_dEdx_vs_rr_pcand->Fill(t->pfp_reco_RR[pind][i],t->pfp_reco_dEdx[pind][i]);
+    }*/
 
     //============================================================================================================
     //
@@ -3258,8 +3281,12 @@ void Main::Maker::MakeFile()
     hmap_etatest["total"]->Fill(etatest, event_weight);
     hmap_alphat["total"]->Fill(alphat, event_weight);
     hmap_enucal["total"]->Fill(enucal, event_weight);
-    hmap_pmult["total"]->Fill(t->num_pfp_tracks-1, event_weight);
-    //hmap_pmult["total"]->Fill(t->num_pfp-1, event_weight);
+    if(_showerastrack) {
+      hmap_pmult["total"]->Fill(t->num_pfp-1, event_weight);
+    } else{
+      hmap_pmult["total"]->Fill(t->num_pfp_tracks-1, event_weight);
+    }
+    
 
     if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_genie_multisim_bs, "total", fname_genie_multisim, wgts_genie_multisim);
     if (!isdata && _fill_bootstrap_flux) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_flux_multisim_bs, "total", fname_flux_multisim, wgts_flux_multisim);
@@ -3666,8 +3693,11 @@ void Main::Maker::MakeFile()
       if(!isdata){hmap_etatest["signal"]->Fill(etatest, event_weight);}
       hmap_alphat["signal"]->Fill(alphat, event_weight);
       hmap_enucal["signal"]->Fill(enucal, event_weight);
-      hmap_pmult["signal"]->Fill(t->num_pfp_tracks-1, event_weight);
-      //hmap_pmult["signal"]->Fill(t->num_pfp-1, event_weight);
+      if(_showerastrack){
+        hmap_pmult["signal"]->Fill(t->num_pfp-1, event_weight);
+      } else {
+        hmap_pmult["signal"]->Fill(t->num_pfp_tracks-1, event_weight);
+      }
 
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_genie_multisim_bs, "signal", fname_genie_multisim, wgts_genie_multisim);      
       if (!isdata && _fill_bootstrap_flux) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_flux_multisim_bs, "signal", fname_flux_multisim, wgts_flux_multisim);
@@ -3776,8 +3806,11 @@ void Main::Maker::MakeFile()
       if(!isdata){hmap_etatest["anumu"]->Fill(etatest, event_weight);}
       hmap_alphat["anumu"]->Fill(alphat, event_weight);
       hmap_enucal["anumu"]->Fill(enucal, event_weight);
-      hmap_pmult["anumu"]->Fill(t->num_pfp_tracks-1, event_weight);
-      //hmap_pmult["anumu"]->Fill(t->num_pfp-1, event_weight);
+      if(_showerastrack){
+        hmap_pmult["anumu"]->Fill(t->num_pfp-1, event_weight);
+      } else {
+        hmap_pmult["anumu"]->Fill(t->num_pfp_tracks-1, event_weight);
+      }
 
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_genie_multisim_bs, "anumu", fname_genie_multisim, wgts_genie_multisim);      
       if (!isdata && _fill_bootstrap_flux) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_flux_multisim_bs, "anumu", fname_flux_multisim, wgts_flux_multisim);
@@ -3852,9 +3885,12 @@ void Main::Maker::MakeFile()
       hmap_ptmis["cc_other"]->Fill(ptmis, event_weight);
       if(!isdata){hmap_etatest["cc_other"]->Fill(etatest, event_weight);}
       hmap_alphat["cc_other"]->Fill(alphat, event_weight);
-      hmap_enucal["cc_other"]->Fill(enucal, event_weight); 
-      hmap_pmult["cc_other"]->Fill(t->num_pfp_tracks-1, event_weight);
-      //hmap_pmult["cc_other"]->Fill(t->num_pfp-1, event_weight);
+      hmap_enucal["cc_other"]->Fill(enucal, event_weight);
+      if(_showerastrack){ 
+        hmap_pmult["cc_other"]->Fill(t->num_pfp-1, event_weight);
+      } else{  
+        hmap_pmult["cc_other"]->Fill(t->num_pfp_tracks-1, event_weight);
+      }
 
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_genie_multisim_bs, "cc_other", fname_genie_multisim, wgts_genie_multisim);      
       if (!isdata && _fill_bootstrap_flux) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_flux_multisim_bs, "cc_other", fname_flux_multisim, wgts_flux_multisim);
@@ -4019,8 +4055,11 @@ void Main::Maker::MakeFile()
       if(!isdata){hmap_etatest["nue"]->Fill(etatest, event_weight);}
       hmap_alphat["nue"]->Fill(alphat, event_weight);
       hmap_enucal["nue"]->Fill(enucal, event_weight); 
-      hmap_pmult["nue"]->Fill(t->num_pfp_tracks-1, event_weight);
-      //hmap_pmult["nue"]->Fill(t->num_pfp-1, event_weight);
+      if(_showerastrack){
+        hmap_pmult["nue"]->Fill(t->num_pfp-1, event_weight);
+      } else {
+        hmap_pmult["nue"]->Fill(t->num_pfp_tracks-1, event_weight);
+      }
 
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_genie_multisim_bs, "nue", fname_genie_multisim, wgts_genie_multisim);      
       if (!isdata && _fill_bootstrap_flux) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_flux_multisim_bs, "nue", fname_flux_multisim, wgts_flux_multisim);
@@ -4097,8 +4136,11 @@ void Main::Maker::MakeFile()
       if(!isdata){hmap_etatest["nc"]->Fill(etatest, event_weight);}
       hmap_alphat["nc"]->Fill(alphat, event_weight);
       hmap_enucal["nc"]->Fill(enucal, event_weight);
-      hmap_pmult["nc"]->Fill(t->num_pfp_tracks-1, event_weight);
-      //hmap_pmult["nc"]->Fill(t->num_pfp-1, event_weight);
+      if(_showerastrack){
+        hmap_pmult["nc"]->Fill(t->num_pfp-1, event_weight);
+      } else {
+        hmap_pmult["nc"]->Fill(t->num_pfp_tracks-1, event_weight);
+      }
 
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_genie_multisim_bs, "nc", fname_genie_multisim, wgts_genie_multisim);      
       if (!isdata && _fill_bootstrap_flux) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_flux_multisim_bs, "nc", fname_flux_multisim, wgts_flux_multisim);
@@ -4221,8 +4263,11 @@ void Main::Maker::MakeFile()
       if(!isdata){hmap_etatest["outfv"]->Fill(etatest, event_weight);}
       hmap_alphat["outfv"]->Fill(alphat, event_weight);
       hmap_enucal["outfv"]->Fill(enucal, event_weight);
-      hmap_pmult["outfv"]->Fill(t->num_pfp_tracks-1, event_weight);
-      //hmap_pmult["outfv"]->Fill(t->num_pfp-1, event_weight);
+      if(_showerastrack){
+        hmap_pmult["outfv"]->Fill(t->num_pfp-1, event_weight);
+      } else {
+        hmap_pmult["outfv"]->Fill(t->num_pfp_tracks-1, event_weight);
+      }
 
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_genie_multisim_bs, "outfv", fname_genie_multisim, wgts_genie_multisim);      
       if (!isdata && _fill_bootstrap_flux) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_flux_multisim_bs, "outfv", fname_flux_multisim, wgts_flux_multisim);
@@ -4329,8 +4374,11 @@ void Main::Maker::MakeFile()
       if(!isdata){hmap_etatest["cosmic"]->Fill(etatest, event_weight);}
       hmap_alphat["cosmic"]->Fill(alphat, event_weight);
       hmap_enucal["cosmic"]->Fill(enucal, event_weight);
-      hmap_pmult["cosmic"]->Fill(t->num_pfp_tracks-1, event_weight);
-      //hmap_pmult["cosmic"]->Fill(t->num_pfp-1, event_weight);
+      if(_showerastrack){
+        hmap_pmult["cosmic"]->Fill(t->num_pfp-1, event_weight);
+      } else {
+        hmap_pmult["cosmic"]->Fill(t->num_pfp_tracks-1, event_weight);
+      }
 
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_genie_multisim_bs, "cosmic", fname_genie_multisim, wgts_genie_multisim);      
       if (!isdata && _fill_bootstrap_flux) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_flux_multisim_bs, "cosmic", fname_flux_multisim, wgts_flux_multisim);
