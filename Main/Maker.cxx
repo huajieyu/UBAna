@@ -831,12 +831,10 @@ void Main::Maker::MakeFile()
   TH1D* h_eff_mult_ch_den = new TH1D("h_eff_mult_ch_den", "h_eff_mult_ch_den", 10, 0, 15);
 
   TH1D* h_eff_allprotons_den=new TH1D("h_eff_allprotons_den", "h_eff_allprotons_den", 30, 0.3, 1.5); 
-  TH1D* h_eff_nonreintprotons_den=new TH1D("h_eff_nonreintprotons_den", "h_eff_nonreintprotons_den", 30, 0.3, 1.5); 
   TH1D* h_eff_reintprotons_den=new TH1D("h_eff_reintprotons_den", "h_eff_reintprotons_den", 30, 0.3, 1.5); 
   TH1D* h_eff_containedprotons_den=new TH1D("h_eff_containedprotons_den", "h_eff_containedprotons_den", 30, 0.3, 1.5); 
   
   TH1D* h_eff_allprotons_num=new TH1D("h_eff_allprotons_num", "h_eff_allprotons_num", 30, 0.3, 1.5); 
-  TH1D* h_eff_nonreintprotons_num=new TH1D("h_eff_nonreintprotons_num", "h_eff_nonreintprotons_num", 30, 0.3, 1.5); 
   TH1D* h_eff_reintprotons_num=new TH1D("h_eff_reintprotons_num", "h_eff_reintprotons_num", 30, 0.3, 1.5); 
   TH1D* h_eff_containedprotons_num=new TH1D("h_eff_containedprotons_num", "h_eff_containedprotons_num", 30, 0.3, 1.5); 
 
@@ -1273,10 +1271,16 @@ void Main::Maker::MakeFile()
   TH1D* h_true_pilen_noreco=new TH1D("h_true_pilen_noreco", ";Pion Length [cm]; Ntracks", 40, 0.0, 20.0);
   TH1D* h_true_pizlen_noreco=new TH1D("h_true_pizlen_noreco", ";Pion Length [cm]; Ntracks", 40, 0.0, 20.0);
 
-  TH2D* htest_true_reco_pcostheta=new TH2D("htest_true_reco_pcostheta", "htest_true_reco_pcostheta", n_bins_pcostheta, bins_pcostheta, n_bins_pcostheta, bins_pcostheta);
+
   TH2D* h_dEdx_vs_rr_pcand=new TH2D("h_dEdx_vs_rr_pcand", "h_dEdx_vs_rr_pcand",100,0,100,100, 0, 20);
   h_dEdx_vs_rr_pcand->GetXaxis()->SetTitle("Residual Range [cm]");
   h_dEdx_vs_rr_pcand->GetYaxis()->SetTitle("dEdx [MeV/cm]"); 
+  TH2D* h_dEdx_vs_rr_pcand_2=new TH2D("h_dEdx_vs_rr_pcand_2", "h_dEdx_vs_rr_pcand",100,0,100,100, 0, 20);
+  h_dEdx_vs_rr_pcand_2->GetXaxis()->SetTitle("Residual Range [cm]");
+  h_dEdx_vs_rr_pcand_2->GetYaxis()->SetTitle("dEdx [MeV/cm]"); 
+  
+  TH2D* h_tmdqdx_vs_rr_pcand=new TH2D("h_tmdqdx_vs_rr_pcand", "h_tmdqdx_vs_rr_pcand", 100, 0, 100, 100, 0, 2000);
+  
   //==========================================================================================================
   std::map<std::string,TH1D*> hmap_trkplen;
   hmap_trkplen["total"] = new TH1D("h_trkplen_total", "; Track length;", 30, 0, 150); // 20, 0, 2.5
@@ -2535,7 +2539,7 @@ void Main::Maker::MakeFile()
     
     
     
-    
+    std::cout<<"Start to perform the CCinclusive as precuts"<<std::endl; 
     
     
 
@@ -2905,6 +2909,11 @@ void Main::Maker::MakeFile()
 
     // if (t->slc_muoncandidate_mom_mcs.at(scl_ll_max) > 2.5) continue;
     //===========================================================================================================
+
+
+    std::cout<<"End of CCinclusive Selection and Start the CC1uNP Selection"<<std::endl;
+
+
     // CC1uNP Selection
     bool trackfromneutrino=true;
     if (t->pfp_truth_origin.size() != t->pfp_reco_ismuoncandidate.size()){
@@ -2915,7 +2924,11 @@ void Main::Maker::MakeFile()
     }
      
     for(size_t npfp=0; npfp<t->pfp_truth_origin.size(); npfp++){
-        if(t->pfp_reco_istrack[npfp] && t->pfp_truth_origin[npfp]!=1) {trackfromneutrino=false; }
+        if(t->pfp_reco_istrack[npfp]==0 &&t->pfp_reco_isshower[npfp]==0 ) continue;
+        if(_showerastrack){
+              if(t->pfp_truth_origin[npfp] !=1) {trackfromneutrino=false;}
+        }
+        else if(t->pfp_reco_istrack[npfp] && t->pfp_truth_origin[npfp]!=1) {trackfromneutrino=false; }
     }
 
     if(_ana_int_type=="ccinclusive_analysis"){trackfromneutrino=true;}
@@ -2945,15 +2958,16 @@ void Main::Maker::MakeFile()
     // loop over all the proton candidates and select the events with all the proton candidates 
     for(size_t n_trk_pfp=0; n_trk_pfp<t->pfp_reco_startx.size(); n_trk_pfp++){
        if(t->pfp_reco_ismuoncandidate[n_trk_pfp] == 1) continue;
+       //if(t->pfp_reco_istrack[n_trk_pfp] !=1 && t->pfp_reco_isshower[n_trk_pfp] !=1 ) continue;
        if(_showerastrack){
-       if(t->pfp_reco_isshower[n_trk_pfp] == 1 && t->pfp_reco_numtracks[n_trk_pfp] !=1) continue;
+         if(t->pfp_reco_numtracks[n_trk_pfp] !=1) continue;
        } else{
          if(t->pfp_reco_istrack[n_trk_pfp] !=1) continue;  
        }
-        if(!inCV(t->pfp_reco_startx[n_trk_pfp], t->pfp_reco_starty[n_trk_pfp], t->pfp_reco_startz[n_trk_pfp]) ||
+       if(!inCV(t->pfp_reco_startx[n_trk_pfp], t->pfp_reco_starty[n_trk_pfp], t->pfp_reco_startz[n_trk_pfp]) ||
            !inCV(t->pfp_reco_endx[n_trk_pfp],   t->pfp_reco_endy[n_trk_pfp],   t->pfp_reco_endz[n_trk_pfp]))   {
            uncontained_proton +=1;
-        }
+       }
        
     }
     
@@ -2981,12 +2995,16 @@ void Main::Maker::MakeFile()
     //#3 find the leading proton candidate and perform the minCol cut
     pind=-999;
     float temp_length=-999.0;
+    
     for(size_t np=0; np<t->pfp_reco_length.size(); np++){
         if(t->pfp_reco_ismuoncandidate[np]==1)  continue;
+        
         if(_showerastrack){
-         if(t->pfp_reco_isshower[np] == 1 && t->pfp_reco_numtracks[np] !=1) continue;
+           if(t->pfp_reco_istrack[np]==0 && t->pfp_reco_isshower[np] ==0) continue;      
+           if(t->pfp_reco_numtracks[np] !=1) continue;
         } else {
-           if(t->pfp_reco_istrack[np]==0) continue;       
+           if(t->pfp_reco_istrack[np]==0 && t->pfp_reco_isshower[np] ==0) continue;      
+           if(t->pfp_reco_istrack[np]==0) continue; 
         }
         if(t->pfp_reco_length[np]> temp_length) {
            temp_length=t->pfp_reco_length[np];
@@ -2994,7 +3012,8 @@ void Main::Maker::MakeFile()
 
         }
     }
-            
+     
+    if(_ana_int_type=="cc1unp_analysis" && pind<0) continue;        
     if(_ana_int_type=="cc1unp_analysis" && pind>-999 && t->pfp_reco_dEdx[pind].size()<5)  continue; 
     
 
@@ -3073,12 +3092,12 @@ void Main::Maker::MakeFile()
     Int_t npcand_fail_chi2=0;
     for(size_t ntrk=0; ntrk<t->pfp_reco_chi2_proton.size(); ntrk++){
         if(t->pfp_reco_ismuoncandidate[ntrk]==1) continue;
+        if(t->pfp_reco_istrack[ntrk]==0 && t->pfp_reco_isshower[ntrk]==0) continue;
         if(_showerastrack){
-          if(t->pfp_reco_isshower[ntrk]==1 && t->pfp_reco_numtracks[ntrk] !=1) continue;
+          if(t->pfp_reco_numtracks[ntrk] !=1) continue;
         } else {
           if(t->pfp_reco_istrack[ntrk]==0) continue;
         }
-        //if(t->pfp_reco_numtracks[ntrk]==0) continue;
         if(t->pfp_reco_dEdx[ntrk].size()>=5 && t->pfp_reco_chi2_proton[ntrk]>88) {npcand_fail_chi2++;}
     }
     
@@ -3096,6 +3115,10 @@ void Main::Maker::MakeFile()
     selected_events_percut["chi2"] +=event_weight;
 
     if(_ana_int_type=="cc1unp_analysis" && t->pfp_reco_Mom_proton[pind]<0.3) continue;
+
+
+
+    
 
     if(_ana_int_type=="cc1unp_analysis"){
       thetamup=getAngle(t->pfp_reco_Mom_MCS[muind], t->pfp_reco_theta[muind], t->pfp_reco_phi[muind], t->pfp_reco_Mom_proton[pind], t->pfp_reco_theta[pind], t->pfp_reco_phi[pind]);
@@ -3119,8 +3142,13 @@ void Main::Maker::MakeFile()
       pion_reco=false;
       pion_reint=false;
       for(size_t ii=0; ii<t->pfp_reco_ismuoncandidate.size(); ii++){
-         if(t->pfp_reco_ismuoncandidate[ii]==1) continue;  //proton candidate
-         if(t->pfp_reco_istrack[ii]==0) continue;
+        if(t->pfp_reco_ismuoncandidate[ii]==1) continue;  //proton candidate
+        if(t->pfp_reco_istrack[ii]==0 &&t->pfp_reco_isshower[ii]==0) continue;   
+        if(_showerastrack){
+          if(t->pfp_reco_numtracks[ii] !=1) continue;
+        }else{ 
+            if(t->pfp_reco_istrack[ii]==0) continue;
+        }   
  
          if(t->pfp_reco_dEdx[ii].size()<5){ h_nhits_lt5->Fill(t->pfp_reco_dEdx[ii].size(), event_weight); }
          Esum=Esum+sqrt(t->pfp_reco_Mom_proton[ii]*t->pfp_reco_Mom_proton[ii]+protonmass*protonmass)-protonmass; 
@@ -3159,8 +3187,8 @@ void Main::Maker::MakeFile()
 
     }
     
-
-
+    //std::cout<<"libo test 1"<<" is data or not "<<isdata<<std::endl;
+    if(!isdata){
     //get the momentum of the leading proton momentum 
     if(isSignal && trackfromneutrino && _ana_int_type == "cc1unp_analysis"){
       //check if the isprimary variable filled correctly
@@ -3171,7 +3199,7 @@ void Main::Maker::MakeFile()
       temp_thetamup=-999.0;
       float temp_penergy=-999.0;
       for(size_t mpar=0; mpar<t->genie_mcpar_pdgcode.size(); mpar++){
-           //std::cout<<"PDGCODE of GENIE Particle is "<<t->genie_mcpar_pdgcode[mpar]<<std::endl;
+           
            if(abs(t->genie_mcpar_pdgcode[mpar])==2212 && t->genie_mcpar_energy[mpar]>temp_penergy) {
                temp_penergy=t->genie_mcpar_energy[mpar];
                temp_pmom=TMath::Sqrt(t->genie_mcpar_px[mpar]*t->genie_mcpar_px[mpar]+
@@ -3189,7 +3217,6 @@ void Main::Maker::MakeFile()
       
       h_eff_allprotons_num->Fill(temp_pmom, event_weight);
       //loop over g4 stage and select the contained cc1unp and reinteracted or non reinteracted protons
-      //vector<double>  geant_mcpar_pdgcode;
       temp_geantpmom=-999.0;
       temp_geantpenergy=-999.0;
       bool geant_pcontained = true;
@@ -3209,9 +3236,8 @@ void Main::Maker::MakeFile()
          h_eff_containedprotons_num->Fill(temp_geantpmom, event_weight);
       } 
       //fill dEdx_vs_residual_range
-      //h_dEdx_vs_rr_pcand
       
-      /*for(unsigned int ii =0; ii< t->pfp_reco_ismuoncandidate.size(); ++ii){
+      /*for(size_t ii =0; ii< t->pfp_reco_ismuoncandidate.size(); ++ii){
          if(t->pfp_reco_ismuoncandidate[ii]==1) continue;
          if(t->pfp_reco_dEdx[ii].size()<5) continue;
          for(unsigned int jj=0; jj<t->pfp_reco_dEdx[ii].size(); ++jj){
@@ -3219,16 +3245,19 @@ void Main::Maker::MakeFile()
          }
       } 
       */
-      for(size_t i =0; i< t->pfp_reco_dEdx[pind].size(); ++i){
-         if(t->pfp_truth_pdg[pind] !=2212) continue;
-	 h_dEdx_vs_rr_pcand->Fill(t->pfp_reco_RR[pind][i],t->pfp_reco_dEdx[pind][i]);
-      }
- 
 
     } //end of if this is signal and cc1unp analysis
-    /*for(int i =0; i< t->pfp_reco_dEdx[pind].size(); ++i){   
+    } //end of is not data
+    //std::cout<<"libo test 2"<<"pind= "<<pind<<"  "<<t->pfp_reco_istrack[pind]<<std::endl;
+    unsigned int vec_length = t->pfp_reco_dEdx[pind].size();
+    for(size_t i =0; i<vec_length; ++i){   
 	 h_dEdx_vs_rr_pcand->Fill(t->pfp_reco_RR[pind][i],t->pfp_reco_dEdx[pind][i]);
-    }*/
+	 h_dEdx_vs_rr_pcand_2->Fill(t->pfp_reco_RR[pind][i],t->pfp_reco_dEdx[pind][vec_length - i]);
+    }
+    h_tmdqdx_vs_rr_pcand->Fill(t->pfp_reco_length[pind],t->pfp_reco_trunmeandqdx[pind]);
+
+
+    //std::cout<<"libo test 3"<<std::endl;
 
     //============================================================================================================
     //
@@ -3379,7 +3408,6 @@ void Main::Maker::MakeFile()
       _event_histo_1d->h_true_reco_pcostheta->Fill(temp_pangle, t->pfp_reco_costheta[pind], event_weight);
       _event_histo_1d->h_true_reco_thetamup->Fill(temp_thetamup, thetamup, event_weight);
       
-      htest_true_reco_pcostheta->Fill(temp_pangle, t->pfp_reco_costheta[pind]);
 
       //std::cout<<"Start to calculate the resolution of the proton momentum and angle "<<std::endl;
       //std::cout<<"End of calculating the resolution of the proton momentum and angle "<<std::endl;
@@ -5195,7 +5223,7 @@ void Main::Maker::MakeFile()
   canvas_nue_selected->SaveAs(temp2 + ".pdf");
   canvas_nue_selected->SaveAs(temp2 + ".C","C");
 
-
+  std::cout<<"Start to print out cut table and Make Efficiency & Purity Plots"<<std::endl;
 
   // Efficiency for every cut
 
@@ -5252,7 +5280,7 @@ void Main::Maker::MakeFile()
   canvas_eff_pur_graph_percut->SetTopMargin(0.04210526);
   canvas_eff_pur_graph_percut->SetBottomMargin(0.1578947);
 
-  TH1F *h = new TH1F("h","",9, 0, 9);
+  TH1F *h = new TH1F("h","",13, 0, 13);
   h->SetMaximum(1);
   h->GetXaxis()->SetBinLabel(1,"Initial");
   h->GetXaxis()->SetBinLabel(2,"Beam Flash");
@@ -5263,6 +5291,10 @@ void Main::Maker::MakeFile()
   h->GetXaxis()->SetBinLabel(7,"MCS-Length Quality");
   h->GetXaxis()->SetBinLabel(8,"MIP Consistency");
   h->GetXaxis()->SetBinLabel(9,"Fiducial Volume");
+  h->GetXaxis()->SetBinLabel(10,"ntrk");
+  h->GetXaxis()->SetBinLabel(11,"p-contained");
+  h->GetXaxis()->SetBinLabel(12,"minCol");
+  h->GetXaxis()->SetBinLabel(13,"Chi2");
 
   h->GetXaxis()->SetLabelOffset(0.009);
   h->GetXaxis()->SetLabelSize(0.06);
@@ -5276,7 +5308,7 @@ void Main::Maker::MakeFile()
   pEff_percut->SetMarkerStyle(20);
   pEff_percut->SetMarkerSize(0.6);
   TGraphAsymmErrors * pEff_percut_graph = pEff_percut->CreateGraph();
-  for (int i = 0; i < 9; i++) {
+  for (int i = 0; i < 13; i++) {
     pEff_percut_graph->SetPointEXhigh(i, 0.);
     pEff_percut_graph->SetPointEXlow(i, 0.);
   }
@@ -5292,6 +5324,10 @@ void Main::Maker::MakeFile()
   pEff_percut_graph->GetHistogram()->GetXaxis()->SetBinLabel(7,"MCS-LengthQuality");
   pEff_percut_graph->GetHistogram()->GetXaxis()->SetBinLabel(8,"MIPConsistency");
   pEff_percut_graph->GetHistogram()->GetXaxis()->SetBinLabel(9,"FiducialVolume");
+  pEff_percut_graph->GetHistogram()->GetXaxis()->SetBinLabel(10,"ntrk");
+  pEff_percut_graph->GetHistogram()->GetXaxis()->SetBinLabel(11,"p-contained");
+  pEff_percut_graph->GetHistogram()->GetXaxis()->SetBinLabel(12,"minCol");
+  pEff_percut_graph->GetHistogram()->GetXaxis()->SetBinLabel(13,"Chi2");
 
 
 
@@ -5307,7 +5343,7 @@ void Main::Maker::MakeFile()
   pPur_percut->SetMarkerStyle(20);
   pPur_percut->SetMarkerSize(0.6);
   TGraphAsymmErrors * pPur_percut_graph = pPur_percut->CreateGraph();
-  for (int i = 0; i < 9; i++) {
+  for (int i = 0; i < 13; i++) {
     pPur_percut_graph->SetPointEXhigh(i, 0.);
     pPur_percut_graph->SetPointEXlow(i, 0.);
   }

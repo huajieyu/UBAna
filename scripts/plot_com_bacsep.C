@@ -104,24 +104,24 @@ void plot_com_bacsep(){
   TFile *input3; // dirt
   std::cout<<"Setup input root files "<<std::endl;
   if (cosmicCut){
-    input0 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Jan11/ubxsecana_output_data_onbeam_ubcodev06_26_01_22.root");
-    input1 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Jan11/ubxsecana_output_data_offbeam_ubcodev06_26_01_22.root");
+    input0 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Feb10/ubxsecana_output_data_onbeam_ubcodev06_26_01_22.root");
+    input1 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Feb10/ubxsecana_output_data_offbeam_ubcodev06_26_01_22.root");
   }
   else{
-    input0 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Jan11/ubxsecana_output_data_onbeam_ubcodev06_26_01_22.root");
-    input1 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Jan11/ubxsecana_output_data_offbeam_ubcodev06_26_01_22.root");
+    input0 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Feb10/ubxsecana_output_data_onbeam_ubcodev06_26_01_22.root");
+    input1 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Feb10/ubxsecana_output_data_offbeam_ubcodev06_26_01_22.root");
   }
   
   if (tune==3){
-    if (cosmicCut){input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Jan11/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22.root");}
-    else{input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Jan11/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22.root");}
+    if (cosmicCut){input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Feb10/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22.root");}
+    else{input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Feb10/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22.root");}
   }
   else{
-    if (cosmicCut){input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Jan11/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22.root");}
-    else{input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Jan11/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22.root");}
+    if (cosmicCut){input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Feb10/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22.root");}
+    else{input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Feb10/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22.root");}
   }
 
-  input3=new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Jan11/ubxsecana_output_mc_bnbdirt_ubcodev06_26_01_22.root");
+  input3=new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Feb10/ubxsecana_output_mc_bnbdirt_ubcodev06_26_01_22.root");
 
   gROOT->SetBatch();
 /*  
@@ -1602,28 +1602,32 @@ void plot_com_bacsep(){
 
   std::cout<<"Calculating POT normalization factors "<<h_range_allsel[0]->GetEntries()<<std::endl;
 
+  /*double MCpot=1.93572e20;
+  double Datapot=4.891e19;
+  double bnbon_triggers=10907083.0;
+  double bnboff_triggers=77221279.0;
+  double Dirtpot=1.2162e21;
+  */
  
-  Float_t E1DCNT_wcut_bnb=35388924.0;
-  Float_t E1DCNT_wcut_extbnb=72299264.0;
+  Float_t E1DCNT_wcut_bnb=10907083.0;
+  Float_t E1DCNT_wcut_extbnb=77221279.0;
 
 
  
 
   Float_t mcbnbcos_POT;
   Float_t mcbnbdirt_POT;
-  if (tune==3){mcbnbcos_POT=1.8e20;} // Tune1
-  else{mcbnbcos_POT=1.8e20;} // Tune1
-  if (tune==3){mcbnbdirt_POT=3.704e20;}
-  else{mcbnbdirt_POT=3.704e20;}
+  if (tune==3){mcbnbcos_POT=1.93572e20;} // Tune1
+  else{mcbnbcos_POT=1.93572e20;} // Tune1
+  if (tune==3){mcbnbdirt_POT=1.2162e21;}
+  else{mcbnbdirt_POT=1.2162e21;}
   Float_t dirt_POT;
 
-  if (tune==3){mcbnbcos_POT=1.8e20;} // Tune1
-  else{mcbnbcos_POT=1.8e20;} // Tune1
-
-  dirt_POT=3.70426e+20;//Dirt
+  if (tune==3){mcbnbcos_POT=1.93572e20;} // Tune1
+  else{mcbnbcos_POT=1.93572e20;} // Tune1
 
 
-  Float_t dataPOT=1.592e20;// ??????????????/
+  Float_t dataPOT=4.891e19;// ??????????????/
  
   
   Double_t scalefac=E1DCNT_wcut_bnb/E1DCNT_wcut_extbnb;
@@ -1633,11 +1637,8 @@ void plot_com_bacsep(){
   Double_t scale_onoffbeam=0.0;
   scale_onoffbeam=scalefac;
 
-  Double_t scale_ondirtmc=0.0;
-  scale_ondirtmc=dataPOT/mcbnbdirt_POT;
 
-
-  Double_t scale_dirt_MC = mcbnbcos_POT/dirt_POT;
+  Double_t scale_dirt_MC = mcbnbcos_POT/mcbnbdirt_POT;
   cout<<"scale factor for dirt to MC is : " << scale_dirt_MC << endl;
   cout<<"scale factor for dirt to data is : " << scale_dirt_MC*normfac << endl;
 
@@ -1687,7 +1688,6 @@ prelim->SetTextAlign(32);
   h_range_allsel[0]->GetYaxis()->SetTitle("No. of Tracks");
   h_range_allsel[0]->GetYaxis()->SetTitleSize(0.06);
   h_range_allsel[0]->GetYaxis()->SetTitleOffset(0.6);
-  h_range_allsel[0]->SetMaximum(1000);
   h_range_allsel[0]->Draw();
   std::cout<<"start stacking the mc and off beam data "<<std::endl;  
   //~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
@@ -1697,7 +1697,7 @@ prelim->SetTextAlign(32);
   std::cout<<"stacked the backgrounds to signal"<<std::endl;
   
   h_range_allsel[0]->Scale(areanorm_fac);
-  h_range_allsel[0]->SetMaximum(1000);
+  h_range_allsel[0]->SetMaximum(1.5*h_range_allsel[0]->GetMaximum());
   h_range_allsel[0]->Draw("same");
   
   //~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
@@ -1801,7 +1801,7 @@ prelim->SetTextAlign(32);
   std::cout<<"stacked the backgrounds to signal"<<std::endl;
   
   h_prange_allsel[0]->Scale(areanorm_fac);
-  h_prange_allsel[0]->SetMaximum(1400);
+  h_prange_allsel[0]->SetMaximum(1.5*h_prange_allsel[0]->GetMaximum());
   h_prange_allsel[0]->Draw("same");
   
   //~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
@@ -1873,7 +1873,6 @@ prelim->SetTextAlign(32);
   h_phi_allsel[0]->GetYaxis()->SetTitle("No. of Tracks");
   h_phi_allsel[0]->GetYaxis()->SetTitleSize(0.06);
   h_phi_allsel[0]->GetYaxis()->SetTitleOffset(0.6);
-  //h_phi_allsel[0]->SetMaximum(500);
   h_phi_allsel[0]->SetMinimum(0.0);
   h_phi_allsel[0]->Draw();
   
@@ -1882,7 +1881,7 @@ prelim->SetTextAlign(32);
   hs_phi -> Draw("HIST,SAME");
 
   h_phi_allsel[0]->Scale(areanorm_fac);
-  h_phi_allsel[0]->SetMaximum(800);
+  h_phi_allsel[0]->SetMaximum(2.5*h_phi_allsel[0]->GetMaximum());
   h_phi_allsel[0]->SetMinimum(0);
   h_phi_allsel[0]->Draw("same");
   //h_onoff_phi->Draw("E1CSAME");
@@ -1947,7 +1946,6 @@ prelim->SetTextAlign(32);
   h_pphi_allsel[0]->GetYaxis()->SetTitle("No. of Tracks");
   h_pphi_allsel[0]->GetYaxis()->SetTitleSize(0.06);
   h_pphi_allsel[0]->GetYaxis()->SetTitleOffset(0.6);
-  //h_pphi_allsel[0]->SetMaximum(500);
   h_pphi_allsel[0]->SetMinimum(0.0);
   h_pphi_allsel[0]->Draw();
   
@@ -1956,7 +1954,7 @@ prelim->SetTextAlign(32);
   hs_pphi -> Draw("HIST,SAME");
 
   h_pphi_allsel[0]->Scale(areanorm_fac);
-  h_pphi_allsel[0]->SetMaximum(800);
+  h_pphi_allsel[0]->SetMaximum(2.5*h_pphi_allsel[0]->GetMaximum());
   h_pphi_allsel[0]->SetMinimum(0);
   h_pphi_allsel[0]->Draw("same");
   //h_onoff_pphi->Draw("E1CSAME");
@@ -2038,7 +2036,7 @@ prelim->SetTextAlign(32);
   hs_costheta -> Draw("HIST,SAME");
 
   h_costheta_allsel[0]->Scale(areanorm_fac);
-  h_costheta_allsel[0]->SetMaximum(1200);
+  h_costheta_allsel[0]->SetMaximum(1.5*h_costheta_allsel[0]->GetMaximum());
   h_costheta_allsel[0]->Draw("same");
   //h_onoff_costheta->Draw("E1CSAME");
   //~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
@@ -2103,7 +2101,6 @@ prelim->SetTextAlign(32);
   h_pcostheta_allsel[0]->GetYaxis()->SetTitle("No. of Tracks");
   h_pcostheta_allsel[0]->GetYaxis()->SetTitleSize(0.06);
   h_pcostheta_allsel[0]->GetYaxis()->SetTitleOffset(0.6);
-  //h_pcostheta_allsel[0]->SetMaximum(500);
   h_pcostheta_allsel[0]->SetMinimum(0.0);
   h_pcostheta_allsel[0]->Draw();
   
@@ -2112,7 +2109,7 @@ prelim->SetTextAlign(32);
   hs_pcostheta -> Draw("HIST,SAME");
 
   h_pcostheta_allsel[0]->Scale(areanorm_fac);
-  h_pcostheta_allsel[0]->SetMaximum(800);
+  h_pcostheta_allsel[0]->SetMaximum(1.5*h_pcostheta_allsel[0]->GetMaximum());
   h_pcostheta_allsel[0]->Draw("same");
   //h_onoff_pcostheta->Draw("E1CSAME");
   //~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
@@ -2183,7 +2180,6 @@ prelim->SetTextAlign(32);
   h_plep_allsel[0]->GetYaxis()->SetTitleSize(0.06);
   h_plep_allsel[0]->GetYaxis()->SetTitleOffset(0.6);
   //h_plep_allsel[0]->SetMaximum(1.5*h_plep_allsel[0]->GetMaximum());
-  //h_plep_allsel[0]->SetMaximum(1200);
   h_plep_allsel[0]->Draw();  
 
   THStack *hs_plep = new THStack("hs_plep","");
@@ -2191,7 +2187,7 @@ prelim->SetTextAlign(32);
   hs_plep -> Draw("HIST,SAME");
 
   h_plep_allsel[0]->Scale(areanorm_fac);
-  h_plep_allsel[0]->SetMaximum(1400);
+  h_plep_allsel[0]->SetMaximum(1.5*h_plep_allsel[0]->GetMaximum());
   h_plep_allsel[0]->Draw("same");  
   //h_onoff_plep->Draw("E1CSAME");
   //~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
@@ -2272,7 +2268,6 @@ prelim->SetTextAlign(32);
   h_phad_allsel[0]->GetYaxis()->SetTitleSize(0.06);
   h_phad_allsel[0]->GetYaxis()->SetTitleOffset(0.6);
   //h_phad_allsel[0]->SetMaximum(1.4*h_phad_allsel[0]->GetMaximum());
-  h_phad_allsel[0]->SetMaximum(800);
   h_phad_allsel[0]->Draw();  
 
   THStack *hs_phad = new THStack("hs_phad","");
@@ -2280,7 +2275,7 @@ prelim->SetTextAlign(32);
   hs_phad -> Draw("HIST,SAME");
 
   h_phad_allsel[0]->Scale(areanorm_fac);
-  h_phad_allsel[0]->SetMaximum(1000);
+  h_phad_allsel[0]->SetMaximum(1.5*h_phad_allsel[0]->GetMaximum());
   h_phad_allsel[0]->Draw("same");  
    //h_onoff_phad->Draw("E1CSAME");
   //~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
@@ -2359,7 +2354,6 @@ prelim->SetTextAlign(32);
   h_thetamup_allsel[0]->GetYaxis()->SetTitleSize(0.06);
   h_thetamup_allsel[0]->GetYaxis()->SetTitleOffset(0.6);
   //h_thetamup_allsel[0]->SetMaximum(1.5*h_thetamup_allsel[0]->GetMaximum());
-  //h_thetamup_allsel[0]->SetMaximum(1200);
   h_thetamup_allsel[0]->Draw();  
 
   THStack *hs_thetamup = new THStack("hs_thetamup","");
@@ -2367,7 +2361,7 @@ prelim->SetTextAlign(32);
   hs_thetamup -> Draw("HIST,SAME");
 
   h_thetamup_allsel[0]->Scale(areanorm_fac);
-  h_thetamup_allsel[0]->SetMaximum(600);
+  h_thetamup_allsel[0]->SetMaximum(1.5*h_thetamup_allsel[0]->GetMaximum());
   h_thetamup_allsel[0]->Draw("same");  
   //h_onoff_thetamup->Draw("E1CSAME");
   //~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
@@ -2446,7 +2440,6 @@ prelim->SetTextAlign(32);
   h_ptmis_allsel[0]->GetYaxis()->SetTitleSize(0.06);
   h_ptmis_allsel[0]->GetYaxis()->SetTitleOffset(0.6);
   //h_ptmis_allsel[0]->SetMaximum(1.5*h_ptmis_allsel[0]->GetMaximum());
-  //h_ptmis_allsel[0]->SetMaximum(1200);
   h_ptmis_allsel[0]->Draw();  
 
   THStack *hs_ptmis = new THStack("hs_ptmis","");
@@ -2454,7 +2447,7 @@ prelim->SetTextAlign(32);
   hs_ptmis -> Draw("HIST,SAME");
 
   h_ptmis_allsel[0]->Scale(areanorm_fac);
-  h_ptmis_allsel[0]->SetMaximum(600);
+  h_ptmis_allsel[0]->SetMaximum(1.5*h_ptmis_allsel[0]->GetMaximum());
   h_ptmis_allsel[0]->Draw("same");  
   //h_onoff_ptmis->Draw("E1CSAME");
   //~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
@@ -2533,7 +2526,6 @@ prelim->SetTextAlign(32);
   h_etatest_allsel[0]->GetYaxis()->SetTitleSize(0.06);
   h_etatest_allsel[0]->GetYaxis()->SetTitleOffset(0.6);
   //h_etatest_allsel[0]->SetMaximum(1.5*h_etatest_allsel[0]->GetMaximum());
-  //h_etatest_allsel[0]->SetMaximum(1200);
   h_etatest_allsel[0]->Draw();  
 
   THStack *hs_etatest = new THStack("hs_etatest","");
@@ -2541,7 +2533,7 @@ prelim->SetTextAlign(32);
   hs_etatest -> Draw("HIST,SAME");
 
   h_etatest_allsel[0]->Scale(areanorm_fac);
-  h_etatest_allsel[0]->SetMaximum(1800);
+  h_etatest_allsel[0]->SetMaximum(1.5*h_etatest_allsel[0]->GetMaximum());
   h_etatest_allsel[0]->Draw("same");  
   //h_onoff_etatest->Draw("E1CSAME");
   //~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
@@ -2619,7 +2611,6 @@ prelim->SetTextAlign(32);
   h_enucal_allsel[0]->GetYaxis()->SetTitleSize(0.06);
   h_enucal_allsel[0]->GetYaxis()->SetTitleOffset(0.6);
   //h_enucal_allsel[0]->SetMaximum(1.5*h_enucal_allsel[0]->GetMaximum());
-  //h_enucal_allsel[0]->SetMaximum(1200);
   h_enucal_allsel[0]->Draw();  
 
   THStack *hs_enucal = new THStack("hs_enucal","");
@@ -2627,7 +2618,7 @@ prelim->SetTextAlign(32);
   hs_enucal -> Draw("HIST,SAME");
 
   h_enucal_allsel[0]->Scale(areanorm_fac);
-  h_enucal_allsel[0]->SetMaximum(600);
+  h_enucal_allsel[0]->SetMaximum(1.5*h_enucal_allsel[0]->GetMaximum());
   h_enucal_allsel[0]->Draw("same");  
   //h_onoff_enucal->Draw("E1CSAME");
   //~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
@@ -2714,7 +2705,7 @@ prelim->SetTextAlign(32);
   hs_pmult -> Draw("HIST,SAME");
 
   h_pmult_allsel[0]->Scale(areanorm_fac);
-  h_pmult_allsel[0]->SetMaximum(6000);
+  h_pmult_allsel[0]->SetMaximum(1.5*h_pmult_allsel[0]->GetMaximum());
   h_pmult_allsel[0]->Draw("same");  
   //h_onoff_pmult->Draw("E1CSAME");
   //~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
@@ -2792,7 +2783,6 @@ prelim->SetTextAlign(32);
   h_alphat_allsel[0]->GetYaxis()->SetTitleSize(0.06);
   h_alphat_allsel[0]->GetYaxis()->SetTitleOffset(0.6);
   //h_alphat_allsel[0]->SetMaximum(1.5*h_alphat_allsel[0]->GetMaximum());
-  //h_alphat_allsel[0]->SetMaximum(1200);
   h_alphat_allsel[0]->Draw();  
 
   THStack *hs_alphat = new THStack("hs_alphat","");
@@ -2800,7 +2790,7 @@ prelim->SetTextAlign(32);
   hs_alphat -> Draw("HIST,SAME");
 
   h_alphat_allsel[0]->Scale(areanorm_fac);
-  h_alphat_allsel[0]->SetMaximum(800);
+  h_alphat_allsel[0]->SetMaximum(1.5*h_alphat_allsel[0]->GetMaximum());
   h_alphat_allsel[0]->Draw("same");  
   //h_onoff_alphat->Draw("E1CSAME");
   //~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
