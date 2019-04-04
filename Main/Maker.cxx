@@ -811,6 +811,18 @@ void Main::Maker::MakeFile()
   std::map<std::string,TH2D*> bs_genie_pm1_true_reco_mom;
   bs_genie_pm1_true_reco_mom["nominal"] = new TH2D("bs_genie_pm1_true_reco_mom_nominal", ";Muon Momentum (Truth) [GeV]; Muon Momentum (MCS) [GeV]", n_bins_mumom, bins_mumom, n_bins_mumom, bins_mumom);
   
+  std::map<std::string,TH2D*> bs_genie_pm1_true_reco_pmom;
+  bs_genie_pm1_true_reco_pmom["nominal"] = new TH2D("bs_genie_pm1_true_reco_pmom_nominal", ";Muon Momentum (Truth) [GeV]; Muon Momentum (MCS) [GeV]", n_bins_pmom, bins_pmom, n_bins_pmom, bins_pmom);
+  
+  std::map<std::string,TH2D*> bs_genie_pm1_true_reco_muangle;
+  bs_genie_pm1_true_reco_muangle["nominal"] = new TH2D("bs_genie_pm1_true_reco_muangle_nominal", ";Muon Momentum (Truth) [GeV]; Muon Momentum (MCS) [GeV]", n_bins_mucostheta, bins_mucostheta, n_bins_mucostheta, bins_mucostheta);
+  
+  std::map<std::string,TH2D*> bs_genie_pm1_true_reco_pangle;
+  bs_genie_pm1_true_reco_pangle["nominal"] = new TH2D("bs_genie_pm1_true_reco_pangle_nominal", ";Muon Momentum (Truth) [GeV]; Muon Momentum (MCS) [GeV]", n_bins_pcostheta, bins_pcostheta, n_bins_pcostheta, bins_pcostheta);
+  
+
+
+
 
   
   TH1D* h_eff_num = new TH1D("h_eff_num", "h_eff_num", 15, 0, 3);
@@ -821,6 +833,18 @@ void Main::Maker::MakeFile()
   // Efficiency - GENIE pm1sigma
   BootstrapTH1D bs_genie_pm1_eff_mumom_num("bs_genie_pm1_eff_mumom_num", "bs_genie_pm1_eff_mumom_num_title", n_bins_mumom, bins_mumom);
   BootstrapTH1D bs_genie_pm1_eff_mumom_den("bs_genie_pm1_eff_mumom_den", "bs_genie_pm1_eff_mumom_den_title", n_bins_mumom, bins_mumom);
+
+  BootstrapTH1D bs_genie_pm1_eff_pmom_num("bs_genie_pm1_eff_pmom_num", "bs_genie_pm1_eff_pmom_num_title", n_bins_pmom, bins_pmom);
+  BootstrapTH1D bs_genie_pm1_eff_pmom_den("bs_genie_pm1_eff_pmom_den", "bs_genie_pm1_eff_pmom_den_title", n_bins_pmom, bins_pmom);
+
+  BootstrapTH1D bs_genie_pm1_eff_muangle_num("bs_genie_pm1_eff_muangle_num", "bs_genie_pm1_eff_muangle_num_title", n_bins_mucostheta, bins_mucostheta);
+  BootstrapTH1D bs_genie_pm1_eff_muangle_den("bs_genie_pm1_eff_muangle_den", "bs_genie_pm1_eff_muangle_den_title", n_bins_mucostheta, bins_mucostheta);
+
+  BootstrapTH1D bs_genie_pm1_eff_pangle_num("bs_genie_pm1_eff_pangle_num", "bs_genie_pm1_eff_pangle_num_title", n_bins_pcostheta, bins_pcostheta);
+  BootstrapTH1D bs_genie_pm1_eff_pangle_den("bs_genie_pm1_eff_pangle_den", "bs_genie_pm1_eff_pangle_den_title", n_bins_pcostheta, bins_pcostheta);
+
+  BootstrapTH1D bs_genie_pm1_eff_thetamup_num("bs_genie_pm1_eff_thetamup_num", "bs_genie_pm1_eff_thetamup_num_title", n_bins_muptheta, bins_muptheta);
+  BootstrapTH1D bs_genie_pm1_eff_thetamup_den("bs_genie_pm1_eff_thetamup_den", "bs_genie_pm1_eff_thetamup_den_title", n_bins_muptheta, bins_muptheta);
 
   //-------------------------------------------------------------------------------------------------------------------------------------
   
@@ -838,8 +862,24 @@ void Main::Maker::MakeFile()
   TH1D* h_eff_reintprotons_num=new TH1D("h_eff_reintprotons_num", "h_eff_reintprotons_num", 30, 0.3, 1.5); 
   TH1D* h_eff_containedprotons_num=new TH1D("h_eff_containedprotons_num", "h_eff_containedprotons_num", 30, 0.3, 1.5); 
 
-
-
+  TH1D* h_nhits_lowmu=new TH1D("h_nhit_lowmu", "h_nhit_lowmu", 200, -0.5, 199.5);
+  TH1D* h_nhits_lowmu_uplane=new TH1D("h_nhit_lowmu_uplane", "h_nhit_lowmu_uplane", 200, -0.5, 199.5);
+  TH1D* h_nhits_lowmu_vplane=new TH1D("h_nhit_lowmu_vplane", "h_nhit_lowmu_vplane", 200, -0.5, 199.5);
+  TH2D* h_trklen_truevsreco_lowmu=new TH2D("h_trklen_truevsreco_lowmu", "h_trklen_truevsreco_lowmu", 100, 0.0, 100.0, 100, 0.0, 100.0);
+  h_trklen_truevsreco_lowmu->GetXaxis()->SetTitle("True length of Muon candidate [cm]");
+  h_trklen_truevsreco_lowmu->GetYaxis()->SetTitle("Reco length of Muon candidate [cm]");
+  TH1D* h_vtx_resolution_lowmu= new TH1D("h_vtx_resolution_lowmu", "h_vtx_resolution_lowmu", 100, 0.0, 100.0);
+  TH1D* h_costhetay_lowmu=new TH1D("h_costhetay_lowmu", "h_costhetay_lowmu", 100, -1.0, 1.0); 
+  
+  TH1D* h_nhits_firstbin=new TH1D("h_nhit_firstbin", "h_nhit_firstbin", 200, -0.5, 199.5);
+  TH1D* h_nhits_firstbin_uplane=new TH1D("h_nhit_firstbin_uplane", "h_nhit_firstbin_uplane", 100, -0.5, 199.5);
+  TH1D* h_nhits_firstbin_vplane=new TH1D("h_nhit_firstbin_vplane", "h_nhit_firstbin_vplane", 100, -0.5, 199.5);
+  TH2D* h_trklen_truevsreco_firstbin=new TH2D("h_trklen_truevsreco_firstbin", "h_trklen_truevsreco_firstbin", 100, 0.0, 100.0, 100, 0.0, 100.0);
+  h_trklen_truevsreco_firstbin->GetXaxis()->SetTitle("True length of Muon candidate [cm]");
+  h_trklen_truevsreco_firstbin->GetYaxis()->SetTitle("Reco length of Muon candidate [cm]");
+  TH1D* h_vtx_resolution_firstbin= new TH1D("h_vtx_resolution_firstbin", "h_vtx_resolution_firstbin", 100, 0.0, 100.0);
+  TH1D* h_costhetay_firstbin=new TH1D("h_costhetay_firstbin", "h_costhetay_firstbin", 100, -1.0, 1.0); 
+ 
   TH1D* h_eff_qe_num = new TH1D("h_eff_qe_num", "h_eff_qe_num", 15, 0, 3);
   TH1D* h_eff_qe_den = new TH1D("h_eff_qe_den", "h_eff_qe_den", 15, 0, 3);
   TH1D* h_eff_res_num = new TH1D("h_eff_res_num", "h_eff_res_num", 15, 0, 3);
@@ -1044,6 +1084,66 @@ void Main::Maker::MakeFile()
   hmap_trkmom_genie_pm1_bs["signal_stopmu"]["nominal"] = new TH1D("h_trkmom_signal_stopmu_genie_pm1_nominal", "; Track momentum;", n_bins_mumom, bins_mumom);
   hmap_trkmom_genie_pm1_bs["signal_nostopmu"]["nominal"] = new TH1D("h_trkmom_signal_nostopmu_genie_pm1_nominal", "; Track momentum;", n_bins_mumom, bins_mumom);
   hmap_trkmom_genie_pm1_bs["cc_other"]["nominal"] = new TH1D("h_trkmom_ccother_genie_pm1_nominal", "; Track momentum;", n_bins_mumom, bins_mumom);
+
+  std::map<std::string,std::map<std::string,TH1D*>> hmap_trktheta_genie_pm1_bs;
+  hmap_trktheta_genie_pm1_bs["total"]["nominal"] = new TH1D("h_trktheta_total_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+  hmap_trktheta_genie_pm1_bs["signal"]["nominal"] = new TH1D("h_trktheta_signal_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+  hmap_trktheta_genie_pm1_bs["cosmic"]["nominal"] = new TH1D("h_trktheta_cosmic_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+  hmap_trktheta_genie_pm1_bs["cosmic_stopmu"]["nominal"] = new TH1D("h_trktheta_cosmic_stopmu_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+  hmap_trktheta_genie_pm1_bs["cosmic_nostopmu"]["nominal"] = new TH1D("h_trktheta_cosmic_nostopmu_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+  hmap_trktheta_genie_pm1_bs["outfv"]["nominal"] = new TH1D("h_trktheta_outfv_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+  hmap_trktheta_genie_pm1_bs["outfv_stopmu"]["nominal"] = new TH1D("h_trktheta_outfv_stopmu_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+  hmap_trktheta_genie_pm1_bs["outfv_nostopmu"]["nominal"] = new TH1D("h_trktheta_outfv_nostopmu_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+  hmap_trktheta_genie_pm1_bs["nc"]["nominal"] = new TH1D("h_trktheta_nc_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+  hmap_trktheta_genie_pm1_bs["nc_proton"]["nominal"] = new TH1D("h_trktheta_nc_proton_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+  hmap_trktheta_genie_pm1_bs["nc_pion"]["nominal"] = new TH1D("h_trktheta_nc_pion_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+  hmap_trktheta_genie_pm1_bs["nc_other"]["nominal"] = new TH1D("h_trktheta_nc_other_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+  hmap_trktheta_genie_pm1_bs["anumu"]["nominal"] = new TH1D("h_trktheta_anumu_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+  hmap_trktheta_genie_pm1_bs["nue"]["nominal"] = new TH1D("h_trktheta_nue_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+  hmap_trktheta_genie_pm1_bs["signal_stopmu"]["nominal"] = new TH1D("h_trktheta_signal_stopmu_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+  hmap_trktheta_genie_pm1_bs["signal_nostopmu"]["nominal"] = new TH1D("h_trktheta_signal_nostopmu_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+  hmap_trktheta_genie_pm1_bs["cc_other"]["nominal"] = new TH1D("h_trktheta_ccother_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+
+  std::map<std::string,std::map<std::string,TH1D*>> hmap_trkpmom_genie_pm1_bs;
+  hmap_trkpmom_genie_pm1_bs["total"]["nominal"] = new TH1D("h_trkpmom_total_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+  hmap_trkpmom_genie_pm1_bs["signal"]["nominal"] = new TH1D("h_trkpmom_signal_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+  hmap_trkpmom_genie_pm1_bs["cosmic"]["nominal"] = new TH1D("h_trkpmom_cosmic_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+  hmap_trkpmom_genie_pm1_bs["cosmic_stopmu"]["nominal"] = new TH1D("h_trkpmom_cosmic_stopmu_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+  hmap_trkpmom_genie_pm1_bs["cosmic_nostopmu"]["nominal"] = new TH1D("h_trkpmom_cosmic_nostopmu_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+  hmap_trkpmom_genie_pm1_bs["outfv"]["nominal"] = new TH1D("h_trkpmom_outfv_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+  hmap_trkpmom_genie_pm1_bs["outfv_stopmu"]["nominal"] = new TH1D("h_trkpmom_outfv_stopmu_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+  hmap_trkpmom_genie_pm1_bs["outfv_nostopmu"]["nominal"] = new TH1D("h_trkpmom_outfv_nostopmu_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+  hmap_trkpmom_genie_pm1_bs["nc"]["nominal"] = new TH1D("h_trkpmom_nc_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+  hmap_trkpmom_genie_pm1_bs["nc_proton"]["nominal"] = new TH1D("h_trkpmom_nc_proton_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+  hmap_trkpmom_genie_pm1_bs["nc_pion"]["nominal"] = new TH1D("h_trkpmom_nc_pion_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+  hmap_trkpmom_genie_pm1_bs["nc_other"]["nominal"] = new TH1D("h_trkpmom_nc_other_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+  hmap_trkpmom_genie_pm1_bs["anumu"]["nominal"] = new TH1D("h_trkpmom_anumu_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+  hmap_trkpmom_genie_pm1_bs["nue"]["nominal"] = new TH1D("h_trkpmom_nue_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+  hmap_trkpmom_genie_pm1_bs["signal_stopmu"]["nominal"] = new TH1D("h_trkpmom_signal_stopmu_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+  hmap_trkpmom_genie_pm1_bs["signal_nostopmu"]["nominal"] = new TH1D("h_trkpmom_signal_nostopmu_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+  hmap_trkpmom_genie_pm1_bs["cc_other"]["nominal"] = new TH1D("h_trkpmom_ccother_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+ 
+  std::map<std::string,std::map<std::string,TH1D*>> hmap_trkptheta_genie_pm1_bs;
+  hmap_trkptheta_genie_pm1_bs["total"]["nominal"] = new TH1D("h_trkptheta_total_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+  hmap_trkptheta_genie_pm1_bs["signal"]["nominal"] = new TH1D("h_trkptheta_signal_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+  hmap_trkptheta_genie_pm1_bs["cosmic"]["nominal"] = new TH1D("h_trkptheta_cosmic_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+  hmap_trkptheta_genie_pm1_bs["cosmic_stopmu"]["nominal"] = new TH1D("h_trkptheta_cosmic_stopmu_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+  hmap_trkptheta_genie_pm1_bs["cosmic_nostopmu"]["nominal"] = new TH1D("h_trkptheta_cosmic_nostopmu_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+  hmap_trkptheta_genie_pm1_bs["outfv"]["nominal"] = new TH1D("h_trkptheta_outfv_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+  hmap_trkptheta_genie_pm1_bs["outfv_stopmu"]["nominal"] = new TH1D("h_trkptheta_outfv_stopmu_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+  hmap_trkptheta_genie_pm1_bs["outfv_nostopmu"]["nominal"] = new TH1D("h_trkptheta_outfv_nostopmu_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+  hmap_trkptheta_genie_pm1_bs["nc"]["nominal"] = new TH1D("h_trkptheta_nc_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+  hmap_trkptheta_genie_pm1_bs["nc_proton"]["nominal"] = new TH1D("h_trkptheta_nc_proton_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+  hmap_trkptheta_genie_pm1_bs["nc_pion"]["nominal"] = new TH1D("h_trkptheta_nc_pion_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+  hmap_trkptheta_genie_pm1_bs["nc_other"]["nominal"] = new TH1D("h_trkptheta_nc_other_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+  hmap_trkptheta_genie_pm1_bs["anumu"]["nominal"] = new TH1D("h_trkptheta_anumu_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+  hmap_trkptheta_genie_pm1_bs["nue"]["nominal"] = new TH1D("h_trkptheta_nue_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+  hmap_trkptheta_genie_pm1_bs["signal_stopmu"]["nominal"] = new TH1D("h_trkptheta_signal_stopmu_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+  hmap_trkptheta_genie_pm1_bs["signal_nostopmu"]["nominal"] = new TH1D("h_trkptheta_signal_nostopmu_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+  hmap_trkptheta_genie_pm1_bs["cc_other"]["nominal"] = new TH1D("h_trkptheta_ccother_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+
+ 
+
   std::map<std::string,TH1D*> hmap_trkphi;
   hmap_trkphi["total"] = new TH1D("h_trkphi_total", "; Track #phi;", 20, -3.15, 3.15);
   hmap_trkphi["signal"] = new TH1D("h_trkphi_signal", "; Track #phi;", 20, -3.15, 3.15);
@@ -1278,7 +1378,14 @@ void Main::Maker::MakeFile()
   TH2D* h_dEdx_vs_rr_pcand_2=new TH2D("h_dEdx_vs_rr_pcand_2", "h_dEdx_vs_rr_pcand",100,0,100,100, 0, 20);
   h_dEdx_vs_rr_pcand_2->GetXaxis()->SetTitle("Residual Range [cm]");
   h_dEdx_vs_rr_pcand_2->GetYaxis()->SetTitle("dEdx [MeV/cm]"); 
-  
+ 
+  TH2D* h_dEdx_vs_rr_pshower=new TH2D("h_dEdx_vs_rr_pshower", "h_dEdx_vs_rr_pshower", 100, 0, 100, 100, 0, 20);
+  h_dEdx_vs_rr_pshower->GetXaxis()->SetTitle("Residual Range [cm]");
+  h_dEdx_vs_rr_pshower->GetYaxis()->SetTitle("dEdx [MeV/cm]"); 
+ 
+   
+
+ 
   TH2D* h_tmdqdx_vs_rr_pcand=new TH2D("h_tmdqdx_vs_rr_pcand", "h_tmdqdx_vs_rr_pcand", 100, 0, 100, 100, 0, 2000);
   
   //==========================================================================================================
@@ -1490,12 +1597,19 @@ void Main::Maker::MakeFile()
     // Set the weight names, just do it once (first event only)
 
     if (i == _initial_entry && !isdata && _fill_bootstrap_genie) {
-
+      ofstream myfile;
+      myfile.open("rewght_genie_pm1.txt");
       for (auto name : t->evtwgt_genie_pm1_funcname) {
         fname_genie_pm1.push_back(name + "_p1");
         fname_genie_pm1.push_back(name + "_m1");
-      }
 
+        //open a txt file and save the reweight factors
+        myfile<<std::setprecision(12)<<name + "_p1"<< std::setprecision(12)<<name + "_m1"<<std::endl;  
+        
+        
+        //==============================================================
+      }
+      myfile.close();
 
       // Number of events
       for (auto iter : hmap_trkmom_genie_pm1_bs) {
@@ -1514,30 +1628,107 @@ void Main::Maker::MakeFile()
 
       }
 
+      for (auto iter : hmap_trkpmom_genie_pm1_bs) {
+
+        std::string this_name = iter.first;
+        std::map<std::string, TH1D*> bs_map = iter.second;
+
+        // Now emplace the histograms for the variations
+        for (size_t i = 0; i < fname_genie_pm1.size(); i++) {
+
+          std::string histo_name = "h_trkpmom_" + this_name + "_" + fname_genie_pm1.at(i);
+          double this_bins_pmom[11] = {0.30, 0.41, 0.495, 0.56, 0.62, 0.68, 0.74, 0.80, 0.87, 0.93, 1.50};
+          hmap_trkpmom_genie_pm1_bs[this_name][fname_genie_pm1.at(i)] = new TH1D(histo_name.c_str(), "; Track momentum;", 10, this_bins_pmom); 
+
+        }
+
+      }
+
+      for (auto iter : hmap_trktheta_genie_pm1_bs) {
+
+        std::string this_name = iter.first;
+        std::map<std::string, TH1D*> bs_map = iter.second;
+
+        // Now emplace the histograms for the variations
+        for (size_t i = 0; i < fname_genie_pm1.size(); i++) {
+
+          std::string histo_name = "h_trktheta_" + this_name + "_" + fname_genie_pm1.at(i);
+          double this_bins_mucostheta[13] = {-1.00, -0.82, -0.66, -0.39, -0.16, 0.05, 0.25, 0.43, 0.59, 0.73, 0.83, 0.91, 1.00};
+          hmap_trktheta_genie_pm1_bs[this_name][fname_genie_pm1.at(i)] = new TH1D(histo_name.c_str(), "; Track Angle;", 12, this_bins_mucostheta); 
+
+        }
+
+      }
+
+      for (auto iter : hmap_trkptheta_genie_pm1_bs) {
+
+        std::string this_name = iter.first;
+        std::map<std::string, TH1D*> bs_map = iter.second;
+
+        // Now emplace the histograms for the variations
+        for (size_t i = 0; i < fname_genie_pm1.size(); i++) {
+
+          std::string histo_name = "h_trkptheta_" + this_name + "_" + fname_genie_pm1.at(i);
+          double this_bins_pcostheta[10] = {-1.00, -0.50, 0.00, 0.27, 0.45, 0.62, 0.76, 0.86, 0.94, 1.00};
+          hmap_trkptheta_genie_pm1_bs[this_name][fname_genie_pm1.at(i)] = new TH1D(histo_name.c_str(), "; Track momentum;", 9, this_bins_pcostheta); 
+
+        }
+
+      }
+
       // Efficiency
       for (size_t i = 0; i < fname_genie_pm1.size(); i++) {
         double this_bins_mumom[7] = {0.00, 0.18, 0.30, 0.45, 0.77, 1.28, 2.50};
+        double this_bins_pmom[11] = {0.30, 0.41, 0.495, 0.56, 0.62, 0.68, 0.74, 0.80, 0.87, 0.93, 1.50};
+        double this_bins_pcostheta[10] = {-1.00, -0.50, 0.00, 0.27, 0.45, 0.62, 0.76, 0.86, 0.94, 1.00};
+        double this_bins_mucostheta[13] = {-1.00, -0.82, -0.66, -0.39, -0.16, 0.05, 0.25, 0.43, 0.59, 0.73, 0.83, 0.91, 1.00};
+
         std::string histo_name;// = "bs_genie_pm1_eff_mumom_num_" + fname_genie_pm1.at(i);
 
         histo_name = "bs_genie_pm1_true_reco_mom_" + fname_genie_pm1.at(i);
         bs_genie_pm1_true_reco_mom[fname_genie_pm1.at(i)] = new TH2D(histo_name.c_str(), ";Muon Momentum (Truth) [GeV]; Muon Momentum (MCS) [GeV]", 6, this_bins_mumom, 6, this_bins_mumom);
+
+        histo_name = "bs_genie_pm1_true_reco_pmom_" + fname_genie_pm1.at(i);
+        bs_genie_pm1_true_reco_pmom[fname_genie_pm1.at(i)] = new TH2D(histo_name.c_str(), ";Proton Momentum (Truth) [GeV]; Proton Momentum (MCS) [GeV]", 10, this_bins_pmom, 10, this_bins_pmom);
+
+        histo_name = "bs_genie_pm1_true_reco_muangle_" + fname_genie_pm1.at(i);
+        bs_genie_pm1_true_reco_muangle[fname_genie_pm1.at(i)] = new TH2D(histo_name.c_str(), ";Muon Angle (Truth); Muon Angle (MCS)", 12, this_bins_mucostheta, 12, this_bins_mucostheta);
+
+        histo_name = "bs_genie_pm1_true_reco_pangle_" + fname_genie_pm1.at(i);
+        bs_genie_pm1_true_reco_pangle[fname_genie_pm1.at(i)] = new TH2D(histo_name.c_str(), ";Proton Angle (Truth); Proton Angle (MCS)", 9, this_bins_pcostheta, 9, this_bins_pcostheta);
+
+
       }
       
 
       bs_genie_pm1_eff_mumom_num.SetWeightNames(fname_genie_pm1);
       bs_genie_pm1_eff_mumom_den.SetWeightNames(fname_genie_pm1);
       
-    }
+      bs_genie_pm1_eff_pmom_num.SetWeightNames(fname_genie_pm1);
+      bs_genie_pm1_eff_pmom_den.SetWeightNames(fname_genie_pm1);
+
+      bs_genie_pm1_eff_muangle_num.SetWeightNames(fname_genie_pm1);
+      bs_genie_pm1_eff_muangle_den.SetWeightNames(fname_genie_pm1);
+
+      bs_genie_pm1_eff_pangle_num.SetWeightNames(fname_genie_pm1);
+      bs_genie_pm1_eff_pangle_den.SetWeightNames(fname_genie_pm1);
+
+      bs_genie_pm1_eff_thetamup_num.SetWeightNames(fname_genie_pm1);
+      bs_genie_pm1_eff_thetamup_den.SetWeightNames(fname_genie_pm1);
+      }
 
     // Prepare the vector of weights to be used for bootstraps
     std::vector<double> wgts_genie_pm1;
+    ofstream outfile;
+    outfile.open("rewght_genie_rwfac.txt");
     if (!isdata && _fill_bootstrap_genie) {
       for (size_t i = 0; i < t->evtwgt_genie_pm1_weight.size(); i++) {
         wgts_genie_pm1.push_back(t->evtwgt_genie_pm1_weight.at(i).at(0));
         wgts_genie_pm1.push_back(t->evtwgt_genie_pm1_weight.at(i).at(1));
+        outfile<<std::setprecision(12)<<t->evtwgt_genie_pm1_weight.at(i).at(0)<<std::setprecision(12)<<t->evtwgt_genie_pm1_weight.at(i).at(1)<<std::endl;
       }
     }
-
+    outfile.close();
 
     // ************************
     //
@@ -2352,6 +2543,11 @@ void Main::Maker::MakeFile()
       h_eff_den->Fill(t->nu_e, event_weight);
       
       if (!isdata && _fill_bootstrap_genie) bs_genie_pm1_eff_mumom_den.Fill(t->true_muon_mom, event_weight, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) bs_genie_pm1_eff_pmom_den.Fill(temp_pmom, event_weight, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) bs_genie_pm1_eff_muangle_den.Fill(t->lep_costheta, event_weight, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) bs_genie_pm1_eff_pangle_den.Fill(temp_pangle, event_weight, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) bs_genie_pm1_eff_thetamup_den.Fill(temp_thetamup, event_weight, wgts_genie_pm1);
+
 
       if (!isdata && _fill_bootstrap_genie) _event_histo_1d->bs_genie_multisim_eff_onebin_den->Fill(0.5, event_weight, wgts_genie_multisim);
       if (!isdata && _fill_bootstrap_genie) _event_histo_1d->bs_genie_multisim_eff_mumom_den->Fill(t->true_muon_mom, event_weight, wgts_genie_multisim);
@@ -3256,8 +3452,39 @@ void Main::Maker::MakeFile()
     }
     h_tmdqdx_vs_rr_pcand->Fill(t->pfp_reco_length[pind],t->pfp_reco_trunmeandqdx[pind]);
 
+    for(size_t ii=0; ii<t->pfp_reco_ismuoncandidate.size(); ii++){
+        if(t->pfp_reco_ismuoncandidate[ii]==1) continue;
+        if(t->pfp_reco_isshower[ii]==0) continue;
+        if(t->pfp_reco_numtracks[ii]!=1) continue;
+        if(t->pfp_reco_dEdx[ii].size()<5) continue;
+        for(size_t jj=0; jj<t->pfp_reco_dEdx[ii].size(); jj++){
+                 h_dEdx_vs_rr_pshower->Fill(t->pfp_reco_RR[ii][jj], t->pfp_reco_dEdx[ii][jj]);
+        }  
+    }
 
-    //std::cout<<"libo test 3"<<std::endl;
+    //std::cout<<checking the momentum smearing in the first bin
+    //total number of hits, angle py to p
+    if((t->pfp_reco_Mom_muon[muind]<0.3) &&t->pfp_reco_Mom_muon[muind]>0.18 && t->pfp_truth_mom[muind]<0.18){
+    h_nhits_lowmu->Fill(t->pfp_reco_dEdx[muind].size());
+    h_trklen_truevsreco_lowmu->Fill(TMath::Sqrt((t->pfp_truth_startx[muind]-t->pfp_truth_endx[muind])*(t->pfp_truth_startx[muind]-t->pfp_truth_endx[muind])+(t->pfp_truth_starty[muind]-t->pfp_truth_endy[muind])*(t->pfp_truth_starty[muind]-t->pfp_truth_endy[muind])+(t->pfp_truth_startz[muind]-t->pfp_truth_endz[muind])*(t->pfp_truth_startz[muind]-t->pfp_truth_endz[muind])), t->pfp_reco_length[muind]);
+
+    h_costhetay_lowmu->Fill(TMath::Sin(t->pfp_truth_theta[muind])*TMath::Sin(t->pfp_truth_phi[muind]));
+    h_vtx_resolution_lowmu->Fill(t->vtx_resolution);
+    h_nhits_lowmu_uplane->Fill(t->pfp_reco_nhits[muind]);
+    h_nhits_lowmu_vplane->Fill(t->pfp_reco_nhits[muind]);
+    }
+    
+    if(t->pfp_reco_Mom_muon[muind]<0.18 && t->pfp_truth_mom[muind]<0.18){
+    h_nhits_firstbin->Fill(t->pfp_reco_dEdx[muind].size());
+    h_trklen_truevsreco_firstbin->Fill(TMath::Sqrt((t->pfp_truth_startx[muind]-t->pfp_truth_endx[muind])*(t->pfp_truth_startx[muind]-t->pfp_truth_endx[muind])+(t->pfp_truth_starty[muind]-t->pfp_truth_endy[muind])*(t->pfp_truth_starty[muind]-t->pfp_truth_endy[muind])+(t->pfp_truth_startz[muind]-t->pfp_truth_endz[muind])*(t->pfp_truth_startz[muind]-t->pfp_truth_endz[muind])), t->pfp_reco_length[muind]);
+
+    h_costhetay_firstbin->Fill(TMath::Sin(t->pfp_truth_theta[muind])*TMath::Sin(t->pfp_truth_phi[muind]));
+    h_vtx_resolution_firstbin->Fill(t->vtx_resolution);
+    h_nhits_firstbin_uplane->Fill(t->pfp_reco_nhits[muind]);
+    h_nhits_firstbin_vplane->Fill(t->pfp_reco_nhits[muind]);
+    }
+        
+    
 
     //============================================================================================================
     //
@@ -3276,6 +3503,12 @@ void Main::Maker::MakeFile()
 
 
     if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight, hmap_trkmom_genie_pm1_bs, "total", fname_genie_pm1, wgts_genie_pm1);
+    if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pmom, event_weight, hmap_trkpmom_genie_pm1_bs, "total", fname_genie_pm1, wgts_genie_pm1);
+    if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->lep_costheta, event_weight, hmap_trktheta_genie_pm1_bs, "total", fname_genie_pm1, wgts_genie_pm1);
+    if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pangle, event_weight, hmap_trkptheta_genie_pm1_bs, "total", fname_genie_pm1, wgts_genie_pm1);
+
+
+
 
     if (!isdata && _fill_bootstrap_genie) FillBootstrap(0.5, event_weight, _event_histo_1d->hmap_onebin_genie_multisim_bs, "total", fname_genie_multisim, wgts_genie_multisim);
     if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight, _event_histo_1d->hmap_trkmom_genie_multisim_bs, "total", fname_genie_multisim, wgts_genie_multisim);
@@ -3415,6 +3648,12 @@ void Main::Maker::MakeFile()
       _event_histo_1d->h_true_reco_costheta->Fill(_angle_true, _angle_reco, event_weight);
       //===============================================================================================================================================
       if(!isdata && _fill_bootstrap_genie) FillBootstrap(_mom_true, _mom_mcs, event_weight, bs_genie_pm1_true_reco_mom, fname_genie_pm1, wgts_genie_pm1);
+      if(!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pmom, t->pfp_reco_Mom_proton[pind], event_weight, bs_genie_pm1_true_reco_pmom, fname_genie_pm1, wgts_genie_pm1);
+      if(!isdata && _fill_bootstrap_genie) FillBootstrap(_angle_true, _angle_reco, event_weight, bs_genie_pm1_true_reco_muangle, fname_genie_pm1, wgts_genie_pm1);
+      if(!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pangle, t->pfp_reco_costheta[pind], event_weight, bs_genie_pm1_true_reco_pangle, fname_genie_pm1, wgts_genie_pm1);
+
+
+
 
       if(!isdata && _fill_bootstrap_genie) _event_histo_1d->bs_genie_multisim_true_reco_mumom->Fill(_mom_true, _mom_mcs, event_weight, wgts_genie_multisim);
       if(!isdata && _fill_bootstrap_genie) _event_histo_1d->bs_genie_multisim_true_reco_muangle->Fill(_angle_true, _angle_reco, event_weight, wgts_genie_multisim);
@@ -3572,6 +3811,12 @@ void Main::Maker::MakeFile()
       //=======================================================================================================================================================
 
       if (!isdata && _fill_bootstrap_genie) bs_genie_pm1_eff_mumom_num.Fill(t->true_muon_mom, event_weight, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) bs_genie_pm1_eff_pmom_num.Fill(temp_pmom, event_weight, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) bs_genie_pm1_eff_muangle_num.Fill(t->lep_costheta, event_weight, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) bs_genie_pm1_eff_pangle_num.Fill(temp_pangle, event_weight, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) bs_genie_pm1_eff_thetamup_num.Fill(temp_thetamup, event_weight, wgts_genie_pm1);
+
+
       if (!isdata && _fill_bootstrap_genie) _event_histo_1d->bs_genie_multisim_eff_onebin_num->Fill(0.5, event_weight, wgts_genie_multisim);
 
       if (!isdata && _fill_bootstrap_genie) _event_histo_1d->bs_genie_multisim_eff_mumom_num->Fill(t->true_muon_mom, event_weight, wgts_genie_multisim);
@@ -3687,6 +3932,12 @@ void Main::Maker::MakeFile()
       pEff->Fill(true, t->nu_e);
 
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight, hmap_trkmom_genie_pm1_bs, "signal", fname_genie_pm1, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->lep_costheta, event_weight, hmap_trktheta_genie_pm1_bs, "signal", fname_genie_pm1, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pmom, event_weight, hmap_trkpmom_genie_pm1_bs, "signal", fname_genie_pm1, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pangle, event_weight, hmap_trkptheta_genie_pm1_bs, "signal", fname_genie_pm1, wgts_genie_pm1);
+
+
+
 
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(0.5, event_weight, _event_histo_1d->hmap_onebin_genie_multisim_bs, "signal", fname_genie_multisim, wgts_genie_multisim);
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight, _event_histo_1d->hmap_trkmom_genie_multisim_bs, "signal", fname_genie_multisim, wgts_genie_multisim);
@@ -3801,6 +4052,12 @@ void Main::Maker::MakeFile()
       //hmap_trkmom_genie_pm1_bs["anumu"]->Fill(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), 1., wgts_genie_pm1);
 
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight, hmap_trkmom_genie_pm1_bs, "anumu", fname_genie_pm1, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pmom, event_weight, hmap_trkpmom_genie_pm1_bs, "anumu", fname_genie_pm1, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->lep_costheta, event_weight, hmap_trktheta_genie_pm1_bs, "anumu", fname_genie_pm1, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pangle, event_weight, hmap_trkptheta_genie_pm1_bs, "anumu", fname_genie_pm1, wgts_genie_pm1);
+
+
+
 
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(0.5, event_weight, _event_histo_1d->hmap_onebin_genie_multisim_bs, "anumu", fname_genie_multisim, wgts_genie_multisim);
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight, _event_histo_1d->hmap_trkmom_genie_multisim_bs, "anumu", fname_genie_multisim, wgts_genie_multisim);
@@ -3881,6 +4138,12 @@ void Main::Maker::MakeFile()
        //hmap_trkmom_genie_pm1_bs["ccother"]->Fill(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), 1., wgts_genie_pm1);
       
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight, hmap_trkmom_genie_pm1_bs, "cc_other", fname_genie_pm1, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pmom, event_weight, hmap_trkpmom_genie_pm1_bs, "cc_other", fname_genie_pm1, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->lep_costheta, event_weight, hmap_trktheta_genie_pm1_bs, "cc_other", fname_genie_pm1, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pangle, event_weight, hmap_trkptheta_genie_pm1_bs, "cc_other", fname_genie_pm1, wgts_genie_pm1);
+
+
+
 
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(0.5, event_weight, _event_histo_1d->hmap_onebin_genie_multisim_bs, "cc_other", fname_genie_multisim, wgts_genie_multisim);
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight, _event_histo_1d->hmap_trkmom_genie_multisim_bs, "cc_other", fname_genie_multisim, wgts_genie_multisim);
@@ -4050,6 +4313,12 @@ void Main::Maker::MakeFile()
        //hmap_trkmom_genie_pm1_bs["nue"]->Fill(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), 1., wgts_genie_pm1);
 
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight, hmap_trkmom_genie_pm1_bs, "nue", fname_genie_pm1, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pmom, event_weight, hmap_trkpmom_genie_pm1_bs, "nue", fname_genie_pm1, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->lep_costheta, event_weight, hmap_trktheta_genie_pm1_bs, "nue", fname_genie_pm1, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pangle, event_weight, hmap_trkptheta_genie_pm1_bs, "nue", fname_genie_pm1, wgts_genie_pm1);
+
+
+
 
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(0.5, event_weight, _event_histo_1d->hmap_onebin_genie_multisim_bs, "nue", fname_genie_multisim, wgts_genie_multisim);
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight, _event_histo_1d->hmap_trkmom_genie_multisim_bs, "nue", fname_genie_multisim, wgts_genie_multisim);
@@ -4131,6 +4400,12 @@ void Main::Maker::MakeFile()
        //hmap_trkmom_genie_pm1_bs["nc"]->Fill(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), 1., wgts_genie_pm1);
 
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight, hmap_trkmom_genie_pm1_bs, "nc", fname_genie_pm1, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pmom, event_weight, hmap_trkpmom_genie_pm1_bs, "nc", fname_genie_pm1, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->lep_costheta, event_weight, hmap_trktheta_genie_pm1_bs, "nc", fname_genie_pm1, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pangle, event_weight, hmap_trkptheta_genie_pm1_bs, "nc", fname_genie_pm1, wgts_genie_pm1);
+
+
+
 
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(0.5, event_weight, _event_histo_1d->hmap_onebin_genie_multisim_bs, "nc", fname_genie_multisim, wgts_genie_multisim);
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight, _event_histo_1d->hmap_trkmom_genie_multisim_bs, "nc", fname_genie_multisim, wgts_genie_multisim);
@@ -4258,6 +4533,12 @@ void Main::Maker::MakeFile()
        //hmap_trkmom_genie_pm1_bs["outfv"]->Fill(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), 1., wgts_genie_pm1);
 
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight, hmap_trkmom_genie_pm1_bs, "outfv", fname_genie_pm1, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pmom, event_weight, hmap_trkpmom_genie_pm1_bs, "outfv", fname_genie_pm1, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->lep_costheta, event_weight, hmap_trktheta_genie_pm1_bs, "outfv", fname_genie_pm1, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pangle, event_weight, hmap_trkptheta_genie_pm1_bs, "outfv", fname_genie_pm1, wgts_genie_pm1);
+
+
+
 
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(0.5, event_weight, _event_histo_1d->hmap_onebin_genie_multisim_bs, "outfv", fname_genie_multisim, wgts_genie_multisim);
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight, _event_histo_1d->hmap_trkmom_genie_multisim_bs, "outfv", fname_genie_multisim, wgts_genie_multisim);
@@ -4369,6 +4650,12 @@ void Main::Maker::MakeFile()
        //hmap_trkmom_genie_pm1_bs["cosmic"]->Fill(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), 1., wgts_genie_pm1);
 
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight, hmap_trkmom_genie_pm1_bs, "cosmic", fname_genie_pm1, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pmom, event_weight, hmap_trkpmom_genie_pm1_bs, "cosmic", fname_genie_pm1, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->lep_costheta, event_weight, hmap_trktheta_genie_pm1_bs, "cosmic", fname_genie_pm1, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pangle, event_weight, hmap_trkptheta_genie_pm1_bs, "cosmic", fname_genie_pm1, wgts_genie_pm1);
+
+
+
 
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(0.5, event_weight, _event_histo_1d->hmap_onebin_genie_multisim_bs, "cosmic", fname_genie_multisim, wgts_genie_multisim);
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight, _event_histo_1d->hmap_trkmom_genie_multisim_bs, "cosmic", fname_genie_multisim, wgts_genie_multisim);
@@ -5389,6 +5676,8 @@ void Main::Maker::MakeFile()
 
   pEff4->Write();
   pEff5->Write();
+  pEff4_proton->Write();
+  pEff5_proton->Write();
   pEff5_3->Write();
   h_truth_xsec_mumom->Write();
   h_truth_xsec_muangle->Write();
@@ -5440,11 +5729,33 @@ void Main::Maker::MakeFile()
   file_out->WriteObject(&bs_genie_pm1_eff_mumom_num, "bs_genie_pm1_eff_mumom_num");
   file_out->WriteObject(&bs_genie_pm1_eff_mumom_den, "bs_genie_pm1_eff_mumom_den");
 
+  file_out->WriteObject(&bs_genie_pm1_eff_pmom_num, "bs_genie_pm1_eff_pmom_num");
+  file_out->WriteObject(&bs_genie_pm1_eff_pmom_den, "bs_genie_pm1_eff_pmom_den");
+
+  file_out->WriteObject(&bs_genie_pm1_eff_muangle_num, "bs_genie_pm1_eff_muangle_num");
+  file_out->WriteObject(&bs_genie_pm1_eff_muangle_den, "bs_genie_pm1_eff_muangle_den");
+
+  file_out->WriteObject(&bs_genie_pm1_eff_pangle_num, "bs_genie_pm1_eff_pangle_num");
+  file_out->WriteObject(&bs_genie_pm1_eff_pangle_den, "bs_genie_pm1_eff_pangle_den");
+
+  file_out->WriteObject(&bs_genie_pm1_eff_thetamup_num, "bs_genie_pm1_eff_thetamup_num");
+  file_out->WriteObject(&bs_genie_pm1_eff_thetamup_den, "bs_genie_pm1_eff_thetamup_den");
+
+
   // All MC Histo - GENIE pm1sigma
   file_out->WriteObject(&hmap_trkmom_genie_pm1_bs, "hmap_trkmom_genie_pm1_bs");
+  file_out->WriteObject(&hmap_trktheta_genie_pm1_bs, "hmap_trktheta_genie_pm1_bs");
+  file_out->WriteObject(&hmap_trkpmom_genie_pm1_bs, "hmap_trkpmom_genie_pm1_bs");
+  file_out->WriteObject(&hmap_trkptheta_genie_pm1_bs, "hmap_trkptheta_genie_pm1_bs");
 
   // Reco-True - GENIE pm1sigma
   file_out->WriteObject(&bs_genie_pm1_true_reco_mom, "bs_genie_pm1_true_reco_mom");
+  file_out->WriteObject(&bs_genie_pm1_true_reco_pmom, "bs_genie_pm1_true_reco_pmom");
+  file_out->WriteObject(&bs_genie_pm1_true_reco_muangle, "bs_genie_pm1_true_reco_muangle");
+  file_out->WriteObject(&bs_genie_pm1_true_reco_pangle, "bs_genie_pm1_true_reco_pangle");
+
+
+
 
  
 
