@@ -632,6 +632,7 @@ void Main::Maker::MakeFile()
   double bkg_cosmic_sel = 0;
   double bkg_cosmic_top_sel = 0;
   double bkg_ccother_sel = 0;
+
   double signal_sel_qe = 0;
   double signal_sel_res = 0;
   double signal_sel_dis = 0;
@@ -763,6 +764,34 @@ void Main::Maker::MakeFile()
   hmap_mctruth_muphi["coh"] = new TH1D("h_mctruth_muphi_coh", ";True Muon #phi [GeV];Selected Events", 20, -3.15, 3.15);
   hmap_mctruth_muphi["mec"] = new TH1D("h_mctruth_muphi_mec", ";True Muon #phi [GeV];Selected Events", 20, -3.15, 3.15);
   hmap_mctruth_muphi["other"] = new TH1D("h_mctruth_muphi_other", ";True Muon #phi [GeV];Selected Events", 20, -3.15, 3.15);
+
+  std::map<std::string,TH1D*> hmap_mctruth_pmom;
+  hmap_mctruth_pmom["total"] = new TH1D("h_mctruth_pmom_total", ";True Proton Momentum [GeV];Selected Events", 20, 0, 2.5);
+  hmap_mctruth_pmom["qe"] = new TH1D("h_mctruth_pmom_qe", ";True Proton Momentum [GeV];Selected Events", 20, 0, 2.5);
+  hmap_mctruth_pmom["res"] = new TH1D("h_mctruth_pmom_res", ";True Proton Momentum [GeV];Selected Events", 20, 0, 2.5);
+  hmap_mctruth_pmom["dis"] = new TH1D("h_mctruth_pmom_dis", ";True Proton Momentum [GeV];Selected Events", 20, 0, 2.5);
+  hmap_mctruth_pmom["coh"] = new TH1D("h_mctruth_pmom_coh", ";True Proton Momentum [GeV];Selected Events", 20, 0, 2.5);
+  hmap_mctruth_pmom["mec"] = new TH1D("h_mctruth_pmom_mec", ";True Proton Momentum [GeV];Selected Events", 20, 0, 2.5);
+  hmap_mctruth_pmom["other"] = new TH1D("h_mctruth_pmom_other", ";True Proton Momentum [GeV];Selected Events", 20, 0, 2.5);
+
+  std::map<std::string,TH1D*> hmap_mctruth_pcostheta;
+  hmap_mctruth_pcostheta["total"] = new TH1D("h_mctruth_pcostheta_total", ";True Proton cos(#theta) [GeV];Selected Events", 25, -1, 1);
+  hmap_mctruth_pcostheta["qe"] = new TH1D("h_mctruth_pcostheta_qe", ";True Proton cos(#theta) [GeV];Selected Events", 25, -1, 1);
+  hmap_mctruth_pcostheta["res"] = new TH1D("h_mctruth_pcostheta_res", ";True Proton cos(#theta) [GeV];Selected Events", 25, -1, 1);
+  hmap_mctruth_pcostheta["dis"] = new TH1D("h_mctruth_pcostheta_dis", ";True Proton cos(#theta) [GeV];Selected Events", 25, -1, 1);
+  hmap_mctruth_pcostheta["coh"] = new TH1D("h_mctruth_pcostheta_coh", ";True Proton cos(#theta) [GeV];Selected Events", 25, -1, 1);
+  hmap_mctruth_pcostheta["mec"] = new TH1D("h_mctruth_pcostheta_mec", ";True Proton cos(#theta) [GeV];Selected Events", 25, -1, 1);
+  hmap_mctruth_pcostheta["other"] = new TH1D("h_mctruth_pcostheta_other", ";True Proton cos(#theta) [GeV];Selected Events", 25, -1, 1);
+
+  std::map<std::string,TH1D*> hmap_mctruth_pphi;
+  hmap_mctruth_pphi["total"] = new TH1D("h_mctruth_pphi_total", ";True Proton #phi [GeV];Selected Events", 20, -3.15, 3.15);
+  hmap_mctruth_pphi["qe"] = new TH1D("h_mctruth_pphi_qe", ";True Proton #phi [GeV];Selected Events", 20, -3.15, 3.15);
+  hmap_mctruth_pphi["res"] = new TH1D("h_mctruth_pphi_res", ";True Proton #phi [GeV];Selected Events", 20, -3.15, 3.15);
+  hmap_mctruth_pphi["dis"] = new TH1D("h_mctruth_pphi_dis", ";True Proton #phi [GeV];Selected Events", 20, -3.15, 3.15);
+  hmap_mctruth_pphi["coh"] = new TH1D("h_mctruth_pphi_coh", ";True Proton #phi [GeV];Selected Events", 20, -3.15, 3.15);
+  hmap_mctruth_pphi["mec"] = new TH1D("h_mctruth_pphi_mec", ";True Proton #phi [GeV];Selected Events", 20, -3.15, 3.15);
+  hmap_mctruth_pphi["other"] = new TH1D("h_mctruth_pphi_other", ";True Proton #phi [GeV];Selected Events", 20, -3.15, 3.15);
+
 
   //
   // Truth histograms stacked in interaction type - Generated
@@ -1344,6 +1373,8 @@ void Main::Maker::MakeFile()
   TH1D* h_nhits_lt5=new TH1D("h_nhits_lt5", "h_nhits_lt5", 5, -0.5, 4.5);
   TH1D* h_nhits_lt5_proton=new TH1D("h_nhits_lt5_proton", "h_nhits_lt5_proton", 5, -0.5, 4.5);
 
+
+
   TH1D* h_pmom_reint=new TH1D("h_pmom_reint",";Proton Momentum [GeV/c]; Nevts", 30, 0.3, 1.5);
   TH1D* h_pmom_total=new TH1D("h_pmom_total",";Proton MOmentum [GeV/c]; Nevts", 30, 0.3, 1.5);
 
@@ -1488,6 +1519,19 @@ void Main::Maker::MakeFile()
   hmap_pmult["anumu"] = new TH1D("h_pmult_anumu", "; Proton Multiplicity;", 10, -0.5, 9.5);
   hmap_pmult["nue"] = new TH1D("h_pmult_nue", "; Proton Multiplicity;", 10, -0.5, 9.5);
   hmap_pmult["cc_other"] = new TH1D("h_pmult_ccother", "; Proton Multiplicity;", 10, -0.5,9.5);
+
+  std::map<std::string,TH1D*> hmap_nhits_leadingp;
+  hmap_nhits_leadingp["total"] = new TH1D("h_nhits_leadingp_total", "; nhits_leadingp;", 30, 0, 2000.0);
+  hmap_nhits_leadingp["signal"] = new TH1D("h_nhits_leadingp_signal", "; nhits_leadingp;", 30, 0, 2000.0);
+  hmap_nhits_leadingp["cosmic"] = new TH1D("h_nhits_leadingp_cosmic", "; nhits_leadingp;", 30, 0, 2000.0);
+  hmap_nhits_leadingp["outfv"] = new TH1D("h_nhits_leadingp_outfv", "; nhits_leadingp;", 30, 0, 2000.0);
+  hmap_nhits_leadingp["nc"] = new TH1D("h_nhits_leadingp_nc", "; nhits_leadingp;", 30, 0, 2000.0);
+  hmap_nhits_leadingp["anumu"] = new TH1D("h_nhits_leadingp_anumu", "; nhits_leadingp;", 30, 0, 2000.0);
+  hmap_nhits_leadingp["nue"] = new TH1D("h_nhits_leadingp_nue", "; nhits_leadingp;", 30, 0, 2000.0);
+  hmap_nhits_leadingp["cc_other"] = new TH1D("h_nhits_leadingp_ccother", "; nhits_leadingp;", 30, 0,2000.0);
+ 
+
+
    //===========================================================================================================
 
 
@@ -3463,6 +3507,7 @@ void Main::Maker::MakeFile()
     }
 
     //std::cout<<checking the momentum smearing in the first bin
+    if(isSignal && _ana_int_type=="cc1unp_analysis"){
     //total number of hits, angle py to p
     if((t->pfp_reco_Mom_muon[muind]<0.3) &&t->pfp_reco_Mom_muon[muind]>0.18 && t->pfp_truth_mom[muind]<0.18){
     h_nhits_lowmu->Fill(t->pfp_reco_dEdx[muind].size());
@@ -3484,7 +3529,7 @@ void Main::Maker::MakeFile()
     h_nhits_firstbin_vplane->Fill(t->pfp_reco_nhits[muind]);
     }
         
-    
+    }
 
     //============================================================================================================
     //
@@ -3543,6 +3588,9 @@ void Main::Maker::MakeFile()
     hmap_etatest["total"]->Fill(etatest, event_weight);
     hmap_alphat["total"]->Fill(alphat, event_weight);
     hmap_enucal["total"]->Fill(enucal, event_weight);
+    hmap_nhits_leadingp["total"]->Fill(t->pfp_reco_dEdx[pind].size(), event_weight);
+
+
     if(_showerastrack) {
       hmap_pmult["total"]->Fill(t->num_pfp-1, event_weight);
     } else{
@@ -3898,35 +3946,61 @@ void Main::Maker::MakeFile()
       hmap_mctruth_mumom["total"]->Fill(t->true_muon_mom, event_weight);
       hmap_mctruth_mucostheta["total"]->Fill(t->lep_costheta, event_weight);
       hmap_mctruth_muphi["total"]->Fill(t->lep_phi, event_weight);
+
+      hmap_mctruth_pmom["total"]->Fill(temp_pmom, event_weight);
+      hmap_mctruth_pcostheta["total"]->Fill(temp_pangle, event_weight);
+      hmap_mctruth_pphi["total"]->Fill(temp_pphi, event_weight);
+
+
       if (t->mode == 0) {
         hmap_mctruth_nuenergy["qe"]->Fill(t->nu_e, event_weight);
         hmap_mctruth_mumom["qe"]->Fill(t->true_muon_mom, event_weight);
         hmap_mctruth_mucostheta["qe"]->Fill(t->lep_costheta, event_weight);
         hmap_mctruth_muphi["qe"]->Fill(t->lep_phi, event_weight);
+
+        hmap_mctruth_pmom["qe"]->Fill(temp_pmom, event_weight);
+        hmap_mctruth_pcostheta["qe"]->Fill(temp_pangle, event_weight);
+        hmap_mctruth_pphi["qe"]->Fill(temp_pphi, event_weight);
       }
       if (t->mode == 1) {
         hmap_mctruth_nuenergy["res"]->Fill(t->nu_e, event_weight);
         hmap_mctruth_mumom["res"]->Fill(t->true_muon_mom, event_weight);
         hmap_mctruth_mucostheta["res"]->Fill(t->lep_costheta, event_weight);
         hmap_mctruth_muphi["res"]->Fill(t->lep_phi, event_weight);
+
+        hmap_mctruth_pmom["res"]->Fill(temp_pmom, event_weight);
+        hmap_mctruth_pcostheta["res"]->Fill(temp_pangle, event_weight);
+        hmap_mctruth_pphi["res"]->Fill(temp_pphi, event_weight);
       }
       if (t->mode == 2) {
         hmap_mctruth_nuenergy["dis"]->Fill(t->nu_e, event_weight);
         hmap_mctruth_mumom["dis"]->Fill(t->true_muon_mom, event_weight);
         hmap_mctruth_mucostheta["dis"]->Fill(t->lep_costheta, event_weight);
         hmap_mctruth_muphi["dis"]->Fill(t->lep_phi, event_weight);
+
+        hmap_mctruth_pmom["dis"]->Fill(temp_pmom, event_weight);
+        hmap_mctruth_pcostheta["dis"]->Fill(temp_pangle, event_weight);
+        hmap_mctruth_pphi["dis"]->Fill(temp_pphi, event_weight);
       }
       if (t->mode == 3) {
         hmap_mctruth_nuenergy["coh"]->Fill(t->nu_e, event_weight);
         hmap_mctruth_mumom["coh"]->Fill(t->true_muon_mom, event_weight);
         hmap_mctruth_mucostheta["coh"]->Fill(t->lep_costheta, event_weight);
         hmap_mctruth_muphi["coh"]->Fill(t->lep_phi, event_weight);
+
+        hmap_mctruth_pmom["coh"]->Fill(temp_pmom, event_weight);
+        hmap_mctruth_pcostheta["coh"]->Fill(temp_pangle, event_weight);
+        hmap_mctruth_pphi["coh"]->Fill(temp_pphi, event_weight);
       }
       if (t->mode == 10) {
         hmap_mctruth_nuenergy["mec"]->Fill(t->nu_e, event_weight);
         hmap_mctruth_mumom["mec"]->Fill(t->true_muon_mom, event_weight);
         hmap_mctruth_mucostheta["mec"]->Fill(t->lep_costheta, event_weight);
         hmap_mctruth_muphi["mec"]->Fill(t->lep_phi, event_weight);
+
+        hmap_mctruth_pmom["mec"]->Fill(temp_pmom, event_weight);
+        hmap_mctruth_pcostheta["mec"]->Fill(temp_pangle, event_weight);
+        hmap_mctruth_pphi["mec"]->Fill(temp_pphi, event_weight);
       }
 
       pEff->Fill(true, t->nu_e);
@@ -3972,6 +4046,7 @@ void Main::Maker::MakeFile()
       if(!isdata){hmap_etatest["signal"]->Fill(etatest, event_weight);}
       hmap_alphat["signal"]->Fill(alphat, event_weight);
       hmap_enucal["signal"]->Fill(enucal, event_weight);
+      hmap_nhits_leadingp["signal"]->Fill(t->pfp_reco_dEdx[pind].size(), event_weight);
       if(_showerastrack){
         hmap_pmult["signal"]->Fill(t->num_pfp-1, event_weight);
       } else {
@@ -4091,6 +4166,7 @@ void Main::Maker::MakeFile()
       if(!isdata){hmap_etatest["anumu"]->Fill(etatest, event_weight);}
       hmap_alphat["anumu"]->Fill(alphat, event_weight);
       hmap_enucal["anumu"]->Fill(enucal, event_weight);
+      hmap_nhits_leadingp["anumu"]->Fill(t->pfp_reco_dEdx[pind].size(), event_weight);
       if(_showerastrack){
         hmap_pmult["anumu"]->Fill(t->num_pfp-1, event_weight);
       } else {
@@ -4177,6 +4253,7 @@ void Main::Maker::MakeFile()
       if(!isdata){hmap_etatest["cc_other"]->Fill(etatest, event_weight);}
       hmap_alphat["cc_other"]->Fill(alphat, event_weight);
       hmap_enucal["cc_other"]->Fill(enucal, event_weight);
+      hmap_nhits_leadingp["cc_other"]->Fill(t->pfp_reco_dEdx[pind].size(), event_weight);
       if(_showerastrack){ 
         hmap_pmult["cc_other"]->Fill(t->num_pfp-1, event_weight);
       } else{  
@@ -4352,6 +4429,7 @@ void Main::Maker::MakeFile()
       if(!isdata){hmap_etatest["nue"]->Fill(etatest, event_weight);}
       hmap_alphat["nue"]->Fill(alphat, event_weight);
       hmap_enucal["nue"]->Fill(enucal, event_weight); 
+      hmap_nhits_leadingp["nue"]->Fill(t->pfp_reco_dEdx[pind].size(), event_weight);
       if(_showerastrack){
         hmap_pmult["nue"]->Fill(t->num_pfp-1, event_weight);
       } else {
@@ -4439,6 +4517,7 @@ void Main::Maker::MakeFile()
       if(!isdata){hmap_etatest["nc"]->Fill(etatest, event_weight);}
       hmap_alphat["nc"]->Fill(alphat, event_weight);
       hmap_enucal["nc"]->Fill(enucal, event_weight);
+      hmap_nhits_leadingp["nc"]->Fill(t->pfp_reco_dEdx[pind].size(), event_weight);
       if(_showerastrack){
         hmap_pmult["nc"]->Fill(t->num_pfp-1, event_weight);
       } else {
@@ -4572,6 +4651,7 @@ void Main::Maker::MakeFile()
       if(!isdata){hmap_etatest["outfv"]->Fill(etatest, event_weight);}
       hmap_alphat["outfv"]->Fill(alphat, event_weight);
       hmap_enucal["outfv"]->Fill(enucal, event_weight);
+      hmap_nhits_leadingp["outfv"]->Fill(t->pfp_reco_dEdx[pind].size(), event_weight);
       if(_showerastrack){
         hmap_pmult["outfv"]->Fill(t->num_pfp-1, event_weight);
       } else {
@@ -4689,6 +4769,7 @@ void Main::Maker::MakeFile()
       if(!isdata){hmap_etatest["cosmic"]->Fill(etatest, event_weight);}
       hmap_alphat["cosmic"]->Fill(alphat, event_weight);
       hmap_enucal["cosmic"]->Fill(enucal, event_weight);
+      hmap_nhits_leadingp["cosmic"]->Fill(t->pfp_reco_dEdx[pind].size(), event_weight);
       if(_showerastrack){
         hmap_pmult["cosmic"]->Fill(t->num_pfp-1, event_weight);
       } else {
@@ -5708,6 +5789,7 @@ void Main::Maker::MakeFile()
   file_out->WriteObject(&hmap_etatest, "hmap_etatest");
   file_out->WriteObject(&hmap_alphat, "hmap_alphat");
   file_out->WriteObject(&hmap_enucal, "hmap_enucal");
+  file_out->WriteObject(&hmap_nhits_leadingp, "hmap_nhits_leadingp");
   file_out->WriteObject(&hmap_pmult, "hmap_pmult");
   file_out->WriteObject(&hmap_multpfp, "hmap_multpfp");
   file_out->WriteObject(&hmap_multtracktol, "hmap_multtracktol");
@@ -5722,7 +5804,10 @@ void Main::Maker::MakeFile()
   file_out->WriteObject(&hmap_mctruth_mucostheta_gen, "hmap_mctruth_mucostheta_gen");
   file_out->WriteObject(&hmap_mctruth_muphi_gen, "hmap_mctruth_muphi_gen");
 
-
+  file_out->WriteObject(&hmap_mctruth_pmom, "hmap_mctruth_pmom");
+  file_out->WriteObject(&hmap_mctruth_pcostheta, "hmap_mctruth_pcostheta");
+  file_out->WriteObject(&hmap_mctruth_pphi, "hmap_mctruth_pphi");
+ 
 
 
   // Efficiency - GENIE pm1sigma
