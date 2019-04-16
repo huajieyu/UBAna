@@ -96,7 +96,7 @@ float Chi2Calc(TH1D *histo_MC, TH1D *histo_bnb, TH1D *histo_extbnb, float scale_
 void plot_com_bacsep(){
   //loadStyle();
   int tune=1;
-  int cosmicCut=0;
+  int cosmicCut=1;
   
   TFile *input0; // on-beam
   TFile *input1; // off-beam
@@ -104,24 +104,30 @@ void plot_com_bacsep(){
   TFile *input3; // dirt
   std::cout<<"Setup input root files "<<std::endl;
   if (cosmicCut){
-    input0 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Feb10/ubxsecana_output_data_onbeam_ubcodev06_26_01_22.root");
-    input1 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Feb10/ubxsecana_output_data_offbeam_ubcodev06_26_01_22.root");
+    input0 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Mar/ubxsecana_output_data_onbeam_ubcodev06_26_01_22.root");
+    input1 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Mar/ubxsecana_output_data_offbeam_ubcodev06_26_01_22.root");
   }
   else{
-    input0 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Feb10/ubxsecana_output_data_onbeam_ubcodev06_26_01_22.root");
-    input1 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Feb10/ubxsecana_output_data_offbeam_ubcodev06_26_01_22.root");
+    input0 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Apr/ubxsecana_output_data_onbeam_ubcodev06_26_01_22.root");
+    input1 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Apr/ubxsecana_output_data_offbeam_ubcodev06_26_01_22.root");
   }
   
   if (tune==3){
-    if (cosmicCut){input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Feb10/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22.root");}
-    else{input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Feb10/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22.root");}
+    if (cosmicCut){input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Mar/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22_detsyst_CV_genie.root");}
+    else{input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Apr/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22_detsyst_CV_genie.root");}
   }
   else{
-    if (cosmicCut){input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Feb10/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22.root");}
-    else{input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Feb10/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22.root");}
+    if (cosmicCut){input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Mar/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22_detsyst_CV_genie.root");}
+    else{input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Apr/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22_detsyst_CV_genie.root");}
   }
 
-  input3=new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Feb10/ubxsecana_output_mc_bnbdirt_ubcodev06_26_01_22.root");
+  if(cosmicCut){
+      input3=new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Mar/ubxsecana_output_mc_bnbdirt_ubcodev06_26_01_22.root");
+  } else{
+      input3=new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Apr/ubxsecana_output_mc_bnbdirt_ubcodev06_26_01_22.root");
+  }
+
+
 
   gROOT->SetBatch();
 /*  
@@ -1602,32 +1608,26 @@ void plot_com_bacsep(){
 
   std::cout<<"Calculating POT normalization factors "<<h_range_allsel[0]->GetEntries()<<std::endl;
 
-  /*double MCpot=1.93572e20;
-  double Datapot=4.891e19;
-  double bnbon_triggers=10907083.0;
-  double bnboff_triggers=77221279.0;
-  double Dirtpot=1.2162e21;
+  /*
   */
  
-  Float_t E1DCNT_wcut_bnb=10907083.0;
-  Float_t E1DCNT_wcut_extbnb=77221279.0;
+  Float_t E1DCNT_wcut_bnb=35222964.0;
+  Float_t E1DCNT_wcut_extbnb=71687142.0;
 
 
  
 
   Float_t mcbnbcos_POT;
   Float_t mcbnbdirt_POT;
-  if (tune==3){mcbnbcos_POT=1.93572e20;} // Tune1
-  else{mcbnbcos_POT=1.93572e20;} // Tune1
+  if (tune==3){mcbnbcos_POT=2.18976e21;} // Tune1
+  else{mcbnbcos_POT=2.18976e21;} // Tune1
   if (tune==3){mcbnbdirt_POT=1.2162e21;}
   else{mcbnbdirt_POT=1.2162e21;}
   Float_t dirt_POT;
 
-  if (tune==3){mcbnbcos_POT=1.93572e20;} // Tune1
-  else{mcbnbcos_POT=1.93572e20;} // Tune1
 
 
-  Float_t dataPOT=4.891e19;// ??????????????/
+  Float_t dataPOT=1.584e20;// ??????????????/
  
   
   Double_t scalefac=E1DCNT_wcut_bnb/E1DCNT_wcut_extbnb;
