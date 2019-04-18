@@ -9,23 +9,16 @@ maker = Main.Maker()
 
 
 
-# det_syst_list = ["cv", "nospacecharge", "dicharge", "lightyeild", "stretchRes", "altDeadChannels", "deadSaturatedChannels", "noPEnoise", "noShortedResp", "whitenoise", "enhancedexttpcvis", "lifetime10ms", "dl0", "dt0", "birksrecomb"]
-det_syst_list = ["CV", "dataSCE", "withDIC", "squeezeResp", "DLdown", "DLup", "DTdown", "DTup", "LArG4BugFix", "downPEnoise", "upPEnoise", "noiseAmpDown", "noiseAmpUp"]
+det_syst_list = ["CV", "DLdown", "DLup", "DTdown", "DTup", "LArG4BugFix", "altDeadChannels", "dataSCE", "downPEnoise". "enhancedexttpcvis","lifetime10ms", "noiseAmpDown", "noiseAmpUp", "squeezeResp", "stretchResp", "upPEnoise", "withDIC"]
+#det_syst_list = ["CV", "dataSCE", "withDIC", "squeezeResp", "DLdown", "DLup", "DTdown", "DTup", "LArG4BugFix", "downPEnoise", "upPEnoise", "noiseAmpDown", "noiseAmpUp"]
 
-det_syst_list = ["CV", "withDIC", "dataSCE"]
 
 
 for systname in det_syst_list:
 
-  # maker.SetInputFile("/Users/deltutto/CCInclusiveFiles/Input/DetSyst/ubxsec_output_mc_bnbcosmic_mcc8.9_detsyst_" + systname + ".root")
-  # maker.SetOutputFile("/Users/deltutto/CCInclusiveFiles/Output/ubxsecana_output_bnbcosmic_mcc8.9_detsyst_" + systname + ".root");
-
-  # maker.SetInputFile("/Users/deltutto/CCInclusiveFiles/Input/DetSyst/ubxsec_output_mc_bnbcosmic_prod_v06_26_11_" + systname + ".root")
-  # maker.SetInputFile("/Users/deltutto/CCInclusiveFiles/Input/DetSystFull/ubxsec_output_mc_bnbcosmic_prod_v06_26_11_" + systname + ".root")
-  # maker.SetOutputFile("/Users/deltutto/CCInclusiveFiles/Output/ubxsecana_output_mc_bnbcosmic_prod_v06_26_11_" + systname + ".root");
   
-  maker.SetInputFile("/uboone/data/users/mdeltutt/ubxsec_static/v06_26_01_22/detsyst/ubxsec_output_mc_bnbcosmic_detsyst_" + systname + "_ubcodev06_26_01_22.root")
-  maker.SetOutputFile("/uboone/data/users/mdeltutt/ubxsec_static/v06_26_01_22/detsyst/ubxsecana_output_mc_bnbcosmic_detsyst_" + systname + "_ubcodev06_26_01_22.root");
+  maker.SetInputFile("/uboone/data/users/kirby/cc1muNp_ubxsec_ntuples/ntuples_Apr05_merge/ubxsec_output_mc_bnbcosmic_detsyst_" + systname + ".root")
+  maker.SetOutputFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Apr16/detsyst/ubxsecana_output_mc_bnbcosmic_detsyst_" + systname + ".root");
 
   maker.SetEntries(-1)
   maker.SetBeamSpillStart(3.1)    
