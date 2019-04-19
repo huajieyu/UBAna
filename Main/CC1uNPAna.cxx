@@ -102,8 +102,8 @@ namespace Main {
   //int intimecosmic_total_events = 1000;
   int dirt_total_events = 1000;
   int bnbcosmic_total_events = 1000;
-  double mc_pot_sim = 1.8176e+20;
-  double mc_pot_sim_dirt = 3.7044e+20;
+  double mc_pot_sim = 4.217e+20;
+  double mc_pot_sim_dirt = 12.6128e+20;
 
   
   // *************************************
@@ -309,7 +309,7 @@ namespace Main {
   ReweightingPlotter genie_rw_plotter;
 
   if (_do_pm1sigma_plots) {
-
+    std::cout<<"do the pm1sigma test"<<std::endl;
     // Bootstrap number of events per type
     std::map<std::string, BootstrapTH1D> bs;
     for (auto it : map_bs) {
@@ -639,6 +639,7 @@ namespace Main {
 
     _xsec_calc.Reset();
     _xsec_calc.SetVerbose(true);
+    std::cout<<"is the dirt opened???"<<_event_histo_1d_dirt<<std::endl;
     if (_event_histo_1d_dirt) _xsec_calc.SetHistograms(_event_histo_1d_mc->hmap_onebin, _event_histo_1d_bnbon->hmap_onebin["total"], _event_histo_1d_extbnb->hmap_onebin["total"], _event_histo_1d_dirt->hmap_onebin);  
     else                      _xsec_calc.SetHistograms(_event_histo_1d_mc->hmap_onebin, _event_histo_1d_bnbon->hmap_onebin["total"], _event_histo_1d_extbnb->hmap_onebin["total"]);
     std::cout<<"libo test 0"<<std::endl;
@@ -2122,7 +2123,7 @@ namespace Main {
     //
     // Double Differential Cross Section
     //
-
+    /*
     CrossSectionBootstrapCalculator2D _xsec_bs_calc;
     _xsec_bs_calc.SetFluxCorrectionWeight(_flux_correction_weight);
     _xsec_bs_calc.set_verbosity(Base::msg::kWARNING);
@@ -2598,10 +2599,10 @@ namespace Main {
     xsec_muangle_mumom_poly_mc->Write(save_name.c_str());
     save_name = "covariance_matrix_poly_muangle_mumom_" + _prefix;
     frac_covariance_matrix_poly_muangle_mumom.Write(save_name.c_str());
-  
+    */ 
 
   }
-
+  
 
   LOG_NORMAL() << "Closing output file." << std::endl;
 
