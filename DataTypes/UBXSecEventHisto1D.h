@@ -73,10 +73,9 @@ namespace DataTypes {
     int n_bins_mumom = 6;
     int n_bins_mucostheta = 12;
 
-
-    double bins_pmom[13] = {0.30, 0.36, 0.41, 0.44, 0.49, 0.53, 0.56, 0.59, 0.63, 0.73, 0.81,1.27, 1.50};
+    double bins_pmom[11] = {0.30, 0.41, 0.495, 0.56, 0.62, 0.68, 0.74, 0.80, 0.87, 0.93, 1.50};
     double bins_pcostheta[10]={-1.00, -0.50, 0.00, 0.27, 0.45, 0.62, 0.76, 0.86, 0.94, 1.00};
-    int n_bins_pmom = 12;
+    int n_bins_pmom = 10;
     int n_bins_pcostheta = 9;
     
     double bins_muptheta[7] = {0.00, 1.00, 1.31, 1.5, 1.7, 2.04, 3.14};
