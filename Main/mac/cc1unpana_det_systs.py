@@ -38,9 +38,9 @@ extra_unc = math.sqrt(0.02*0.02 + 0.06*0.06) # POT counting, beam window
 
 
 #det_syst_list = ["CV", "DLdown", "DLup", "DTup", "DTdown", "noiseAmpUp", "noiseAmpDown", "squeezeResp", "stretchResp", "downPEnoise", "upPEnoise","LArG4BugFix","altDeadChannels", "dataSCE", "deadSaturatedChannels", "enhancedexttpcvis","lifetime10ms", "withDIC"] ###don't use this one because it has two extras that haven't been processed successfully yet
-#det_syst_list = ["CV", "DLdown", "DLup", "DTdown", "DTup", "LArG4BugFix", "altDeadChannels", "dataSCE", "downPEnoise", "enhancedexttpcvis","lifetime10ms", "noiseAmpDown", "noiseAmpUp", "squeezeResp", "stretchResp", "upPEnoise", "withDIC"]
+det_syst_list = ["CV", "DLdown", "DLup", "DTdown", "DTup", "LArG4BugFix", "altDeadChannels", "dataSCE", "downPEnoise", "enhancedexttpcvis","lifetime10ms", "noiseAmpDown", "noiseAmpUp", "squeezeResp", "stretchResp", "upPEnoise", "withDIC"]
 #det_syst_list = ["CV", "stretchResp"]
-det_syst_list = ["enhancedexttpcvis","lifetime10ms", "withDIC"]
+#det_syst_list = ["enhancedexttpcvis","lifetime10ms", "withDIC"]
 
 #det_syst_list = ["upPEnoise","LArG4BugFix","altDeadChannels", "dataSCE", "deadSaturatedChannels", "enhancedexttpcvis","lifetime10ms", "withDIC"]
 #det_syst_list = ["deadSaturatedChannels"]
