@@ -2,7 +2,6 @@ void xsec_relunc_plot(){
 
     std::cout<<"beginning of the analysis"<<std::endl;
     gROOT->SetBatch(0);
-    gStyle->SetPalette(kRainBow);
     gStyle->SetOptStat(0000);
     gStyle->SetOptFit(1111);
     gStyle->SetOptTitle(0);

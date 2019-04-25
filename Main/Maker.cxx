@@ -2267,7 +2267,8 @@ void Main::Maker::MakeFile()
       // Loop over all the flux reweighting function names and find the one we want unlsee "total" was requested
       for (size_t i_func = 0; i_func < t->evtwgt_flux_multisim_funcname.size(); i_func++) {
 
-        std::string func_name = t->evtwgt_flux_multisim_funcname.at(i_func);
+      _event_histo_1d->bs_mc_stat_multisim_true_reco_mumom->SetWeightNames(fname_mc_stat_multisim);
+      _event_histo_1d->bs_mc_stat_multisim_true_reco_muangle->SetWeightNames(fname_mc_stat_multisim);
 
         size_t found = std::string::npos;
 
@@ -2286,7 +2287,8 @@ void Main::Maker::MakeFile()
           continue;
         }
 
-        for (size_t i_wgt = 0; i_wgt < fname_flux_multisim.size(); i_wgt++) {
+      _event_histo_1d->bs_mc_stat_multisim_eff_pangle_num->SetWeightNames(fname_mc_stat_multisim);
+      _event_histo_1d->bs_mc_stat_multisim_eff_pangle_den->SetWeightNames(fname_mc_stat_multisim);
 
           wgts_flux_multisim.at(i_wgt) *= t->evtwgt_flux_multisim_weight.at(i_func).at(i_wgt);
         }

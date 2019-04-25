@@ -45,8 +45,6 @@ cov_matrix_pangle_frac = TH2D("cov_matrix_pangle_frac", "", n_bins_pangle, 0, n_
 cov_matrix_thetamup = TH2D("cov_matrix_thetamup", "", n_bins_thetamup, 0, n_bins_thetamup, n_bins_thetamup, 0, n_bins_thetamup)
 cov_matrix_thetamup_frac = TH2D("cov_matrix_thetamup_frac", "", n_bins_thetamup, 0, n_bins_thetamup, n_bins_thetamup, 0, n_bins_thetamup)
 
-
-
 print "CV cross section", xsec_onebin_cv.GetBinContent(1)
 
 print "Systematic parameter & Cross section & Total xsec perc difference \\\\"
@@ -84,7 +82,6 @@ for i in xrange(0, xsec_thetamup_cv.GetNbinsX()):
 		cov_matrix_thetamup.SetBinContent(i+1, j+1, 0) 
 		cov_matrix_thetamup_frac.SetBinContent(i+1, j+1, 0)
 
-
 print "start to set the detector systematic list and statistic bin values for analysis"
 
 #det_syst_list = ["CV", "DLdown", "DLup", "DTdown", "DTup", "LArG4BugFix", "altDeadChannels", "dataSCE", "downPEnoise", "enhancedexttpcvis","lifetime10ms", "noiseAmpDown", "noiseAmpUp", "squeezeResp", "stretchResp", "upPEnoise", "withDIC"]
@@ -112,7 +109,6 @@ print "start to set the detector systematic list and statistic bin values for an
 #det_syst_list = ["enhancedexttpcvis"]
 #det_syst_list = ["lifetime10ms"]
 det_syst_list = ["withDIC"]
-
 
 #stat_err_perbin_mumom = [0.0041, 0.013, 0.010, 0.0048, 0.0028, 0.00067]
 #stat_err_perbin_muangle = [0.0034, 0.0026, 0.0060, 0.0038, 0.0055, 0.0087, 0.0080, 0.011, 0.018]
@@ -166,7 +162,6 @@ for syst_name in det_syst_list:
 			cov_matrix_mumom.SetBinContent(i+1, j+1, cov_matrix_mumom.GetBinContent(i+1, j+1) + d0)
 			cov_matrix_mumom_frac.SetBinContent(i+1, j+1, cov_matrix_mumom_frac.GetBinContent(i+1, j+1) + d0_frac)
 			# syst_mumom[i] = syst_mumom[i] + d0_frac
-
   
 	for i in xrange(0, xsec_muangle.GetNbinsX()):
 		for j in xrange(0, xsec_muangle.GetNbinsX()):
@@ -239,7 +234,6 @@ for syst_name in det_syst_list:
 	stopsArray = array('d', stops)
 	TColor.CreateGradientColorTable(NRGBs, stopsArray, mainColourArray, otherColourArray, otherColourArray, NCont)
 	gStyle.SetNumberContours(NCont)
-
 
 
 # TH2F h = cov_matrix_muangle_mumom_frac.Clone("h");
@@ -341,8 +335,6 @@ for syst_name in det_syst_list:
 	cov_matrix_thetamup_frac.GetYaxis().CenterTitle();
 	cov_matrix_thetamup_frac.Draw("colz TEXT")
 
-
-
 #gStyle.SetPaintTextFormat("4.2f");
 #c_muangle_mumom = TCanvas()
 # cov_matrix_muangle_mumom_frac.SetMarkerColor(kWhite);
@@ -395,7 +387,7 @@ for syst_name in det_syst_list:
 # cov_matrix_muangle_mumom.GetYaxis().CenterTitle();
 # cov_matrix_muangle_mumom.Draw("colz")
 
-#raw_input("Please press enter to exit.")
+raw_input("Please press enter to exit.")
 
 
 
