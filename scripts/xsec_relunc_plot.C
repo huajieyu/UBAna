@@ -182,7 +182,7 @@ TH1D *gr_thetamup_1[20];
 //TH1D *gr_thetamup_2[20];
  int dd = 9999;
 
- total_mumom_1=new TH1D(Form("Muon_Momentum_%d",dd), Form("Muon_Momentum_%d",dd), n_bins_mumom, bins_mumom);
+ total_mumom_1=new TH1D(Form("Total_Muon_Momentum_%d",dd), Form("Total_Muon_Momentum_%d",dd), n_bins_mumom, bins_mumom);
  total_mumom_1->GetXaxis()->SetTitle("P_{#mu}[GeV]");
  total_mumom_1->GetYaxis()->SetTitle("Relative Uncertainty");
  total_mumom_1->SetLineColor(2);
@@ -191,7 +191,7 @@ TH1D *gr_thetamup_1[20];
  total_mumom_1->SetMinimum(0); 
  total_mumom_1->SetMaximum(1.0);
  
- total_pmom_1=new TH1D(Form("Proton_Momentum_%d",dd), Form("Proon_Momentum_%d",dd), n_bins_pmom, bins_pmom);
+ total_pmom_1=new TH1D(Form("Total_Proton_Momentum_%d",dd), Form("Total_Proon_Momentum_%d",dd), n_bins_pmom, bins_pmom);
  total_pmom_1->GetXaxis()->SetTitle("P_{proton}[GeV]");
  total_pmom_1->GetYaxis()->SetTitle("Relative Uncertainty");
  total_pmom_1->SetLineColor(2);
@@ -200,7 +200,7 @@ TH1D *gr_thetamup_1[20];
  total_pmom_1->SetMinimum(0); 
  total_pmom_1->SetMaximum(1.0);
  
- total_muangle_1=new TH1D(Form("Muon_CosTheta_%d",dd), Form("Muon_CosTheta_%d",dd), n_bins_mucostheta, bins_mucostheta);
+ total_muangle_1=new TH1D(Form("Total_Muon_CosTheta_%d",dd), Form("Total_Muon_CosTheta_%d",dd), n_bins_mucostheta, bins_mucostheta);
  total_muangle_1->GetXaxis()->SetTitle("Cos#theta_{#mu}");
  total_muangle_1->GetYaxis()->SetTitle("Relative Uncertainty");
  total_muangle_1->SetLineColor(2);
@@ -209,7 +209,7 @@ TH1D *gr_thetamup_1[20];
  total_muangle_1->SetMinimum(0); 
  total_muangle_1->SetMaximum(1.0);
  
- total_pangle_1=new TH1D(Form("Proton_CosTheta_%d",dd), Form("Proton_CosTheta_%d",dd), n_bins_pcostheta, bins_pcostheta);
+ total_pangle_1=new TH1D(Form("Total_Proton_CosTheta_%d",dd), Form("Total_Proton_CosTheta_%d",dd), n_bins_pcostheta, bins_pcostheta);
  total_pangle_1->GetXaxis()->SetTitle("Cos#theta_{proton}");
  total_pangle_1->GetYaxis()->SetTitle("Relative Uncertainty");
  total_pangle_1->SetLineColor(2);
@@ -218,7 +218,7 @@ TH1D *gr_thetamup_1[20];
  total_pangle_1->SetMinimum(0); 
  total_pangle_1->SetMaximum(1.0);
  
- total_thetamup_1=new TH1D(Form("Thetamup_%d",dd), Form("Thetamup_%d",dd), n_bins_muptheta, bins_muptheta); 
+ total_thetamup_1=new TH1D(Form("Total_Thetamup_%d",dd), Form("Total_Thetamup_%d",dd), n_bins_muptheta, bins_muptheta); 
  total_thetamup_1->GetXaxis()->SetTitle("#theta_{#mu, proton}");
  total_thetamup_1->GetYaxis()->SetTitle("Relative Uncertainty");
  total_thetamup_1->SetLineColor(2);
@@ -627,7 +627,12 @@ for(int i=0; i<total_pmom_1->GetNbinsX(); i++){  total_pmom_1->SetBinContent(i+1
 for(int i=0; i<total_pangle_1->GetNbinsX(); i++){  total_pangle_1->SetBinContent(i+1, sqrt(total_pangle_1->GetBinContent(i+1))); }
 for(int i=0; i<total_thetamup_1->GetNbinsX(); i++){  total_thetamup_1->SetBinContent(i+1, sqrt(total_thetamup_1->GetBinContent(i+1))); }
 
-
+ output_file->cd();
+ total_mumom_1->Write();
+ total_pmom_1->Write();
+ total_muangle_1->Write();
+ total_pangle_1->Write();
+ total_thetamup_1->Write();
 
   //=============================================================================================================
 
@@ -789,58 +794,58 @@ for(int i=0; i<total_thetamup_1->GetNbinsX(); i++){  total_thetamup_1->SetBinCon
 //   }  
 //   legend2->Draw("same");
   
-  outputfilename="relative_unc_thetamup_showerastrack"+syst_unc_name +".png"; 
-  cc_thetamup->SaveAs(outputfilename.c_str());
-  //cc_thetamup->Delete();
-  TCanvas *c1=new TCanvas("c1", "c1");
-  xsec_mumom_mc->SetMaximum(0.5*xsec_mumom_mc->GetMaximum());
-  xsec_mumom_CV->SetMaximum(0.5*xsec_mumom_mc->GetMaximum()); 
-  xsec_mumom_mc->SetTitleOffset(0.8, "X");
-  xsec_mumom_CV->SetTitleOffset(0.8, "X");
+ //  outputfilename="relative_unc_thetamup_showerastrack"+syst_unc_name +".png"; 
+//   cc_thetamup->SaveAs(outputfilename.c_str());
+//   //cc_thetamup->Delete();
+//   TCanvas *c1=new TCanvas("c1", "c1");
+//   xsec_mumom_mc->SetMaximum(0.5*xsec_mumom_mc->GetMaximum());
+//   xsec_mumom_CV->SetMaximum(0.5*xsec_mumom_mc->GetMaximum()); 
+//   xsec_mumom_mc->SetTitleOffset(0.8, "X");
+//   xsec_mumom_CV->SetTitleOffset(0.8, "X");
 
-  xsec_mumom_mc->Draw();
-  xsec_mumom_CV->Draw("same");
-  leg->Draw("same");
+//   xsec_mumom_mc->Draw();
+//   xsec_mumom_CV->Draw("same");
+//   leg->Draw("same");
 
-  TCanvas *c2=new TCanvas("c2", "c2");
-  xsec_pmom_mc->SetMaximum(0.5*xsec_pmom_mc->GetMaximum());
-  xsec_pmom_CV->SetMaximum(0.5*xsec_pmom_mc->GetMaximum()); 
-  xsec_pmom_mc->SetTitleOffset(0.8, "X");
-  xsec_pmom_CV->SetTitleOffset(0.8, "X");
+//   TCanvas *c2=new TCanvas("c2", "c2");
+//   xsec_pmom_mc->SetMaximum(0.5*xsec_pmom_mc->GetMaximum());
+//   xsec_pmom_CV->SetMaximum(0.5*xsec_pmom_mc->GetMaximum()); 
+//   xsec_pmom_mc->SetTitleOffset(0.8, "X");
+//   xsec_pmom_CV->SetTitleOffset(0.8, "X");
 
-  xsec_pmom_mc->Draw();
-  xsec_pmom_CV->Draw("same");
-  leg->Draw("same");
+//   xsec_pmom_mc->Draw();
+//   xsec_pmom_CV->Draw("same");
+//   leg->Draw("same");
 
-  TCanvas *c3=new TCanvas("c3", "c3");
-  xsec_muangle_mc->SetMaximum(0.5*xsec_muangle_mc->GetMaximum());
-  xsec_muangle_CV->SetMaximum(0.5*xsec_muangle_mc->GetMaximum()); 
-  xsec_muangle_mc->SetTitleOffset(0.8, "X");
-  xsec_muangle_CV->SetTitleOffset(0.8, "X");
+//   TCanvas *c3=new TCanvas("c3", "c3");
+//   xsec_muangle_mc->SetMaximum(0.5*xsec_muangle_mc->GetMaximum());
+//   xsec_muangle_CV->SetMaximum(0.5*xsec_muangle_mc->GetMaximum()); 
+//   xsec_muangle_mc->SetTitleOffset(0.8, "X");
+//   xsec_muangle_CV->SetTitleOffset(0.8, "X");
 
-  xsec_muangle_mc->Draw();
-  xsec_muangle_CV->Draw("same");
-  leg->Draw("same");
+//   xsec_muangle_mc->Draw();
+//   xsec_muangle_CV->Draw("same");
+//   leg->Draw("same");
 
-  TCanvas *c4=new TCanvas("c4", "c4");
-  xsec_pangle_mc->SetMaximum(0.5*xsec_pangle_mc->GetMaximum());
-  xsec_pangle_CV->SetMaximum(0.5*xsec_pangle_mc->GetMaximum()); 
-  xsec_pangle_mc->SetTitleOffset(0.8, "X");
-  xsec_pangle_CV->SetTitleOffset(0.8, "X");
+//   TCanvas *c4=new TCanvas("c4", "c4");
+//   xsec_pangle_mc->SetMaximum(0.5*xsec_pangle_mc->GetMaximum());
+//   xsec_pangle_CV->SetMaximum(0.5*xsec_pangle_mc->GetMaximum()); 
+//   xsec_pangle_mc->SetTitleOffset(0.8, "X");
+//   xsec_pangle_CV->SetTitleOffset(0.8, "X");
 
-  xsec_pangle_mc->Draw();
-  xsec_pangle_CV->Draw("same");
-  leg->Draw("same");
+//   xsec_pangle_mc->Draw();
+//   xsec_pangle_CV->Draw("same");
+//   leg->Draw("same");
 
-  TCanvas *c5=new TCanvas("c5", "c5");
-  xsec_thetamup_mc->SetMaximum(0.2*xsec_thetamup_mc->GetMaximum());
-  xsec_thetamup_CV->SetMaximum(0.2*xsec_thetamup_mc->GetMaximum()); 
-  xsec_thetamup_mc->SetTitleOffset(0.8, "X");
-  xsec_thetamup_CV->SetTitleOffset(0.8, "X");
+//   TCanvas *c5=new TCanvas("c5", "c5");
+//   xsec_thetamup_mc->SetMaximum(0.2*xsec_thetamup_mc->GetMaximum());
+//   xsec_thetamup_CV->SetMaximum(0.2*xsec_thetamup_mc->GetMaximum()); 
+//   xsec_thetamup_mc->SetTitleOffset(0.8, "X");
+//   xsec_thetamup_CV->SetTitleOffset(0.8, "X");
 
-  xsec_thetamup_mc->Draw();
-  xsec_thetamup_CV->Draw("same");
-  leg->Draw("same");
+//   xsec_thetamup_mc->Draw();
+//   xsec_thetamup_CV->Draw("same");
+//   leg->Draw("same");
 
 
   output_file->Write();

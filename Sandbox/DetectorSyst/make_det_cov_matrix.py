@@ -84,10 +84,8 @@ for i in xrange(0, xsec_thetamup_cv.GetNbinsX()):
 
 print "start to set the detector systematic list and statistic bin values for analysis"
 
-#det_syst_list = ["CV", "DLdown", "DLup", "DTdown", "DTup", "LArG4BugFix", "altDeadChannels", "dataSCE", "downPEnoise", "enhancedexttpcvis","lifetime10ms", "noiseAmpDown", "noiseAmpUp", "squeezeResp", "stretchResp", "upPEnoise", "withDIC"]
+det_syst_list = ["CV", "DLdown", "DLup", "DTdown", "DTup", "LArG4BugFix", "altDeadChannels", "dataSCE", "downPEnoise", "enhancedexttpcvis","lifetime10ms", "noiseAmpDown", "noiseAmpUp", "squeezeResp", "stretchResp", "upPEnoise", "withDIC"]
 #det_syst_list = ["CV", "DLdown", "DLup", "DTup", "DTdown", "noiseAmpUp", "noiseAmpDown", "squeezeResp", "stretchResp", "downPEnoise", "upPEnoise","LArG4BugFix", "altDeadChannels", "dataSCE", "deadSaturatedChannels", "enhancedexttpcvis","lifetime10ms", "withDIC"]
-#det_syst_list = ["CV", "DLdown", "DLup", "DTup", "DTdown", "noiseAmpUp", "noiseAmpDown", "squeezeResp", "stretchResp", "downPEnoise", "upPEnoise", "LArG4BugFix", "altDeadChannels", "lifetime10ms"]
-#det_syst_list = ["CV", "DLdown", "DLup", "DTup", "DTdown", "noiseAmpUp", "noiseAmpDown", "squeezeResp", "stretchResp", "downPEnoise", "upPEnoise", "LArG4BugFix", "altDeadChannels", "dataSCE", "enhancedexttpcvis","lifetime10ms", "withDIC"]
 
 ######YOU HAVE TO RUN THESE SYSTEMATICS ONE AT A TIME RIGHT NOW!!!!!
 ######DO NOT RUN MORE THAN ONE AT A TIME.
@@ -108,7 +106,7 @@ print "start to set the detector systematic list and statistic bin values for an
 #det_syst_list = ["dataSCE"]
 #det_syst_list = ["enhancedexttpcvis"]
 #det_syst_list = ["lifetime10ms"]
-det_syst_list = ["withDIC"]
+#det_syst_list = ["withDIC"]
 
 #stat_err_perbin_mumom = [0.0041, 0.013, 0.010, 0.0048, 0.0028, 0.00067]
 #stat_err_perbin_muangle = [0.0034, 0.0026, 0.0060, 0.0038, 0.0055, 0.0087, 0.0080, 0.011, 0.018]
@@ -388,13 +386,3 @@ for syst_name in det_syst_list:
 # cov_matrix_muangle_mumom.Draw("colz")
 
 raw_input("Please press enter to exit.")
-
-
-
-
-
-
-
-
-
-
