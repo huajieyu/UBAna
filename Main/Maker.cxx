@@ -2779,7 +2779,7 @@ void Main::Maker::MakeFile()
     
     
     
-    std::cout<<"Start to perform the CCinclusive as precuts"<<std::endl; 
+    //std::cout<<"Start to perform the CCinclusive as precuts"<<std::endl; 
     
     
 
@@ -3151,7 +3151,7 @@ void Main::Maker::MakeFile()
     //===========================================================================================================
 
 
-    std::cout<<"End of CCinclusive Selection and Start the CC1uNP Selection"<<std::endl;
+    //std::cout<<"End of CCinclusive Selection and Start the CC1uNP Selection"<<std::endl;
 
 
     // CC1uNP Selection

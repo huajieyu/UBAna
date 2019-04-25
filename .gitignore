@@ -1,3 +1,4 @@
+Flux/*.root
 lib
 .depend
 *.o

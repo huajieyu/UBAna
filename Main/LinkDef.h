@@ -32,6 +32,8 @@
 #pragma link C++ class Main::Maker+;
 #pragma link C++ class Main::Analyse+;
 #pragma link C++ class Main::CC1uNPAna+;
+#pragma link C++ class Main::AnaEffUnc;
+
 //ADD_NEW_CLASS ... do not change this line
 #endif
 

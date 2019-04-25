@@ -44,14 +44,14 @@ void BinFinder2::Loop()
   TH2D * h_true_reco_abs = new TH2D("h_true_reco_abs", plot_label_abs.c_str(), 120, 0, 1, 120, 0, 1); //!
 
   double bins_muangle[10] = {-1.00, -0.50, 0.00, 0.28, 0.47, 0.63, 0.765, 0.865, 0.935, 1.00};
-	TH2D * h_true_reco_rightbin = new TH2D("h_true_reco_rightbin", plot_label.c_str(), 9, bins_muangle, 9, bins_muangle);
+  TH2D * h_true_reco_rightbin = new TH2D("h_true_reco_rightbin", plot_label.c_str(), 9, bins_muangle, 9, bins_muangle);
 
   TH1D * h_truth_mom_pre = new TH1D("h_truth_mom_pre", plot_label_pre.c_str(), 50, -1, 1.5); //!
 
   Long64_t nentries = fChain->GetEntriesFast();
 
 
-  double lower_bin = 0;
+  double lower_bin = -1;
   double upper_bin = 1;
 
   std::vector<double> bin_v;
@@ -73,22 +73,21 @@ void BinFinder2::Loop()
     	if (ientry < 0) break;
     	nb = fChain->GetEntry(jentry);   nbytes += nb;
 
-      double truth = mom_tree_angle_true; //! 
-		  double reco = mom_tree_angle_reco; //!
+        double truth = angle_true; //! 
+        double reco = angle_reco; //!
 
-      if (first) {
+        if (first) {
 	  	  h_true_reco->Fill(reco, truth);
 	  	  h_true_reco_abs->Fill(std::abs(reco), std::abs(truth));
 	  	  h_true_reco_rightbin->Fill(reco, truth);
-      }
+        }
 
-	    if (reco > lower_bin && reco < upper_bin) {
+	if (reco > lower_bin && reco < upper_bin) {
          h_truth_mom_pre->Fill(truth);
-		  }
+        }
 
-
-	  }
-	  first = false;
+    }
+    first = false;
 
 
 		double array[2];

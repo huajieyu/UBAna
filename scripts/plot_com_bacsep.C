@@ -96,7 +96,7 @@ float Chi2Calc(TH1D *histo_MC, TH1D *histo_bnb, TH1D *histo_extbnb, float scale_
 void plot_com_bacsep(){
   //loadStyle();
   int tune=1;
-  int cosmicCut=1;
+  int cosmicCut=0; //this should always be set to 0 since we are no longer performing a cosmic cut in the cc1mNp analysis - 16 April, 2019
   
   TFile *input0; // on-beam
   TFile *input1; // off-beam
@@ -1662,7 +1662,7 @@ void plot_com_bacsep(){
 
   std::cout<<"Calculating POT normalization factors "<<h_range_allsel[0]->GetEntries()<<std::endl;
 
-  /*
+  /*Make certain to update these numbers to make sure that the normalization is correct.
   */
  
   Float_t E1DCNT_wcut_bnb=35222964.0;

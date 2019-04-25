@@ -460,8 +460,8 @@ namespace Base {
   }
 
   void ReweightingPlotter::MakeBackgroundPlots(int variable, bool normalised, bool makeLaTeX) {
-    /*
-
+    
+/*
       // Pmu: variable == 0
   // CosThetaMu: variable == 1
 
@@ -905,7 +905,7 @@ namespace Base {
     latexFile3 << "\\end{adjustwidth}" << std::endl;
     latexFile3 << "\\end{figure}" << std::endl;
   }
- */
+*/ 
 
   }
 

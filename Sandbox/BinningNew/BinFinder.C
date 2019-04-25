@@ -36,6 +36,7 @@ void BinFinder::Loop()
 
 	TH2D * h_true_reco_mom = new TH2D("h_true_reco_mom", ";Muon Momentum (MCS) [GeV];Muon Momentum (Truth) [GeV]", 120, 0, 2.5, 120, 0, 2.5);
 	double bins_mumom[7] = {0.00, 0.18, 0.30, 0.45, 0.77, 1.28, 2.50};
+
 	TH2D * h_true_reco_mom_rightbin = new TH2D("h_true_reco_mom_rightbin", ";Muon Momentum (MCS) [GeV];Muon Momentum (Truth) [GeV]", 6, bins_mumom, 6, bins_mumom);
 
 	TH1D * h_reco_mom_pre_truth = new TH1D("h_reco_mom_pre_truth", ";Muon Momentum (Truth) [GeV];", 60, 0, 4);
@@ -55,7 +56,7 @@ void BinFinder::Loop()
 
 	bool exit_flag = false;
 
-  bool first = true;
+        bool first = true;
 
 	while (!exit_flag) {
 
@@ -67,22 +68,22 @@ void BinFinder::Loop()
 			if (ientry < 0) break;
 			nb = fChain->GetEntry(jentry);   nbytes += nb;
 
-			double true_mom = mom_tree_true;
-			double mcs_mom = mom_tree_mcs;
+			double true_mom = mom_true;
+			double mcs_mom = mom_mcs;
 
 			//h_true_reco_mom->Fill(true_mom, mcs_mom);
 			//h_true_reco_mom_rightbin->Fill(true_mom, mcs_mom);
 			if (first) {
 			  h_true_reco_mom->Fill(mcs_mom, true_mom);
 			  h_true_reco_mom_rightbin->Fill(mcs_mom, true_mom);
-      }
+                        }
 
 			//if (true_mom > lower_bin && true_mom < upper_bin) {
 				//h_reco_mom_pre_truth->Fill(mcs_mom);
 			//}
  
 			if (mcs_mom > lower_bin && mcs_mom < upper_bin) {
-        h_reco_mom_pre_truth->Fill(true_mom);
+                                h_reco_mom_pre_truth->Fill(true_mom);
 			}
 
 			if (first && mcs_mom > 0 && mcs_mom < 0.18) {
@@ -90,9 +91,9 @@ void BinFinder::Loop()
 			}
 
 		}
-
-    double array[2];
-
+                std::cout<<"Filled the histograms of the recovstrue and reco per truth"<<std::endl;
+                double array[2];
+                //array is the array of the fitting parameters
 		if (first) {
 			DoFit(h_reco_mom_pre_truth_firstbin, "test", "test", array, false);
 			bin_v.push_back(lower_bin);
@@ -102,14 +103,15 @@ void BinFinder::Loop()
 			std_v.push_back(array[1]);
 		}
 		first = false;
-
+                //==================================================================================
+                //fit the distribution of the whole bin
 		DoFit(h_reco_mom_pre_truth, "test", "test", array, false);
-		if (lower_bin > 0.29 && lower_bin < 0.31 && upper_bin > 0.99 && upper_bin < 1.1){
+		if (lower_bin > 0.29 && lower_bin < 0.31 && upper_bin > 0.99 && upper_bin < 1.1){ //why
 			ostringstream oss;
 			oss << "Reco. Momentum: " << lower_bin << "-" << upper_bin;
 			std::string label = oss.str();
 			ostringstream oss2;
-			oss2 << "reco_momentum_" << lower_bin << "_" << upper_bin;
+			oss2 << "reco_momentum_" << lower_bin << "-" << upper_bin;
 			std::string label2 = oss2.str();
 			DoFit(h_reco_mom_pre_truth, label, label2, array, true);
 		}
@@ -118,7 +120,7 @@ void BinFinder::Loop()
 		std::cout << "true bin: " << 2*array[1] << std::endl;
 		double truth_bin = upper_bin - lower_bin;
 		double reco_bin = 2*array[1];
-
+                //========================================================================================= 
 		if (std::abs(truth_bin - reco_bin) < 0.005) {
 			bin_v.push_back(upper_bin);
 			points_v.push_back((upper_bin + lower_bin)/2);
@@ -142,7 +144,7 @@ void BinFinder::Loop()
 		if (lower_bin > 1.9) exit_flag = true;
 		h_reco_mom_pre_truth->Reset();
 		//exit_flag = true;
-	}
+	} //end of while loop
 
 	std::cout << "Bins: " << std::endl;
 	for (auto b : bin_v)
@@ -159,16 +161,16 @@ void BinFinder::Loop()
 	line->Draw();
 
 	/*((TPaletteAxis*)h_true_reco_mom->GetListOfFunctions()->FindObject("palette"))->SetX1NDC(0.875);
-  ((TPaletteAxis*)h_true_reco_mom->GetListOfFunctions()->FindObject("palette"))->SetX1NDC(0.92);
-  gPad->Modified();
-  gPad->Update();*/
-  //TPaletteAxis* palette = (TPaletteAxis*)h_true_reco_mom->GetListOfFunctions()->FindObject("palette");
-  //palette->SetX1NDC(0.875);
-  //palette->SetX2NDC(0.92);
-  //palette->SetY1NDC(0.2);
-  //palette->SetY2NDC(0.8);
-  //gPad->Modified();
-  //gPad->Update();
+        ((TPaletteAxis*)h_true_reco_mom->GetListOfFunctions()->FindObject("palette"))->SetX1NDC(0.92);
+        gPad->Modified();
+        gPad->Update();*/
+        //TPaletteAxis* palette = (TPaletteAxis*)h_true_reco_mom->GetListOfFunctions()->FindObject("palette");
+        //palette->SetX1NDC(0.875);
+        //palette->SetX2NDC(0.92);
+        //palette->SetY1NDC(0.2);
+        //palette->SetY2NDC(0.8);
+        //gPad->Modified();
+        //gPad->Update();
 
 	TString n = "final_nopoints";
 
@@ -179,17 +181,17 @@ void BinFinder::Loop()
 	TCanvas * c00 = new TCanvas;
 	c00->SetRightMargin(0.13);
 	c00->Modified();
-  c00->Update();
+        c00->Update();
 	TLine *line2 = new TLine(0,0,2.5,2.5);
 	line2->SetLineColor(kRed);
 	h_true_reco_mom_rightbin->Draw("colz text");
 	line2->Draw();
 
-  //TPaletteAxis* palette00 = (TPaletteAxis*)h_true_reco_mom_rightbin->GetListOfFunctions()->FindObject("palette");
-  //palette00->SetX1NDC(0.875);
- // palette00->SetX2NDC(0.92);
-  //gPad->Modified();
-  //gPad->Update();
+        //TPaletteAxis* palette00 = (TPaletteAxis*)h_true_reco_mom_rightbin->GetListOfFunctions()->FindObject("palette");
+        //palette00->SetX1NDC(0.875);
+        // palette00->SetX2NDC(0.92);
+        //gPad->Modified();
+        //gPad->Update();
 
 	n = "final_nopoints_rightbin";
 
@@ -206,8 +208,8 @@ void BinFinder::Loop()
 
 	TCanvas * c = new TCanvas;
 	c->SetRightMargin(0.13);
-  c->Modified();
-  c->Update();
+        c->Modified();
+        c->Update();
 
 	TGraphErrors* gr = new TGraphErrors(pts,points,mean_array,error_x,sigma_array);
 	gr->SetMarkerStyle(kFullCircle);
@@ -222,17 +224,17 @@ void BinFinder::Loop()
 
 
 
-  TPaletteAxis* palette = (TPaletteAxis*)h_true_reco_mom->GetListOfFunctions()->FindObject("palette");
-  palette->SetX1NDC(0.875);
-  palette->SetX2NDC(0.92);
-  //palette->SetY1NDC(0.2);
-  //palette->SetY2NDC(0.8);
-  gPad->Modified();
-  gPad->Update();
+        TPaletteAxis* palette = (TPaletteAxis*)h_true_reco_mom->GetListOfFunctions()->FindObject("palette");
+        palette->SetX1NDC(0.875);
+        palette->SetX2NDC(0.92);
+        //palette->SetY1NDC(0.2);
+        //palette->SetY2NDC(0.8);
+        gPad->Modified();
+        gPad->Update();
 
 
-  //gr->Fit("pol1", "", "", 0.1, 0.9);
-  //TF1 *myfunc = gr->GetFunction("pol1");
+        //gr->Fit("pol1", "", "", 0.1, 0.9);
+        //TF1 *myfunc = gr->GetFunction("pol1");
 
 	n = "final";
 
@@ -261,8 +263,8 @@ void BinFinder::DoFit(TH1D * the_histo, std::string name, std::string save_name,
 	range->SetTextColor(kGray+2);
 	range->SetNDC();
 	range->SetNDC();
-  //range->SetTextSize(2/30.);
-  range->SetTextSize(0.038);
+        //range->SetTextSize(2/30.);
+        range->SetTextSize(0.038);
 	range->SetTextAlign(32);
 	range->Draw();
 
@@ -280,211 +282,7 @@ void BinFinder::DoFit(TH1D * the_histo, std::string name, std::string save_name,
 }
 
 
-void BinFinder::SmearingMatrix() {
 
-
-	//int matrix_size = 6 * 7;
-
-
-
-	Long64_t nentries = fChain->GetEntriesFast();
-
-  //                           1     2     3     4     5     6       7(overflow)
-	double bins_mumom[7] = {0.00, 0.18, 0.30, 0.45, 0.77, 1.28, 2.5};
-	TH2D * h_true_reco_mom_rightbin = new TH2D("h_true_reco_mom_rightbin", ";Muon Momentum (Truth) [GeV]; Muon Momentum (MCS) [GeV]", 6, bins_mumom, 6, bins_mumom);
-
-
-	Long64_t nbytes = 0, nb = 0;
-	for (Long64_t jentry=0; jentry<nentries;jentry++) {
-		Long64_t ientry = LoadTree(jentry);
-		if (ientry < 0) break;
-		nb = fChain->GetEntry(jentry);   nbytes += nb;
-
-
-		double true_mom = mom_tree_true;
-		double mcs_mom = mom_tree_mcs;
-
-		h_true_reco_mom_rightbin->Fill(true_mom, mcs_mom);
-
-
-	}
-
-	std::vector<std::vector<double>> S_temp;
-
-	double data[49] = {0.};
-
-
-	for (int i = 1; i < 8; i++) {      // Reco bin
-
-
-		std::cout << "This is reco bin " << i << std::endl;
-
-    std::vector<double> p_v;
-    p_v.resize(8);
-
-    double sum = 0;
-
-		for (int j = 1; j < 8; j++) {    // True bin
-
-			std::cout << "\tThis is true bin " << j << std::endl;
-
-      p_v.at(j) = h_true_reco_mom_rightbin->GetBinContent(j, i);
-      sum += p_v.at(j);
-
-      std::cout << "\tValue is " << p_v.at(j) << std::endl;
-
-		}
-
-		std::cout << "\t>>> Sum is " << sum << std::endl;
-
-    double tot_prob = 0;
-
-		for (int j = 1; j < 8; j++) {
-			p_v.at(j) /= sum;
-
-			std::cout << "\t\tProbability at " << j << " is " << p_v.at(j) << std::endl;
-			tot_prob += p_v.at(j);
-
-      int row_offset = (i-1)*7;
-			data[row_offset + j-1] = p_v.at(j);
-		}
-		std::cout << "\t\t> Total Probability is " << tot_prob << std::endl;
-
-    S_temp.emplace_back(p_v);
-
-	} // reco bin
-
-	//TMatrixD a(6,6);
-	//a.SetMatrixArray(data);
-	//a.Print();
-
-  ROOT::Math::SMatrix<double,7> S(data, 49);
-
-  std::cout << S << std::endl;
-
-  ROOT::Math::SVector<double,7> eff_true (0.263441, 0.497797, 0.587106, 0.589119, 0.59103, 0.569231, 1);
-
-  std::cout << S * eff_true << std::endl;
-
-  //double det;
-  //S.Det(det);
-  //std::cout << "determinant is " << det << std::endl;
-
-
-  TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("../../ubxsecana_output_bnbcosmic_mcc8.6_stopmu_test15.root");
-  if (!f || !f->IsOpen()) {
-    f = new TFile("../../ubxsecana_output_bnbcosmic_mcc8.6_stopmu_test15.root");
-  }
-
-  TH1D* h_eff_mumom_num = (TH1D*)f->Get("h_eff_mumom_num");
-  TH1D* h_eff_mumom_den = (TH1D*)f->Get("h_eff_mumom_den");
-
-  // 
-  // Plot without smearing
-  //
-
-  TCanvas * c = new TCanvas;
-  h_eff_mumom_den->SetTitle("");
-  h_eff_mumom_den->GetXaxis()->SetTitle("p_{#mu}^{truth} [GeV]");
-  h_eff_mumom_den->GetYaxis()->SetTitle("Events");
-  h_eff_mumom_den->SetFillColorAlpha(30, 0.35);
-  h_eff_mumom_den->SetLineColor(30);
-  h_eff_mumom_den->SetLineWidth(3);
-
-	h_eff_mumom_den->Draw("histo");
-
-  h_eff_mumom_num->SetFillColorAlpha(9, 0.35);
-  h_eff_mumom_num->SetLineColor(9);
-  h_eff_mumom_num->SetLineWidth(3);
-
-	h_eff_mumom_num->Draw("histo same");
-
-	TLegend * ll = new TLegend(0.5315186,0.7515789,0.8696275,0.8821053,NULL,"brNDC");
-  ll->AddEntry(h_eff_mumom_den,"Generated #nu_{#mu} CC in FV","f");
-  ll->AddEntry(h_eff_mumom_num,"Selected #nu_{#mu} CC in FV","f");
-  ll->Draw();
-
-	TString n = "all_selected";
-	n = n + "_true";
-	c->SaveAs("output/" + n + ".pdf");
-
-	std::cout << "h_eff_mumom_num->Integral(): " << h_eff_mumom_num->Integral() << std::endl;
-	std::cout << "h_eff_mumom_den->Integral(): " << h_eff_mumom_den->Integral() << std::endl;
-
-  //
-  // Efficiency (true)
-  //
-
-	TEfficiency* teff_true = new TEfficiency(*h_eff_mumom_num,*h_eff_mumom_den);
-
-  TCanvas * c_eff_true = new TCanvas;
-  teff_true->SetTitle(";True Muon Momentum [GeV];Efficiency");
-  teff_true->SetLineColor(kGreen+3);
-  teff_true->SetMarkerColor(kGreen+3);
-  teff_true->SetMarkerStyle(20);
-  teff_true->SetMarkerSize(0.5);
-  teff_true->Draw("AP");
-
-  n = "efficiecy_mumon_true";
-	c->SaveAs("output/" + n + ".pdf");
-
-	// 
-  // Do the smearing
-  //
-
-  ROOT::Math::SVector<double,7> eff_num_true;
-  ROOT::Math::SVector<double,7> eff_den_true;
-
-  for (int bin = 1; bin < 8; bin++) {
-  	eff_num_true[bin-1] = h_eff_mumom_num->GetBinContent(bin);
-  	eff_den_true[bin-1] = h_eff_mumom_den->GetBinContent(bin);
-  }
-
-  ROOT::Math::SVector<double,7> eff_num_smear = S * eff_num_true;
-  ROOT::Math::SVector<double,7> eff_den_smear = S * eff_den_true;
-
-  TH1D* h_eff_mumom_num_smear = (TH1D*) h_eff_mumom_num->Clone("h_eff_mumom_num_smear");
-  TH1D* h_eff_mumom_den_smear = (TH1D*) h_eff_mumom_den->Clone("h_eff_mumom_den_smear");
-   
-  for (int bin = 1; bin < 8; bin++) {
-  	h_eff_mumom_num_smear->SetBinContent(bin, eff_num_smear(bin-1));
-  	h_eff_mumom_den_smear->SetBinContent(bin, eff_den_smear(bin-1));
-  }
-
-  TCanvas * c_smear = new TCanvas;
-  h_eff_mumom_den_smear->SetTitle("");
-  h_eff_mumom_den_smear->GetXaxis()->SetTitle("p_{#mu}^{reco} [GeV]");
-  h_eff_mumom_den_smear->GetYaxis()->SetTitle("Events");
-	h_eff_mumom_den_smear->Draw("histo");
-	h_eff_mumom_num_smear->Draw("histo same");
-
-	ll->Draw();
-
-	n = "all_selected_smear";
-	c_smear->SaveAs("output/" + n + ".pdf");
-
-  std::cout << "h_eff_mumom_num_smear->Integral(): " << h_eff_mumom_num_smear->Integral() << std::endl;
-	std::cout << "h_eff_mumom_den_smear->Integral(): " << h_eff_mumom_den_smear->Integral() << std::endl;
-
-
-	//
-  // Efficiency (reco)
-  //
-
-	TEfficiency* teff_reco = new TEfficiency(*h_eff_mumom_num_smear,*h_eff_mumom_den_smear);
-
-  TCanvas * c_eff_reco = new TCanvas;
-  teff_reco->SetTitle(";Reco Muon Momentum [GeV];Efficiency");
-  teff_reco->SetLineColor(kGreen+3);
-  teff_reco->SetMarkerColor(kGreen+3);
-  teff_reco->SetMarkerStyle(20);
-  teff_reco->SetMarkerSize(0.5);
-  teff_reco->Draw("AP");
-
-  n = "efficiecy_mumon_reco";
-	c->SaveAs("output/" + n + ".pdf");
-
-}
 
 
 

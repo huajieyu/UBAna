@@ -26,8 +26,8 @@ analyser.SetExtraUncertainty(extra_unc)
 
 
 
-# flux_syst_list = ["FluxUnisim", "kminus", "kplus", "kzero", "piminus", "piplus"]
-flux_syst_list = ["piplus"]
+flux_syst_list = ["FluxUnisim", "kminus", "kplus", "kzero", "piminus", "piplus"]
+#flux_syst_list = ["piplus"]
 
 for systname in flux_syst_list:
   file_name = "/Users/deltutto/RealWork/CCInclusiveEventSelection/Files/Output/ubxsecana_output_bnbcosmic_mcc8.7_test6_" + systname + ".root"

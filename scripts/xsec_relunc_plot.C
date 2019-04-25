@@ -97,7 +97,7 @@ void xsec_relunc_plot(){
   double bins_muptheta[7] = {0.00, 1.00, 1.31, 1.5, 1.7, 2.04, 3.14};
   int n_bins_muptheta = 6;
  
-int sys_sel=4;
+int sys_sel=5;
 string syst_unc_name="";
 std::vector<std::string> syst_unc_list;
 
@@ -106,6 +106,9 @@ bool genie_syst = false;
 bool extra_syst = false;
 bool total_flux_syst = false;
 bool total_extra_syst = false;
+bool det_syst = false;
+bool total_det_syst = false;
+
 if(sys_sel==0){
 genie_syst=true;
 syst_unc_name="genie";
@@ -141,151 +144,236 @@ syst_unc_list.push_back("extra_syst_reint_proton");
 syst_unc_list.push_back("extra_syst_reint_piplus");
 syst_unc_list.push_back("extra_syst_reint_piminus");
 }
+if(sys_sel==5){
+  det_syst=true;
+  syst_unc_name="det_syst";
+  syst_unc_list.push_back("DLdown");
+  syst_unc_list.push_back("DLup");
+  syst_unc_list.push_back("DTup");
+  syst_unc_list.push_back("DTdown");
+  syst_unc_list.push_back("noiseAmpUp");
+  syst_unc_list.push_back("noiseAmpDown");
+  syst_unc_list.push_back("squeezeResp");
+  syst_unc_list.push_back("stretchResp");
+  syst_unc_list.push_back("downPEnoise");
+  syst_unc_list.push_back("upPEnoise");
+  syst_unc_list.push_back("LArG4BugFix");
+  syst_unc_list.push_back("altDeadChannels");
+  syst_unc_list.push_back("dataSCE");
+  syst_unc_list.push_back("enhancedexttpcvis");
+  syst_unc_list.push_back("lifetime10ms");
+  syst_unc_list.push_back("withDIC");
+ }
 auto mg=new TMultiGraph;
-TH1D *gr_mumom_1[15];
-TH1D *gr_mumom_2[15];
-TH1D *gr_pmom_1[15];
-TH1D *gr_pmom_2[15];
-TH1D *gr_muangle_1[15];
-TH1D *gr_muangle_2[15];
-TH1D *gr_pangle_1[15];
-TH1D *gr_pangle_2[15];
+TH1D *total_mumom_1;
+TH1D *gr_mumom_1[20];
+//TH1D *gr_mumom_2[20];
+TH1D *total_pmom_1;
+TH1D *gr_pmom_1[20];
+//TH1D *gr_pmom_2[20];
+TH1D *total_muangle_1;
+TH1D *gr_muangle_1[20];
+//TH1D *gr_muangle_2[20];
+TH1D *total_pangle_1;
+TH1D *gr_pangle_1[20];
+//TH1D *gr_pangle_2[20];
+TH1D *total_thetamup_1;
+TH1D *gr_thetamup_1[20];
+//TH1D *gr_thetamup_2[20];
+ int dd = 9999;
 
-TH1D *gr_thetamup_1[15];
-TH1D *gr_thetamup_2[15];
-
-
-
+ total_mumom_1=new TH1D(Form("Muon_Momentum_%d",dd), Form("Muon_Momentum_%d",dd), n_bins_mumom, bins_mumom);
+ total_mumom_1->GetXaxis()->SetTitle("P_{#mu}[GeV]");
+ total_mumom_1->GetYaxis()->SetTitle("Relative Uncertainty");
+ total_mumom_1->SetLineColor(2);
+ total_mumom_1->SetLineWidth(4);
+ total_mumom_1->SetFillStyle(0);
+ total_mumom_1->SetMinimum(0); 
+ total_mumom_1->SetMaximum(1.0);
+ 
+ total_pmom_1=new TH1D(Form("Proton_Momentum_%d",dd), Form("Proon_Momentum_%d",dd), n_bins_pmom, bins_pmom);
+ total_pmom_1->GetXaxis()->SetTitle("P_{proton}[GeV]");
+ total_pmom_1->GetYaxis()->SetTitle("Relative Uncertainty");
+ total_pmom_1->SetLineColor(2);
+ total_pmom_1->SetLineWidth(4);
+ total_pmom_1->SetFillStyle(0);
+ total_pmom_1->SetMinimum(0); 
+ total_pmom_1->SetMaximum(1.0);
+ 
+ total_muangle_1=new TH1D(Form("Muon_CosTheta_%d",dd), Form("Muon_CosTheta_%d",dd), n_bins_mucostheta, bins_mucostheta);
+ total_muangle_1->GetXaxis()->SetTitle("Cos#theta_{#mu}");
+ total_muangle_1->GetYaxis()->SetTitle("Relative Uncertainty");
+ total_muangle_1->SetLineColor(2);
+ total_muangle_1->SetLineWidth(4);
+ total_muangle_1->SetFillStyle(0);
+ total_muangle_1->SetMinimum(0); 
+ total_muangle_1->SetMaximum(1.0);
+ 
+ total_pangle_1=new TH1D(Form("Proton_CosTheta_%d",dd), Form("Proton_CosTheta_%d",dd), n_bins_pcostheta, bins_pcostheta);
+ total_pangle_1->GetXaxis()->SetTitle("Cos#theta_{proton}");
+ total_pangle_1->GetYaxis()->SetTitle("Relative Uncertainty");
+ total_pangle_1->SetLineColor(2);
+ total_pangle_1->SetLineWidth(4);
+ total_pangle_1->SetFillStyle(0);
+ total_pangle_1->SetMinimum(0); 
+ total_pangle_1->SetMaximum(1.0);
+ 
+ total_thetamup_1=new TH1D(Form("Thetamup_%d",dd), Form("Thetamup_%d",dd), n_bins_muptheta, bins_muptheta); 
+ total_thetamup_1->GetXaxis()->SetTitle("#theta_{#mu, proton}");
+ total_thetamup_1->GetYaxis()->SetTitle("Relative Uncertainty");
+ total_thetamup_1->SetLineColor(2);
+ total_thetamup_1->SetLineWidth(4);
+ total_thetamup_1->SetFillStyle(0);
+ total_thetamup_1->SetMinimum(0); 
+ total_thetamup_1->SetMaximum(1.0);
 
 for(int k=0; k<syst_unc_list.size(); k++){
-   gr_mumom_1[k]=new TH1D(Form("Muon_Momentum_default_%d",k), Form("Muon_Momentum_default_%d",k), n_bins_mumom, bins_mumom); 
+   gr_mumom_1[k]=new TH1D(Form("Muon_Momentum_%d",k), Form("Muon_Momentum_%d",k), n_bins_mumom, bins_mumom); 
    gr_mumom_1[k]->GetXaxis()->SetTitle("P_{#mu}[GeV]");
    gr_mumom_1[k]->GetYaxis()->SetTitle("Relative Uncertainty");
 
-   gr_mumom_2[k]=new TH1D(Form("Muon_Momentum_showerastrack_%d",k), Form("Muon_Momentum_showerastrack_%d",k), n_bins_mumom, bins_mumom);
-   gr_mumom_2[k]->GetXaxis()->SetTitle("P_{#mu}[GeV]");
-   gr_mumom_2[k]->GetYaxis()->SetTitle("Relative Uncertainty");
+   //gr_mumom_2[k]=new TH1D(Form("Muon_Momentum_showerastrack_%d",k), Form("Muon_Momentum_showerastrack_%d",k), n_bins_mumom, bins_mumom);
+   //gr_mumom_2[k]->GetXaxis()->SetTitle("P_{#mu}[GeV]");
+   //gr_mumom_2[k]->GetYaxis()->SetTitle("Relative Uncertainty");
 
-   gr_pmom_1[k]=new TH1D(Form("Proton_Momentum_default_%d",k), Form("Proton_Momentum_default_%d",k), n_bins_pmom, bins_pmom); 
+   gr_pmom_1[k]=new TH1D(Form("Proton_Momentum_%d",k), Form("Proton_Momentum_%d",k), n_bins_pmom, bins_pmom); 
    gr_pmom_1[k]->GetXaxis()->SetTitle("P_{proton}[GeV]");
    gr_pmom_1[k]->GetYaxis()->SetTitle("Relative Uncertainty");
 
-   gr_pmom_2[k]=new TH1D(Form("Proton_Momentum_showerastrack_%d",k), Form("Proton_Momentum_showerastrack_%d",k), n_bins_pmom, bins_pmom);
-   gr_pmom_2[k]->GetXaxis()->SetTitle("P_{proton}[GeV]");
-   gr_pmom_2[k]->GetYaxis()->SetTitle("Relative Uncertainty");
+   //gr_pmom_2[k]=new TH1D(Form("Proton_Momentum_showerastrack_%d",k), Form("Proton_Momentum_showerastrack_%d",k), n_bins_pmom, bins_pmom);
+   //gr_pmom_2[k]->GetXaxis()->SetTitle("P_{proton}[GeV]");
+   //gr_pmom_2[k]->GetYaxis()->SetTitle("Relative Uncertainty");
 
-   gr_muangle_1[k]=new TH1D(Form("Muon_CosTheta_default_%d",k), Form("Muon_CosTheta_default_%d",k), n_bins_mucostheta, bins_mucostheta); 
+   gr_muangle_1[k]=new TH1D(Form("Muon_CosTheta_%d",k), Form("Muon_CosTheta_%d",k), n_bins_mucostheta, bins_mucostheta); 
    gr_muangle_1[k]->GetXaxis()->SetTitle("Cos#theta_{#mu}");
    gr_muangle_1[k]->GetYaxis()->SetTitle("Relative Uncertainty");
 
-   gr_muangle_2[k]=new TH1D(Form("Muon_CosTheta_showerastrack_%d",k), Form("Muon_CosTheta_showerastrack_%d",k), n_bins_mucostheta, bins_mucostheta);
-   gr_muangle_2[k]->GetXaxis()->SetTitle("Cos#theta_{#mu}");
-   gr_muangle_2[k]->GetYaxis()->SetTitle("Relative Uncertainty");
+   //gr_muangle_2[k]=new TH1D(Form("Muon_CosTheta_showerastrack_%d",k), Form("Muon_CosTheta_showerastrack_%d",k), n_bins_mucostheta, bins_mucostheta);
+   //gr_muangle_2[k]->GetXaxis()->SetTitle("Cos#theta_{#mu}");
+   //gr_muangle_2[k]->GetYaxis()->SetTitle("Relative Uncertainty");
 
-   gr_pangle_1[k]=new TH1D(Form("Proton_CosTheta_default_%d",k), Form("Proton_CosTheta_default_%d",k), n_bins_pcostheta, bins_pcostheta); 
+   gr_pangle_1[k]=new TH1D(Form("Proton_CosTheta_%d",k), Form("Proton_CosTheta_%d",k), n_bins_pcostheta, bins_pcostheta); 
    gr_pangle_1[k]->GetXaxis()->SetTitle("Cos#theta_{proton}");
    gr_pangle_1[k]->GetYaxis()->SetTitle("Relative Uncertainty");
 
-   gr_pangle_2[k]=new TH1D(Form("Proton_CosTheta_showerastrack_%d",k), Form("Proton_CosTheta_showerastrack_%d",k), n_bins_pcostheta, bins_pcostheta);
-   gr_pangle_2[k]->GetXaxis()->SetTitle("Cos#theta_{proton}");
-   gr_pangle_2[k]->GetYaxis()->SetTitle("Relative Uncertainty");
+   //gr_pangle_2[k]=new TH1D(Form("Proton_CosTheta_showerastrack_%d",k), Form("Proton_CosTheta_showerastrack_%d",k), n_bins_pcostheta, bins_pcostheta);
+   //gr_pangle_2[k]->GetXaxis()->SetTitle("Cos#theta_{proton}");
+   //gr_pangle_2[k]->GetYaxis()->SetTitle("Relative Uncertainty");
 
-   gr_thetamup_1[k]=new TH1D(Form("Thetamup_default_%d",k), Form("Thetamup_default_%d",k), n_bins_muptheta, bins_muptheta); 
+   gr_thetamup_1[k]=new TH1D(Form("Thetamup_%d",k), Form("Thetamup_%d",k), n_bins_muptheta, bins_muptheta); 
    gr_thetamup_1[k]->GetXaxis()->SetTitle("#theta_{#mu, proton}");
    gr_thetamup_1[k]->GetYaxis()->SetTitle("Relative Uncertainty");
 
-   gr_thetamup_2[k]=new TH1D(Form("Thetamup_showerastrack_%d",k), Form("Thetamup_showerastrack_%d",k), n_bins_muptheta, bins_muptheta);
-   gr_thetamup_2[k]->GetXaxis()->SetTitle("#theta_{#mu, proton}");
-   gr_thetamup_2[k]->GetYaxis()->SetTitle("Relative Uncertainty");
-
- 
+   //gr_thetamup_2[k]=new TH1D(Form("Thetamup_showerastrack_%d",k), Form("Thetamup_showerastrack_%d",k), n_bins_muptheta, bins_muptheta);
+   //gr_thetamup_2[k]->GetXaxis()->SetTitle("#theta_{#mu, proton}");
+   //gr_thetamup_2[k]->GetYaxis()->SetTitle("Relative Uncertainty");
 }
 for(int j=0; j<syst_unc_list.size(); j++){
 
    string inputfilename1;
-   string inputfilename2;
+   //string inputfilename2;
    if(sys_sel==0 || sys_sel ==1 || sys_sel==2) {
    inputfilename1="/pnfs/uboone/persistent/users/jiangl/CC1uNPSelection/geniefluxextra_showernotastrack/covariance_"+syst_unc_list[j]+".root";
-   inputfilename2="/pnfs/uboone/persistent/users/jiangl/CC1uNPSelection/geniefluxextra_showerastrack/covariance_"+syst_unc_list[j]+".root";
+   //inputfilename2="/pnfs/uboone/persistent/users/jiangl/CC1uNPSelection/geniefluxextra_showerastrack/covariance_"+syst_unc_list[j]+".root";
    }
 
    if(sys_sel==3){
    inputfilename1="/pnfs/uboone/persistent/users/jiangl/CC1uNPSelection/showernotastrack_folder/covariance_"+syst_unc_list[j]+".root";
-   inputfilename2="/pnfs/uboone/persistent/users/jiangl/CC1uNPSelection/showerastrack_folder/covariance_"+syst_unc_list[j]+".root";
+   //inputfilename2="/pnfs/uboone/persistent/users/jiangl/CC1uNPSelection/showerastrack_folder/covariance_"+syst_unc_list[j]+".root";
    }
    else if(sys_sel==4){
    inputfilename1="/pnfs/uboone/persistent/users/jiangl/CC1uNPSelection/extra_showernotbuiltastrack/covariance_"+syst_unc_list[j]+".root";
-   inputfilename2="/pnfs/uboone/persistent/users/jiangl/CC1uNPSelection/extra_showerbuiltastrack/covariance_"+syst_unc_list[j]+".root";
+   //inputfilename2="/pnfs/uboone/persistent/users/jiangl/CC1uNPSelection/extra_showerbuiltastrack/covariance_"+syst_unc_list[j]+".root";
+   }
+   else if(sys_sel==5){
+   inputfilename1="/build/kirby/UBAna_dev/UBAna/Sandbox/DetectorSyst/covariance_detector_"+syst_unc_list[j]+".root";
+   //inputfilename2="/pnfs/uboone/persistent/users/jiangl/CC1uNPSelection/extra_showerbuiltastrack/covariance_"+syst_unc_list[j]+".root";
    }
    std::cout<<inputfilename1<<std::endl;
-   std::cout<<inputfilename2<<std::endl;
+   //std::cout<<inputfilename2<<std::endl;
    inputfile1=new TFile(inputfilename1.c_str());
-   inputfile2=new TFile(inputfilename2.c_str());
+   //inputfile2=new TFile(inputfilename2.c_str());
 
 
    TH2D *covariance_matrix_mumom_1;
-   TH2D *covariance_matrix_mumom_2;
+   //TH2D *covariance_matrix_mumom_2;
    if(genie_syst==true){
    covariance_matrix_mumom_1=(TH2D*)inputfile1->Get("frac_covariance_matrix_genie_mumom");
-   covariance_matrix_mumom_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_genie_mumom"); 
+   //covariance_matrix_mumom_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_genie_mumom"); 
    }else if(flux_syst==true || total_flux_syst == true){
    covariance_matrix_mumom_1=(TH2D*)inputfile1->Get("frac_covariance_matrix_flux_mumom");
-   covariance_matrix_mumom_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_flux_mumom");     
+   //covariance_matrix_mumom_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_flux_mumom");     
    }else if(extra_syst==true || total_extra_syst == true){
    covariance_matrix_mumom_1=(TH2D*)inputfile1->Get("frac_covariance_matrix_extra_syst_mumom");
-   covariance_matrix_mumom_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_extra_syst_mumom");     
+   //covariance_matrix_mumom_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_extra_syst_mumom");     
+   }else if(det_syst==true || total_det_syst == true){
+   covariance_matrix_mumom_1=(TH2D*)inputfile1->Get("frac_covariance_matrix_detector_mumom");
+   //covariance_matrix_mumom_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_extra_syst_mumom");     
    }
+
    
    TH2D *covariance_matrix_pmom_1;
-   TH2D *covariance_matrix_pmom_2;
+   //TH2D *covariance_matrix_pmom_2;
    if(genie_syst ==true){
    covariance_matrix_pmom_1=(TH2D*)inputfile1->Get("frac_covariance_matrix_genie_pmom");
-   covariance_matrix_pmom_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_genie_pmom"); 
+   //covariance_matrix_pmom_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_genie_pmom"); 
    }else if(flux_syst==true || total_flux_syst == true){
    covariance_matrix_pmom_1=(TH2D*)inputfile1->Get("frac_covariance_matrix_flux_pmom");
-   covariance_matrix_pmom_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_flux_pmom");     
+   //covariance_matrix_pmom_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_flux_pmom");     
    }else if(extra_syst==true || total_extra_syst == true){
    covariance_matrix_pmom_1=(TH2D*)inputfile1->Get("frac_covariance_matrix_extra_syst_pmom");
-   covariance_matrix_pmom_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_extra_syst_pmom");     
+   //covariance_matrix_pmom_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_extra_syst_pmom");     
+   }else if(det_syst==true || total_det_syst == true){
+   covariance_matrix_pmom_1=(TH2D*)inputfile1->Get("frac_covariance_matrix_detector_pmom");
+   //covariance_matrix_pmom_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_extra_syst_pmom");     
    } 
  
    TH2D *covariance_matrix_muangle_1;
-   TH2D *covariance_matrix_muangle_2;
+   //TH2D *covariance_matrix_muangle_2;
    if(genie_syst==true){
    covariance_matrix_muangle_1=(TH2D*)inputfile1->Get("frac_covariance_matrix_genie_muangle");
-   covariance_matrix_muangle_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_genie_muangle"); 
+   //covariance_matrix_muangle_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_genie_muangle"); 
    }else if(flux_syst==true || total_flux_syst == true){
    covariance_matrix_muangle_1=(TH2D*)inputfile1->Get("frac_covariance_matrix_flux_muangle");
-   covariance_matrix_muangle_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_flux_muangle");     
+   //covariance_matrix_muangle_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_flux_muangle");     
    }else if(extra_syst==true || total_extra_syst == true){
    covariance_matrix_muangle_1=(TH2D*)inputfile1->Get("frac_covariance_matrix_extra_syst_muangle");
-   covariance_matrix_muangle_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_extra_syst_muangle");     
+   //covariance_matrix_muangle_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_extra_syst_muangle");     
+   }else if(det_syst==true || total_det_syst == true){
+   covariance_matrix_muangle_1=(TH2D*)inputfile1->Get("frac_covariance_matrix_detector_muangle");
+   //covariance_matrix_muangle_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_extra_syst_muangle");     
    } 
  
    TH2D *covariance_matrix_pangle_1;
-   TH2D *covariance_matrix_pangle_2;
+   //TH2D *covariance_matrix_pangle_2;
    if(genie_syst==true){
    covariance_matrix_pangle_1=(TH2D*)inputfile1->Get("frac_covariance_matrix_genie_pangle");
-   covariance_matrix_pangle_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_genie_pangle"); 
+   //covariance_matrix_pangle_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_genie_pangle"); 
    }else if(flux_syst==true || total_flux_syst == true){
    covariance_matrix_pangle_1=(TH2D*)inputfile1->Get("frac_covariance_matrix_flux_pangle");
-   covariance_matrix_pangle_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_flux_pangle");     
+   //covariance_matrix_pangle_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_flux_pangle");     
    }else if(extra_syst==true || total_extra_syst == true){
    covariance_matrix_pangle_1=(TH2D*)inputfile1->Get("frac_covariance_matrix_extra_syst_pangle");
-   covariance_matrix_pangle_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_extra_syst_pangle");     
+   //covariance_matrix_pangle_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_extra_syst_pangle");     
+   }else if(det_syst==true || total_det_syst == true){
+   covariance_matrix_pangle_1=(TH2D*)inputfile1->Get("frac_covariance_matrix_detector_pangle");
+   //covariance_matrix_pangle_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_extra_syst_pangle");     
    } 
 
    TH2D *covariance_matrix_thetamup_1;
-   TH2D *covariance_matrix_thetamup_2;
+   //TH2D *covariance_matrix_thetamup_2;
    if(genie_syst==true){
    covariance_matrix_thetamup_1=(TH2D*)inputfile1->Get("frac_covariance_matrix_genie_thetamup");
-   covariance_matrix_thetamup_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_genie_thetamup"); 
+   //covariance_matrix_thetamup_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_genie_thetamup"); 
    }else if(flux_syst==true || total_flux_syst == true){
    covariance_matrix_thetamup_1=(TH2D*)inputfile1->Get("frac_covariance_matrix_flux_thetamup");
-   covariance_matrix_thetamup_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_flux_thetamup");     
+   //covariance_matrix_thetamup_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_flux_thetamup");     
    }else if(extra_syst==true || total_extra_syst == true){
    covariance_matrix_thetamup_1=(TH2D*)inputfile1->Get("frac_covariance_matrix_extra_syst_thetamup");
-   covariance_matrix_thetamup_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_extra_syst_thetamup");     
+   //covariance_matrix_thetamup_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_extra_syst_thetamup");     
+   }else if(det_syst==true || total_det_syst == true){
+   covariance_matrix_thetamup_1=(TH2D*)inputfile1->Get("frac_covariance_matrix_detector_thetamup");
+   //covariance_matrix_thetamup_2=(TH2D*)inputfile2->Get("frac_covariance_matrix_extra_syst_thetamup");     
    } 
    std::cout<<"start creating a canvas to make plots"<<std::endl;
 
@@ -294,7 +382,7 @@ for(int j=0; j<syst_unc_list.size(); j++){
 
    Int_t nbins=covariance_matrix_mumom_1->GetNbinsX();
    Double_t xsec_unc_mumom_1[nbins];
-   Double_t xsec_unc_mumom_2[nbins];
+   //Double_t xsec_unc_mumom_2[nbins];
    Double_t xbinind_mumom[nbins];
    
    std::cout<<"libo test 0"<<std::endl;
@@ -302,34 +390,39 @@ for(int j=0; j<syst_unc_list.size(); j++){
      xsec_unc_mumom_1[i]=covariance_matrix_mumom_1->GetBinContent(i+1,i+1);
      xsec_unc_mumom_1[i]=sqrt(xsec_unc_mumom_1[i]);
 
-     xsec_unc_mumom_2[i]=covariance_matrix_mumom_2->GetBinContent(i+1,i+1);
-     xsec_unc_mumom_2[i]=sqrt(xsec_unc_mumom_2[i]);
+     //xsec_unc_mumom_2[i]=covariance_matrix_mumom_2->GetBinContent(i+1,i+1);
+     //xsec_unc_mumom_2[i]=sqrt(xsec_unc_mumom_2[i]);
 
      xbinind_mumom[i]=bins_mumom[i]+(bins_mumom[i+1]-bins_mumom[i])/2.0;
      gr_mumom_1[j]->SetBinContent(i+1, xsec_unc_mumom_1[i]);
-     gr_mumom_2[j]->SetBinContent(i+1, xsec_unc_mumom_2[i]);
+     total_mumom_1->SetBinContent(i+1, total_mumom_1->GetBinContent(i+1) + xsec_unc_mumom_1[i]*xsec_unc_mumom_1[i]);
+     //gr_mumom_2[j]->SetBinContent(i+1, xsec_unc_mumom_2[i]);
 
-     std::cout<<"j=  "<<j<<" "<<i<<" th"<<xsec_unc_mumom_1[i]<<std::endl; 
+     //std::cout<<"j=  "<<j<<" "<<i<<" th"<<xsec_unc_mumom_1[i]<<std::endl; 
    }
    //gr_mumom_1[j]=new TGraph(nbins, xbinind_mumom, xsec_unc_mumom_1);
    //gr_mumom_1[j]->SetMarkerStyle(21);
    //gr_mumom_1[j]->SetDrawOption("AP");
-   gr_mumom_1[j]->SetLineColor(2+j);
-   if(j+2==5) {gr_mumom_1[j]->SetLineColor(28);}
+   if (j<4) gr_mumom_1[j]->SetLineColor(kCyan+j);
+   else if (j<8) gr_mumom_1[j]->SetLineColor(kGreen+j-4);
+   else if (j<12) gr_mumom_1[j]->SetLineColor(kMagenta+j-8);
+   else if (j<16) gr_mumom_1[j]->SetLineColor(kGray+j-12);
+   else gr_mumom_1[j]->SetLineColor(kYellow+j-16);
+   //   if(j+2==2) {gr_mumom_1[j]->SetLineColor(28);}
    gr_mumom_1[j]->SetLineWidth(4);
    gr_mumom_1[j]->SetFillStyle(0);
    gr_mumom_1[j]->SetMinimum(0); 
-   gr_mumom_1[j]->SetMaximum(0.3);
+   gr_mumom_1[j]->SetMaximum(1.0);
 
    //gr_mumom_2[j]->SetMarkerStyle(22);
    //gr_mumom_2[j]->SetDrawOption("P");
-   gr_mumom_2[j]->SetLineColor(2+j);
-   if(j+2==5) {gr_mumom_2[j]->SetLineColor(28);}
-   gr_mumom_2[j]->SetLineStyle(2);
-   gr_mumom_2[j]->SetLineWidth(4);
-   gr_mumom_2[j]->SetFillStyle(0);
-   gr_mumom_2[j]->SetMinimum(0);
-   gr_mumom_2[j]->SetMaximum(0.3);   
+   //gr_mumom_2[j]->SetLineColor(2+j);
+   //if(j+2==5) {gr_mumom_2[j]->SetLineColor(28);}
+   //gr_mumom_2[j]->SetLineStyle(2);
+   //gr_mumom_2[j]->SetLineWidth(4);
+   //gr_mumom_2[j]->SetFillStyle(0);
+   //gr_mumom_2[j]->SetMinimum(0);
+   //gr_mumom_2[j]->SetMaximum(0.3);   
 
    
    //================================================================= 
@@ -337,48 +430,57 @@ for(int j=0; j<syst_unc_list.size(); j++){
 
    nbins=covariance_matrix_pmom_1->GetNbinsX();
    Double_t xsec_unc_pmom_1[nbins];
-   Double_t xsec_unc_pmom_2[nbins];
+   //Double_t xsec_unc_pmom_2[nbins];
    Double_t xbinind_pmom[nbins];
    //mg->SetTitle("pmom; pmom(nbins); Relative Uncertainty");
    std::cout<<"libo test 0"<<std::endl;
    for(int i=0; i<nbins; i++){
+     std::cout<<"The value of the frac cov matrix is: " << covariance_matrix_pmom_1->GetBinContent(i+1,i+1) << std::endl;
+     std::cout<<"The sqrt of the frac cov matrix is: " << sqrt(covariance_matrix_pmom_1->GetBinContent(i+1,i+1)) << std::endl;
      xsec_unc_pmom_1[i]=covariance_matrix_pmom_1->GetBinContent(i+1,i+1);
      xsec_unc_pmom_1[i]=sqrt(xsec_unc_pmom_1[i]);
 
-     xsec_unc_pmom_2[i]=covariance_matrix_pmom_2->GetBinContent(i+1,i+1);
-     xsec_unc_pmom_2[i]=sqrt(xsec_unc_pmom_2[i]);
+     //xsec_unc_pmom_2[i]=covariance_matrix_pmom_2->GetBinContent(i+1,i+1);
+     //xsec_unc_pmom_2[i]=sqrt(xsec_unc_pmom_2[i]);
 
      xbinind_pmom[i]=bins_pmom[i]+(bins_pmom[i+1]-bins_pmom[i])/2.0;
+     std::cout<<"The value filled into the plot is: " << xsec_unc_pmom_1[i] << std::endl; 
      gr_pmom_1[j]->SetBinContent(i+1, xsec_unc_pmom_1[i]);
-     gr_pmom_2[j]->SetBinContent(i+1, xsec_unc_pmom_2[i]);
+     total_pmom_1->SetBinContent(i+1, total_pmom_1->GetBinContent(i+1) + xsec_unc_pmom_1[i]*xsec_unc_pmom_1[i]);
+     //gr_pmom_2[j]->SetBinContent(i+1, xsec_unc_pmom_2[i]);
 
-     std::cout<<"j=  "<<j<<" "<<i<<" th"<<xsec_unc_pmom_1[i]<<std::endl; 
+     //std::cout<<"j=  "<<j<<" "<<i<<" th"<<xsec_unc_pmom_1[i]<<std::endl; 
    }
    //gr_pmom_1[j]=new TGraph(nbins, xbinind_pmom, xsec_unc_pmom_1);
    //gr_pmom_1[j]->SetMarkerStyle(21);
    //gr_pmom_1[j]->SetDrawOption("AP");
-   gr_pmom_1[j]->SetLineColor(2+j);
-   if(j+2==5) {gr_pmom_1[j]->SetLineColor(28);}
+   if (j<4) gr_pmom_1[j]->SetLineColor(kCyan+j);
+   else if (j<8) gr_pmom_1[j]->SetLineColor(kGreen+j-4);
+   else if (j<12) gr_pmom_1[j]->SetLineColor(kMagenta+j-8);
+   else if (j<16) gr_pmom_1[j]->SetLineColor(kGray+j-12);
+   else gr_pmom_1[j]->SetLineColor(kYellow+j-16);
+   //gr_pmom_1[j]->SetLineColor(2+j);
+   //if(j+2==5) {gr_pmom_1[j]->SetLineColor(28);}
    gr_pmom_1[j]->SetLineWidth(4);
    gr_pmom_1[j]->SetFillStyle(0);
    gr_pmom_1[j]->SetMinimum(0); 
-   gr_pmom_1[j]->SetMaximum(0.3);
+   gr_pmom_1[j]->SetMaximum(1.0);
 
    //gr_pmom_2[j]->SetMarkerStyle(22);
    //gr_pmom_2[j]->SetDrawOption("P");
-   gr_pmom_2[j]->SetLineColor(2+j);
-   if(j+2==5) {gr_pmom_2[j]->SetLineColor(28);}
-   gr_pmom_2[j]->SetLineStyle(2);
-   gr_pmom_2[j]->SetLineWidth(4);
-   gr_pmom_2[j]->SetFillStyle(0);
-   gr_pmom_2[j]->SetMinimum(0);
-   gr_pmom_2[j]->SetMaximum(0.3);   
+   //gr_pmom_2[j]->SetLineColor(2+j);
+   //if(j+2==5) {gr_pmom_2[j]->SetLineColor(28);}
+   //gr_pmom_2[j]->SetLineStyle(2);
+   //gr_pmom_2[j]->SetLineWidth(4);
+   //gr_pmom_2[j]->SetFillStyle(0);
+   //gr_pmom_2[j]->SetMinimum(0);
+   //gr_pmom_2[j]->SetMaximum(0.3);   
    //=======================================================================
    std::cout<<"total number of bins of muangle is "<<covariance_matrix_muangle_1->GetNbinsX()<<std::endl;
 
    nbins=covariance_matrix_muangle_1->GetNbinsX();
    Double_t xsec_unc_muangle_1[nbins];
-   Double_t xsec_unc_muangle_2[nbins];
+   //Double_t xsec_unc_muangle_2[nbins];
    Double_t xbinind_muangle[nbins];
    //mg->SetTitle("muangle; muangle(nbins); Relative Uncertainty");
    std::cout<<"libo test 0"<<std::endl;
@@ -386,40 +488,46 @@ for(int j=0; j<syst_unc_list.size(); j++){
      xsec_unc_muangle_1[i]=covariance_matrix_muangle_1->GetBinContent(i+1,i+1);
      xsec_unc_muangle_1[i]=sqrt(xsec_unc_muangle_1[i]);
 
-     xsec_unc_muangle_2[i]=covariance_matrix_muangle_2->GetBinContent(i+1,i+1);
-     xsec_unc_muangle_2[i]=sqrt(xsec_unc_muangle_2[i]);
+     //xsec_unc_muangle_2[i]=covariance_matrix_muangle_2->GetBinContent(i+1,i+1);
+     //xsec_unc_muangle_2[i]=sqrt(xsec_unc_muangle_2[i]);
 
      //xbinind_muangle[i]=bins_muangle[i]+(bins_muangle[i+1]-bins_muangle[i])/2.0;
      gr_muangle_1[j]->SetBinContent(i+1, xsec_unc_muangle_1[i]);
-     gr_muangle_2[j]->SetBinContent(i+1, xsec_unc_muangle_2[i]);
+     total_muangle_1->SetBinContent(i+1, total_muangle_1->GetBinContent(i+1) + xsec_unc_muangle_1[i]*xsec_unc_muangle_1[i]);
+     //gr_muangle_2[j]->SetBinContent(i+1, xsec_unc_muangle_2[i]);
 
-     std::cout<<"j=  "<<j<<" "<<i<<" th"<<xsec_unc_muangle_1[i]<<std::endl; 
+     //std::cout<<"j=  "<<j<<" "<<i<<" th"<<xsec_unc_muangle_1[i]<<std::endl; 
    }
    //gr_muangle_1[j]=new TGraph(nbins, xbinind_muangle, xsec_unc_muangle_1);
    //gr_muangle_1[j]->SetMarkerStyle(21);
    //gr_muangle_1[j]->SetDrawOption("AP");
-   gr_muangle_1[j]->SetLineColor(2+j);
-   if(j+2==5) {gr_muangle_1[j]->SetLineColor(28);}
+   if (j<4) gr_muangle_1[j]->SetLineColor(kCyan+j);
+   else if (j<8) gr_muangle_1[j]->SetLineColor(kGreen+j-4);
+   else if (j<12) gr_muangle_1[j]->SetLineColor(kMagenta+j-8);
+   else if (j<16) gr_muangle_1[j]->SetLineColor(kGray+j-12);
+   else gr_muangle_1[j]->SetLineColor(kYellow+j-16);
+   //gr_muangle_1[j]->SetLineColor(2+j);
+   //if(j+2==5) {gr_muangle_1[j]->SetLineColor(28);}
    gr_muangle_1[j]->SetLineWidth(4);
    gr_muangle_1[j]->SetFillStyle(0);
    gr_muangle_1[j]->SetMinimum(0); 
-   gr_muangle_1[j]->SetMaximum(0.3);
+   gr_muangle_1[j]->SetMaximum(1.0);
 
    //gr_muangle_2[j]->SetMarkerStyle(22);
-   gr_muangle_2[j]->SetDrawOption("P");
-   gr_muangle_2[j]->SetLineColor(2+j);
-   if(j+2==5) {gr_muangle_2[j]->SetLineColor(28);}
-   gr_muangle_2[j]->SetLineStyle(2);
-   gr_muangle_2[j]->SetLineWidth(4);
-   gr_muangle_2[j]->SetFillStyle(0);
-   gr_muangle_2[j]->SetMinimum(0);
-   gr_muangle_2[j]->SetMaximum(0.3);   
+   //gr_muangle_2[j]->SetDrawOption("P");
+   //gr_muangle_2[j]->SetLineColor(2+j);
+   //if(j+2==5) {gr_muangle_2[j]->SetLineColor(28);}
+   //gr_muangle_2[j]->SetLineStyle(2);
+   //gr_muangle_2[j]->SetLineWidth(4);
+   //gr_muangle_2[j]->SetFillStyle(0);
+   //gr_muangle_2[j]->SetMinimum(0);
+   //gr_muangle_2[j]->SetMaximum(0.3);   
    //==============================================================
    std::cout<<"total number of bins of pangle is "<<covariance_matrix_pangle_1->GetNbinsX()<<std::endl;
 
    nbins=covariance_matrix_pangle_1->GetNbinsX();
    Double_t xsec_unc_pangle_1[nbins];
-   Double_t xsec_unc_pangle_2[nbins];
+   //Double_t xsec_unc_pangle_2[nbins];
    Double_t xbinind_pangle[nbins];
    //mg->SetTitle("pangle; pangle(nbins); Relative Uncertainty");
    std::cout<<"libo test 0"<<std::endl;
@@ -427,40 +535,46 @@ for(int j=0; j<syst_unc_list.size(); j++){
      xsec_unc_pangle_1[i]=covariance_matrix_pangle_1->GetBinContent(i+1,i+1);
      xsec_unc_pangle_1[i]=sqrt(xsec_unc_pangle_1[i]);
 
-     xsec_unc_pangle_2[i]=covariance_matrix_pangle_2->GetBinContent(i+1,i+1);
-     xsec_unc_pangle_2[i]=sqrt(xsec_unc_pangle_2[i]);
+     //xsec_unc_pangle_2[i]=covariance_matrix_pangle_2->GetBinContent(i+1,i+1);
+     //xsec_unc_pangle_2[i]=sqrt(xsec_unc_pangle_2[i]);
 
      //xbinind_pangle[i]=bins_pangle[i]+(bins_pangle[i+1]-bins_pangle[i])/2.0;
      gr_pangle_1[j]->SetBinContent(i+1, xsec_unc_pangle_1[i]);
-     gr_pangle_2[j]->SetBinContent(i+1, xsec_unc_pangle_2[i]);
+     total_pangle_1->SetBinContent(i+1, total_pangle_1->GetBinContent(i+1) + xsec_unc_pangle_1[i]*xsec_unc_pangle_1[i]);
+     //gr_pangle_2[j]->SetBinContent(i+1, xsec_unc_pangle_2[i]);
 
-     std::cout<<"j=  "<<j<<" "<<i<<" th"<<xsec_unc_pangle_1[i]<<std::endl; 
+     //std::cout<<"j=  "<<j<<" "<<i<<" th"<<xsec_unc_pangle_1[i]<<std::endl; 
    }
    //gr_pangle_1[j]=new TGraph(nbins, xbinind_pangle, xsec_unc_pangle_1);
    //gr_pangle_1[j]->SetMarkerStyle(21);
    //gr_pangle_1[j]->SetDrawOption("AP");
-   gr_pangle_1[j]->SetLineColor(2+j);
-   if(j+2==5) {gr_pangle_1[j]->SetLineColor(28);}
+   if (j<4) gr_pangle_1[j]->SetLineColor(kCyan+j);
+   else if (j<8) gr_pangle_1[j]->SetLineColor(kGreen+j-4);
+   else if (j<12) gr_pangle_1[j]->SetLineColor(kMagenta+j-8);
+   else if (j<16) gr_pangle_1[j]->SetLineColor(kGray+j-12);
+   else gr_pangle_1[j]->SetLineColor(kYellow+j-16);
+   //gr_pangle_1[j]->SetLineColor(2+j);
+   //if(j+2==5) {gr_pangle_1[j]->SetLineColor(28);}
    gr_pangle_1[j]->SetLineWidth(4);
    gr_pangle_1[j]->SetFillStyle(0);
    gr_pangle_1[j]->SetMinimum(0); 
-   gr_pangle_1[j]->SetMaximum(0.3);
+   gr_pangle_1[j]->SetMaximum(1.0);
 
    //gr_pangle_2[j]->SetMarkerStyle(22);
    //gr_pangle_2[j]->SetDrawOption("P");
-   gr_pangle_2[j]->SetLineColor(2+j);
-   if(j+2==5) {gr_pangle_2[j]->SetLineColor(28);}
-   gr_pangle_2[j]->SetLineStyle(2);
-   gr_pangle_2[j]->SetLineWidth(4);
-   gr_pangle_2[j]->SetFillStyle(0);
-   gr_pangle_2[j]->SetMinimum(0);
-   gr_pangle_2[j]->SetMaximum(0.3);   
+   //gr_pangle_2[j]->SetLineColor(2+j);
+   //if(j+2==5) {gr_pangle_2[j]->SetLineColor(28);}
+   //gr_pangle_2[j]->SetLineStyle(2);
+   //gr_pangle_2[j]->SetLineWidth(4);
+   //gr_pangle_2[j]->SetFillStyle(0);
+   //gr_pangle_2[j]->SetMinimum(0);
+   //gr_pangle_2[j]->SetMaximum(0.3);   
    //====================================================================
    std::cout<<"total number of bins of thetamup is "<<covariance_matrix_thetamup_1->GetNbinsX()<<std::endl;
 
    nbins=covariance_matrix_thetamup_1->GetNbinsX();
    Double_t xsec_unc_thetamup_1[nbins];
-   Double_t xsec_unc_thetamup_2[nbins];
+   //Double_t xsec_unc_thetamup_2[nbins];
    Double_t xbinind_thetamup[nbins];
    //mg->SetTitle("thetamup; thetamup(nbins); Relative Uncertainty");
    std::cout<<"libo test 0"<<std::endl;
@@ -468,38 +582,51 @@ for(int j=0; j<syst_unc_list.size(); j++){
      xsec_unc_thetamup_1[i]=covariance_matrix_thetamup_1->GetBinContent(i+1,i+1);
      xsec_unc_thetamup_1[i]=sqrt(xsec_unc_thetamup_1[i]);
 
-     xsec_unc_thetamup_2[i]=covariance_matrix_thetamup_2->GetBinContent(i+1,i+1);
-     xsec_unc_thetamup_2[i]=sqrt(xsec_unc_thetamup_2[i]);
+     //xsec_unc_thetamup_2[i]=covariance_matrix_thetamup_2->GetBinContent(i+1,i+1);
+     //xsec_unc_thetamup_2[i]=sqrt(xsec_unc_thetamup_2[i]);
 
      //xbinind_thetamup[i]=bins_thetamup[i]+(bins_thetamup[i+1]-bins_thetamup[i])/2.0;
      gr_thetamup_1[j]->SetBinContent(i+1, xsec_unc_thetamup_1[i]);
-     gr_thetamup_2[j]->SetBinContent(i+1, xsec_unc_thetamup_2[i]);
+     total_thetamup_1->SetBinContent(i+1, total_thetamup_1->GetBinContent(i+1) + xsec_unc_thetamup_1[i]*xsec_unc_thetamup_1[i]);
+     //gr_thetamup_2[j]->SetBinContent(i+1, xsec_unc_thetamup_2[i]);
 
-     std::cout<<"j=  "<<j<<" "<<i<<" th"<<xsec_unc_thetamup_1[i]<<std::endl; 
+     //std::cout<<"j=  "<<j<<" "<<i<<" th"<<xsec_unc_thetamup_1[i]<<std::endl; 
    }
    //gr_thetamup_1[j]=new TGraph(nbins, xbinind_thetamup, xsec_unc_thetamup_1);
    //gr_thetamup_1[j]->SetMarkerStyle(21);
    //gr_thetamup_1[j]->SetDrawOption("AP");
-   gr_thetamup_1[j]->SetLineColor(2+j);
-   if(j+2==5) {gr_thetamup_1[j]->SetLineColor(28);}
+   if (j<4) gr_thetamup_1[j]->SetLineColor(kCyan+j);
+   else if (j<8) gr_thetamup_1[j]->SetLineColor(kGreen+j-4);
+   else if (j<12) gr_thetamup_1[j]->SetLineColor(kMagenta+j-8);
+   else if (j<16) gr_thetamup_1[j]->SetLineColor(kGray+j-12);
+   else gr_thetamup_1[j]->SetLineColor(kYellow+j-16);
+   //gr_thetamup_1[j]->SetLineColor(2+j);
+   //if(j+2==5) {gr_thetamup_1[j]->SetLineColor(28);}
    gr_thetamup_1[j]->SetLineWidth(4);
    gr_thetamup_1[j]->SetFillStyle(0);
    gr_thetamup_1[j]->SetMinimum(0); 
-   gr_thetamup_1[j]->SetMaximum(0.3);
+   gr_thetamup_1[j]->SetMaximum(1.0);
 
    //gr_thetamup_2[j]->SetMarkerStyle(22);
    //gr_thetamup_2[j]->SetDrawOption("P");
-   gr_thetamup_2[j]->SetLineColor(2+j);
-   if(j+2==5) {gr_thetamup_2[j]->SetLineColor(28);}
-   gr_thetamup_2[j]->SetLineStyle(2);
-   gr_thetamup_2[j]->SetLineWidth(4);
-   gr_thetamup_2[j]->SetFillStyle(0);
-   gr_thetamup_2[j]->SetMinimum(0);
-   gr_thetamup_2[j]->SetMaximum(0.3);   
+   //gr_thetamup_2[j]->SetLineColor(2+j);
+   //if(j+2==5) {gr_thetamup_2[j]->SetLineColor(28);}
+   //gr_thetamup_2[j]->SetLineStyle(2);
+   //gr_thetamup_2[j]->SetLineWidth(4);
+   //gr_thetamup_2[j]->SetFillStyle(0);
+   //gr_thetamup_2[j]->SetMinimum(0);
+   //gr_thetamup_2[j]->SetMaximum(0.3);   
 
    /*
    */
-}
+ }
+ 
+for(int i=0; i<total_mumom_1->GetNbinsX(); i++){  total_mumom_1->SetBinContent(i+1, sqrt(total_mumom_1->GetBinContent(i+1))); }
+for(int i=0; i<total_muangle_1->GetNbinsX(); i++){  total_muangle_1->SetBinContent(i+1, sqrt(total_muangle_1->GetBinContent(i+1))); }
+for(int i=0; i<total_pmom_1->GetNbinsX(); i++){  total_pmom_1->SetBinContent(i+1, sqrt(total_pmom_1->GetBinContent(i+1))); }
+for(int i=0; i<total_pangle_1->GetNbinsX(); i++){  total_pangle_1->SetBinContent(i+1, sqrt(total_pangle_1->GetBinContent(i+1))); }
+for(int i=0; i<total_thetamup_1->GetNbinsX(); i++){  total_thetamup_1->SetBinContent(i+1, sqrt(total_thetamup_1->GetBinContent(i+1))); }
+
 
 
   //=============================================================================================================
@@ -517,6 +644,8 @@ for(int j=0; j<syst_unc_list.size(); j++){
          gr_mumom_1[kk]->Draw("same"); }
    legend->AddEntry(gr_mumom_1[kk], syst_unc_list[kk].c_str());
   }  
+  total_mumom_1->Draw("same");
+  legend->AddEntry(total_mumom_1,"Total");
   legend->Draw("same");
   
   string outputfilename="relative_unc_mumom_"+syst_unc_name +".png"; 
@@ -531,6 +660,8 @@ for(int j=0; j<syst_unc_list.size(); j++){
     else{
          gr_pmom_1[kk]->Draw("same"); }
   }  
+  total_pmom_1->Draw("same");
+  //legend->AddEntry(total_pmom_1,"Total");
   legend->Draw("same");
   
   outputfilename="relative_unc_pmom_"+syst_unc_name +".png"; 
@@ -544,6 +675,8 @@ for(int j=0; j<syst_unc_list.size(); j++){
     else{
          gr_muangle_1[kk]->Draw("same"); }
   }  
+  total_muangle_1->Draw("same");
+  //legend->AddEntry(total_muangle_1,"Total");
   legend->Draw("same");
   
   outputfilename="relative_unc_muangle_"+syst_unc_name +".png"; 
@@ -558,6 +691,8 @@ for(int j=0; j<syst_unc_list.size(); j++){
     else{
          gr_pangle_1[kk]->Draw("same"); }
   }  
+  total_pangle_1->Draw("same");
+  //legend->AddEntry(total_pangle_1,"Total");
   legend->Draw("same");
   
   outputfilename="relative_unc_pangle_"+syst_unc_name +".png"; 
@@ -571,6 +706,8 @@ for(int j=0; j<syst_unc_list.size(); j++){
     else{
          gr_thetamup_1[kk]->Draw("same"); }
   }  
+  total_thetamup_1->Draw("same");
+  //legend->AddEntry(total_thetamup_1,"Total");
   legend->Draw("same");
   
   outputfilename="relative_unc_thetamup_"+syst_unc_name +".png"; 
@@ -578,74 +715,79 @@ for(int j=0; j<syst_unc_list.size(); j++){
   //c_thetamup->Delete();
 
 //========================================================================
-  TCanvas *cc_mumom = new TCanvas("cc_mumom"); 
-  TLegend* legend2 = new TLegend(0.6, 0.7, 0.9, 0.9);
+ //  TCanvas *cc_mumom = new TCanvas("cc_mumom"); 
+//   TLegend* legend2 = new TLegend(0.6, 0.7, 0.9, 0.9);
 
 
-  std::cout<<"size of the syst unc vector is "<<syst_unc_list.size()<<std::endl;
+//   std::cout<<"size of the syst unc vector is "<<syst_unc_list.size()<<std::endl;
 
-  for(int kk=0; kk<syst_unc_list.size(); kk++){
-    if(kk==0){
-         gr_mumom_2[kk]->Draw(); }
-    else{
-         gr_mumom_2[kk]->Draw("same"); }
-   legend2->AddEntry(gr_mumom_2[kk], syst_unc_list[kk].c_str());
-  }  
-  legend2->Draw("same");
+//   for(int kk=0; kk<syst_unc_list.size(); kk++){
+//     if(kk==0){
+//          //gr_mumom_2[kk]->Draw(); }
+//     }else{
+//          //gr_mumom_2[kk]->Draw("same"); 
+//     }
+//     //legend2->AddEntry(gr_mumom_2[kk], syst_unc_list[kk].c_str());
+//   }  
+//   legend2->Draw("same");
   
-  outputfilename="relative_unc_mumom_showerastrack_"+syst_unc_name +".png"; 
-  cc_mumom->SaveAs(outputfilename.c_str());
-  //cc_mumom->Delete();
+//   outputfilename="relative_unc_mumom_showerastrack_"+syst_unc_name +".png"; 
+//   cc_mumom->SaveAs(outputfilename.c_str());
+//   //cc_mumom->Delete();
 
   
-  TCanvas *cc_pmom = new TCanvas("cc_pmom"); 
-  for(int kk=0; kk<syst_unc_list.size(); kk++){
-    if(kk==0){
-         gr_pmom_2[kk]->Draw(); }
-    else{
-         gr_pmom_2[kk]->Draw("same"); }
-  }  
-  legend2->Draw("same");
+//   TCanvas *cc_pmom = new TCanvas("cc_pmom"); 
+//   for(int kk=0; kk<syst_unc_list.size(); kk++){
+//     if(kk==0){
+//          //gr_pmom_2[kk]->Draw(); }
+//     } else{
+//          //gr_pmom_2[kk]->Draw("same"); 
+//     }
+//   }  
+//   legend2->Draw("same");
   
-  outputfilename="relative_unc_pmom_showerastrack_"+syst_unc_name +".png"; 
-  cc_pmom->SaveAs(outputfilename.c_str());
-  //c_pmom->Delete();
+//   outputfilename="relative_unc_pmom_showerastrack_"+syst_unc_name +".png"; 
+//   cc_pmom->SaveAs(outputfilename.c_str());
+//   //c_pmom->Delete();
 
-  TCanvas *cc_muangle = new TCanvas("cc_muangle"); 
-  for(int kk=0; kk<syst_unc_list.size(); kk++){
-    if(kk==0){
-         gr_muangle_2[kk]->Draw(); }
-    else{
-         gr_muangle_2[kk]->Draw("same"); }
-  }  
-  legend2->Draw("same");
+//   TCanvas *cc_muangle = new TCanvas("cc_muangle"); 
+//   for(int kk=0; kk<syst_unc_list.size(); kk++){
+//     if(kk==0){
+//          //gr_muangle_2[kk]->Draw(); }
+//     } else{
+//          //gr_muangle_2[kk]->Draw("same"); 
+//     }
+//   }  
+//   legend2->Draw("same");
   
-  outputfilename="relative_unc_muangle_showerastrack_"+syst_unc_name +".png"; 
-  cc_muangle->SaveAs(outputfilename.c_str());
-  //cc_muangle->Delete();
+//   outputfilename="relative_unc_muangle_showerastrack_"+syst_unc_name +".png"; 
+//   cc_muangle->SaveAs(outputfilename.c_str());
+//   //cc_muangle->Delete();
 
  
-  TCanvas *cc_pangle = new TCanvas("cc_pangle"); 
-  for(int kk=0; kk<syst_unc_list.size(); kk++){
-    if(kk==0){
-         gr_pangle_2[kk]->Draw(); }
-    else{
-         gr_pangle_2[kk]->Draw("same"); }
-  }  
-  legend2->Draw("same");
+//   TCanvas *cc_pangle = new TCanvas("cc_pangle"); 
+//   for(int kk=0; kk<syst_unc_list.size(); kk++){
+//     if(kk==0){
+//          //gr_pangle_2[kk]->Draw(); }
+//     } else{
+//          //gr_pangle_2[kk]->Draw("same"); 
+//     }
+//   }  
+//   legend2->Draw("same");
   
-  outputfilename="relative_unc_pangle_showerastrack_"+syst_unc_name +".png"; 
-  cc_pangle->SaveAs(outputfilename.c_str());
-  //c_pangle->Delete();
+//   outputfilename="relative_unc_pangle_showerastrack_"+syst_unc_name +".png"; 
+//   cc_pangle->SaveAs(outputfilename.c_str());
+//   //c_pangle->Delete();
 
-  TCanvas *cc_thetamup = new TCanvas("cc_thetamup"); 
-  for(int kk=0; kk<syst_unc_list.size(); kk++){
-    if(kk==0){
-         gr_thetamup_2[kk]->Draw(); }
-    else{
-         gr_thetamup_2[kk]->Draw("same"); }
-  }  
-  legend2->Draw("same");
+//   TCanvas *cc_thetamup = new TCanvas("cc_thetamup"); 
+//   for(int kk=0; kk<syst_unc_list.size(); kk++){
+//     if(kk==0){
+//          //gr_thetamup_2[kk]->Draw(); }
+//     }    else{
+//          //gr_thetamup_2[kk]->Draw("same"); }
+//     }
+//   }  
+//   legend2->Draw("same");
   
   outputfilename="relative_unc_thetamup_showerastrack"+syst_unc_name +".png"; 
   cc_thetamup->SaveAs(outputfilename.c_str());
@@ -699,7 +841,6 @@ for(int j=0; j<syst_unc_list.size(); j++){
   xsec_thetamup_mc->Draw();
   xsec_thetamup_CV->Draw("same");
   leg->Draw("same");
-
 
 
   output_file->Write();

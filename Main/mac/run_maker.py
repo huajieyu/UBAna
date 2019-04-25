@@ -11,7 +11,6 @@ maker = Main.Maker()
 
 # BNBComisc
 
-#maker.SetInputFile("/uboone/data/users/mdeltutt/ubxsec_static/v06_26_01_22/ubxsec_output_mc_bnbcosmic_ubcodev06_26_01_22__v2.root"); # After Neutrino (run on gpvm)
 maker.SetInputFile("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/testing_pid_larana/ubxsec_output_mc_bnbcosmic.root");
 
 maker.SetOutputFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22__v2.root"); # After Neutrino (run on gpvm)
