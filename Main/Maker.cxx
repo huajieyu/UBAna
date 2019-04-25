@@ -2267,8 +2267,7 @@ void Main::Maker::MakeFile()
       // Loop over all the flux reweighting function names and find the one we want unlsee "total" was requested
       for (size_t i_func = 0; i_func < t->evtwgt_flux_multisim_funcname.size(); i_func++) {
 
-      _event_histo_1d->bs_mc_stat_multisim_true_reco_mumom->SetWeightNames(fname_mc_stat_multisim);
-      _event_histo_1d->bs_mc_stat_multisim_true_reco_muangle->SetWeightNames(fname_mc_stat_multisim);
+        std::string func_name = t->evtwgt_flux_multisim_funcname.at(i_func);
 
         size_t found = std::string::npos;
 
@@ -2287,8 +2286,7 @@ void Main::Maker::MakeFile()
           continue;
         }
 
-      _event_histo_1d->bs_mc_stat_multisim_eff_pangle_num->SetWeightNames(fname_mc_stat_multisim);
-      _event_histo_1d->bs_mc_stat_multisim_eff_pangle_den->SetWeightNames(fname_mc_stat_multisim);
+        for (size_t i_wgt = 0; i_wgt < fname_flux_multisim.size(); i_wgt++) {
 
           wgts_flux_multisim.at(i_wgt) *= t->evtwgt_flux_multisim_weight.at(i_func).at(i_wgt);
         }
@@ -2778,7 +2776,15 @@ void Main::Maker::MakeFile()
       }
     }
     
+    
+    
+    
     //std::cout<<"Start to perform the CCinclusive as precuts"<<std::endl; 
+    
+    
+
+    
+    
     
     // ************************
     //
@@ -3144,7 +3150,9 @@ void Main::Maker::MakeFile()
     // if (t->slc_muoncandidate_mom_mcs.at(scl_ll_max) > 2.5) continue;
     //===========================================================================================================
 
+
     //std::cout<<"End of CCinclusive Selection and Start the CC1uNP Selection"<<std::endl;
+
 
     // CC1uNP Selection
     bool trackfromneutrino=true;
