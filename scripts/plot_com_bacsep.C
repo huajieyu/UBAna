@@ -104,27 +104,27 @@ void plot_com_bacsep(){
   TFile *input3; // dirt
   std::cout<<"Setup input root files "<<std::endl;
   if (cosmicCut){
-    input0 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Mar/ubxsecana_output_data_onbeam_ubcodev06_26_01_22.root");
-    input1 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Mar/ubxsecana_output_data_offbeam_ubcodev06_26_01_22.root");
+    input0 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Apr25/ubxsecana_output_data_onbeam_ubcodev06_26_01_22.root");
+    input1 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Apr25/ubxsecana_output_data_offbeam_ubcodev06_26_01_22.root");
   }
   else{
-    input0 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Apr/ubxsecana_output_data_onbeam_ubcodev06_26_01_22.root");
-    input1 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Apr/ubxsecana_output_data_offbeam_ubcodev06_26_01_22.root");
+    input0 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Apr25/ubxsecana_output_data_onbeam_ubcodev06_26_01_22.root");
+    input1 = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Apr25/ubxsecana_output_data_offbeam_ubcodev06_26_01_22.root");
   }
   
   if (tune==3){
-    if (cosmicCut){input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Mar/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22_detsyst_CV_genie.root");}
-    else{input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Apr/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22_detsyst_CV_genie.root");}
+    if (cosmicCut){input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Apr25/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22_detsyst_CV.root");}
+    else{input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Apr25/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22_detsyst_CV.root");}
   }
   else{
-    if (cosmicCut){input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Mar/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22_detsyst_CV_genie.root");}
-    else{input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Apr/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22_detsyst_CV_genie.root");}
+    if (cosmicCut){input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Apr25/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22_detsyst_CV.root");}
+    else{input2= new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Apr25/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22_detsyst_CV.root");}
   }
 
   if(cosmicCut){
-      input3=new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Mar/ubxsecana_output_mc_bnbdirt_ubcodev06_26_01_22.root");
+      input3=new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Apr25/ubxsecana_output_mc_bnbdirt_ubcodev06_26_01_22.root");
   } else{
-      input3=new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Apr/ubxsecana_output_mc_bnbdirt_ubcodev06_26_01_22.root");
+      input3=new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Apr25/ubxsecana_output_mc_bnbdirt_ubcodev06_26_01_22.root");
   }
 
 
@@ -934,7 +934,61 @@ void plot_com_bacsep(){
   h_pmult_bac[5]->Sumw2();
   //===================================================
   cout<<"get the histogram of pmult<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"<<endl;
+  //============================================================
+  TH1D                  *h_nhits_leadingp_allsel[4];
+
+  h_nhits_leadingp_allsel[0]=(TH1D*)input0->Get("h_nhits_leadingp_total");
+  //h_nhits_leadingp_allsel[0]->Rebin(4); 
+  h_nhits_leadingp_allsel[0]->Sumw2();
+ 
+
+  h_nhits_leadingp_allsel[1]=(TH1D*)input1->Get("h_nhits_leadingp_total");
+  //h_nhits_leadingp_allsel[1]->Rebin(4);
+  h_nhits_leadingp_allsel[1]->Sumw2();
+
+  h_nhits_leadingp_allsel[2]=(TH1D*)input2->Get("h_nhits_leadingp_total");
+  //h_nhits_leadingp_allsel[2]->Rebin(4);
+  h_nhits_leadingp_allsel[2]->Sumw2();
   
+  h_nhits_leadingp_allsel[3]=(TH1D*)input3->Get("h_nhits_leadingp_total");
+  //h_nhits_leadingp_allsel[3]->Rebin(4);
+  h_nhits_leadingp_allsel[3]->Sumw2();
+
+  h_nhits_leadingp_allsel[3]=(TH1D*)input3->Get("h_nhits_leadingp_total");
+  h_nhits_leadingp_allsel[3]->Sumw2();
+
+  TH1D               *h_nhits_leadingp_sig[2];
+  TH1D               *h_nhits_leadingp_bac[8];
+  h_nhits_leadingp_sig[0]=(TH1D*)input2->Get("h_nhits_leadingp_signal");
+  //h_nhits_leadingp_sig[0]->Rebin(4);
+  h_nhits_leadingp_sig[0]->Sumw2();
+
+  h_nhits_leadingp_bac[0]=(TH1D*)input2->Get("h_nhits_leadingp_cosmic");
+  //h_nhits_leadingp_bac[0]->Rebin(4);
+  h_nhits_leadingp_bac[0]->Sumw2();
+ 
+  h_nhits_leadingp_bac[1]=(TH1D*)input2->Get("h_nhits_leadingp_outfv");
+  //h_nhits_leadingp_bac[1]->Rebin(4);
+  h_nhits_leadingp_bac[1]->Sumw2();
+
+  h_nhits_leadingp_bac[2]=(TH1D*)input2->Get("h_nhits_leadingp_nc");
+  //h_nhits_leadingp_bac[2]->Rebin(4);
+  h_nhits_leadingp_bac[2]->Sumw2();
+ 
+  h_nhits_leadingp_bac[3]=(TH1D*)input2->Get("h_nhits_leadingp_anumu");
+  //h_nhits_leadingp_bac[3]->Rebin(4);
+  h_nhits_leadingp_bac[3]->Sumw2();
+
+  h_nhits_leadingp_bac[4]=(TH1D*)input2->Get("h_nhits_leadingp_nue");
+  //h_nhits_leadingp_bac[4]->Rebin(4);
+  h_nhits_leadingp_bac[4]->Sumw2();
+ 
+  h_nhits_leadingp_bac[5]=(TH1D*)input2->Get("h_nhits_leadingp_ccother");
+  //h_nhits_leadingp_bac[5]->Rebin(4);
+  h_nhits_leadingp_bac[5]->Sumw2();
+  //===================================================
+  cout<<"get the histogram of nhits_leadingp<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"<<endl;
+   
   /* 
  * TH1D                  *h_vtxx_allsel[3];
 
@@ -1619,8 +1673,8 @@ void plot_com_bacsep(){
 
   Float_t mcbnbcos_POT;
   Float_t mcbnbdirt_POT;
-  if (tune==3){mcbnbcos_POT=2.18976e21;} // Tune1
-  else{mcbnbcos_POT=2.18976e21;} // Tune1
+  if (tune==3){mcbnbcos_POT=3.16395e+21;} // Tune1
+  else{mcbnbcos_POT=3.16395e+21;} // Tune1
   if (tune==3){mcbnbdirt_POT=1.2162e21;}
   else{mcbnbdirt_POT=1.2162e21;}
   Float_t dirt_POT;
@@ -2847,8 +2901,92 @@ prelim->SetTextAlign(32);
   int nbins_alphat=h_alphat_allsel[2]->GetNbinsX();
   float chi2_alphat=Chi2Calc(h_alphat_allsel[2], h_alphat_allsel[0], h_alphat_allsel[1],scalefac, normfac);
   cout<<"chi2_alphat = "<<chi2_alphat<<"  number of bins: "<<nbins_alphat<<"  chi2/dof is : "<<chi2_alphat/nbins_alphat<<endl;
+  //==============================================================================  
+  c7->Update();
+
+  TH1D *h_onoff_nhits_leadingp=(TH1D*)h_nhits_leadingp_allsel[1]->Clone(Form("%s_on-off", h_nhits_leadingp_allsel[1]->GetName()));
+  TH1D *h_nhits_leadingp_MCandOff=(TH1D*)h_nhits_leadingp_allsel[2]->Clone(Form("%s_MC+Off", h_nhits_leadingp_allsel[2]->GetName()));
+  cout<<"get all the histograms!"<<endl;
   
+  pad1->SetBottomMargin(0); // Upper and lower plot are joined
+  pad1->SetGridx();         // Vertical grid
+  pad1->Draw();             // Draw the upper pad: pad1
+  pad1->cd();               // pad1 becomes the current pad
+
+
+  h_nhits_leadingp_allsel[0]->SetLineColor(kBlack);
+  h_nhits_leadingp_allsel[0]->SetLineWidth(2);
+  h_nhits_leadingp_allsel[0]->SetLineStyle(1);
+  h_nhits_leadingp_allsel[0]->GetXaxis()->SetTitle("No. of hits of leading proton");
+  h_nhits_leadingp_allsel[0]->GetYaxis()->SetTitle("Selected Events");
+  h_nhits_leadingp_allsel[0]->GetYaxis()->SetTitleSize(0.06);
+  h_nhits_leadingp_allsel[0]->GetYaxis()->SetTitleOffset(0.6);
+  //h_nhits_leadingp_allsel[0]->SetMaximum(1.5*h_nhits_leadingp_allsel[0]->GetMaximum());
+  h_nhits_leadingp_allsel[0]->Draw();  
+
+  THStack *hs_nhits_leadingp = new THStack("hs_nhits_leadingp","");
+  stackHists(hs_nhits_leadingp, h_nhits_leadingp_sig, h_nhits_leadingp_bac, h_nhits_leadingp_allsel, normfac, scale_onoffbeam, scale_dirt_MC);
+  hs_nhits_leadingp -> Draw("HIST,SAME");
+
+  h_nhits_leadingp_allsel[0]->Scale(areanorm_fac);
+  h_nhits_leadingp_allsel[0]->SetMaximum(1.5*h_nhits_leadingp_allsel[0]->GetMaximum());
+  h_nhits_leadingp_allsel[0]->Draw("same");  
+  //h_onoff_nhits_leadingp->Draw("E1CSAME");
+  //~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
+ 
+  legendR->Draw("same"); prelim->Draw("same");
+
+  //Draw ratio between two histograms and save the plot
+  // lower plot will be in pad2
+  c7->cd();          // Go back to the main canvas before defining pad2
+  pad2->SetTopMargin(0);
+  pad2->SetBottomMargin(0.2);
+  pad2->SetGridx(); // vertical grid
+  pad2->Draw();
+  pad2->cd();       // pad2 becomes the current pad
+
+  TH1D *h_nhits_leadingp_temp_0=(TH1D*)h_nhits_leadingp_allsel[0]->Clone("h_nhits_leadingp_temp_0"); 
+  TH1D *h_nhits_leadingp_temp_1=(TH1D*)h_nhits_leadingp_allsel[1]->Clone("h_nhits_leadingp_temp_1"); 
+  TH1D *h_nhits_leadingp_temp_2=(TH1D*)h_nhits_leadingp_allsel[2]->Clone("h_nhits_leadingp_temp_2"); 
+  h_nhits_leadingp_temp_2->Scale(normfac);
+  h_nhits_leadingp_MCandOff->Add(h_nhits_leadingp_temp_2,h_nhits_leadingp_temp_1,1,1); 
+
+  h_nhits_leadingp_temp_0->Divide(h_nhits_leadingp_MCandOff);
+  h_nhits_leadingp_temp_0->SetMinimum(0);
+  h_nhits_leadingp_temp_0->SetMaximum(2);
+  h_nhits_leadingp_temp_0->GetXaxis()->SetTitleSize(0.15);
+  h_nhits_leadingp_temp_0->GetXaxis()->SetLabelFont(43); // Absolute font size in pixel (precision 3)
+  h_nhits_leadingp_temp_0->GetXaxis()->SetLabelSize(11);
+ 
+
+  h_nhits_leadingp_temp_0->GetYaxis()->SetTitle("Data/MC");
+  h_nhits_leadingp_temp_0->GetYaxis()->SetTitleSize(18);
+  h_nhits_leadingp_temp_0->GetYaxis()->SetTitleFont(43);
+  h_nhits_leadingp_temp_0->GetYaxis()->SetTitleOffset(0.9);
+  h_nhits_leadingp_temp_0->GetYaxis()->SetLabelFont(43); // Absolute font size in pixel (precision 3)
+  h_nhits_leadingp_temp_0->GetYaxis()->SetLabelSize(11);
+  h_nhits_leadingp_temp_0->Draw();
+  line= new TLine(0, 1, 3.14, 1);
+  line->SetLineColor(kRed);
+  line->SetLineStyle(9);
+   line->Draw("same");
+ 
+  c7->cd();
+
+
+   if (cosmicCut){
+     if(tune==3){c7->Print("figures/Tune3/BackSep/h_nhits_leadingp_allsel.png");}
+     else{c7->Print("figures/Tune1/BackSep/h_nhits_leadingp_allsel.png");}
+   }
+   else{
+     if(tune==3){c7->Print("figures_noCosmicCut/Tune3/BackSep/h_nhits_leadingp_allsel.png");}
+     else{c7->Print("figures_noCosmicCut/Tune1/BackSep/h_nhits_leadingp_allsel.png");}
+   }
   
+  int nbins_nhits_leadingp=h_nhits_leadingp_allsel[2]->GetNbinsX();
+  float chi2_nhits_leadingp=Chi2Calc(h_nhits_leadingp_allsel[2], h_nhits_leadingp_allsel[0], h_nhits_leadingp_allsel[1],scalefac, normfac);
+  cout<<"chi2_nhits_leadingp = "<<chi2_nhits_leadingp<<"  number of bins: "<<nbins_nhits_leadingp<<"  chi2/dof is : "<<chi2_nhits_leadingp/nbins_nhits_leadingp<<endl;
+   
   //==========================================================================
   // Dirt plots
   //==========================================================================
