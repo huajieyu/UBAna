@@ -83,11 +83,11 @@ print "start to set the detector systematic list and statistic bin values for an
 #det_syst_list = ["CV", "DLdown", "DLup", "DTup", "DTdown", "noiseAmpUp", "noiseAmpDown", "squeezeResp", "stretchResp", "downPEnoise", "upPEnoise","LArG4BugFix", "altDeadChannels", "dataSCE", "deadSaturatedChannels", "enhancedexttpcvis","lifetime10ms", "withDIC"]
 #det_syst_list = ["CV", "DLdown", "DLup", "DTup", "DTdown", "noiseAmpUp", "noiseAmpDown", "squeezeResp", "stretchResp", "downPEnoise", "upPEnoise", "LArG4BugFix", "altDeadChannels", "lifetime10ms"]
 #det_syst_list = ["CV", "DLdown", "DLup", "DTup", "DTdown", "noiseAmpUp", "noiseAmpDown", "squeezeResp", "stretchResp", "downPEnoise", "upPEnoise", "LArG4BugFix", "altDeadChannels", "dataSCE", "enhancedexttpcvis","lifetime10ms", "withDIC"]
-#det_syst_list = ["CV", "DLdown"]
+det_syst_list = ["CV","DLdown"]
 #det_syst_list = ["CV", "DLup"]
 #det_syst_list = ["CV", "DTup"]
 #det_syst_list = ["CV", "DTdown"]
-det_syst_list = ["CV", "noiseAmpUp"]
+#det_syst_list = ["CV", "noiseAmpUp"]
 #det_syst_list = ["CV", "noiseAmpDown"]
 #det_syst_list = ["CV", "squeezeResp"]
 #det_syst_list = ["CV", "stretchResp"]
@@ -140,7 +140,7 @@ for syst_name in det_syst_list:
 	syst_total_xsec = syst_total_xsec + abs(xsec_onebin_cv.GetBinContent(1) - xsec_onebin.GetBinContent(1))**2
 	print "diff is ", abs(xsec_onebin_cv.GetBinContent(1) - xsec_onebin.GetBinContent(1))
 
-	
+        print ("libo test 0 loop over bins to calculate d0")	
 
 	
 
