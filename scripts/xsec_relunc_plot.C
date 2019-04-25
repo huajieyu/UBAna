@@ -16,7 +16,7 @@ void xsec_relunc_plot(){
     gStyle->SetLabelFont(62,"X");
     gStyle->SetTitleSize(0.05,"X");
     gStyle->SetTitleFont(62,"X");
-    gStyle->SetTitleOffset(0.85,"X");
+    gStyle->SetTitleOffset(0.8,"X");
 
     gStyle->SetLabelSize(0.04,"Y");
     gStyle->SetLabelFont(62,"Y");
@@ -39,6 +39,44 @@ void xsec_relunc_plot(){
   
   TFile *output_file=new TFile("output.root", "recreate");
 
+  //open the xsec root files and get the central value of the cross sections
+  TFile *xsec_inputfile= new TFile("xsec_file_CV.root");
+  TH1D * xsec_mumom_mc;
+  TH1D * xsec_mumom_CV;
+  TH1D * xsec_pmom_mc;
+  TH1D * xsec_pmom_CV;
+  TH1D * xsec_muangle_mc;
+  TH1D * xsec_muangle_CV;
+  TH1D * xsec_pangle_mc;
+  TH1D * xsec_pangle_CV;
+  TH1D * xsec_thetamup_mc;
+  TH1D * xsec_thetamup_CV;
+  
+  std::cout<<"libo test 0"<<std::endl; 
+  xsec_mumom_mc=(TH1D*)xsec_inputfile->Get("xsec_mumom_mc_CV");
+  xsec_mumom_CV=(TH1D*)xsec_inputfile->Get("xsec_mumom_CV");
+
+  xsec_pmom_mc=(TH1D*)xsec_inputfile->Get("xsec_pmom_mc_CV");
+  xsec_pmom_CV=(TH1D*)xsec_inputfile->Get("xsec_pmom_CV");
+
+  xsec_muangle_mc=(TH1D*)xsec_inputfile->Get("xsec_muangle_mc_CV");
+  xsec_muangle_CV=(TH1D*)xsec_inputfile->Get("xsec_muangle_CV");
+
+  xsec_pangle_mc=(TH1D*)xsec_inputfile->Get("xsec_pangle_mc_CV");
+  xsec_pangle_CV=(TH1D*)xsec_inputfile->Get("xsec_pangle_CV");
+
+  xsec_thetamup_mc=(TH1D*)xsec_inputfile->Get("xsec_thetamup_mc_CV");
+  xsec_thetamup_CV=(TH1D*)xsec_inputfile->Get("xsec_thetamup_CV");
+
+
+
+  TLegend *leg=new TLegend(0.65, 0.7, 0.9, 0.9);
+  leg->AddEntry(xsec_mumom_mc, "GENIE-default");
+  leg->AddEntry(xsec_mumom_CV, "Measured");
+  
+
+
+  std::cout<<"libo test 1"<<std::endl;
 
   std::cout<<"start set the detector systematic list "<<std::endl;
   TFile* inputfile1;
@@ -59,7 +97,7 @@ void xsec_relunc_plot(){
   double bins_muptheta[7] = {0.00, 1.00, 1.31, 1.5, 1.7, 2.04, 3.14};
   int n_bins_muptheta = 6;
  
-int sys_sel=0;
+int sys_sel=4;
 string syst_unc_name="";
 std::vector<std::string> syst_unc_list;
 
@@ -612,6 +650,55 @@ for(int j=0; j<syst_unc_list.size(); j++){
   outputfilename="relative_unc_thetamup_showerastrack"+syst_unc_name +".png"; 
   cc_thetamup->SaveAs(outputfilename.c_str());
   //cc_thetamup->Delete();
+  TCanvas *c1=new TCanvas("c1", "c1");
+  xsec_mumom_mc->SetMaximum(0.5*xsec_mumom_mc->GetMaximum());
+  xsec_mumom_CV->SetMaximum(0.5*xsec_mumom_mc->GetMaximum()); 
+  xsec_mumom_mc->SetTitleOffset(0.8, "X");
+  xsec_mumom_CV->SetTitleOffset(0.8, "X");
+
+  xsec_mumom_mc->Draw();
+  xsec_mumom_CV->Draw("same");
+  leg->Draw("same");
+
+  TCanvas *c2=new TCanvas("c2", "c2");
+  xsec_pmom_mc->SetMaximum(0.5*xsec_pmom_mc->GetMaximum());
+  xsec_pmom_CV->SetMaximum(0.5*xsec_pmom_mc->GetMaximum()); 
+  xsec_pmom_mc->SetTitleOffset(0.8, "X");
+  xsec_pmom_CV->SetTitleOffset(0.8, "X");
+
+  xsec_pmom_mc->Draw();
+  xsec_pmom_CV->Draw("same");
+  leg->Draw("same");
+
+  TCanvas *c3=new TCanvas("c3", "c3");
+  xsec_muangle_mc->SetMaximum(0.5*xsec_muangle_mc->GetMaximum());
+  xsec_muangle_CV->SetMaximum(0.5*xsec_muangle_mc->GetMaximum()); 
+  xsec_muangle_mc->SetTitleOffset(0.8, "X");
+  xsec_muangle_CV->SetTitleOffset(0.8, "X");
+
+  xsec_muangle_mc->Draw();
+  xsec_muangle_CV->Draw("same");
+  leg->Draw("same");
+
+  TCanvas *c4=new TCanvas("c4", "c4");
+  xsec_pangle_mc->SetMaximum(0.5*xsec_pangle_mc->GetMaximum());
+  xsec_pangle_CV->SetMaximum(0.5*xsec_pangle_mc->GetMaximum()); 
+  xsec_pangle_mc->SetTitleOffset(0.8, "X");
+  xsec_pangle_CV->SetTitleOffset(0.8, "X");
+
+  xsec_pangle_mc->Draw();
+  xsec_pangle_CV->Draw("same");
+  leg->Draw("same");
+
+  TCanvas *c5=new TCanvas("c5", "c5");
+  xsec_thetamup_mc->SetMaximum(0.2*xsec_thetamup_mc->GetMaximum());
+  xsec_thetamup_CV->SetMaximum(0.2*xsec_thetamup_mc->GetMaximum()); 
+  xsec_thetamup_mc->SetTitleOffset(0.8, "X");
+  xsec_thetamup_CV->SetTitleOffset(0.8, "X");
+
+  xsec_thetamup_mc->Draw();
+  xsec_thetamup_CV->Draw("same");
+  leg->Draw("same");
 
 
 
