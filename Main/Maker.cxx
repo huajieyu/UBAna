@@ -1521,14 +1521,14 @@ void Main::Maker::MakeFile()
   hmap_pmult["cc_other"] = new TH1D("h_pmult_ccother", "; Proton Multiplicity;", 10, -0.5,9.5);
 
   std::map<std::string,TH1D*> hmap_nhits_leadingp;
-  hmap_nhits_leadingp["total"] = new TH1D("h_nhits_leadingp_total", "; nhits_leadingp;", 30, 0, 2000.0);
-  hmap_nhits_leadingp["signal"] = new TH1D("h_nhits_leadingp_signal", "; nhits_leadingp;", 30, 0, 2000.0);
-  hmap_nhits_leadingp["cosmic"] = new TH1D("h_nhits_leadingp_cosmic", "; nhits_leadingp;", 30, 0, 2000.0);
-  hmap_nhits_leadingp["outfv"] = new TH1D("h_nhits_leadingp_outfv", "; nhits_leadingp;", 30, 0, 2000.0);
-  hmap_nhits_leadingp["nc"] = new TH1D("h_nhits_leadingp_nc", "; nhits_leadingp;", 30, 0, 2000.0);
-  hmap_nhits_leadingp["anumu"] = new TH1D("h_nhits_leadingp_anumu", "; nhits_leadingp;", 30, 0, 2000.0);
-  hmap_nhits_leadingp["nue"] = new TH1D("h_nhits_leadingp_nue", "; nhits_leadingp;", 30, 0, 2000.0);
-  hmap_nhits_leadingp["cc_other"] = new TH1D("h_nhits_leadingp_ccother", "; nhits_leadingp;", 30, 0,2000.0);
+  hmap_nhits_leadingp["total"] = new TH1D("h_nhits_leadingp_total", "; nhits_leadingp;", 30, 0, 300.0);
+  hmap_nhits_leadingp["signal"] = new TH1D("h_nhits_leadingp_signal", "; nhits_leadingp;", 30, 0, 300.0);
+  hmap_nhits_leadingp["cosmic"] = new TH1D("h_nhits_leadingp_cosmic", "; nhits_leadingp;", 30, 0, 300.0);
+  hmap_nhits_leadingp["outfv"] = new TH1D("h_nhits_leadingp_outfv", "; nhits_leadingp;", 30, 0, 300.0);
+  hmap_nhits_leadingp["nc"] = new TH1D("h_nhits_leadingp_nc", "; nhits_leadingp;", 30, 0, 300.0);
+  hmap_nhits_leadingp["anumu"] = new TH1D("h_nhits_leadingp_anumu", "; nhits_leadingp;", 30, 0, 300.0);
+  hmap_nhits_leadingp["nue"] = new TH1D("h_nhits_leadingp_nue", "; nhits_leadingp;", 30, 0, 300.0);
+  hmap_nhits_leadingp["cc_other"] = new TH1D("h_nhits_leadingp_ccother", "; nhits_leadingp;", 30, 0,300.0);
  
 
 
