@@ -64,74 +64,69 @@ namespace Main{
   int evts = chain_ubxsec -> GetEntries();
   std::cout<<"total number of entries is "<<evts<<std::endl;     
   chain_ubxsec -> GetEntry(0);
-   
+  
+  //vector of GENIE weight factors for multisim method
   std::vector<double> wgts_genie_multisim;
 
 
-
+  //get the name of the GENIE weight factors
   std::vector<std::string> fname_flux_multisim;
+
   fname_flux_multisim.clear();
   fname_flux_multisim.resize(t->evtwgt_flux_multisim_nweight.at(1));
 
   std::vector<std::string> fname_extra_syst;
   fname_extra_syst.clear();
   fname_extra_syst.resize(100);
-  std::cout<<t->evtwgt_extra_syst_multisim_nweight.at(1)<<std::endl;
 
 
  
   std::ostringstream oss;
 
   ofstream outfile;
-  outfile.open("rewght_genie_rwfac");
-      for (size_t i = 0; i < t->evtwgt_genie_multisim_weight.size(); i++) {
-         wgts_genie_multisim.push_back(t->evtwgt_genie_multisim_weight.at(i).at(0));
-         wgts_genie_multisim.push_back(t->evtwgt_genie_multisim_weight.at(i).at(1));
-         //outfile<<std::setprecision(60)<<t->evtwgt_genie_multisim_weight.at(i).at(0)<<std::setprecision(60)<<t->evtwgt_genie_multisim_weight.at(i).at(1)<<std::endl;
+  outfile.open("rewght_genie_rwfac.txt");
+  for (size_t i = 0; i < t->evtwgt_genie_multisim_weight.size(); i++) {
+       wgts_genie_multisim.push_back(t->evtwgt_genie_multisim_weight.at(i).at(0));
+       wgts_genie_multisim.push_back(t->evtwgt_genie_multisim_weight.at(i).at(1));
+  }
+
+
+  for(size_t i_wgt = 0; i_wgt < t->evtwgt_flux_multisim_funcname.size(); i_wgt++){
+      oss.str("");
+      oss<< "universe"<<i_wgt;  
+        
+      fname_flux_multisim.at(i_wgt) = oss.str();         
+  }
+  std::vector<double> wgts_flux_multisim;
+  wgts_flux_multisim.clear();
+  wgts_flux_multisim.resize(fname_flux_multisim.size(), 1.);
+
+  for(size_t i_func = 0; i_func < t->evtwgt_flux_multisim_funcname.size(); i_func++){
+      std::string func_name = t->evtwgt_flux_multisim_funcname.at(i_func);
+      //size_t found = std::string::npos;
+        
+      if(func_name =="bnbcorrection_FluxHist") continue;
+      for (size_t i_wgt = 0; i_wgt < fname_flux_multisim.size(); i_wgt++) {
+          wgts_flux_multisim.at(i_wgt) *= t->evtwgt_flux_multisim_weight.at(i_func).at(i_wgt);
        }
-      std::cout<<t->evtwgt_flux_multisim_weight.size()<<std::endl;
-      std::cout<<"size of the flux syst is "<<t->evtwgt_flux_multisim_funcname.size()<<std::endl;
+   }
 
+   std::cout<<"size of the extra syst is "<<t->evtwgt_extra_syst_multisim_funcname.size()<<std::endl;
 
-      for(size_t i_wgt = 0; i_wgt < t->evtwgt_flux_multisim_funcname.size(); i_wgt++){
-        oss.str("");
-        oss<< "universe"<<i_wgt;  
-        //std::string func_name = t->evtwgt_flux_multisim_funcname.at(i_wgt);
-        //std::cout<<i_wgt<< " th function name is"<<func_name<<std::endl; 
-        
-        fname_flux_multisim.at(i_wgt) = oss.str();         
-        std::cout<<fname_flux_multisim.at(i_wgt)<<std::endl; 
-      }
-      std::vector<double> wgts_flux_multisim;
-      wgts_flux_multisim.clear();
-      wgts_flux_multisim.resize(fname_flux_multisim.size(), 1.);
+   std::vector<double> wgts_extra_syst;
 
-      for(size_t i_func = 0; i_func < t->evtwgt_flux_multisim_funcname.size(); i_func++){
-         std::string func_name = t->evtwgt_flux_multisim_funcname.at(i_func);
-         //size_t found = std::string::npos;
-        
-         if(func_name =="bnbcorrection_FluxHist") continue;
-         for (size_t i_wgt = 0; i_wgt < fname_flux_multisim.size(); i_wgt++) {
-           wgts_flux_multisim.at(i_wgt) *= t->evtwgt_flux_multisim_weight.at(i_func).at(i_wgt);
-         }
-      }
+   wgts_extra_syst.clear();
+   wgts_extra_syst.resize(fname_extra_syst.size(), 1.);
 
-      std::cout<<"size of the extra syst is "<<t->evtwgt_extra_syst_multisim_funcname.size()<<std::endl;
-
-      std::vector<double> wgts_extra_syst;
-
-      wgts_extra_syst.clear();
-      wgts_extra_syst.resize(fname_extra_syst.size(), 1.);
-
-      for(size_t i_func=0; i_func<t->evtwgt_extra_syst_multisim_funcname.size(); i_func++){
-        std::string func_name=t->evtwgt_extra_syst_multisim_funcname.at(i_func);
-        std::cout<<i_func<<" th function name of the extra syst is "<<func_name<<std::endl;
-        if(func_name=="bnbcorrection_FluxHist") continue;
-        for(size_t i_wgt=0; i_wgt<fname_extra_syst.size(); i_wgt++){
-            wgts_extra_syst.at(i_wgt) *=t->evtwgt_extra_syst_multisim_weight.at(i_func).at(i_wgt);
+   for(size_t i_func=0; i_func<t->evtwgt_extra_syst_multisim_funcname.size(); i_func++){
+       std::string func_name=t->evtwgt_extra_syst_multisim_funcname.at(i_func);
+       std::cout<<i_func<<" th function name of the extra syst is "<<func_name<<std::endl;
+       if(func_name=="bnbcorrection_FluxHist") continue;
+       for(size_t i_wgt=0; i_wgt<fname_extra_syst.size(); i_wgt++){
+           wgts_extra_syst.at(i_wgt) *=t->evtwgt_extra_syst_multisim_weight.at(i_func).at(i_wgt);
             //std::cout<<t->evtwgt_extra_syst_multisim_weight.at(i_func).at(i_wgt)<<std::endl;
         }
-      }
+   }
 
 
 
@@ -144,10 +139,10 @@ namespace Main{
 
 
 
-  for(unsigned int i_extra=0; i_extra<wgts_extra_syst.size(); i_extra++){
+   for(unsigned int i_extra=0; i_extra<wgts_extra_syst.size(); i_extra++){
        std::cout<<wgts_extra_syst[i_extra]<<std::endl;
 
-  }
+   }
 
 
 
@@ -155,31 +150,13 @@ namespace Main{
 
   
 
-  UBXSecEventHisto1D * _event_histo_1d_mc = 0;
-  mc_bnbcosmic_file->GetObject("UBXSecEventHisto1D", _event_histo_1d_mc);
+   UBXSecEventHisto1D * _event_histo_1d_mc = 0;
+   mc_bnbcosmic_file->GetObject("UBXSecEventHisto1D", _event_histo_1d_mc);
 
-  /*for(auto it : _event_histo_1d_mc->bs_genie_multisim_eff_mumom_num){
+   /*for(auto it : _event_histo_1d_mc->bs_genie_multisim_eff_mumom_num){
      std::cout<<it.first()<<std::endl;
      std::map<std::string, TH1D*> bs_map_num=it.second();
-  }*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+   }*/
 
 
   //========================================================================== 
