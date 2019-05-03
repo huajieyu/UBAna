@@ -181,6 +181,12 @@ void Main::Maker::PrintMaUpMECOff()
   }
 }
 
+void Main::Maker::PrintReweighKaons()
+{
+  for (int i = 0; i < 10; i++) {
+    std::cout << "**************************** RUNNING WITH KAON FLUX SCALED BY " << _kaon_reweigh_factor << " ****************************" << std::endl;
+  }
+}
 
 
 
@@ -412,6 +418,7 @@ void Main::Maker::FillBootstrap(int m, // true bin m (1 number, unrolled)
                                 std::vector<std::string> fname, 
                                 std::vector<double> wgts) {
 
+  if (j<0) j=0; // Negative bins are overflows, and are all added to entry 0 of the vector
 
   bs_poly_reco_per_true["nominal"][m][j] += evt_wgt;
 
@@ -507,7 +514,7 @@ void Main::Maker::MakeFile()
   
   // CSV file for dqdx and track lenght values
   std::ofstream _csvfile;
-  _csvfile.open ("output/dqdx_trklen.csv", std::ofstream::out | std::ofstream::trunc);
+  _csvfile.open ("./dqdx_trklen.csv", std::ofstream::out | std::ofstream::trunc);
   _csvfile << "dqdx,trklen,y" << std::endl;
 
    
@@ -573,15 +580,15 @@ void Main::Maker::MakeFile()
     TChain *cpot;
     cpot = new TChain("UBXSec/pottree");
     cpot->Add(pattern.c_str());
-    cout << "| Number of entries in the pot tree: " << cpot->GetEntries() << endl;
+    LOG_NORMAL() << "| Number of entries in the pot tree: " << cpot->GetEntries() << endl;
     Double_t pot;
     cpot->SetBranchAddress("pot", &pot);
     for (int potEntry = 0; potEntry < cpot->GetEntries(); potEntry++) {
       cpot->GetEntry(potEntry);
       totalPOT += pot;
     } // end loop entries
-    cout << "| Total POT: " << totalPOT << endl;
-    cout << " ----- " << endl << endl;
+    LOG_NORMAL() << "| Total POT: " << totalPOT << endl;
+    LOG_NORMAL() << " ----- " << endl << endl;
   } // end if evalPOT
   else
     totalPOT = -1.;
@@ -616,7 +623,7 @@ void Main::Maker::MakeFile()
   LOG_NORMAL() << "Number of polybins: " << _n_poly_bins << std::endl;
 
   double nsignal = 0;
-  double nsignal_all = 0;
+  //double nsignal_all = 0;
 
   double nsignal_qe = 0;
   double nsignal_res = 0;
@@ -1545,7 +1552,12 @@ void Main::Maker::MakeFile()
   if(_maup_mecoff && !isdata) {
     PrintMaUpMECOff();
   }
-    
+  
+  if (_reweigh_kaons) {
+    PrintReweighKaons();
+  }
+
+  
   int barWidth = 70;
   
   if(maxEntries > 0.) evts = maxEntries;
@@ -1606,7 +1618,7 @@ void Main::Maker::MakeFile()
     if (t->file_type == "dirt") event_weight /= _extra_weight;
 
 
-    // bool is_from_kaon = false;
+    bool is_from_kaon = false;
 
     // ************************
     //
@@ -1629,6 +1641,63 @@ void Main::Maker::MakeFile()
       }
     }
 
+    if (!isdata && false) {
+      LOG_CRITICAL() << "SPECIAL WEIGHTS APPLIED!!! MODEL 0" << std::endl;
+      if (t->mode == 0) { // QE
+        event_weight *= 0.95; 
+      }
+      if (t->mode == 1) { // RES
+        event_weight *= 0.75; 
+      }
+      if (t->mode == 2) { // DIS
+        event_weight *= 0.85; 
+      }
+      if (t->mode == 3) { // COH
+        event_weight *= 1.00; 
+      }
+      if (t->mode == 10) { // MEC
+        event_weight *= 0.85; 
+      }
+    }
+
+    if (!isdata && false) {
+      LOG_CRITICAL() << "SPECIAL WEIGHTS APPLIED!!! MODEL 1" << std::endl;
+      if (t->mode == 0) { // QE
+        event_weight *= 0.90; 
+      }
+      if (t->mode == 1) { // RES
+        event_weight *= 0.00; 
+      }
+      if (t->mode == 2) { // DIS
+        event_weight *= 3.00; 
+      }
+      if (t->mode == 3) { // COH
+        event_weight *= 1.00; 
+      }
+      if (t->mode == 10) { // MEC
+        event_weight *= 1.10; 
+      }
+    }
+
+    if (!isdata && false) {
+      LOG_CRITICAL() << "SPECIAL WEIGHTS APPLIED!!! MODEL 2" << std::endl;
+      if (t->mode == 0) { // QE
+        event_weight *= 1.00; 
+      }
+      if (t->mode == 1) { // RES
+        event_weight *= 1.50; 
+      }
+      if (t->mode == 2) { // DIS
+        event_weight *= 1.00; 
+      }
+      if (t->mode == 3) { // COH
+        event_weight *= 1.00; 
+      }
+      if (t->mode == 10) { // MEC
+        event_weight *= 0.00; 
+      }
+    }
+
 
 
 
@@ -1648,7 +1717,7 @@ void Main::Maker::MakeFile()
         fname_genie_pm1.push_back(name + "_m1");
 
         //open a txt file and save the reweight factors
-        myfile<<std::setprecision(12)<<name + "_p1"<< std::setprecision(12)<<name + "_m1"<<std::endl;  
+        myfile<<std::setw(30)<<std::setprecision(20)<<name + "_p1 "<<std::setw(30)<<std::setprecision(20)<<name + "_m1"<<std::endl;  
         
         
         //==============================================================
@@ -1769,7 +1838,7 @@ void Main::Maker::MakeFile()
       for (size_t i = 0; i < t->evtwgt_genie_pm1_weight.size(); i++) {
         wgts_genie_pm1.push_back(t->evtwgt_genie_pm1_weight.at(i).at(0));
         wgts_genie_pm1.push_back(t->evtwgt_genie_pm1_weight.at(i).at(1));
-        outfile<<std::setprecision(12)<<t->evtwgt_genie_pm1_weight.at(i).at(0)<<std::setprecision(12)<<t->evtwgt_genie_pm1_weight.at(i).at(1)<<std::endl;
+        outfile<<setw(20)<<std::setprecision(12)<<t->evtwgt_genie_pm1_weight.at(i).at(0)<<setw(20)<<std::setprecision(12)<<t->evtwgt_genie_pm1_weight.at(i).at(1)<<std::endl;
       }
     }
     outfile.close();
@@ -1921,8 +1990,12 @@ void Main::Maker::MakeFile()
     // Prepare the vector of weights to be used for bootstraps
     std::vector<double> wgts_genie_multisim;
     if (!isdata && _fill_bootstrap_genie) {
-      for (size_t i = 0; i < fname_genie_multisim.size(); i++) {
-        wgts_genie_multisim.push_back(t->evtwgt_genie_multisim_weight.at(0).at(i));
+      for (size_t i_wgt = 0; i_wgt < fname_genie_multisim.size(); i_wgt++) {
+        double wgt = t->evtwgt_genie_multisim_weight.at(0).at(i_wgt);
+        if (wgt>100 || wgt < 0){
+           wgt = 1.;
+        }
+        wgts_genie_multisim.push_back(wgt);
       }
     }
 
@@ -2101,9 +2174,11 @@ void Main::Maker::MakeFile()
 
         for (size_t i_wgt = 0; i_wgt < fname_extra_syst.size(); i_wgt++) {
 
-          // std::cout << "weight number " << i_wgt << " = " << t->evtwgt_extra_syst_multisim_weight.at(i_func).at(i_wgt) << std::endl;
-
-          wgts_extra_syst.at(i_wgt) *= t->evtwgt_extra_syst_multisim_weight.at(i_func).at(i_wgt);
+          double wgt = t->evtwgt_extra_syst_multisim_weight.at(i_func).at(i_wgt);
+          if(wgt > 100 || wgt < 0){
+             wgt = 1.;
+          }
+          wgts_extra_syst.at(i_wgt) *= wgt;
         }
       }
     }
@@ -2286,17 +2361,31 @@ void Main::Maker::MakeFile()
           continue;
         }
 
+        if (i == _initial_entry) LOG_NORMAL() << "Filling bootstraps for flux systematic " << func_name << std::endl;
+ 
         for (size_t i_wgt = 0; i_wgt < fname_flux_multisim.size(); i_wgt++) {
-
-          wgts_flux_multisim.at(i_wgt) *= t->evtwgt_flux_multisim_weight.at(i_func).at(i_wgt);
+          
+          double wgt = t->evtwgt_flux_multisim_weight.at(i_func).at(i_wgt);
+          if (wgt>100 || wgt < 0){
+            wgt = 1.;
+          }
+          wgts_flux_multisim.at(i_wgt) *= wgt;
+          if (_reweigh_kaons
+             && (t->evtwgt_flux_multisim_funcname.at(i_func) == "kminus_PrimaryHadronNormalization" 
+             || t->evtwgt_flux_multisim_funcname.at(i_func) == "kplus_PrimaryHadronFeynmanScaling" 
+             || t->evtwgt_flux_multisim_funcname.at(i_func) == "kzero_PrimaryHadronSanfordWang")) {
+            // std::cout << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
+            if (t->evtwgt_flux_multisim_weight.at(i_func).at(i_wgt) != 1) {
+              is_from_kaon = true;
+            }
+          }
         }
       }
     }
 
-    // if (is_from_kaon) {
-    //   // std::cout << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
-    //   event_weight *= 1.5;
-    // }
+    if (is_from_kaon && _reweigh_kaons) {
+          event_weight *= _kaon_reweigh_factor;
+    }
 
 
 /*
@@ -3656,12 +3745,11 @@ void Main::Maker::MakeFile()
       _true_reco_tree->Fill();
 
       // *** Migr mat addition
-      int m = _event_histo->h_reco_per_true[0][0]->GetXaxis()->FindBin(_angle_true) - 1;
-      int n = _event_histo->h_reco_per_true[0][0]->GetYaxis()->FindBin(_mom_true) - 1;
+      int m = _event_histo->h_reco_per_true[0][0]->GetXaxis()->FindBin(_angle_true) - 1; // true bin
+      int n = _event_histo->h_reco_per_true[0][0]->GetYaxis()->FindBin(_mom_true) - 1;  // true bin
       if (m >= 0 && n >= 0 
           && m < _event_histo->h_reco_per_true[0][0]->GetNbinsX()    // Avoid overflows
           && n < _event_histo->h_reco_per_true[0][0]->GetNbinsY()) { // Avoid overflows
-        // std::cout << "_angle_true " << _angle_true << ", _mom_true " << _mom_true << ", m " << m << ", n " << n << std::endl;
         _event_histo->h_reco_per_true[m][n]->Fill(_angle_reco, _mom_mcs, event_weight);
         if(!isdata && _fill_bootstrap_genie) FillBootstrap(_angle_reco, _mom_mcs, m, n, event_weight, _event_histo->bs_genie_multisim_reco_per_true, fname_genie_multisim, wgts_genie_multisim);
         if(!isdata && _fill_bootstrap_extra_syst) FillBootstrap(_angle_reco, _mom_mcs, m, n, event_weight, _event_histo->bs_extra_syst_multisim_reco_per_true, fname_extra_syst, wgts_extra_syst);
@@ -3669,11 +3757,10 @@ void Main::Maker::MakeFile()
         if(!isdata && _fill_bootstrap_mc_stat) FillBootstrap(_angle_reco, _mom_mcs, m, n, event_weight, _event_histo->bs_mc_stat_multisim_reco_per_true, fname_mc_stat_multisim, wgts_mc_stat_multisim);
       }
 
-      // For the poly version
+      // For migration matrix (poly)
       m = _event_histo->h_poly_reco_per_true[0]->FindBin(_angle_true, _mom_true) - 1;
       int i = _event_histo->h_poly_reco_per_true[0]->FindBin(_angle_reco, _mom_mcs) - 1;
-      // std::cout << "true | n bins " << _event_histo->h_poly_reco_per_true[0]->GetNumberOfBins() << ", _angle_true " << _angle_true << ", _mom_true " << _mom_true << ", m " << m << std::endl;
-      // std::cout << "reco | n bins " << _event_histo->h_poly_reco_per_true[0]->GetNumberOfBins() << ", _angle_reco " << _angle_reco << ", _mom_mcs " << _mom_mcs << ", i " << i << std::endl;
+      if (m < 0) m = 0; //Negative bins are overflows, and are all added in entry o of the vector
       if (m >= 0 && m < _event_histo->h_poly_reco_per_true[0]->GetNumberOfBins()
         && i >= 0 && i < _event_histo->h_poly_reco_per_true[0]->GetNumberOfBins()) {
         _event_histo->h_poly_reco_per_true[m]->Fill(_angle_reco, _mom_mcs, event_weight);
@@ -3681,7 +3768,6 @@ void Main::Maker::MakeFile()
         if(!isdata && _fill_bootstrap_flux) FillBootstrap(m, i, event_weight, _event_histo->bs_flux_multisim_poly_reco_per_true, fname_flux_multisim, wgts_flux_multisim);
         if(!isdata && _fill_bootstrap_extra_syst) FillBootstrap(m, i, event_weight, _event_histo->bs_extra_syst_multisim_poly_reco_per_true, fname_extra_syst, wgts_extra_syst);
       }
-      // *** addition ends
 
       // // Also fill the same tree for all te universes
       // FillTrueRecoTree(tmap_mom_tree_gene_multisim_bs, _mom_true, _mom_mcs, _angle_true, _angle_reco, fname_genie_multisim, wgts_genie_multisim);
@@ -3690,8 +3776,6 @@ void Main::Maker::MakeFile()
       _event_histo_1d->h_true_reco_thetamup->Fill(temp_thetamup, thetamup, event_weight);
       
 
-      //std::cout<<"Start to calculate the resolution of the proton momentum and angle "<<std::endl;
-      //std::cout<<"End of calculating the resolution of the proton momentum and angle "<<std::endl;
       _event_histo_1d->h_true_reco_mom->Fill(_mom_true, _mom_mcs, event_weight);
       _event_histo_1d->h_true_reco_costheta->Fill(_angle_true, _angle_reco, event_weight);
       //===============================================================================================================================================

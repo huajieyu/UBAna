@@ -165,6 +165,9 @@ namespace Main{
     /// Prints a warning message if running with MA up and MEC off
     void PrintMaUpMECOff();
 
+    /// Prints a warning message if running with scaled kason Flux
+    void PrintReweighKaons();
+
     void DrawProgressBar(double progress, double barWidth);
 
     void DrawPOT2(double pot, double target = 6.6e20);
@@ -248,6 +251,9 @@ namespace Main{
 
 
     bool _maup_mecoff = false;
+    bool _reweigh_kaons = false;
+    double _kaon_reweigh_factor = 1.5;
+
 
     const bool _breakdownPlots = true;
     const bool _makePlots = false;

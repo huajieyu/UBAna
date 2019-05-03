@@ -109,22 +109,16 @@ namespace Main {
   // *************************************
   // Opening files
   // *************************************
-  std::cout<<"Start open the input files "<<std::endl;
-
   TFile* mc_bnbcosmic_file = TFile::Open(mc_bnbcosmic_file_name.c_str(), "READ");
-  std::cout<<"Opened the MC input file "<<std::endl;
   //TFile* mc_intimecosmic_file = TFile::Open(mc_intimecosmic_file_name.c_str(), "READ");
   TFile* mc_dirt_file = TFile::Open(mc_dirt_file_name.c_str(), "READ");
-  std::cout<<"Tried to open a dirt file "<<std::endl;
   TFile* bnbon_file = TFile::Open(bnbon_file_name.c_str(), "READ");
-  std::cout<<"Tried to open a bnb data file "<<std::endl;
-
   TFile* extbnb_file = TFile::Open(extbnb_file_name.c_str(), "READ");
-  std::cout<<"Triend to open a extbnb data file "<<std::endl;
+
   if (!mc_dirt_file) 
     LOG_NORMAL() << "MC Dirt File not available. Will run without." << std::endl;
   
-  std::cout<<"Opened all the MC and Data file "<<std::endl;
+
   // *************************************
   // Getting number of events for bnbon
   // *************************************
@@ -201,6 +195,7 @@ namespace Main {
   // Getting the relevant histograms from MC file BNBCosmic
   // *************************************
   std::map<std::string,TH1D*>* temp_map;
+
   mc_bnbcosmic_file->GetObject("hmap_trklen", temp_map);
   std::map<std::string,TH1D*> hmap_trklen_mc = *temp_map;
   mc_bnbcosmic_file->GetObject("hmap_trkmom_classic", temp_map);
@@ -257,6 +252,10 @@ namespace Main {
   std::map<std::string,TH1D*> hmap_mctruth_mucostheta_mc = *temp_map;
   mc_bnbcosmic_file->GetObject("hmap_mctruth_muphi", temp_map);
   std::map<std::string,TH1D*> hmap_mctruth_muphi_mc = *temp_map;
+
+
+
+
   mc_bnbcosmic_file->GetObject("hmap_mctruth_nuenergy_gen", temp_map);
   std::map<std::string,TH1D*> hmap_mctruth_nuenergy_gen_mc = *temp_map;
   mc_bnbcosmic_file->GetObject("hmap_mctruth_mumom_gen", temp_map);
@@ -265,9 +264,13 @@ namespace Main {
   std::map<std::string,TH1D*> hmap_mctruth_mucostheta_gen_mc = *temp_map;
   mc_bnbcosmic_file->GetObject("hmap_mctruth_muphi_gen", temp_map);
   std::map<std::string,TH1D*> hmap_mctruth_muphi_gen_mc = *temp_map;
-  TH1D* h_flsPe_wcut_mc = (TH1D*)mc_bnbcosmic_file->Get("h_flsPe_wcut");
 
-  
+
+
+
+  TH1D* h_flsPe_wcut_mc = (TH1D*)mc_bnbcosmic_file->Get("h_flsPe_wcut");  
+
+
   mc_bnbcosmic_file->GetObject("hmap_dqdx_trunc", temp_map);
   std::map<std::string,TH1D*> hmap_dqdx_trunc_mc = *temp_map;
   TH2D* h_dqdx_trunc_length_mc = (TH2D*)mc_bnbcosmic_file->Get("h_dqdx_trunc_length");
@@ -278,13 +281,11 @@ namespace Main {
   BootstrapTH1D * temp_bs;
 
 
-  LOG_NORMAL() << "Checkpoint 1" << std::endl;
 
   mc_bnbcosmic_file->GetObject("hmap_trkmom_genie_pm1_bs", temp_map_bs);
   std::map<std::string,std::map<std::string,TH1D*>> map_bs = *temp_map_bs;
 
 
-  LOG_NORMAL() << "Checkpoint 2" << std::endl;
 
 
   // Bootstrap efficiency - GENIE pm1sigma
@@ -292,16 +293,11 @@ namespace Main {
   BootstrapTH1D bs_genie_pm1_eff_mumom_num = *temp_bs;
   mc_bnbcosmic_file->GetObject("bs_genie_pm1_eff_mumom_den", temp_bs);
   BootstrapTH1D bs_genie_pm1_eff_mumom_den = *temp_bs;
-  LOG_NORMAL() << "Checkpoint 3" << std::endl;
-  LOG_NORMAL() << "Checkpoint 4" << std::endl;
-  LOG_NORMAL() << "Checkpoint 5" << std::endl;
-  LOG_NORMAL() << "Checkpoint 6" << std::endl;
 
   // Boostrap reco-true
   std::map<std::string,TH2D*>* temp_map_bs2;
   mc_bnbcosmic_file->GetObject("bs_genie_pm1_true_reco_mom", temp_map_bs2);
   std::map<std::string,TH2D*> bs_true_reco_mom_mc = *temp_map_bs2;
-  LOG_NORMAL() << "Checkpoint 7" << std::endl;
 
 
 
@@ -309,7 +305,7 @@ namespace Main {
   ReweightingPlotter genie_rw_plotter;
 
   if (_do_pm1sigma_plots) {
-    std::cout<<"do the pm1sigma test"<<std::endl;
+
     // Bootstrap number of events per type
     std::map<std::string, BootstrapTH1D> bs;
     for (auto it : map_bs) {
@@ -325,7 +321,6 @@ namespace Main {
     genie_rw_plotter.MakeBackgroundPlots(0, false, true);  
   }
 
-  LOG_NORMAL() << "Checkpoint 8" << std::endl;
 
   // Currently not used
   std::map<std::string,std::map<std::string,TH1D*>> hmap_onebin_genie_multisim_bs_mc_dirt;
@@ -408,11 +403,11 @@ namespace Main {
     hmap_mctruth_mucostheta_gen_mc_dirt = *temp_map;
     mc_dirt_file->GetObject("hmap_mctruth_muphi_gen", temp_map);
     hmap_mctruth_muphi_gen_mc_dirt = *temp_map;
+    h_flsPe_wcut_dirt = (TH1D*)mc_dirt_file->Get("h_flsPe_wcut");
 
   } else {
     
   }
-  LOG_NORMAL() << "Checkpoint 13" << std::endl;
 
 
 
@@ -493,16 +488,20 @@ namespace Main {
   // Muon costheta
   TH1D * h_truth_xsec_muangle = (TH1D*)mc_bnbcosmic_file->Get("h_truth_xsec_muangle");
 
+
+
+
+
+
+
   // Get the true histo from the data file, for when we run in fake data mode
   TH1D * h_truth_xsec_pmom_fake = (TH1D*)bnbon_file->Get("h_truth_xsec_pmom");
   TH1D * h_truth_xsec_pangle_fake = (TH1D*)bnbon_file->Get("h_truth_xsec_pangle");
   TH1D * h_truth_xsec_thetamup_fake = (TH1D*)bnbon_file->Get("h_truth_xsec_thetamup");
   // Proton momentum
   TH1D * h_truth_xsec_pmom = (TH1D*)mc_bnbcosmic_file->Get("h_truth_xsec_pmom");
-
   // Proton costheta
   TH1D * h_truth_xsec_pangle = (TH1D*)mc_bnbcosmic_file->Get("h_truth_xsec_pangle");
-
   //Thetamup
   TH1D * h_truth_xsec_thetamup = (TH1D*)mc_bnbcosmic_file->Get("h_truth_xsec_thetamup");
 
@@ -550,25 +549,7 @@ namespace Main {
 
 
   
-    std::cout << "JJJJJ Just before" << std::endl;
-    std::cout << "maximum " << _event_histo_mc->hmap_trktheta_trkmom_poly["signal"]->GetMaximum() << std::endl;
-    std::cout << "calling ProjectionY " << std::endl;
-    std::vector<int> bin_numbers;
-    std::cout << "before calling GetCopyWithBinNumbers" << std::endl;
-    UBTH2Poly* h_poly_binnumber = _event_histo_mc->hmap_trktheta_trkmom_poly["signal"]->GetCopyWithBinNumbers("bs");
-    std::cout << "after calling GetCopyWithBinNumbers" << std::endl;
-
-    std::cout << "Original   bin 2, content: " << _event_histo_mc->hmap_trktheta_trkmom_poly["signal"]->GetBinContent(9) << " +- " << _event_histo_mc->hmap_trktheta_trkmom_poly["signal"]->GetBinError(9) << std::endl;
-    std::cout << "JJJJJ Just after" << std::endl;
-
-
-
-  
-    
-
-
-
-
+  UBTH2Poly* h_poly_binnumber = _event_histo_mc->hmap_trktheta_trkmom_poly["signal"]->GetCopyWithBinNumbers("bs");
 
 
   gROOT->SetBatch(kTRUE);
@@ -627,14 +608,37 @@ namespace Main {
       bkg_names = {"beam-off", "cosmic", "outfv", "nc", "nue", "anumu", "cc_other",  "dirt"};
     }
 
+    // Covariance matrices
+    TH2D covariance_matrix_genie;
+    TH2D covariance_matrix_extra_syst;
+    TH2D covariance_matrix_flux;
+    TH2D covariance_matrix_mc_stat;
+    TH2D covariance_matrix_detector;
+    TH2D covariance_matrix_cosmic;
+    TH2D covariance_matrix_dirt;
 
-    std::cout << "***************" << std::endl;
-    std::cout << "* Total cross section" << std::endl;
-    std::cout << "***************" << std::endl;
+    // Fractional covariance matrices
+    TH2D frac_covariance_matrix_genie;
+    TH2D frac_covariance_matrix_extra_syst;
+    TH2D frac_covariance_matrix_flux;
+    TH2D frac_covariance_matrix_mc_stat;
+    TH2D frac_covariance_matrix_detector;
+    TH2D frac_covariance_matrix_cosmic;
+    TH2D frac_covariance_matrix_dirt;
+
+
+    LOG_NORMAL() << "***************" << std::endl;
+    LOG_NORMAL() << "* Total cross section" << std::endl;
+    LOG_NORMAL() << "***************" << std::endl;
+
+
+
+
+
 
 
     //
-    // Total cross section
+    // Total cross section: Cross section reweighting
     //
 
     _xsec_calc.Reset();
@@ -748,22 +752,22 @@ namespace Main {
 
 
     // Covariance matrices
-    TH2D covariance_matrix_genie;
-    TH2D covariance_matrix_extra_syst;
-    TH2D covariance_matrix_flux;
-    TH2D covariance_matrix_mc_stat;
-    TH2D covariance_matrix_detector;
-    TH2D covariance_matrix_cosmic;
-    TH2D covariance_matrix_dirt;
+    //TH2D covariance_matrix_genie;
+    //TH2D covariance_matrix_extra_syst;
+    //TH2D covariance_matrix_flux;
+    //TH2D covariance_matrix_mc_stat;
+    //TH2D covariance_matrix_detector;
+    //TH2D covariance_matrix_cosmic;
+    //TH2D covariance_matrix_dirt;
 
     // Fractional covariance matrices
-    TH2D frac_covariance_matrix_genie;
-    TH2D frac_covariance_matrix_extra_syst;
-    TH2D frac_covariance_matrix_flux;
-    TH2D frac_covariance_matrix_mc_stat;
-    TH2D frac_covariance_matrix_detector;
-    TH2D frac_covariance_matrix_cosmic;
-    TH2D frac_covariance_matrix_dirt;
+    //TH2D frac_covariance_matrix_genie;
+    //TH2D frac_covariance_matrix_extra_syst;
+    //TH2D frac_covariance_matrix_flux;
+    //TH2D frac_covariance_matrix_mc_stat;
+    //TH2D frac_covariance_matrix_detector;
+    //TH2D frac_covariance_matrix_cosmic;
+    //TH2D frac_covariance_matrix_dirt;
 
     // Utility to make unc plot
     UncertaintyPlotter unc_plotter;
@@ -2075,7 +2079,7 @@ namespace Main {
     if (_fake_data_mode) {
       _xsec_calc.SetTruthXSec(h_truth_xsec_thetamup_fake, n_bins_muptheta, n_bins_muptheta);
     }
-    _xsec_calc.SetNameAndLabel("thetamup", ";#theta_{#mu,p}^{reco}); Selected Events");
+    _xsec_calc.SetNameAndLabel("thetamup", ";(#theta_{#mu,p}^{reco}); Selected Events");
     _xsec_calc.ProcessPlots();
     _xsec_calc.SaveEventNumbers("thetamup_eventsperbin_table.tex");
     _xsec_calc.Draw();
@@ -2090,7 +2094,7 @@ namespace Main {
       _xsec_calc.ImportAlternativeMC(*h);
     }
 
-    TH1D * xsec_thetamup = _xsec_calc.ExtractCrossSection(bkg_names, "#theta_{#mu,p}^{reco})", "d#sigma/d#theta_{#mu,p}^{reco}) [10^{-38} cm^{2}]");
+    TH1D * xsec_thetamup = _xsec_calc.ExtractCrossSection(bkg_names, "(#theta_{#mu,p}^{reco})", "d#sigma/d#theta_{#mu,p}^{reco}) [10^{-38} cm^{2}]");
 
     TH1D * xsec_thetamup_mc = _xsec_calc.GetMCCrossSection();
 
