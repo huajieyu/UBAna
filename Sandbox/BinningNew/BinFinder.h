@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Thu Feb  1 21:27:21 2018 by ROOT version 6.06/06
-// from TTree mom_tree/mom_tree
-// found on file: ./ubxsecana_output_bnbcosmic_mcc8.6.root
+// Sun Feb 10 19:54:33 2019 by ROOT version 6.06/08
+// from TTree true_reco_tree/true_reco_tree
+// found on file: /uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Feb10/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22.root
 //////////////////////////////////////////////////////////
 
 #ifndef BinFinder_h
@@ -13,6 +13,8 @@
 #include <TFile.h>
 
 // Header file for the classes stored in the TTree if any.
+#include "vector"
+#include "vector"
 
 class BinFinder {
 public :
@@ -22,16 +24,38 @@ public :
 // Fixed size dimensions of array or collections stored in the TTree if any.
 
    // Declaration of leaf types
-   Double_t        mom_tree_true;
-   Double_t        mom_tree_mcs;
-   Bool_t          mom_tree_contained;
-   Bool_t          mom_tree_selected;
+   Double_t        mom_true;
+   Double_t        mom_mcs;
+   Double_t        pmom_true;
+   Double_t        pmom_reco;
+   Bool_t          contained;
+   Bool_t          selected;
+   Double_t        angle_true;
+   Double_t        angle_reco;
+   Double_t        event_weight;
+   vector<string>  *wgtsnames_genie_multisim;
+   vector<double>  *wgts_genie_multisim;
+   vector<string>  *wgtsnames_extra_syst;
+   vector<double>  *wgts_extra_syst;
+   vector<string>  *wgtsnames_flux_multisim;
+   vector<double>  *wgts_flux_multisim;
 
    // List of branches
-   TBranch        *b_mom_tree_true;   //!
-   TBranch        *b_mom_tree_mcs;   //!
-   TBranch        *b_mom_tree_contained;   //!
-   TBranch        *b_mom_tree_selected;   //!
+   TBranch        *b_mom_true;   //!
+   TBranch        *b_mom_mcs;   //!
+   TBranch        *b_pmom_true;   //!
+   TBranch        *b_pmom_reco;   //!
+   TBranch        *b_contained;   //!
+   TBranch        *b_selected;   //!
+   TBranch        *b_angle_true;   //!
+   TBranch        *b_angle_reco;   //!
+   TBranch        *b_event_weight;   //!
+   TBranch        *b_wgtsnames_genie_multisim;   //!
+   TBranch        *b_wgts_genie_multisim;   //!
+   TBranch        *b_wgtsnames_extra_syst;   //!
+   TBranch        *b_wgts_extra_syst;   //!
+   TBranch        *b_wgtsnames_flux_multisim;   //!
+   TBranch        *b_wgts_flux_multisim;   //!
 
    BinFinder(TTree *tree=0);
    virtual ~BinFinder();
@@ -44,7 +68,7 @@ public :
    virtual void     Show(Long64_t entry = -1);
 
    void DoFit(TH1D*, std::string, std::string, double *, bool save_plot);
-   void SmearingMatrix();
+
 };
 
 #endif
@@ -55,11 +79,11 @@ BinFinder::BinFinder(TTree *tree) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("../../../Files/Output/ubxsecana_output_bnbcosmic_mcc8.9_500k.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Feb10/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("../../../Files/Output/ubxsecana_output_bnbcosmic_mcc8.9_500k.root");
+         f = new TFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Feb10/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22.root");
       }
-      f->GetObject("mom_tree",tree);
+      f->GetObject("true_reco_tree",tree);
 
    }
    Init(tree);
@@ -100,16 +124,34 @@ void BinFinder::Init(TTree *tree)
    // Init() will be called many times when running on PROOF
    // (once per file to be processed).
 
+   // Set object pointer
+   wgtsnames_genie_multisim = 0;
+   wgts_genie_multisim = 0;
+   wgtsnames_extra_syst = 0;
+   wgts_extra_syst = 0;
+   wgtsnames_flux_multisim = 0;
+   wgts_flux_multisim = 0;
    // Set branch addresses and branch pointers
    if (!tree) return;
    fChain = tree;
    fCurrent = -1;
    fChain->SetMakeClass(1);
 
-   fChain->SetBranchAddress("mom_tree_true", &mom_tree_true, &b_mom_tree_true);
-   fChain->SetBranchAddress("mom_tree_mcs", &mom_tree_mcs, &b_mom_tree_mcs);
-   fChain->SetBranchAddress("mom_tree_contained", &mom_tree_contained, &b_mom_tree_contained);
-   fChain->SetBranchAddress("mom_tree_selected", &mom_tree_selected, &b_mom_tree_selected);
+   fChain->SetBranchAddress("mom_true", &mom_true, &b_mom_true);
+   fChain->SetBranchAddress("mom_mcs", &mom_mcs, &b_mom_mcs);
+   fChain->SetBranchAddress("pmom_true", &pmom_true, &b_pmom_true);
+   fChain->SetBranchAddress("pmom_reco", &pmom_reco, &b_pmom_reco);
+   fChain->SetBranchAddress("contained", &contained, &b_contained);
+   fChain->SetBranchAddress("selected", &selected, &b_selected);
+   fChain->SetBranchAddress("angle_true", &angle_true, &b_angle_true);
+   fChain->SetBranchAddress("angle_reco", &angle_reco, &b_angle_reco);
+   fChain->SetBranchAddress("event_weight", &event_weight, &b_event_weight);
+   fChain->SetBranchAddress("wgtsnames_genie_multisim", &wgtsnames_genie_multisim, &b_wgtsnames_genie_multisim);
+   fChain->SetBranchAddress("wgts_genie_multisim", &wgts_genie_multisim, &b_wgts_genie_multisim);
+   fChain->SetBranchAddress("wgtsnames_extra_syst", &wgtsnames_extra_syst, &b_wgtsnames_extra_syst);
+   fChain->SetBranchAddress("wgts_extra_syst", &wgts_extra_syst, &b_wgts_extra_syst);
+   fChain->SetBranchAddress("wgtsnames_flux_multisim", &wgtsnames_flux_multisim, &b_wgtsnames_flux_multisim);
+   fChain->SetBranchAddress("wgts_flux_multisim", &wgts_flux_multisim, &b_wgts_flux_multisim);
    Notify();
 }
 

@@ -7,6 +7,11 @@ from ROOT import Main
 
 analyser = Main.Analyse()
 
+analyser.SetBNBCosmicFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Dec/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22.root") # tune 1
+analyser.SetDirtFile ("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Dec/ubxsecana_output_mc_bnbdirt_ubcodev06_26_01_22.root")
+#analyser.SetInTimeCosmicFile  ("/Users/deltutto/RealWork/CCInclusiveEventSelection/Files/Output/ubxsecana_output_bnbcosmic_mcc8.7_test6.root") # Just a placeholder
+analyser.SetBNBONFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Dec/ubxsecana_output_data_onbeam_ubcodev06_26_01_22.root")    
+analyser.SetEXTBNBFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Dec/ubxsecana_output_data_offbeam_ubcodev06_26_01_22.root")
 
 # analyser.SetBNBCosmicFile     ("/Users/deltutto/CCInclusiveFiles/Output/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22__v2_nosyst.root") # Tune 1
 analyser.SetBNBCosmicFile     ("/Users/deltutto/CCInclusiveFiles/Output/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22__v4_all.root") # Tune 1 - full stat - full syst
@@ -38,6 +43,14 @@ analyser.SetPrefix("cv")
 # analyser.SetPrefix("cv_nodirt")
 # analyser.SetPrefix("kaonup")
 # analyser.SetPrefix("kaondown")
+=======
+
+
+analyser.SetBNBPOT(1.592e+20);    
+analyser.SetBNBONTriggers(35388924.0)
+analyser.SetEXTBNBTriggers(72299264.0)
+analyser.SetPrefix("cv");
+>>>>>>> libo
 analyser.SetFluxCorrectionWeight(1.028)
 
 analyser.ImportAlternativeMC("xsec_file_cv_tune3.root")
@@ -65,6 +78,10 @@ analyser.ImportMCStatSystematics(True)
 
 
 analyser.DoFluxSystematics(False)
+analyser.DoGenieSystematics(True)
+analyser.ImportGenieSystematics(True)
+
+analyser.DoFluxSystematics(True)
 analyser.ImportFluxSystematics(True)
 analyser.SetExtraFluxUncertainty(0.)
 analyser.SetTargetFluxSystematic("total"); # Other options: "FluxUnisim", "kminus", "kplus", "kzero", "piminus", "piplus"

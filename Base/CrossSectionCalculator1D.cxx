@@ -382,7 +382,7 @@ namespace Base {
 
     TString name = _folder +_name + "efficiecy_mumon_true";
     c_eff_true->SaveAs(name + ".pdf");
-
+    c_eff_true->SaveAs(name + ".C","C");
     // 
     // Do the smearing
     //
@@ -500,6 +500,8 @@ namespace Base {
     c_eff_reco->SaveAs(name + ".pdf");
 
     // LOG_INFO() << "Statistic option used for efficiency calculation: " << teff_reco->GetStatisticOption() << ", check https://root.cern.ch/doc/v608/classTEfficiency.html#af27fb4e93a1b16ed7a5b593398f86312." << std::endl;
+    c_eff_reco->SaveAs(name + ".C","C");
+    LOG_INFO() << "Statistic option used for efficiency calculation: " << teff_reco->GetStatisticOption() << ", check https://root.cern.ch/doc/v608/classTEfficiency.html#af27fb4e93a1b16ed7a5b593398f86312." << std::endl;
     LOG_INFO() << "Efficiency bin 1: " << teff_reco->GetEfficiency(1) << " - " << teff_reco->GetEfficiencyErrorLow(1) << " + " << teff_reco->GetEfficiencyErrorUp(1) << std::endl;
     LOG_INFO() << "Efficiency bin 2: " << teff_reco->GetEfficiency(2) << " - " << teff_reco->GetEfficiencyErrorLow(2) << " + " << teff_reco->GetEfficiencyErrorUp(2) << std::endl;
 
@@ -1148,7 +1150,8 @@ namespace Base {
 
     for (auto hname : histos_to_subtract) 
     {
-      LOG_DEBUG() << "Going to subtract histogram " << hname << std::endl;
+      LOG_INFO() << "_h_data_subtracted integral is "<<_h_data_subtracted->Integral()<<std::endl;
+      LOG_INFO() << "Going to subtract histogram " << hname << ": "<<_hmap_bnbcosmic[hname]->Integral()<<std::endl;
       // Need to remove from the data histogram
       _h_data_subtracted->Add(_hmap_bnbcosmic[hname], -1.);
       // But also form the total MC one, to properly propagate unc

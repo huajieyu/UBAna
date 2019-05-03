@@ -47,7 +47,7 @@
 #include <TCanvas.h>
 #include "TMath.h"
 #include "TH2Poly.h"
-
+#include "TVector3.h"
 #include "ubana/DataTypes/UBTH2Poly.h"
 #include "ubana/DataTypes/BootstrapTH2DPoly.h"
 #include "ubana/DataTypes/UBXSecEventHisto.h"
@@ -114,6 +114,15 @@ namespace Main{
     /// Sets if the file is a data one or not
     void SetIsData(bool);
 
+    /// Check if a certain track is within CV
+    bool inCV(float x, float y, float z); 
+
+    float getAngle(float mom1, float theta1, float phi1, float mom2, float theta2, float phi2);
+
+    float getEta(vector<vector<double>> canddQdx, vector<vector<double>> trkRR, vector<float> trklen,  int muind, int pind);
+ 
+    float Ecalomiss(float Esum, float ptmis, int np);
+
     /// If true, MEC events are turned off, and MA is scaled up
     void SetMaUpMECOff(bool option) {_maup_mecoff = option;}
 
@@ -150,13 +159,16 @@ namespace Main{
     /// Sets the target used for extra systematics
     void SetTargetExtraSystematic(std::string s) { _extra_syst_target_syst = s; }
 
+    void SetAnalysisType(std::string s) {_ana_int_type = s; }
+
+    void RecoShowerAsTrack(bool option) {_showerastrack = option; }
 
   private:
 
     /// Prints a warning message if running with MA up and MEC off
     void PrintMaUpMECOff();
 
-    /// Prints a warning message if running with scaled kaon flux
+    /// Prints a warning message if running with scaled kason Flux
     void PrintReweighKaons();
 
     void DrawProgressBar(double progress, double barWidth);
@@ -253,8 +265,13 @@ namespace Main{
     bool _fill_bootstrap_genie = false;
     bool _fill_bootstrap_extra_syst = false;
 
+
+
     std::string _target_flux_syst = "";
     std::string _extra_syst_target_syst = "";
+    std::string _ana_int_type = "";
+    bool _showerastrack = false;
+
 
     const bool _check_duplicate_events = false;
 
@@ -276,11 +293,23 @@ namespace Main{
 
     const double targetPOT = 4.95e19;
 
-    double bins_mumom[7] = {0.00, 0.18, 0.30, 0.45, 0.77, 1.28, 2.50};
-    double bins_mucostheta[10] = {-1.00, -0.50, 0.00, 0.27, 0.45, 0.62, 0.76, 0.86, 0.94, 1.00};
-
+    double bins_mumom[7] = {0.00, 0.18, 0.30, 0.48, 0.75, 1.14, 2.50};
+    double bins_mucostheta[13] = {-1.00, -0.82, -0.66, -0.39, -0.16, 0.05, 0.25, 0.43, 0.59, 0.73, 0.83, 0.91, 1.00};
     int n_bins_mumom = 6;
-    int n_bins_mucostheta = 9;
+    int n_bins_mucostheta = 12;
+
+
+    double bins_pmom[11] = {0.30, 0.41, 0.495, 0.56, 0.62, 0.68, 0.74, 0.80, 0.87, 0.93, 1.50};
+    double bins_pcostheta[10] = {-1.00, -0.50, 0.00, 0.27, 0.45, 0.62, 0.76, 0.86, 0.94, 1.00};
+
+    int n_bins_pmom = 10; 
+    int n_bins_pcostheta = 9;
+
+    double bins_muptheta[7] = {0.00, 1.00, 1.31, 1.5, 1.7, 2.04, 3.14};
+    int n_bins_muptheta = 6;
+  
+
+
 
     int n_bins_double_mumom = 6; ///< Number of momentum bins for double differential
     double bins_double_mumom[7] = {0.00, 0.18, 0.30, 0.45, 0.77, 1.28, 2.50}; ///< Momentum bins for double differential
@@ -296,7 +325,7 @@ namespace Main{
 
 
     // These variables are filled in the reco-true TTree in the code
-    double _mom_true, _mom_mcs;
+    double _mom_true, _mom_mcs, _pmom_true, _pmom_reco;
     bool _contained, _selected;
     double _angle_true, _angle_reco;
     double _event_weight_fortree;
