@@ -1,0 +1,888 @@
+[?1034hWelcome to the ROOT of all evils 
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> Created output folder with name /build/jiangl/NewUBAna/UBAna/Output/output_data_mc/.
+Start open the input files 
+Opened the MC input file 
+Tried to open a dirt file 
+Tried to open a bnb data file 
+Triend to open a extbnb data file 
+Opened all the MC and Data file 
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> Number of events (BNBON):  27081
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> Number of events (EXTBNB): 17996
+
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> Number of events (BNBCosmic): 618638
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> Number of events (Dirt): 11530
+ Got the total number of events for mc, onbeam and off beam data
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> Simulated POT:      3.16395e+21
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> BNBON Measured POT: 1.584e+20
+
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> Dirt Simulated POT: 1.2162e+21
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> Data Scale Factors:
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> 	 BNBON: 1
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> 	 EXTBNB: 0.491343
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> MC Scale Factors:
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> 	 BNBCOSMIC: 0.0500641
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> 	 DIRT: 0.130242
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> Checkpoint 1
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> Checkpoint 2
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> Checkpoint 3
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> Checkpoint 4
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> Checkpoint 5
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> Checkpoint 6
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> Checkpoint 7
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> Checkpoint 8
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> Checkpoint 13
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> Preparing to load Event Histo from BNBCosmic file.
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> Event Histo correclty loaded from BNBCosmic file.
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> Preparing to load Event Histo from BNBON file.
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> Event Histo correclty loaded from BNBON file.
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> Preparing to load Event Histo from EXTBNB file.
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> Event Histo correclty loaded from EXTBNB file.
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> Preparing to load Event Histo from DIRT file.
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> Event Histo correclty loaded from DIRT file.
+JJJJJ Just before
+maximum 6507.65
+calling ProjectionY 
+before calling GetCopyWithBinNumbers
+after calling GetCopyWithBinNumbers
+Original   bin 2, content: 601.455 +- 24.7621
+JJJJJ Just after
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> Opening output file with name xsec_file_CV.root
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> File opened successfully.
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> FLUX: 1.16271e+11
+***************
+* Total cross section
+***************
+is the dirt opened???0xd75f1710
+libo test 0
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L574> Beam-on integral 4746
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L575> Beam-off integral 396.022
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L576> MC signal 3793.02
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L577> MC cosmic 399.839
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L578> MC outfv 331.747
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L579> MC nc 70.5148
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L580> MC nue 0.541486
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L581> MC anumu 11.507
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L582> MC dirt 45.6615
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L584> First Bin only: 
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L585> Beam-on integral 4746 +- 68.8912
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L586> Beam-off integral 396.022 +- 13.9493
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L587> MC signal 3793.02 +- 13.8999
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L588> MC cosmic 399.839 +- 4.51043
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L589> MC outfv 331.747 +- 4.1083
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L590> MC nc 70.5148 +- 1.88914
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L591> MC nue 0.541486 +- 0.14931
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L592> MC anumu 11.507 +- 0.802184
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L593> MC dirt 45.6615 +- 2.41883
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L597> Number of events for 1.584e+20 POT:
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L598> Beam-on integral 4746 +- 68.8912
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L599> Beam-off integral 396.022 +- 13.9493
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L600> MC signal 3793.02 +- 13.8999
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L601> MC cosmic 399.839 +- 4.51043
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L602> MC outfv 331.747 +- 4.1083
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L603> MC nc 70.5148 +- 1.88914
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L604> MC nue 0.541486 +- 0.14931
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L605> MC anumu 11.507 +- 0.802184
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L606> MC dirt 45.6615 +- 2.41883
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L615> Total backround 1255.83 +- 15.5528
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 4746
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram beam-off: 396.022
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 4349.98
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram cosmic: 399.839
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3950.14
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram outfv: 331.747
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3618.39
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram nc: 70.5148
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3547.88
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram nue: 0.541486
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3547.34
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram anumu: 11.507
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3535.83
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram cc_other: 339.556
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3196.27
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram dirt: 45.6615
+[92m      [INFO]  [00m <CrossSectionCalculator1D::DoNotSmear::L313> The efficiency is 0.275716 + 0.000859756 - 0.000859756
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L692> Statistical uncertainty for beam-on: 68.8912
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L695> Statistical uncertainty for beam-off: 13.9493
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L695> Statistical uncertainty for cosmic: 4.51043
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L695> Statistical uncertainty for outfv: 4.1083
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L695> Statistical uncertainty for nc: 1.88914
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L695> Statistical uncertainty for nue: 0.14931
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L695> Statistical uncertainty for anumu: 0.802184
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L695> Statistical uncertainty for cc_other: 4.1526
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L695> Statistical uncertainty for dirt: 2.41883
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L755> Data Integral: 0.371961
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L756> MC Integral: 0.444018
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L988> Total cross section - DATA: 0.371961 +- 0.00843252
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L989> Total cross section - MC  : 0.444018 +- 0.0021365
+libo test 1
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> CrossSectionBootstrapCalculator1D Starts Running
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> Flux Correction Weight Set to: 1.028
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> CrossSectionBootstrapCalculator1D FLUX: 1.16271e+11
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> Number of universes: 101
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> Universes names: nominal, universe0, universe1, universe2, universe3, universe4, universe5, universe6, universe7, universe8, universe9, universe10, universe11, universe12, universe13, universe14, universe15, universe16, universe17, universe18, universe19, universe20, universe21, universe22, universe23, universe24, universe25, universe26, universe27, universe28, universe29, universe30, universe31, universe32, universe33, universe34, universe35, universe36, universe37, universe38, universe39, universe40, universe41, universe42, universe43, universe44, universe45, universe46, universe47, universe48, universe49, universe50, universe51, universe52, universe53, universe54, universe55, universe56, universe57, universe58, universe59, universe60, universe61, universe62, universe63, universe64, universe65, universe66, universe67, universe68, universe69, universe70, universe71, universe72, universe73, universe74, universe75, universe76, universe77, universe78, universe79, universe80, universe81, universe82, universe83, universe84, universe85, universe86, universe87, universe88, universe89, universe90, universe91, universe92, universe93, universe94, universe95, universe96, universe97, universe98, universe99, 
+[>                                                                     ] 0 % completed.[>                                                                     ] 0 % completed.[=>                                                                    ] 1 % completed.[==>                                                                   ] 2 % completed.[==>                                                                   ] 3 % completed.[===>                                                                  ] 4 % completed.[====>                                                                 ] 5 % completed.[====>                                                                 ] 6 % completed.[=====>                                                                ] 7 % completed.[======>                                                               ] 8 % completed.[======>                                                               ] 9 % completed.[=======>                                                              ] 10 % completed.[========>                                                             ] 11 % completed.[=========>                                                            ] 12 % completed.[=========>                                                            ] 13 % completed.[==========>                                                           ] 14 % completed.[===========>                                                          ] 15 % completed.[===========>                                                          ] 16 % completed.[============>                                                         ] 17 % completed.[=============>                                                        ] 18 % completed.[=============>                                                        ] 19 % completed.[==============>                                                       ] 20 % completed.[===============>                                                      ] 21 % completed.[===============>                                                      ] 22 % completed.[================>                                                     ] 23 % completed.[=================>                                                    ] 24 % completed.[==================>                                                   ] 25 % completed.[==================>                                                   ] 26 % completed.[===================>                                                  ] 27 % completed.[====================>                                                 ] 28 % completed.[====================>                                                 ] 29 % completed.[=====================>                                                ] 30 % completed.[======================>                                               ] 31 % completed.[======================>                                               ] 32 % completed.[=======================>                                              ] 33 % completed.[========================>                                             ] 34 % completed.[========================>                                             ] 35 % completed.[=========================>                                            ] 36 % completed.[==========================>                                           ] 37 % completed.[===========================>                                          ] 38 % completed.[===========================>                                          ] 39 % completed.[============================>                                         ] 40 % completed.[=============================>                                        ] 41 % completed.[=============================>                                        ] 42 % completed.[==============================>                                       ] 43 % completed.[===============================>                                      ] 44 % completed.[===============================>                                      ] 45 % completed.[================================>                                     ] 46 % completed.[=================================>                                    ] 47 % completed.[=================================>                                    ] 48 % completed.[==================================>                                   ] 49 % completed.[===================================>                                  ] 50 % completed.[====================================>                                 ] 51 % completed.[====================================>                                 ] 52 % completed.[=====================================>                                ] 53 % completed.[======================================>                               ] 54 % completed.[======================================>                               ] 55 % completed.[=======================================>                              ] 56 % completed.[========================================>                             ] 57 % completed.[========================================>                             ] 58 % completed.[=========================================>                            ] 59 % completed.[==========================================>                           ] 60 % completed.[==========================================>                           ] 61 % completed.[===========================================>                          ] 62 % completed.[============================================>                         ] 63 % completed.[=============================================>                        ] 64 % completed.[=============================================>                        ] 65 % completed.[==============================================>                       ] 66 % completed.[===============================================>                      ] 67 % completed.[===============================================>                      ] 68 % completed.[================================================>                     ] 69 % completed.[=================================================>                    ] 70 % completed.[=================================================>                    ] 71 % completed.[==================================================>                   ] 72 % completed.[===================================================>                  ] 73 % completed.[===================================================>                  ] 74 % completed.[====================================================>                 ] 75 % completed.[=====================================================>                ] 76 % completed.[======================================================>               ] 77 % completed.[======================================================>               ] 78 % completed.[=======================================================>              ] 79 % completed.[========================================================>             ] 80 % completed.[========================================================>             ] 81 % completed.[=========================================================>            ] 82 % completed.[==========================================================>           ] 83 % completed.[==========================================================>           ] 84 % completed.[===========================================================>          ] 85 % completed.[============================================================>         ] 86 % completed.[============================================================>         ] 87 % completed.[=============================================================>        ] 88 % completed.[==============================================================>       ] 89 % completed.[===============================================================>      ] 90 % completed.[===============================================================>      ] 91 % completed.[================================================================>     ] 92 % completed.[=================================================================>    ] 93 % completed.[=================================================================>    ] 94 % completed.[==================================================================>   ] 95 % completed.[===================================================================>  ] 96 % completed.[===================================================================>  ] 97 % completed.[====================================================================> ] 98 % completed.[=====================================================================>] 99 % completed.[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> xsec_mumom_bs.GetNbinsX() 1
+[CovarianceCalculator2D]  Calculating Cov Matrix with 101 universes. Nominal histogram is excluded.
+[======================================================================] 100 % completed.[CovarianceCalculator2D] Printing Covariance Matrix M = 
+
+1x1 matrix is as follows
+
+     |      0    |
+------------------
+   0 |  0.0001692 
+
+[CovarianceCalculator2D] Printing Fractional Covariance Matrix M = 
+
+1x1 matrix is as follows
+
+     |      0    |
+------------------
+   0 |   0.001223 
+
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+***************
+* Muon Momentum cross section
+***************
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> CrossSectionBootstrapCalculator1D Starts Running
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> Flux Correction Weight Set to: 1.028
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> CrossSectionBootstrapCalculator1D FLUX: 1.16271e+11
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> Number of universes: 101
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> Universes names: nominal, universe0, universe1, universe2, universe3, universe4, universe5, universe6, universe7, universe8, universe9, universe10, universe11, universe12, universe13, universe14, universe15, universe16, universe17, universe18, universe19, universe20, universe21, universe22, universe23, universe24, universe25, universe26, universe27, universe28, universe29, universe30, universe31, universe32, universe33, universe34, universe35, universe36, universe37, universe38, universe39, universe40, universe41, universe42, universe43, universe44, universe45, universe46, universe47, universe48, universe49, universe50, universe51, universe52, universe53, universe54, universe55, universe56, universe57, universe58, universe59, universe60, universe61, universe62, universe63, universe64, universe65, universe66, universe67, universe68, universe69, universe70, universe71, universe72, universe73, universe74, universe75, universe76, universe77, universe78, universe79, universe80, universe81, universe82, universe83, universe84, universe85, universe86, universe87, universe88, universe89, universe90, universe91, universe92, universe93, universe94, universe95, universe96, universe97, universe98, universe99, 
+[>                                                                     ] 0 % completed.[>                                                                     ] 0 % completed.[=>                                                                    ] 1 % completed.[==>                                                                   ] 2 % completed.[==>                                                                   ] 3 % completed.[===>                                                                  ] 4 % completed.[====>                                                                 ] 5 % completed.[====>                                                                 ] 6 % completed.[=====>                                                                ] 7 % completed.[======>                                                               ] 8 % completed.[======>                                                               ] 9 % completed.[=======>                                                              ] 10 % completed.[========>                                                             ] 11 % completed.[=========>                                                            ] 12 % completed.[=========>                                                            ] 13 % completed.[==========>                                                           ] 14 % completed.[===========>                                                          ] 15 % completed.[===========>                                                          ] 16 % completed.[============>                                                         ] 17 % completed.[=============>                                                        ] 18 % completed.[=============>                                                        ] 19 % completed.[==============>                                                       ] 20 % completed.[===============>                                                      ] 21 % completed.[===============>                                                      ] 22 % completed.[================>                                                     ] 23 % completed.[=================>                                                    ] 24 % completed.[==================>                                                   ] 25 % completed.[==================>                                                   ] 26 % completed.[===================>                                                  ] 27 % completed.[====================>                                                 ] 28 % completed.[====================>                                                 ] 29 % completed.[=====================>                                                ] 30 % completed.[======================>                                               ] 31 % completed.[======================>                                               ] 32 % completed.[=======================>                                              ] 33 % completed.[========================>                                             ] 34 % completed.[========================>                                             ] 35 % completed.[=========================>                                            ] 36 % completed.[==========================>                                           ] 37 % completed.[===========================>                                          ] 38 % completed.[===========================>                                          ] 39 % completed.[============================>                                         ] 40 % completed.[=============================>                                        ] 41 % completed.[=============================>                                        ] 42 % completed.[==============================>                                       ] 43 % completed.[===============================>                                      ] 44 % completed.[===============================>                                      ] 45 % completed.[================================>                                     ] 46 % completed.[=================================>                                    ] 47 % completed.[=================================>                                    ] 48 % completed.[==================================>                                   ] 49 % completed.[===================================>                                  ] 50 % completed.[====================================>                                 ] 51 % completed.[====================================>                                 ] 52 % completed.[=====================================>                                ] 53 % completed.[======================================>                               ] 54 % completed.[======================================>                               ] 55 % completed.[=======================================>                              ] 56 % completed.[========================================>                             ] 57 % completed.[========================================>                             ] 58 % completed.[=========================================>                            ] 59 % completed.[==========================================>                           ] 60 % completed.[==========================================>                           ] 61 % completed.[===========================================>                          ] 62 % completed.[============================================>                         ] 63 % completed.[=============================================>                        ] 64 % completed.[=============================================>                        ] 65 % completed.[==============================================>                       ] 66 % completed.[===============================================>                      ] 67 % completed.[===============================================>                      ] 68 % completed.[================================================>                     ] 69 % completed.[=================================================>                    ] 70 % completed.[=================================================>                    ] 71 % completed.[==================================================>                   ] 72 % completed.[===================================================>                  ] 73 % completed.[===================================================>                  ] 74 % completed.[====================================================>                 ] 75 % completed.[=====================================================>                ] 76 % completed.[======================================================>               ] 77 % completed.[======================================================>               ] 78 % completed.[=======================================================>              ] 79 % completed.[========================================================>             ] 80 % completed.[========================================================>             ] 81 % completed.[=========================================================>            ] 82 % completed.[==========================================================>           ] 83 % completed.[==========================================================>           ] 84 % completed.[===========================================================>          ] 85 % completed.[============================================================>         ] 86 % completed.[============================================================>         ] 87 % completed.[=============================================================>        ] 88 % completed.[==============================================================>       ] 89 % completed.[===============================================================>      ] 90 % completed.[===============================================================>      ] 91 % completed.[================================================================>     ] 92 % completed.[=================================================================>    ] 93 % completed.[=================================================================>    ] 94 % completed.[==================================================================>   ] 95 % completed.[===================================================================>  ] 96 % completed.[===================================================================>  ] 97 % completed.[====================================================================> ] 98 % completed.[=====================================================================>] 99 % completed.[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> xsec_mumom_bs.GetNbinsX() 6
+[CovarianceCalculator2D]  Calculating Cov Matrix with 101 universes. Nominal histogram is excluded.
+[=>                                                                    ] 2 % completed.[===>                                                                  ] 5 % completed.[=====>                                                                ] 8 % completed.[=======>                                                              ] 11 % completed.[=========>                                                            ] 13 % completed.[===========>                                                          ] 16 % completed.[=============>                                                        ] 19 % completed.[===============>                                                      ] 22 % completed.[=================>                                                    ] 25 % completed.[===================>                                                  ] 27 % completed.[=====================>                                                ] 30 % completed.[=======================>                                              ] 33 % completed.[=========================>                                            ] 36 % completed.[===========================>                                          ] 38 % completed.[=============================>                                        ] 41 % completed.[===============================>                                      ] 44 % completed.[=================================>                                    ] 47 % completed.[===================================>                                  ] 50 % completed.[====================================>                                 ] 52 % completed.[======================================>                               ] 55 % completed.[========================================>                             ] 58 % completed.[==========================================>                           ] 61 % completed.[============================================>                         ] 63 % completed.[==============================================>                       ] 66 % completed.[================================================>                     ] 69 % completed.[==================================================>                   ] 72 % completed.[====================================================>                 ] 75 % completed.[======================================================>               ] 77 % completed.[========================================================>             ] 80 % completed.[==========================================================>           ] 83 % completed.[============================================================>         ] 86 % completed.[==============================================================>       ] 88 % completed.[================================================================>     ] 91 % completed.[==================================================================>   ] 94 % completed.[====================================================================> ] 97 % completed.[======================================================================] 100 % completed.[CovarianceCalculator2D] Printing Covariance Matrix M = 
+
+6x6 matrix is as follows
+
+     |      0    |      1    |      2    |      3    |      4    |
+----------------------------------------------------------------------
+   0 |  2.396e-05   0.0001004   7.788e-05   3.877e-05   2.197e-05 
+   1 |  0.0001004   0.0005288   0.0004062   0.0002099    0.000123 
+   2 |  7.788e-05   0.0004062   0.0003341   0.0001752   0.0001006 
+   3 |  3.877e-05   0.0002099   0.0001752   9.368e-05     5.4e-05 
+   4 |  2.197e-05    0.000123   0.0001006     5.4e-05    3.26e-05 
+   5 |  3.221e-06   1.831e-05    1.45e-05   7.788e-06   4.896e-06 
+
+
+     |      5    |
+----------------------------------------------------------------------
+   0 |  3.221e-06 
+   1 |  1.831e-05 
+   2 |   1.45e-05 
+   3 |  7.788e-06 
+   4 |  4.896e-06 
+   5 |    7.8e-07 
+
+[CovarianceCalculator2D] Printing Fractional Covariance Matrix M = 
+
+6x6 matrix is as follows
+
+     |      0    |      1    |      2    |      3    |      4    |
+----------------------------------------------------------------------
+   0 |   0.009944    0.005049    0.002917    0.001865    0.002349 
+   1 |   0.005049    0.003222    0.001844    0.001224    0.001593 
+   2 |   0.002917    0.001844    0.001129    0.000761   0.0009705 
+   3 |   0.001865    0.001224    0.000761   0.0005227   0.0006692 
+   4 |   0.002349    0.001593   0.0009705   0.0006692   0.0008975 
+   5 |   0.003597    0.002478    0.001462    0.001009    0.001408 
+
+
+     |      5    |
+----------------------------------------------------------------------
+   0 |   0.003597 
+   1 |   0.002478 
+   2 |   0.001462 
+   3 |   0.001009 
+   4 |   0.001408 
+   5 |   0.002345 
+
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+GENIE Multisim - Uncertainties on the diagonal: 0 => 2.39641e-05
+GENIE Multisim - Uncertainties on the diagonal: 1 => 0.000528833
+GENIE Multisim - Uncertainties on the diagonal: 2 => 0.000334142
+GENIE Multisim - Uncertainties on the diagonal: 3 => 9.36822e-05
+GENIE Multisim - Uncertainties on the diagonal: 4 => 3.26018e-05
+GENIE Multisim - Uncertainties on the diagonal: 5 => 7.80022e-07
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L574> Beam-on integral 4741
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L575> Beam-off integral 394.057
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L576> MC signal 3775.61
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L577> MC cosmic 397.807
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L578> MC outfv 328.844
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L579> MC nc 70.4636
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L580> MC nue 0.541486
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L581> MC anumu 11.4548
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L582> MC dirt 43.9941
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L584> First Bin only: 
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L585> Beam-on integral 87 +- 9.32738
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L586> Beam-off integral 14.7403 +- 2.6912
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L587> MC signal 39.5584 +- 1.41923
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L588> MC cosmic 10.6377 +- 0.734554
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L589> MC outfv 7.18556 +- 0.605147
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L590> MC nc 11.1849 +- 0.754204
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L591> MC nue 0.117187 +- 0.0691216
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L592> MC anumu 0.294534 +- 0.120244
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L593> MC dirt 3.23462 +- 0.647189
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 4741
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram beam-off: 394.057
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 4346.94
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram cosmic: 397.807
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3949.14
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram outfv: 328.844
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3620.29
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram nc: 70.4636
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3549.83
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram nue: 0.541486
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3549.29
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram anumu: 11.4548
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3537.83
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram cc_other: 338.435
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3199.4
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram dirt: 43.9941
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L441> _h_eff_mumom_num->Integral(): 305714
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L442> _h_eff_mumom_den->Integral(): 1.14386e+06
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L465> h_eff_mumom_num_smear->Integral(): 306983
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L466> h_eff_mumom_den_smear->Integral(): 1.16237e+06
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L492> Statistic option used for efficiency calculation: 1, check https://root.cern.ch/doc/v608/classTEfficiency.html#af27fb4e93a1b16ed7a5b593398f86312.
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L493> Efficiency bin 1: 0.119619 - 0.00499004 + 0.00499004
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L494> Efficiency bin 2: 0.212185 - 0.00203813 + 0.00203813
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L692> Statistical uncertainty for beam-on: 9.32738
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L755> Data Integral: 1.6303
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L756> MC Integral: 1.87779
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L845> Building covariance matrix from imported fractional covariance matrix.
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L866> Evaluating systematic uncertainties from covariance matrix.
+Bin 0 - stat: 0.0149929, syst: 0.00489532, tot: 0.0157719
+Bin 1 - stat: 0.0339178, syst: 0.0229964, tot: 0.0409786
+Bin 2 - stat: 0.0248452, syst: 0.0182796, tot: 0.0308452
+Bin 3 - stat: 0.0154275, syst: 0.00967896, tot: 0.0182123
+Bin 4 - stat: 0.00864516, syst: 0.0057098, tot: 0.0103605
+Bin 5 - stat: 0.00156695, syst: 0.000883188, tot: 0.00179871
+***************
+* Proton Momentum cross section
+***************
+start to do genie systematics
+first bin center is 0.355
+first bin center is 0.355
+first bin center is 0.355
+first bin center is 0.355
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> CrossSectionBootstrapCalculator1D Starts Running
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> Flux Correction Weight Set to: 1.028
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> CrossSectionBootstrapCalculator1D FLUX: 1.16271e+11
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> Number of universes: 101
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> Universes names: nominal, universe0, universe1, universe2, universe3, universe4, universe5, universe6, universe7, universe8, universe9, universe10, universe11, universe12, universe13, universe14, universe15, universe16, universe17, universe18, universe19, universe20, universe21, universe22, universe23, universe24, universe25, universe26, universe27, universe28, universe29, universe30, universe31, universe32, universe33, universe34, universe35, universe36, universe37, universe38, universe39, universe40, universe41, universe42, universe43, universe44, universe45, universe46, universe47, universe48, universe49, universe50, universe51, universe52, universe53, universe54, universe55, universe56, universe57, universe58, universe59, universe60, universe61, universe62, universe63, universe64, universe65, universe66, universe67, universe68, universe69, universe70, universe71, universe72, universe73, universe74, universe75, universe76, universe77, universe78, universe79, universe80, universe81, universe82, universe83, universe84, universe85, universe86, universe87, universe88, universe89, universe90, universe91, universe92, universe93, universe94, universe95, universe96, universe97, universe98, universe99, 
+[>                                                                     ] 0 % completed.[>                                                                     ] 0 % completed.[=>                                                                    ] 1 % completed.[==>                                                                   ] 2 % completed.[==>                                                                   ] 3 % completed.[===>                                                                  ] 4 % completed.[====>                                                                 ] 5 % completed.[====>                                                                 ] 6 % completed.[=====>                                                                ] 7 % completed.[======>                                                               ] 8 % completed.[======>                                                               ] 9 % completed.[=======>                                                              ] 10 % completed.[========>                                                             ] 11 % completed.[=========>                                                            ] 12 % completed.[=========>                                                            ] 13 % completed.[==========>                                                           ] 14 % completed.[===========>                                                          ] 15 % completed.[===========>                                                          ] 16 % completed.[============>                                                         ] 17 % completed.[=============>                                                        ] 18 % completed.[=============>                                                        ] 19 % completed.[==============>                                                       ] 20 % completed.[===============>                                                      ] 21 % completed.[===============>                                                      ] 22 % completed.[================>                                                     ] 23 % completed.[=================>                                                    ] 24 % completed.[==================>                                                   ] 25 % completed.[==================>                                                   ] 26 % completed.[===================>                                                  ] 27 % completed.[====================>                                                 ] 28 % completed.[====================>                                                 ] 29 % completed.[=====================>                                                ] 30 % completed.[======================>                                               ] 31 % completed.[======================>                                               ] 32 % completed.[=======================>                                              ] 33 % completed.[========================>                                             ] 34 % completed.[========================>                                             ] 35 % completed.[=========================>                                            ] 36 % completed.[==========================>                                           ] 37 % completed.[===========================>                                          ] 38 % completed.[===========================>                                          ] 39 % completed.[============================>                                         ] 40 % completed.[=============================>                                        ] 41 % completed.[=============================>                                        ] 42 % completed.[==============================>                                       ] 43 % completed.[===============================>                                      ] 44 % completed.[===============================>                                      ] 45 % completed.[================================>                                     ] 46 % completed.[=================================>                                    ] 47 % completed.[=================================>                                    ] 48 % completed.[==================================>                                   ] 49 % completed.[===================================>                                  ] 50 % completed.[====================================>                                 ] 51 % completed.[====================================>                                 ] 52 % completed.[=====================================>                                ] 53 % completed.[======================================>                               ] 54 % completed.[======================================>                               ] 55 % completed.[=======================================>                              ] 56 % completed.[========================================>                             ] 57 % completed.[========================================>                             ] 58 % completed.[=========================================>                            ] 59 % completed.[==========================================>                           ] 60 % completed.[==========================================>                           ] 61 % completed.[===========================================>                          ] 62 % completed.[============================================>                         ] 63 % completed.[=============================================>                        ] 64 % completed.[=============================================>                        ] 65 % completed.[==============================================>                       ] 66 % completed.[===============================================>                      ] 67 % completed.[===============================================>                      ] 68 % completed.[================================================>                     ] 69 % completed.[=================================================>                    ] 70 % completed.[=================================================>                    ] 71 % completed.[==================================================>                   ] 72 % completed.[===================================================>                  ] 73 % completed.[===================================================>                  ] 74 % completed.[====================================================>                 ] 75 % completed.[=====================================================>                ] 76 % completed.[======================================================>               ] 77 % completed.[======================================================>               ] 78 % completed.[=======================================================>              ] 79 % completed.[========================================================>             ] 80 % completed.[========================================================>             ] 81 % completed.[=========================================================>            ] 82 % completed.[==========================================================>           ] 83 % completed.[==========================================================>           ] 84 % completed.[===========================================================>          ] 85 % completed.[============================================================>         ] 86 % completed.[============================================================>         ] 87 % completed.[=============================================================>        ] 88 % completed.[==============================================================>       ] 89 % completed.[===============================================================>      ] 90 % completed.[===============================================================>      ] 91 % completed.[================================================================>     ] 92 % completed.[=================================================================>    ] 93 % completed.[=================================================================>    ] 94 % completed.[==================================================================>   ] 95 % completed.[===================================================================>  ] 96 % completed.[===================================================================>  ] 97 % completed.[====================================================================> ] 98 % completed.[=====================================================================>] 99 % completed.[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> xsec_mumom_bs.GetNbinsX() 10
+[CovarianceCalculator2D]  Calculating Cov Matrix with 101 universes. Nominal histogram is excluded.
+[>                                                                     ] 1 % completed.[=>                                                                    ] 2 % completed.[==>                                                                   ] 3 % completed.[==>                                                                   ] 4 % completed.[===>                                                                  ] 5 % completed.[====>                                                                 ] 6 % completed.[====>                                                                 ] 7 % completed.[=====>                                                                ] 8 % completed.[======>                                                               ] 9 % completed.[=======>                                                              ] 10 % completed.[=======>                                                              ] 11 % completed.[========>                                                             ] 12 % completed.[=========>                                                            ] 13 % completed.[=========>                                                            ] 14 % completed.[==========>                                                           ] 15 % completed.[===========>                                                          ] 16 % completed.[===========>                                                          ] 17 % completed.[============>                                                         ] 18 % completed.[=============>                                                        ] 19 % completed.[==============>                                                       ] 20 % completed.[==============>                                                       ] 21 % completed.[===============>                                                      ] 22 % completed.[================>                                                     ] 23 % completed.[================>                                                     ] 24 % completed.[=================>                                                    ] 25 % completed.[==================>                                                   ] 26 % completed.[==================>                                                   ] 27 % completed.[===================>                                                  ] 28 % completed.[====================>                                                 ] 28 % completed.[=====================>                                                ] 30 % completed.[=====================>                                                ] 31 % completed.[======================>                                               ] 32 % completed.[=======================>                                              ] 33 % completed.[=======================>                                              ] 34 % completed.[========================>                                             ] 35 % completed.[=========================>                                            ] 36 % completed.[=========================>                                            ] 37 % completed.[==========================>                                           ] 38 % completed.[===========================>                                          ] 39 % completed.[============================>                                         ] 40 % completed.[============================>                                         ] 41 % completed.[=============================>                                        ] 42 % completed.[==============================>                                       ] 43 % completed.[==============================>                                       ] 44 % completed.[===============================>                                      ] 45 % completed.[================================>                                     ] 46 % completed.[================================>                                     ] 47 % completed.[=================================>                                    ] 48 % completed.[==================================>                                   ] 49 % completed.[===================================>                                  ] 50 % completed.[===================================>                                  ] 51 % completed.[====================================>                                 ] 52 % completed.[=====================================>                                ] 53 % completed.[=====================================>                                ] 54 % completed.[======================================>                               ] 55 % completed.[=======================================>                              ] 56 % completed.[=======================================>                              ] 56 % completed.[========================================>                             ] 57 % completed.[=========================================>                            ] 59 % completed.[==========================================>                           ] 60 % completed.[==========================================>                           ] 61 % completed.[===========================================>                          ] 62 % completed.[============================================>                         ] 63 % completed.[============================================>                         ] 64 % completed.[=============================================>                        ] 65 % completed.[==============================================>                       ] 66 % completed.[==============================================>                       ] 67 % completed.[===============================================>                      ] 68 % completed.[================================================>                     ] 69 % completed.[=================================================>                    ] 70 % completed.[=================================================>                    ] 71 % completed.[==================================================>                   ] 72 % completed.[===================================================>                  ] 73 % completed.[===================================================>                  ] 74 % completed.[====================================================>                 ] 75 % completed.[=====================================================>                ] 76 % completed.[=====================================================>                ] 77 % completed.[======================================================>               ] 78 % completed.[=======================================================>              ] 79 % completed.[========================================================>             ] 80 % completed.[========================================================>             ] 81 % completed.[=========================================================>            ] 82 % completed.[==========================================================>           ] 83 % completed.[==========================================================>           ] 84 % completed.[===========================================================>          ] 85 % completed.[============================================================>         ] 86 % completed.[============================================================>         ] 87 % completed.[=============================================================>        ] 88 % completed.[==============================================================>       ] 89 % completed.[===============================================================>      ] 90 % completed.[===============================================================>      ] 91 % completed.[================================================================>     ] 92 % completed.[=================================================================>    ] 93 % completed.[=================================================================>    ] 94 % completed.[==================================================================>   ] 95 % completed.[===================================================================>  ] 96 % completed.[===================================================================>  ] 97 % completed.[====================================================================> ] 98 % completed.[=====================================================================>] 99 % completed.[======================================================================] 100 % completed.WARNING!!! Corraltion Matrix rho is smaller than -1 or greater than +1, value: 1
+WARNING!!! Corraltion Matrix rho is smaller than -1 or greater than +1, value: 1
+WARNING!!! Corraltion Matrix rho is smaller than -1 or greater than +1, value: 1
+[CovarianceCalculator2D] Printing Covariance Matrix M = 
+
+10x10 matrix is as follows
+
+     |       0    |       1    |       2    |       3    |       4    |
+----------------------------------------------------------------------
+   0 |  0.0009254   0.0007894   0.0007605   0.0007459   0.0007175 
+   1 |  0.0007894   0.0006859   0.0006615   0.0006558   0.0006363 
+   2 |  0.0007605   0.0006615   0.0006497   0.0006524   0.0006413 
+   3 |  0.0007459   0.0006558   0.0006524   0.0006735   0.0006709 
+   4 |  0.0007175   0.0006363   0.0006413   0.0006709   0.0006824 
+   5 |  0.0005437   0.0004851   0.0004894   0.0005163   0.0005266 
+   6 |  0.0004262   0.0003789   0.0003872   0.0004089   0.0004209 
+   7 |  0.0002829   0.0002531   0.0002584   0.0002718   0.0002777 
+   8 |  0.0002104   0.0001916   0.0001942    0.000207   0.0002149 
+   9 |  4.182e-05   3.849e-05   3.984e-05   4.221e-05   4.543e-05 
+
+
+     |       5    |       6    |       7    |       8    |       9    |
+----------------------------------------------------------------------
+   0 |  0.0005437   0.0004262   0.0002829   0.0002104   4.182e-05 
+   1 |  0.0004851   0.0003789   0.0002531   0.0001916   3.849e-05 
+   2 |  0.0004894   0.0003872   0.0002584   0.0001942   3.984e-05 
+   3 |  0.0005163   0.0004089   0.0002718    0.000207   4.221e-05 
+   4 |  0.0005266   0.0004209   0.0002777   0.0002149   4.543e-05 
+   5 |  0.0004152   0.0003283   0.0002176   0.0001714   3.683e-05 
+   6 |  0.0003283   0.0002673   0.0001766   0.0001376   2.993e-05 
+   7 |  0.0002176   0.0001766   0.0001219    9.13e-05   1.995e-05 
+   8 |  0.0001714   0.0001376    9.13e-05   7.587e-05   1.678e-05 
+   9 |  3.683e-05   2.993e-05   1.995e-05   1.678e-05    4.23e-06 
+
+[CovarianceCalculator2D] Printing Fractional Covariance Matrix M = 
+
+10x10 matrix is as follows
+
+     |       0    |       1    |       2    |       3    |       4    |
+----------------------------------------------------------------------
+   0 |   0.001885    0.001545    0.001479    0.001597     0.00173 
+   1 |   0.001545     0.00129    0.001236    0.001349    0.001474 
+   2 |   0.001479    0.001236    0.001206    0.001334    0.001476 
+   3 |   0.001597    0.001349    0.001334    0.001516    0.001701 
+   4 |    0.00173    0.001474    0.001476    0.001701    0.001948 
+   5 |   0.001512    0.001296    0.001299    0.001509    0.001733 
+   6 |   0.001554    0.001327    0.001348    0.001567    0.001816 
+   7 |   0.001402    0.001205    0.001223    0.001416    0.001629 
+   8 |   0.001504    0.001316    0.001326    0.001556    0.001819 
+   9 |    0.00184    0.001628    0.001674    0.001953    0.002367 
+
+
+     |       5    |       6    |       7    |       8    |       9    |
+----------------------------------------------------------------------
+   0 |   0.001512    0.001554    0.001402    0.001504     0.00184 
+   1 |   0.001296    0.001327    0.001205    0.001316    0.001628 
+   2 |   0.001299    0.001348    0.001223    0.001326    0.001674 
+   3 |   0.001509    0.001567    0.001416    0.001556    0.001953 
+   4 |   0.001733    0.001816    0.001629    0.001819    0.002367 
+   5 |   0.001576    0.001634    0.001472    0.001673    0.002213 
+   6 |   0.001634    0.001744    0.001566    0.001761    0.002358 
+   7 |   0.001472    0.001566     0.00147    0.001588    0.002137 
+   8 |   0.001673    0.001761    0.001588    0.001905    0.002592 
+   9 |   0.002213    0.002358    0.002137    0.002592    0.004022 
+
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+GENIE Multisim - Uncertainties on the diagonal: 0 => 0.000925417
+GENIE Multisim - Uncertainties on the diagonal: 1 => 0.000685851
+GENIE Multisim - Uncertainties on the diagonal: 2 => 0.000649657
+GENIE Multisim - Uncertainties on the diagonal: 3 => 0.00067352
+GENIE Multisim - Uncertainties on the diagonal: 4 => 0.000682448
+GENIE Multisim - Uncertainties on the diagonal: 5 => 0.000415212
+GENIE Multisim - Uncertainties on the diagonal: 6 => 0.000267287
+GENIE Multisim - Uncertainties on the diagonal: 7 => 0.000121945
+GENIE Multisim - Uncertainties on the diagonal: 8 => 7.58715e-05
+GENIE Multisim - Uncertainties on the diagonal: 9 => 4.23013e-06
+start to import genie systematics
+start to do extra systematics
+start to import extra systematics
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L574> Beam-on integral 4745
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L575> Beam-off integral 396.022
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L576> MC signal 3792.92
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L577> MC cosmic 399.596
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L578> MC outfv 331.747
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L579> MC nc 70.5148
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L580> MC nue 0.502158
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L581> MC anumu 11.507
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L582> MC dirt 45.6615
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L584> First Bin only: 
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L585> Beam-on integral 836 +- 28.9137
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L586> Beam-off integral 121.362 +- 7.72206
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L587> MC signal 660.913 +- 5.80264
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L588> MC cosmic 52.5758 +- 1.63598
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L589> MC outfv 72.3092 +- 1.91805
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L590> MC nc 14.1557 +- 0.846844
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L591> MC nue 0.0979112 +- 0.0692337
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L592> MC anumu 2.67586 +- 0.436915
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L593> MC dirt 15.6849 +- 1.42245
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 4745
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram beam-off: 396.022
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 4348.98
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram cosmic: 399.596
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3949.38
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram outfv: 331.747
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3617.63
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram nc: 70.5148
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3547.12
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram nue: 0.502158
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3546.62
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram anumu: 11.507
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3535.11
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram cc_other: 339.261
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3195.85
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram dirt: 45.6615
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L441> _h_eff_mumom_num->Integral(): 1.04885e+06
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L442> _h_eff_mumom_den->Integral(): 3.45616e+06
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L465> h_eff_mumom_num_smear->Integral(): 1.05006e+06
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L466> h_eff_mumom_den_smear->Integral(): 3.59086e+06
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L492> Statistic option used for efficiency calculation: 1, check https://root.cern.ch/doc/v608/classTEfficiency.html#af27fb4e93a1b16ed7a5b593398f86312.
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L493> Efficiency bin 1: 0.206398 - 0.00141907 + 0.00141907
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L494> Efficiency bin 2: 0.309393 - 0.00220399 + 0.00220399
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L692> Statistical uncertainty for beam-on: 28.9137
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L755> Data Integral: 4.8488
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L756> MC Integral: 5.79953
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L845> Building covariance matrix from imported fractional covariance matrix.
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L866> Evaluating systematic uncertainties from covariance matrix.
+Bin 0 - stat: 0.0434792, syst: 0.0308011, tot: 0.0532837
+Bin 1 - stat: 0.0397434, syst: 0.0262108, tot: 0.0476083
+Bin 2 - stat: 0.0410137, syst: 0.0253574, tot: 0.0482195
+Bin 3 - stat: 0.0401388, syst: 0.0258059, tot: 0.0477186
+Bin 4 - stat: 0.038651, syst: 0.0260854, tot: 0.0466299
+Bin 5 - stat: 0.0365056, syst: 0.0203792, tot: 0.0418087
+Bin 6 - stat: 0.0329586, syst: 0.0163807, tot: 0.0368049
+Bin 7 - stat: 0.028178, syst: 0.0110573, tot: 0.0302698
+Bin 8 - stat: 0.0296016, syst: 0.00869506, tot: 0.0308522
+Bin 9 - stat: 0.00489918, syst: 0.00206274, tot: 0.00531572
+***************
+* Muon cos(theta) cross section
+***************
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> CrossSectionBootstrapCalculator1D Starts Running
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> Flux Correction Weight Set to: 1.028
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> CrossSectionBootstrapCalculator1D FLUX: 1.16271e+11
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> Number of universes: 101
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> Universes names: nominal, universe0, universe1, universe2, universe3, universe4, universe5, universe6, universe7, universe8, universe9, universe10, universe11, universe12, universe13, universe14, universe15, universe16, universe17, universe18, universe19, universe20, universe21, universe22, universe23, universe24, universe25, universe26, universe27, universe28, universe29, universe30, universe31, universe32, universe33, universe34, universe35, universe36, universe37, universe38, universe39, universe40, universe41, universe42, universe43, universe44, universe45, universe46, universe47, universe48, universe49, universe50, universe51, universe52, universe53, universe54, universe55, universe56, universe57, universe58, universe59, universe60, universe61, universe62, universe63, universe64, universe65, universe66, universe67, universe68, universe69, universe70, universe71, universe72, universe73, universe74, universe75, universe76, universe77, universe78, universe79, universe80, universe81, universe82, universe83, universe84, universe85, universe86, universe87, universe88, universe89, universe90, universe91, universe92, universe93, universe94, universe95, universe96, universe97, universe98, universe99, 
+[>                                                                     ] 0 % completed.[>                                                                     ] 0 % completed.[=>                                                                    ] 1 % completed.[==>                                                                   ] 2 % completed.[==>                                                                   ] 3 % completed.[===>                                                                  ] 4 % completed.[====>                                                                 ] 5 % completed.[====>                                                                 ] 6 % completed.[=====>                                                                ] 7 % completed.[======>                                                               ] 8 % completed.[======>                                                               ] 9 % completed.[=======>                                                              ] 10 % completed.[========>                                                             ] 11 % completed.[=========>                                                            ] 12 % completed.[=========>                                                            ] 13 % completed.[==========>                                                           ] 14 % completed.[===========>                                                          ] 15 % completed.[===========>                                                          ] 16 % completed.[============>                                                         ] 17 % completed.[=============>                                                        ] 18 % completed.[=============>                                                        ] 19 % completed.[==============>                                                       ] 20 % completed.[===============>                                                      ] 21 % completed.[===============>                                                      ] 22 % completed.[================>                                                     ] 23 % completed.[=================>                                                    ] 24 % completed.[==================>                                                   ] 25 % completed.[==================>                                                   ] 26 % completed.[===================>                                                  ] 27 % completed.[====================>                                                 ] 28 % completed.[====================>                                                 ] 29 % completed.[=====================>                                                ] 30 % completed.[======================>                                               ] 31 % completed.[======================>                                               ] 32 % completed.[=======================>                                              ] 33 % completed.[========================>                                             ] 34 % completed.[========================>                                             ] 35 % completed.[=========================>                                            ] 36 % completed.[==========================>                                           ] 37 % completed.[===========================>                                          ] 38 % completed.[===========================>                                          ] 39 % completed.[============================>                                         ] 40 % completed.[=============================>                                        ] 41 % completed.[=============================>                                        ] 42 % completed.[==============================>                                       ] 43 % completed.[===============================>                                      ] 44 % completed.[===============================>                                      ] 45 % completed.[================================>                                     ] 46 % completed.[=================================>                                    ] 47 % completed.[=================================>                                    ] 48 % completed.[==================================>                                   ] 49 % completed.[===================================>                                  ] 50 % completed.[====================================>                                 ] 51 % completed.[====================================>                                 ] 52 % completed.[=====================================>                                ] 53 % completed.[======================================>                               ] 54 % completed.[======================================>                               ] 55 % completed.[=======================================>                              ] 56 % completed.[========================================>                             ] 57 % completed.[========================================>                             ] 58 % completed.[=========================================>                            ] 59 % completed.[==========================================>                           ] 60 % completed.[==========================================>                           ] 61 % completed.[===========================================>                          ] 62 % completed.[============================================>                         ] 63 % completed.[=============================================>                        ] 64 % completed.[=============================================>                        ] 65 % completed.[==============================================>                       ] 66 % completed.[===============================================>                      ] 67 % completed.[===============================================>                      ] 68 % completed.[================================================>                     ] 69 % completed.[=================================================>                    ] 70 % completed.[=================================================>                    ] 71 % completed.[==================================================>                   ] 72 % completed.[===================================================>                  ] 73 % completed.[===================================================>                  ] 74 % completed.[====================================================>                 ] 75 % completed.[=====================================================>                ] 76 % completed.[======================================================>               ] 77 % completed.[======================================================>               ] 78 % completed.[=======================================================>              ] 79 % completed.[========================================================>             ] 80 % completed.[========================================================>             ] 81 % completed.[=========================================================>            ] 82 % completed.[==========================================================>           ] 83 % completed.[==========================================================>           ] 84 % completed.[===========================================================>          ] 85 % completed.[============================================================>         ] 86 % completed.[============================================================>         ] 87 % completed.[=============================================================>        ] 88 % completed.[==============================================================>       ] 89 % completed.[===============================================================>      ] 90 % completed.[===============================================================>      ] 91 % completed.[================================================================>     ] 92 % completed.[=================================================================>    ] 93 % completed.[=================================================================>    ] 94 % completed.[==================================================================>   ] 95 % completed.[===================================================================>  ] 96 % completed.[===================================================================>  ] 97 % completed.[====================================================================> ] 98 % completed.[=====================================================================>] 99 % completed.[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> xsec_mumom_bs.GetNbinsX() 12
+[CovarianceCalculator2D]  Calculating Cov Matrix with 101 universes. Nominal histogram is excluded.
+[>                                                                     ] 0 % completed.[>                                                                     ] 1 % completed.[=>                                                                    ] 2 % completed.[=>                                                                    ] 2 % completed.[==>                                                                   ] 3 % completed.[==>                                                                   ] 4 % completed.[===>                                                                  ] 4 % completed.[===>                                                                  ] 5 % completed.[====>                                                                 ] 6 % completed.[====>                                                                 ] 6 % completed.[=====>                                                                ] 7 % completed.[=====>                                                                ] 8 % completed.[======>                                                               ] 9 % completed.[======>                                                               ] 9 % completed.[=======>                                                              ] 10 % completed.[=======>                                                              ] 11 % completed.[========>                                                             ] 11 % completed.[========>                                                             ] 12 % completed.[=========>                                                            ] 13 % completed.[=========>                                                            ] 13 % completed.[==========>                                                           ] 14 % completed.[==========>                                                           ] 15 % completed.[===========>                                                          ] 15 % completed.[===========>                                                          ] 16 % completed.[============>                                                         ] 17 % completed.[============>                                                         ] 18 % completed.[=============>                                                        ] 18 % completed.[=============>                                                        ] 19 % completed.[==============>                                                       ] 20 % completed.[==============>                                                       ] 20 % completed.[===============>                                                      ] 21 % completed.[===============>                                                      ] 22 % completed.[================>                                                     ] 22 % completed.[================>                                                     ] 23 % completed.[=================>                                                    ] 24 % completed.[=================>                                                    ] 25 % completed.[=================>                                                    ] 25 % completed.[==================>                                                   ] 26 % completed.[==================>                                                   ] 27 % completed.[===================>                                                  ] 27 % completed.[===================>                                                  ] 28 % completed.[====================>                                                 ] 29 % completed.[====================>                                                 ] 29 % completed.[=====================>                                                ] 30 % completed.[=====================>                                                ] 31 % completed.[======================>                                               ] 31 % completed.[======================>                                               ] 32 % completed.[=======================>                                              ] 33 % completed.[=======================>                                              ] 34 % completed.[========================>                                             ] 34 % completed.[========================>                                             ] 35 % completed.[=========================>                                            ] 36 % completed.[=========================>                                            ] 36 % completed.[==========================>                                           ] 37 % completed.[==========================>                                           ] 38 % completed.[===========================>                                          ] 38 % completed.[===========================>                                          ] 39 % completed.[============================>                                         ] 40 % completed.[============================>                                         ] 40 % completed.[=============================>                                        ] 41 % completed.[=============================>                                        ] 42 % completed.[==============================>                                       ] 43 % completed.[==============================>                                       ] 43 % completed.[===============================>                                      ] 44 % completed.[===============================>                                      ] 45 % completed.[================================>                                     ] 45 % completed.[================================>                                     ] 46 % completed.[=================================>                                    ] 47 % completed.[=================================>                                    ] 47 % completed.[==================================>                                   ] 48 % completed.[==================================>                                   ] 49 % completed.[===================================>                                  ] 50 % completed.[===================================>                                  ] 50 % completed.[===================================>                                  ] 51 % completed.[====================================>                                 ] 52 % completed.[====================================>                                 ] 52 % completed.[=====================================>                                ] 53 % completed.[=====================================>                                ] 54 % completed.[======================================>                               ] 54 % completed.[======================================>                               ] 55 % completed.[=======================================>                              ] 56 % completed.[=======================================>                              ] 56 % completed.[========================================>                             ] 57 % completed.[========================================>                             ] 58 % completed.[=========================================>                            ] 59 % completed.[=========================================>                            ] 59 % completed.[==========================================>                           ] 60 % completed.[==========================================>                           ] 61 % completed.[===========================================>                          ] 61 % completed.[===========================================>                          ] 62 % completed.[============================================>                         ] 63 % completed.[============================================>                         ] 63 % completed.[=============================================>                        ] 64 % completed.[=============================================>                        ] 65 % completed.[==============================================>                       ] 65 % completed.[==============================================>                       ] 66 % completed.[===============================================>                      ] 67 % completed.[===============================================>                      ] 68 % completed.[================================================>                     ] 68 % completed.[================================================>                     ] 69 % completed.[=================================================>                    ] 70 % completed.[=================================================>                    ] 70 % completed.[==================================================>                   ] 71 % completed.[==================================================>                   ] 72 % completed.[===================================================>                  ] 72 % completed.[===================================================>                  ] 73 % completed.[====================================================>                 ] 74 % completed.[====================================================>                 ] 75 % completed.[====================================================>                 ] 75 % completed.[=====================================================>                ] 76 % completed.[=====================================================>                ] 77 % completed.[======================================================>               ] 77 % completed.[======================================================>               ] 78 % completed.[=======================================================>              ] 79 % completed.[=======================================================>              ] 79 % completed.[========================================================>             ] 80 % completed.[========================================================>             ] 81 % completed.[=========================================================>            ] 81 % completed.[=========================================================>            ] 82 % completed.[==========================================================>           ] 83 % completed.[==========================================================>           ] 84 % completed.[===========================================================>          ] 84 % completed.[===========================================================>          ] 85 % completed.[============================================================>         ] 86 % completed.[============================================================>         ] 86 % completed.[=============================================================>        ] 87 % completed.[=============================================================>        ] 88 % completed.[==============================================================>       ] 88 % completed.[==============================================================>       ] 89 % completed.[===============================================================>      ] 90 % completed.[===============================================================>      ] 90 % completed.[================================================================>     ] 91 % completed.[================================================================>     ] 92 % completed.[=================================================================>    ] 93 % completed.[=================================================================>    ] 93 % completed.[==================================================================>   ] 94 % completed.[==================================================================>   ] 95 % completed.[===================================================================>  ] 95 % completed.[===================================================================>  ] 96 % completed.[====================================================================> ] 97 % completed.[====================================================================> ] 97 % completed.[=====================================================================>] 98 % completed.[=====================================================================>] 99 % completed.[======================================================================] 100 % completed.WARNING!!! Corraltion Matrix rho is smaller than -1 or greater than +1, value: 1
+WARNING!!! Corraltion Matrix rho is smaller than -1 or greater than +1, value: 1
+WARNING!!! Corraltion Matrix rho is smaller than -1 or greater than +1, value: 1
+WARNING!!! Corraltion Matrix rho is smaller than -1 or greater than +1, value: 1
+WARNING!!! Corraltion Matrix rho is smaller than -1 or greater than +1, value: 1
+[CovarianceCalculator2D] Printing Covariance Matrix M = 
+
+12x12 matrix is as follows
+
+     |       0    |       1    |       2    |       3    |       4    |
+----------------------------------------------------------------------
+   0 |  6.021e-05   3.133e-05   2.323e-05   2.322e-05   2.836e-05 
+   1 |  3.133e-05   2.264e-05   1.693e-05   1.795e-05   2.178e-05 
+   2 |  2.323e-05   1.693e-05   1.453e-05   1.488e-05   1.754e-05 
+   3 |  2.322e-05   1.795e-05   1.488e-05   1.589e-05   1.874e-05 
+   4 |  2.836e-05   2.178e-05   1.754e-05   1.874e-05   2.292e-05 
+   5 |  4.156e-05   3.284e-05   2.665e-05    2.87e-05   3.463e-05 
+   6 |  4.752e-05   3.699e-05   3.085e-05   3.303e-05   3.939e-05 
+   7 |  5.614e-05   4.348e-05   3.705e-05   3.944e-05   4.683e-05 
+   8 |   6.37e-05   4.603e-05   4.128e-05   4.343e-05   5.055e-05 
+   9 |   8.16e-05   6.042e-05   5.397e-05   5.725e-05   6.653e-05 
+  10 |  0.0001055   7.163e-05    6.83e-05   7.078e-05   8.023e-05 
+  11 |  8.489e-05    4.99e-05   5.269e-05   5.325e-05   5.923e-05 
+
+
+     |       5    |       6    |       7    |       8    |       9    |
+----------------------------------------------------------------------
+   0 |  4.156e-05   4.752e-05   5.614e-05    6.37e-05    8.16e-05 
+   1 |  3.284e-05   3.699e-05   4.348e-05   4.603e-05   6.042e-05 
+   2 |  2.665e-05   3.085e-05   3.705e-05   4.128e-05   5.397e-05 
+   3 |   2.87e-05   3.303e-05   3.944e-05   4.343e-05   5.725e-05 
+   4 |  3.463e-05   3.939e-05   4.683e-05   5.055e-05   6.653e-05 
+   5 |  5.288e-05   6.037e-05    7.18e-05   7.802e-05   0.0001026 
+   6 |  6.037e-05   7.201e-05   8.467e-05   9.436e-05   0.0001243 
+   7 |   7.18e-05   8.467e-05   0.0001015    0.000114   0.0001503 
+   8 |  7.802e-05   9.436e-05    0.000114   0.0001347   0.0001758 
+   9 |  0.0001026   0.0001243   0.0001503   0.0001758   0.0002327 
+  10 |  0.0001237   0.0001537   0.0001876    0.000228   0.0003014 
+  11 |  9.146e-05   0.0001149   0.0001438   0.0001865    0.000241 
+
+
+     |      10    |      11    |
+----------------------------------------------------------------------
+   0 |  0.0001055   8.489e-05 
+   1 |  7.163e-05    4.99e-05 
+   2 |   6.83e-05   5.269e-05 
+   3 |  7.078e-05   5.325e-05 
+   4 |  8.023e-05   5.923e-05 
+   5 |  0.0001237   9.146e-05 
+   6 |  0.0001537   0.0001149 
+   7 |  0.0001876   0.0001438 
+   8 |   0.000228   0.0001865 
+   9 |  0.0003014    0.000241 
+  10 |  0.0004109   0.0003439 
+  11 |  0.0003439   0.0003282 
+
+[CovarianceCalculator2D] Printing Fractional Covariance Matrix M = 
+
+12x12 matrix is as follows
+
+     |       0    |       1    |       2    |       3    |       4    |
+----------------------------------------------------------------------
+   0 |    0.01566    0.007084    0.004447    0.004945    0.005555 
+   1 |   0.007084    0.004449    0.002817    0.003324    0.003708 
+   2 |   0.004447    0.002817    0.002048    0.002333    0.002529 
+   3 |   0.004945    0.003324    0.002333    0.002771    0.003005 
+   4 |   0.005555    0.003708    0.002529    0.003005     0.00338 
+   5 |   0.004477    0.003076    0.002113    0.002532    0.002809 
+   6 |   0.004736    0.003205    0.002263    0.002696    0.002957 
+   7 |   0.003486    0.002347    0.001693    0.002006     0.00219 
+   8 |   0.002861    0.001797    0.001365    0.001598     0.00171 
+   9 |   0.002568    0.001653     0.00125    0.001476    0.001577 
+  10 |   0.002655    0.001568    0.001265    0.001459    0.001521 
+  11 |     0.0026    0.001329    0.001188    0.001336    0.001366 
+
+
+     |       5    |       6    |       7    |       8    |       9    |
+----------------------------------------------------------------------
+   0 |   0.004477    0.004736    0.003486    0.002861    0.002568 
+   1 |   0.003076    0.003205    0.002347    0.001797    0.001653 
+   2 |   0.002113    0.002263    0.001693    0.001365     0.00125 
+   3 |   0.002532    0.002696    0.002006    0.001598    0.001476 
+   4 |   0.002809    0.002957     0.00219     0.00171    0.001577 
+   5 |   0.002359    0.002492    0.001847    0.001452    0.001338 
+   6 |   0.002492     0.00275    0.002015    0.001624      0.0015 
+   7 |   0.001847    0.002015    0.001505    0.001223    0.001129 
+   8 |   0.001452    0.001624    0.001223    0.001045   0.0009558 
+   9 |   0.001338      0.0015    0.001129   0.0009558   0.0008866 
+  10 |    0.00129    0.001482    0.001127    0.000991   0.0009183 
+  11 |    0.00116    0.001349    0.001052   0.0009867   0.0008936 
+
+
+     |      10    |      11    |
+----------------------------------------------------------------------
+   0 |   0.002655      0.0026 
+   1 |   0.001568    0.001329 
+   2 |   0.001265    0.001188 
+   3 |   0.001459    0.001336 
+   4 |   0.001521    0.001366 
+   5 |    0.00129     0.00116 
+   6 |   0.001482    0.001349 
+   7 |   0.001127    0.001052 
+   8 |   0.000991   0.0009867 
+   9 |  0.0009183   0.0008936 
+  10 |   0.001001     0.00102 
+  11 |    0.00102    0.001184 
+
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+GENIE Multisim - Uncertainties on the diagonal: 0 => 6.02113e-05
+GENIE Multisim - Uncertainties on the diagonal: 1 => 2.26353e-05
+GENIE Multisim - Uncertainties on the diagonal: 2 => 1.45335e-05
+GENIE Multisim - Uncertainties on the diagonal: 3 => 1.58865e-05
+GENIE Multisim - Uncertainties on the diagonal: 4 => 2.29156e-05
+GENIE Multisim - Uncertainties on the diagonal: 5 => 5.28765e-05
+GENIE Multisim - Uncertainties on the diagonal: 6 => 7.20118e-05
+GENIE Multisim - Uncertainties on the diagonal: 7 => 0.000101509
+GENIE Multisim - Uncertainties on the diagonal: 8 => 0.000134694
+GENIE Multisim - Uncertainties on the diagonal: 9 => 0.000232744
+GENIE Multisim - Uncertainties on the diagonal: 10 => 0.000410921
+GENIE Multisim - Uncertainties on the diagonal: 11 => 0.000328215
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L574> Beam-on integral 4746
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L575> Beam-off integral 396.022
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L576> MC signal 3793.02
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L577> MC cosmic 399.839
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L578> MC outfv 331.747
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L579> MC nc 70.5148
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L580> MC nue 0.541486
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L581> MC anumu 11.507
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L582> MC dirt 45.6615
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L584> First Bin only: 
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L585> Beam-on integral 80 +- 8.94427
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L586> Beam-off integral 1.47403 +- 0.851031
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L587> MC signal 23.8207 +- 1.10232
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L588> MC cosmic 6.90563 +- 0.592286
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L589> MC outfv 18.6885 +- 0.973136
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L590> MC nc 5.5235 +- 0.529186
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L591> MC nue 0 +- 0
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L592> MC anumu 0 +- 0
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L593> MC dirt 7.05703 +- 0.951974
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 4746
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram beam-off: 396.022
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 4349.98
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram cosmic: 399.839
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3950.14
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram outfv: 331.747
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3618.39
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram nc: 70.5148
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3547.88
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram nue: 0.541486
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3547.34
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram anumu: 11.507
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3535.83
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram cc_other: 339.556
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3196.27
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram dirt: 45.6615
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L441> _h_eff_mumom_num->Integral(): 652411
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L442> _h_eff_mumom_den->Integral(): 2.29987e+06
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L465> h_eff_mumom_num_smear->Integral(): 655729
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L466> h_eff_mumom_den_smear->Integral(): 2.31464e+06
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L492> Statistic option used for efficiency calculation: 1, check https://root.cern.ch/doc/v608/classTEfficiency.html#af27fb4e93a1b16ed7a5b593398f86312.
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L493> Efficiency bin 1: 0.108025 - 0.00463741 + 0.00463741
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L494> Efficiency bin 2: 0.145013 - 0.00501304 + 0.00501304
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L692> Statistical uncertainty for beam-on: 8.94427
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L755> Data Integral: 2.98539
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L756> MC Integral: 3.7403
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L845> Building covariance matrix from imported fractional covariance matrix.
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L866> Evaluating systematic uncertainties from covariance matrix.
+Bin 0 - stat: 0.0155159, syst: 0.00775959, tot: 0.017348
+Bin 1 - stat: 0.0136469, syst: 0.00475766, tot: 0.0144525
+Bin 2 - stat: 0.0101591, syst: 0.00381228, tot: 0.0108508
+Bin 3 - stat: 0.0102494, syst: 0.00398579, tot: 0.0109971
+Bin 4 - stat: 0.0117623, syst: 0.00478702, tot: 0.0126991
+Bin 5 - stat: 0.0144402, syst: 0.00727162, tot: 0.0161677
+Bin 6 - stat: 0.0144259, syst: 0.00848597, tot: 0.0167367
+Bin 7 - stat: 0.0165663, syst: 0.0100752, tot: 0.0193894
+Bin 8 - stat: 0.0192593, syst: 0.0116058, tot: 0.0224859
+Bin 9 - stat: 0.0266557, syst: 0.015256, tot: 0.0307127
+Bin 10 - stat: 0.0343657, syst: 0.0202712, tot: 0.0398989
+Bin 11 - stat: 0.0336588, syst: 0.0181167, tot: 0.0382247
+***************
+* Proton cos(theta) cross section
+***************
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> CrossSectionBootstrapCalculator1D Starts Running
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> Flux Correction Weight Set to: 1.028
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> CrossSectionBootstrapCalculator1D FLUX: 1.16271e+11
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> Number of universes: 101
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> Universes names: nominal, universe0, universe1, universe2, universe3, universe4, universe5, universe6, universe7, universe8, universe9, universe10, universe11, universe12, universe13, universe14, universe15, universe16, universe17, universe18, universe19, universe20, universe21, universe22, universe23, universe24, universe25, universe26, universe27, universe28, universe29, universe30, universe31, universe32, universe33, universe34, universe35, universe36, universe37, universe38, universe39, universe40, universe41, universe42, universe43, universe44, universe45, universe46, universe47, universe48, universe49, universe50, universe51, universe52, universe53, universe54, universe55, universe56, universe57, universe58, universe59, universe60, universe61, universe62, universe63, universe64, universe65, universe66, universe67, universe68, universe69, universe70, universe71, universe72, universe73, universe74, universe75, universe76, universe77, universe78, universe79, universe80, universe81, universe82, universe83, universe84, universe85, universe86, universe87, universe88, universe89, universe90, universe91, universe92, universe93, universe94, universe95, universe96, universe97, universe98, universe99, 
+[>                                                                     ] 0 % completed.[>                                                                     ] 0 % completed.[=>                                                                    ] 1 % completed.[==>                                                                   ] 2 % completed.[==>                                                                   ] 3 % completed.[===>                                                                  ] 4 % completed.[====>                                                                 ] 5 % completed.[====>                                                                 ] 6 % completed.[=====>                                                                ] 7 % completed.[======>                                                               ] 8 % completed.[======>                                                               ] 9 % completed.[=======>                                                              ] 10 % completed.[========>                                                             ] 11 % completed.[=========>                                                            ] 12 % completed.[=========>                                                            ] 13 % completed.[==========>                                                           ] 14 % completed.[===========>                                                          ] 15 % completed.[===========>                                                          ] 16 % completed.[============>                                                         ] 17 % completed.[=============>                                                        ] 18 % completed.[=============>                                                        ] 19 % completed.[==============>                                                       ] 20 % completed.[===============>                                                      ] 21 % completed.[===============>                                                      ] 22 % completed.[================>                                                     ] 23 % completed.[=================>                                                    ] 24 % completed.[==================>                                                   ] 25 % completed.[==================>                                                   ] 26 % completed.[===================>                                                  ] 27 % completed.[====================>                                                 ] 28 % completed.[====================>                                                 ] 29 % completed.[=====================>                                                ] 30 % completed.[======================>                                               ] 31 % completed.[======================>                                               ] 32 % completed.[=======================>                                              ] 33 % completed.[========================>                                             ] 34 % completed.[========================>                                             ] 35 % completed.[=========================>                                            ] 36 % completed.[==========================>                                           ] 37 % completed.[===========================>                                          ] 38 % completed.[===========================>                                          ] 39 % completed.[============================>                                         ] 40 % completed.[=============================>                                        ] 41 % completed.[=============================>                                        ] 42 % completed.[==============================>                                       ] 43 % completed.[===============================>                                      ] 44 % completed.[===============================>                                      ] 45 % completed.[================================>                                     ] 46 % completed.[=================================>                                    ] 47 % completed.[=================================>                                    ] 48 % completed.[==================================>                                   ] 49 % completed.[===================================>                                  ] 50 % completed.[====================================>                                 ] 51 % completed.[====================================>                                 ] 52 % completed.[=====================================>                                ] 53 % completed.[======================================>                               ] 54 % completed.[======================================>                               ] 55 % completed.[=======================================>                              ] 56 % completed.[========================================>                             ] 57 % completed.[========================================>                             ] 58 % completed.[=========================================>                            ] 59 % completed.[==========================================>                           ] 60 % completed.[==========================================>                           ] 61 % completed.[===========================================>                          ] 62 % completed.[============================================>                         ] 63 % completed.[=============================================>                        ] 64 % completed.[=============================================>                        ] 65 % completed.[==============================================>                       ] 66 % completed.[===============================================>                      ] 67 % completed.[===============================================>                      ] 68 % completed.[================================================>                     ] 69 % completed.[=================================================>                    ] 70 % completed.[=================================================>                    ] 71 % completed.[==================================================>                   ] 72 % completed.[===================================================>                  ] 73 % completed.[===================================================>                  ] 74 % completed.[====================================================>                 ] 75 % completed.[=====================================================>                ] 76 % completed.[======================================================>               ] 77 % completed.[======================================================>               ] 78 % completed.[=======================================================>              ] 79 % completed.[========================================================>             ] 80 % completed.[========================================================>             ] 81 % completed.[=========================================================>            ] 82 % completed.[==========================================================>           ] 83 % completed.[==========================================================>           ] 84 % completed.[===========================================================>          ] 85 % completed.[============================================================>         ] 86 % completed.[============================================================>         ] 87 % completed.[=============================================================>        ] 88 % completed.[==============================================================>       ] 89 % completed.[===============================================================>      ] 90 % completed.[===============================================================>      ] 91 % completed.[================================================================>     ] 92 % completed.[=================================================================>    ] 93 % completed.[=================================================================>    ] 94 % completed.[==================================================================>   ] 95 % completed.[===================================================================>  ] 96 % completed.[===================================================================>  ] 97 % completed.[====================================================================> ] 98 % completed.[=====================================================================>] 99 % completed.[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> xsec_mumom_bs.GetNbinsX() 9
+[CovarianceCalculator2D]  Calculating Cov Matrix with 101 universes. Nominal histogram is excluded.
+[>                                                                     ] 1 % completed.[=>                                                                    ] 2 % completed.[==>                                                                   ] 3 % completed.[===>                                                                  ] 4 % completed.[====>                                                                 ] 6 % completed.[=====>                                                                ] 7 % completed.[======>                                                               ] 8 % completed.[======>                                                               ] 9 % completed.[=======>                                                              ] 11 % completed.[========>                                                             ] 12 % completed.[=========>                                                            ] 13 % completed.[==========>                                                           ] 14 % completed.[===========>                                                          ] 16 % completed.[============>                                                         ] 17 % completed.[============>                                                         ] 18 % completed.[=============>                                                        ] 19 % completed.[==============>                                                       ] 20 % completed.[===============>                                                      ] 22 % completed.[================>                                                     ] 23 % completed.[=================>                                                    ] 24 % completed.[==================>                                                   ] 25 % completed.[===================>                                                  ] 27 % completed.[===================>                                                  ] 28 % completed.[====================>                                                 ] 29 % completed.[=====================>                                                ] 30 % completed.[======================>                                               ] 32 % completed.[=======================>                                              ] 33 % completed.[========================>                                             ] 34 % completed.[=========================>                                            ] 35 % completed.[=========================>                                            ] 37 % completed.[==========================>                                           ] 38 % completed.[===========================>                                          ] 39 % completed.[============================>                                         ] 40 % completed.[=============================>                                        ] 41 % completed.[==============================>                                       ] 43 % completed.[===============================>                                      ] 44 % completed.[===============================>                                      ] 45 % completed.[================================>                                     ] 46 % completed.[=================================>                                    ] 48 % completed.[==================================>                                   ] 49 % completed.[===================================>                                  ] 50 % completed.[====================================>                                 ] 51 % completed.[=====================================>                                ] 53 % completed.[======================================>                               ] 54 % completed.[======================================>                               ] 55 % completed.[=======================================>                              ] 56 % completed.[========================================>                             ] 58 % completed.[=========================================>                            ] 59 % completed.[==========================================>                           ] 60 % completed.[===========================================>                          ] 61 % completed.[============================================>                         ] 62 % completed.[============================================>                         ] 64 % completed.[=============================================>                        ] 65 % completed.[==============================================>                       ] 66 % completed.[===============================================>                      ] 67 % completed.[================================================>                     ] 69 % completed.[=================================================>                    ] 70 % completed.[==================================================>                   ] 71 % completed.[==================================================>                   ] 72 % completed.[===================================================>                  ] 74 % completed.[====================================================>                 ] 75 % completed.[=====================================================>                ] 76 % completed.[======================================================>               ] 77 % completed.[=======================================================>              ] 79 % completed.[========================================================>             ] 80 % completed.[=========================================================>            ] 81 % completed.[=========================================================>            ] 82 % completed.[==========================================================>           ] 83 % completed.[===========================================================>          ] 85 % completed.[============================================================>         ] 86 % completed.[=============================================================>        ] 87 % completed.[==============================================================>       ] 88 % completed.[===============================================================>      ] 90 % completed.[===============================================================>      ] 91 % completed.[================================================================>     ] 92 % completed.[=================================================================>    ] 93 % completed.[==================================================================>   ] 95 % completed.[===================================================================>  ] 96 % completed.[====================================================================> ] 97 % completed.[=====================================================================>] 98 % completed.[======================================================================] 100 % completed.WARNING!!! Corraltion Matrix rho is smaller than -1 or greater than +1, value: 1
+WARNING!!! Corraltion Matrix rho is smaller than -1 or greater than +1, value: 1
+[CovarianceCalculator2D] Printing Covariance Matrix M = 
+
+9x9 matrix is as follows
+
+     |      0    |      1    |      2    |      3    |      4    |
+----------------------------------------------------------------------
+   0 |  6.163e-06   7.931e-06   1.023e-05   1.428e-05   2.448e-05 
+   1 |  7.931e-06    1.07e-05   1.382e-05   1.865e-05   3.289e-05 
+   2 |  1.023e-05   1.382e-05   1.861e-05   2.572e-05   4.401e-05 
+   3 |  1.428e-05   1.865e-05   2.572e-05   4.474e-05   6.786e-05 
+   4 |  2.448e-05   3.289e-05   4.401e-05   6.786e-05   0.0001183 
+   5 |  3.058e-05   4.181e-05   5.543e-05   8.243e-05   0.0001475 
+   6 |  3.832e-05   5.098e-05   6.724e-05   0.0001024   0.0001713 
+   7 |  4.478e-05   5.779e-05   7.507e-05   0.0001187   0.0001856 
+   8 |  3.768e-05   4.677e-05   5.983e-05    9.79e-05   0.0001402 
+
+
+     |      5    |      6    |      7    |      8    |
+----------------------------------------------------------------------
+   0 |  3.058e-05   3.832e-05   4.478e-05   3.768e-05 
+   1 |  4.181e-05   5.098e-05   5.779e-05   4.677e-05 
+   2 |  5.543e-05   6.724e-05   7.507e-05   5.983e-05 
+   3 |  8.243e-05   0.0001024   0.0001187    9.79e-05 
+   4 |  0.0001475   0.0001713   0.0001856   0.0001402 
+   5 |  0.0001891   0.0002163   0.0002321   0.0001694 
+   6 |  0.0002163   0.0002716   0.0003064   0.0002443 
+   7 |  0.0002321   0.0003064   0.0003776   0.0003277 
+   8 |  0.0001694   0.0002443   0.0003277   0.0003177 
+
+[CovarianceCalculator2D] Printing Fractional Covariance Matrix M = 
+
+9x9 matrix is as follows
+
+     |      0    |      1    |      2    |      3    |      4    |
+----------------------------------------------------------------------
+   0 |   0.006292    0.005785    0.003673      0.0018     0.00212 
+   1 |   0.005785    0.005578    0.003546     0.00168    0.002036 
+   2 |   0.003673    0.003546    0.002351    0.001141    0.001341 
+   3 |     0.0018     0.00168    0.001141   0.0006966   0.0007259 
+   4 |    0.00212    0.002036    0.001341   0.0007259   0.0008691 
+   5 |   0.002292    0.002239    0.001462   0.0007629    0.000938 
+   6 |   0.002279    0.002166    0.001407   0.0007519   0.0008644 
+   7 |   0.002292    0.002114    0.001352   0.0007504   0.0008061 
+   8 |   0.001933    0.001715     0.00108   0.0006203   0.0006103 
+
+
+     |      5    |      6    |      7    |      8    |
+----------------------------------------------------------------------
+   0 |   0.002292    0.002279    0.002292    0.001933 
+   1 |   0.002239    0.002166    0.002114    0.001715 
+   2 |   0.001462    0.001407    0.001352     0.00108 
+   3 |  0.0007629   0.0007519   0.0007504   0.0006203 
+   4 |   0.000938   0.0008644   0.0008061   0.0006103 
+   5 |    0.00104   0.0009445   0.0008721   0.0006379 
+   6 |  0.0009445   0.0009409   0.0009134   0.0007301 
+   7 |  0.0008721   0.0009134   0.0009691   0.0008429 
+   8 |  0.0006379   0.0007301   0.0008429   0.0008192 
+
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+GENIE Multisim - Uncertainties on the diagonal: 0 => 6.1632e-06
+GENIE Multisim - Uncertainties on the diagonal: 1 => 1.07022e-05
+GENIE Multisim - Uncertainties on the diagonal: 2 => 1.86072e-05
+GENIE Multisim - Uncertainties on the diagonal: 3 => 4.47398e-05
+GENIE Multisim - Uncertainties on the diagonal: 4 => 0.00011826
+GENIE Multisim - Uncertainties on the diagonal: 5 => 0.000189101
+GENIE Multisim - Uncertainties on the diagonal: 6 => 0.000271626
+GENIE Multisim - Uncertainties on the diagonal: 7 => 0.000377574
+GENIE Multisim - Uncertainties on the diagonal: 8 => 0.000317692
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L574> Beam-on integral 4746
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L575> Beam-off integral 396.022
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L576> MC signal 3793.02
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L577> MC cosmic 399.839
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L578> MC outfv 331.747
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L579> MC nc 70.5148
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L580> MC nue 0.541486
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L581> MC anumu 11.507
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L582> MC dirt 45.6615
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L584> First Bin only: 
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L585> Beam-on integral 303 +- 17.4069
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L586> Beam-off integral 80.5802 +- 6.29226
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L587> MC signal 155.11 +- 2.8094
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L588> MC cosmic 39.7029 +- 1.42088
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L589> MC outfv 22.101 +- 1.05986
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L590> MC nc 5.36415 +- 0.51976
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L591> MC nue 0 +- 0
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L592> MC anumu 0.985448 +- 0.22619
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L593> MC dirt 5.90327 +- 0.870559
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 4746
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram beam-off: 396.022
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 4349.98
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram cosmic: 399.839
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3950.14
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram outfv: 331.747
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3618.39
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram nc: 70.5148
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3547.88
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram nue: 0.541486
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3547.34
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram anumu: 11.507
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3535.83
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram cc_other: 339.556
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3196.27
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram dirt: 45.6615
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L441> _h_eff_mumom_num->Integral(): 619648
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L442> _h_eff_mumom_den->Integral(): 2.24411e+06
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L465> h_eff_mumom_num_smear->Integral(): 602571
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L466> h_eff_mumom_den_smear->Integral(): 2.17998e+06
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L492> Statistic option used for efficiency calculation: 1, check https://root.cern.ch/doc/v608/classTEfficiency.html#af27fb4e93a1b16ed7a5b593398f86312.
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L493> Efficiency bin 1: 0.234586 - 0.00282748 + 0.00282748
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L494> Efficiency bin 2: 0.193703 - 0.00269212 + 0.00269212
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L692> Statistical uncertainty for beam-on: 17.4069
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L755> Data Integral: 2.95092
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L756> MC Integral: 3.52254
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L845> Building covariance matrix from imported fractional covariance matrix.
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L866> Evaluating systematic uncertainties from covariance matrix.
+Bin 0 - stat: 0.00519265, syst: 0.00305183, tot: 0.00602306
+Bin 1 - stat: 0.00742659, syst: 0.00358784, tot: 0.00824784
+Bin 2 - stat: 0.011974, syst: 0.00437825, tot: 0.0127493
+Bin 3 - stat: 0.0151543, syst: 0.00656761, tot: 0.0165163
+Bin 4 - stat: 0.0169342, syst: 0.0107641, tot: 0.0200657
+Bin 5 - stat: 0.0205024, syst: 0.0136649, tot: 0.024639
+Bin 6 - stat: 0.0292187, syst: 0.0163959, tot: 0.0335046
+Bin 7 - stat: 0.0379696, syst: 0.0191583, tot: 0.0425292
+Bin 8 - stat: 0.0472388, syst: 0.0167879, tot: 0.0501332
+***************
+* thetamup cross section
+***************
+start to do genie systematics
+first bin center is 0.5
+first bin center is 0.5
+first bin center is 0.5
+first bin center is 0.5
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> CrossSectionBootstrapCalculator1D Starts Running
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> Flux Correction Weight Set to: 1.028
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> CrossSectionBootstrapCalculator1D FLUX: 1.16271e+11
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> Number of universes: 101
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> Universes names: nominal, universe0, universe1, universe2, universe3, universe4, universe5, universe6, universe7, universe8, universe9, universe10, universe11, universe12, universe13, universe14, universe15, universe16, universe17, universe18, universe19, universe20, universe21, universe22, universe23, universe24, universe25, universe26, universe27, universe28, universe29, universe30, universe31, universe32, universe33, universe34, universe35, universe36, universe37, universe38, universe39, universe40, universe41, universe42, universe43, universe44, universe45, universe46, universe47, universe48, universe49, universe50, universe51, universe52, universe53, universe54, universe55, universe56, universe57, universe58, universe59, universe60, universe61, universe62, universe63, universe64, universe65, universe66, universe67, universe68, universe69, universe70, universe71, universe72, universe73, universe74, universe75, universe76, universe77, universe78, universe79, universe80, universe81, universe82, universe83, universe84, universe85, universe86, universe87, universe88, universe89, universe90, universe91, universe92, universe93, universe94, universe95, universe96, universe97, universe98, universe99, 
+[>                                                                     ] 0 % completed.[>                                                                     ] 0 % completed.[=>                                                                    ] 1 % completed.[==>                                                                   ] 2 % completed.[==>                                                                   ] 3 % completed.[===>                                                                  ] 4 % completed.[====>                                                                 ] 5 % completed.[====>                                                                 ] 6 % completed.[=====>                                                                ] 7 % completed.[======>                                                               ] 8 % completed.[======>                                                               ] 9 % completed.[=======>                                                              ] 10 % completed.[========>                                                             ] 11 % completed.[=========>                                                            ] 12 % completed.[=========>                                                            ] 13 % completed.[==========>                                                           ] 14 % completed.[===========>                                                          ] 15 % completed.[===========>                                                          ] 16 % completed.[============>                                                         ] 17 % completed.[=============>                                                        ] 18 % completed.[=============>                                                        ] 19 % completed.[==============>                                                       ] 20 % completed.[===============>                                                      ] 21 % completed.[===============>                                                      ] 22 % completed.[================>                                                     ] 23 % completed.[=================>                                                    ] 24 % completed.[==================>                                                   ] 25 % completed.[==================>                                                   ] 26 % completed.[===================>                                                  ] 27 % completed.[====================>                                                 ] 28 % completed.[====================>                                                 ] 29 % completed.[=====================>                                                ] 30 % completed.[======================>                                               ] 31 % completed.[======================>                                               ] 32 % completed.[=======================>                                              ] 33 % completed.[========================>                                             ] 34 % completed.[========================>                                             ] 35 % completed.[=========================>                                            ] 36 % completed.[==========================>                                           ] 37 % completed.[===========================>                                          ] 38 % completed.[===========================>                                          ] 39 % completed.[============================>                                         ] 40 % completed.[=============================>                                        ] 41 % completed.[=============================>                                        ] 42 % completed.[==============================>                                       ] 43 % completed.[===============================>                                      ] 44 % completed.[===============================>                                      ] 45 % completed.[================================>                                     ] 46 % completed.[=================================>                                    ] 47 % completed.[=================================>                                    ] 48 % completed.[==================================>                                   ] 49 % completed.[===================================>                                  ] 50 % completed.[====================================>                                 ] 51 % completed.[====================================>                                 ] 52 % completed.[=====================================>                                ] 53 % completed.[======================================>                               ] 54 % completed.[======================================>                               ] 55 % completed.[=======================================>                              ] 56 % completed.[========================================>                             ] 57 % completed.[========================================>                             ] 58 % completed.[=========================================>                            ] 59 % completed.[==========================================>                           ] 60 % completed.[==========================================>                           ] 61 % completed.[===========================================>                          ] 62 % completed.[============================================>                         ] 63 % completed.[=============================================>                        ] 64 % completed.[=============================================>                        ] 65 % completed.[==============================================>                       ] 66 % completed.[===============================================>                      ] 67 % completed.[===============================================>                      ] 68 % completed.[================================================>                     ] 69 % completed.[=================================================>                    ] 70 % completed.[=================================================>                    ] 71 % completed.[==================================================>                   ] 72 % completed.[===================================================>                  ] 73 % completed.[===================================================>                  ] 74 % completed.[====================================================>                 ] 75 % completed.[=====================================================>                ] 76 % completed.[======================================================>               ] 77 % completed.[======================================================>               ] 78 % completed.[=======================================================>              ] 79 % completed.[========================================================>             ] 80 % completed.[========================================================>             ] 81 % completed.[=========================================================>            ] 82 % completed.[==========================================================>           ] 83 % completed.[==========================================================>           ] 84 % completed.[===========================================================>          ] 85 % completed.[============================================================>         ] 86 % completed.[============================================================>         ] 87 % completed.[=============================================================>        ] 88 % completed.[==============================================================>       ] 89 % completed.[===============================================================>      ] 90 % completed.[===============================================================>      ] 91 % completed.[================================================================>     ] 92 % completed.[=================================================================>    ] 93 % completed.[=================================================================>    ] 94 % completed.[==================================================================>   ] 95 % completed.[===================================================================>  ] 96 % completed.[===================================================================>  ] 97 % completed.[====================================================================> ] 98 % completed.[=====================================================================>] 99 % completed.[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> xsec_mumom_bs.GetNbinsX() 6
+[CovarianceCalculator2D]  Calculating Cov Matrix with 101 universes. Nominal histogram is excluded.
+[=>                                                                    ] 2 % completed.[===>                                                                  ] 5 % completed.[=====>                                                                ] 8 % completed.[=======>                                                              ] 11 % completed.[=========>                                                            ] 13 % completed.[===========>                                                          ] 16 % completed.[=============>                                                        ] 19 % completed.[===============>                                                      ] 22 % completed.[=================>                                                    ] 25 % completed.[===================>                                                  ] 27 % completed.[=====================>                                                ] 30 % completed.[=======================>                                              ] 33 % completed.[=========================>                                            ] 36 % completed.[===========================>                                          ] 38 % completed.[=============================>                                        ] 41 % completed.[===============================>                                      ] 44 % completed.[=================================>                                    ] 47 % completed.[===================================>                                  ] 50 % completed.[====================================>                                 ] 52 % completed.[======================================>                               ] 55 % completed.[========================================>                             ] 58 % completed.[==========================================>                           ] 61 % completed.[============================================>                         ] 63 % completed.[==============================================>                       ] 66 % completed.[================================================>                     ] 69 % completed.[==================================================>                   ] 72 % completed.[====================================================>                 ] 75 % completed.[======================================================>               ] 77 % completed.[========================================================>             ] 80 % completed.[==========================================================>           ] 83 % completed.[============================================================>         ] 86 % completed.[==============================================================>       ] 88 % completed.[================================================================>     ] 91 % completed.[==================================================================>   ] 94 % completed.[====================================================================> ] 97 % completed.[======================================================================] 100 % completed.WARNING!!! Corraltion Matrix rho is smaller than -1 or greater than +1, value: 1
+[CovarianceCalculator2D] Printing Covariance Matrix M = 
+
+6x6 matrix is as follows
+
+     |      0    |      1    |      2    |      3    |      4    |
+----------------------------------------------------------------------
+   0 |  4.371e-06   9.935e-06   1.459e-05   1.578e-05   1.439e-05 
+   1 |  9.935e-06   2.371e-05   3.404e-05   3.564e-05   3.211e-05 
+   2 |  1.459e-05   3.404e-05   5.566e-05   6.526e-05   6.079e-05 
+   3 |  1.578e-05   3.564e-05   6.526e-05   8.848e-05   8.488e-05 
+   4 |  1.439e-05   3.211e-05   6.079e-05   8.488e-05   8.292e-05 
+   5 |  7.706e-06   1.668e-05   3.048e-05   4.218e-05   4.063e-05 
+
+
+     |      5    |
+----------------------------------------------------------------------
+   0 |  7.706e-06 
+   1 |  1.668e-05 
+   2 |  3.048e-05 
+   3 |  4.218e-05 
+   4 |  4.063e-05 
+   5 |  2.197e-05 
+
+[CovarianceCalculator2D] Printing Fractional Covariance Matrix M = 
+
+6x6 matrix is as follows
+
+     |      0    |      1    |      2    |      3    |      4    |
+----------------------------------------------------------------------
+   0 |   0.003947    0.002118    0.001896    0.001591    0.001566 
+   1 |   0.002118    0.001193    0.001044   0.0008484   0.0008251 
+   2 |   0.001896    0.001044     0.00104   0.0009466   0.0009519 
+   3 |   0.001591   0.0008484   0.0009466    0.000996    0.001032 
+   4 |   0.001566   0.0008251   0.0009519    0.001032    0.001088 
+   5 |   0.002398    0.001226    0.001364    0.001466    0.001524 
+
+
+     |      5    |
+----------------------------------------------------------------------
+   0 |   0.002398 
+   1 |   0.001226 
+   2 |   0.001364 
+   3 |   0.001466 
+   4 |   0.001524 
+   5 |   0.002355 
+
+[95m    [NORMAL]  [00m <CrossSectionBootstrapCalculator1D::Run> >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+GENIE Multisim - Uncertainties on the diagonal: 0 => 4.37095e-06
+GENIE Multisim - Uncertainties on the diagonal: 1 => 2.37066e-05
+GENIE Multisim - Uncertainties on the diagonal: 2 => 5.56604e-05
+GENIE Multisim - Uncertainties on the diagonal: 3 => 8.84802e-05
+GENIE Multisim - Uncertainties on the diagonal: 4 => 8.29171e-05
+GENIE Multisim - Uncertainties on the diagonal: 5 => 2.19674e-05
+start to import genie systematics
+start to do extra systematics
+start to import extra systematics
+start to do flux systematics 
+start to import flux systematics 
+start to do mc static systematics 
+start to import mc static systematics 
+start to import detector systematics 
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L574> Beam-on integral 4746
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L575> Beam-off integral 396.022
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L576> MC signal 3793.02
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L577> MC cosmic 399.839
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L578> MC outfv 331.747
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L579> MC nc 70.5148
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L580> MC nue 0.541486
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L581> MC anumu 11.507
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L582> MC dirt 45.6615
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L584> First Bin only: 
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L585> Beam-on integral 635 +- 25.1992
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L586> Beam-off integral 65.3486 +- 5.66644
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L587> MC signal 506.056 +- 5.0735
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L588> MC cosmic 101.882 +- 2.27551
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L589> MC outfv 49.188 +- 1.58123
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L590> MC nc 14.9078 +- 0.867589
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L591> MC nue 0.202928 +- 0.0935679
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L592> MC anumu 2.2285 +- 0.341047
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ProcessPlots::L593> MC dirt 5.4741 +- 0.835332
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 4746
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram beam-off: 396.022
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 4349.98
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram cosmic: 399.839
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3950.14
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram outfv: 331.747
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3618.39
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram nc: 70.5148
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3547.88
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram nue: 0.541486
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3547.34
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram anumu: 11.507
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3535.83
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram cc_other: 339.556
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1120> _h_data_subtracted integral is 3196.27
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Draw::L1121> Going to subtract histogram dirt: 45.6615
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L441> _h_eff_mumom_num->Integral(): 220199
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L442> _h_eff_mumom_den->Integral(): 749261
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L465> h_eff_mumom_num_smear->Integral(): 235667
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L466> h_eff_mumom_den_smear->Integral(): 808234
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L492> Statistic option used for efficiency calculation: 1, check https://root.cern.ch/doc/v608/classTEfficiency.html#af27fb4e93a1b16ed7a5b593398f86312.
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L493> Efficiency bin 1: 0.305161 - 0.00344104 + 0.00344104
+[92m      [INFO]  [00m <CrossSectionCalculator1D::Smear::L494> Efficiency bin 2: 0.309513 - 0.00263837 + 0.00263837
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L692> Statistical uncertainty for beam-on: 25.1992
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L755> Data Integral: 1.07624
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L756> MC Integral: 1.30599
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L845> Building covariance matrix from imported fractional covariance matrix.
+[92m      [INFO]  [00m <CrossSectionCalculator1D::ExtractCrossSection::L866> Evaluating systematic uncertainties from covariance matrix.
+Bin 0 - stat: 0.00280799, syst: 0.00209068, tot: 0.00350082
+Bin 1 - stat: 0.00857803, syst: 0.00486894, tot: 0.00986353
+Bin 2 - stat: 0.0134293, syst: 0.00746059, tot: 0.0153625
+Bin 3 - stat: 0.0145125, syst: 0.00940639, tot: 0.0172943
+Bin 4 - stat: 0.0112327, syst: 0.00910588, tot: 0.01446
+Bin 5 - stat: 0.00545875, syst: 0.00468694, tot: 0.00719482
+***************
+* Double differential cross section
+***************
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> Closing output file.
+[95m    [NORMAL]  [00m <CC1uNPAna::DoAnalise> Output file closed.
+
+With the correct normalisation: 
+	 Number of BNBON events:   4746
+	 Number of EXTBNB events:  396.022
+	           BNBON - EXTBNB: 4349.98
+	             MC BNBCOSMIC: 5388.41
+	             DATA (on-off): 4349.98
+
+Number of events per channel (including over/underflow bins):
+signal: 3793.02, 0.703922
+cosmic: 399.839, 0.0742035
+outfv: 331.747, 0.0615667
+nc: 70.5148, 0.0130864
+anumu: 11.507, 0.00213551
+cc_other: 339.556, 0.0630159
+nue: 0.541486, 0.000100491
+dirt: 45.6615, 0.00847401
+beam-off: 396.022, 0.0734952
+
+PURITY: 0.703922
