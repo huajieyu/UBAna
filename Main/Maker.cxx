@@ -417,7 +417,6 @@ void Main::Maker::FillBootstrap(int m, // true bin m (1 number, unrolled)
                                 std::vector<std::string> fname, 
                                 std::vector<double> wgts) {
 
-  if (j<0) j=0; // Negative bins are overflows, and are all added to entry 0 of the vector
 
   if (j < 0) j = 0; // Negative bins are overflows, and are all added to entry 0 of the vector
 
@@ -587,8 +586,8 @@ void Main::Maker::MakeFile()
       cpot->GetEntry(potEntry);
       totalPOT += pot;
     } // end loop entries
-    LOG_NORMAL() << "| Total POT: " << totalPOT << endl;
-    LOG_NORMAL() << " ----- " << endl << endl;
+    LOG_NORMAL() << " | Total POT: " << totalPOT << endl;
+    LOG_NORMAL() << " ~~~~~~~~~~~~~~ " << endl << endl;
   } // end if evalPOT
   else
     totalPOT = -1.;
@@ -624,6 +623,7 @@ void Main::Maker::MakeFile()
 
   double nsignal = 0;
 
+
   double nsignal_qe = 0;
   double nsignal_res = 0;
   double nsignal_dis = 0;
@@ -638,7 +638,6 @@ void Main::Maker::MakeFile()
   double bkg_cosmic_sel = 0;
   double bkg_cosmic_top_sel = 0;
   double bkg_ccother_sel = 0;
-
   double signal_sel_qe = 0;
   double signal_sel_res = 0;
   double signal_sel_dis = 0;
@@ -2633,7 +2632,7 @@ void Main::Maker::MakeFile()
       }
     }
     }//end of if this is cc1unp analysis
-    
+     
     if(isSignal && _ana_int_type == "cc1unp_analysis"){
       // loop over all the genie particles and get the denominator of the proton momentum efficiency
       temp_pmom=-999.0;
@@ -2681,7 +2680,7 @@ void Main::Maker::MakeFile()
       }
       
     } //end of if this is signal and cc1unp analysis
-    
+    //std::cout<<"Calculated the proton momentum and angles at simulation level"<<std::endl;
     // Check if it's a nue event
     bool isNueCCFV = false;
     if (t->nupdg == 12 && t->ccnc == 0 && t->fv == 1) {
@@ -2865,7 +2864,7 @@ void Main::Maker::MakeFile()
     }
 
     
-    
+    //std::cout<<"filled the histograms for signal"<<std::endl;
 
       
     
@@ -3444,8 +3443,8 @@ void Main::Maker::MakeFile()
                   chi2_kaon_hypothesis["other"]->Fill(t->pfp_reco_chi2_kaon[npfp],event_weight); 
                   //std::cout<<"Found a PF particle not muon, proton, pion or kaon !!"<<std::endl;
                 }
-     }//end if loop over all the proton candidate
-     } //end of it is not data file
+    }//end if loop over all the proton candidate
+    } //end of it is not data file
  
 
     //try to perform nhits cut to all the proton candidates
@@ -3567,7 +3566,7 @@ void Main::Maker::MakeFile()
 
     }
     
-    //std::cout<<"libo test 1"<<" is data or not "<<isdata<<std::endl;
+    //std::cout<<"End of CC1uNP Selection"<<" is data or not "<<isdata<<std::endl;
     if(!isdata){
     //get the momentum of the leading proton momentum 
     if(isSignal && trackfromneutrino && _ana_int_type == "cc1unp_analysis"){
@@ -3628,7 +3627,7 @@ void Main::Maker::MakeFile()
 
     } //end of if this is signal and cc1unp analysis
     } //end of is not data
-    //std::cout<<"libo test 2"<<"pind= "<<pind<<"  "<<t->pfp_reco_istrack[pind]<<std::endl;
+    std::cout<<"Get the truth information of the CC1uNP Selected Events"<<"pind= "<<pind<<"  "<<t->pfp_reco_istrack[pind]<<std::endl;
     unsigned int vec_length = t->pfp_reco_dEdx[pind].size();
     for(size_t i =0; i<vec_length; ++i){   
 	 h_dEdx_vs_rr_pcand->Fill(t->pfp_reco_RR[pind][i],t->pfp_reco_dEdx[pind][i]);
@@ -3646,7 +3645,7 @@ void Main::Maker::MakeFile()
         }  
     }
 
-    //std::cout<<checking the momentum smearing in the first bin
+    std::cout<<"checking the momentum smearing in the first bin"<<std::endl;
     if(isSignal && _ana_int_type=="cc1unp_analysis"){
     //total number of hits, angle py to p
     if((t->pfp_reco_Mom_muon[muind]<0.3) &&t->pfp_reco_Mom_muon[muind]>0.18 && t->pfp_truth_mom[muind]<0.18){
@@ -3670,7 +3669,7 @@ void Main::Maker::MakeFile()
     }
         
     }
-
+    std::cout<<"Started fill histograms after finish the calculations"<<std::endl;
     //============================================================================================================
     //
     // EVENT IS SELECTED
@@ -3736,7 +3735,7 @@ void Main::Maker::MakeFile()
     } else{
       hmap_pmult["total"]->Fill(t->num_pfp_tracks-1, event_weight);
     }
-    
+    std::cout<<"Filled histograms of the hmap pmult"<<std::endl;
 
     if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_genie_multisim_bs, "total", fname_genie_multisim, wgts_genie_multisim);
     if (!isdata && _fill_bootstrap_flux) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_flux_multisim_bs, "total", fname_flux_multisim, wgts_flux_multisim);
@@ -3813,12 +3812,6 @@ void Main::Maker::MakeFile()
       int i = _event_histo->h_poly_reco_per_true[0]->FindBin(_angle_reco, _mom_mcs); // reco bin
       if (m < 0) m = 0; // Negative bins are overflows, and are all added in entry 0 of the vector
       if (m < _event_histo->h_poly_reco_per_true[0]->GetNumberOfBins()+1) {
-      // For migration matrix (poly)
-      m = _event_histo->h_poly_reco_per_true[0]->FindBin(_angle_true, _mom_true) - 1;
-      int i = _event_histo->h_poly_reco_per_true[0]->FindBin(_angle_reco, _mom_mcs) - 1;
-      if (m < 0) m = 0; //Negative bins are overflows, and are all added in entry o of the vector
-      if (m >= 0 && m < _event_histo->h_poly_reco_per_true[0]->GetNumberOfBins()
-        && i >= 0 && i < _event_histo->h_poly_reco_per_true[0]->GetNumberOfBins()) {
         _event_histo->h_poly_reco_per_true[m]->Fill(_angle_reco, _mom_mcs, event_weight);
         if(!isdata && _fill_bootstrap_genie) FillBootstrap(m, i, event_weight, _event_histo->bs_genie_multisim_poly_reco_per_true, fname_genie_multisim, wgts_genie_multisim);
         if(!isdata && _fill_bootstrap_flux) FillBootstrap(m, i, event_weight, _event_histo->bs_flux_multisim_poly_reco_per_true, fname_flux_multisim, wgts_flux_multisim);
@@ -3832,7 +3825,6 @@ void Main::Maker::MakeFile()
       _event_histo_1d->h_true_reco_pcostheta->Fill(temp_pangle, t->pfp_reco_costheta[pind], event_weight);
       _event_histo_1d->h_true_reco_thetamup->Fill(temp_thetamup, thetamup, event_weight);
       
->>>>>>> libo
 
       _event_histo_1d->h_true_reco_mom->Fill(_mom_true, _mom_mcs, event_weight);
       _event_histo_1d->h_true_reco_costheta->Fill(_angle_true, _angle_reco, event_weight);
@@ -3873,7 +3865,7 @@ void Main::Maker::MakeFile()
     }
     
     int true_pdg = t->slc_muoncandidate_truepdg.at(scl_ll_max);
-   
+    std::cout<<"Start to fill histograms of dQds"<<std::endl; 
     //
     // Fill dQ/ds histograms
     //
@@ -3976,13 +3968,13 @@ void Main::Maker::MakeFile()
       }
     }
 
-
+    std::cout<<"Start to fill histograms nuorigin"<<nu_origin<<isSignal<<trackfromneutrino<<std::endl;
     //
     // SIGNAL
     //
     if(nu_origin && isSignal && trackfromneutrino /*&& true_pdg==13 && true_origin == 0*/) {
       
-      //std::cout << "Is signal and is selected. event: " << t->event << std::endl;
+      std::cout << "Is signal and is selected. event: " << t->event << std::endl;
 
       signal_sel += event_weight;
       _event_histo_1d->hmap_onebin["signal"]->Fill(0.5, event_weight);
@@ -4080,7 +4072,7 @@ void Main::Maker::MakeFile()
         h_eff_mec_num->Fill(t->nu_e, event_weight);
         signal_sel_mec += event_weight;
       }
-
+      std::cout<<"Filled histograms for efficiency calculation"<<std::endl;
       // Also save themc truth histogram per interaction type
       hmap_mctruth_nuenergy["total"]->Fill(t->nu_e, event_weight);
       hmap_mctruth_mumom["total"]->Fill(t->true_muon_mom, event_weight);
@@ -4265,7 +4257,7 @@ void Main::Maker::MakeFile()
     // ANUMU
     //
     else if(nu_origin && t->ccnc==0 && t->nupdg==-14 && t->fv==1 && trackfromneutrino){
-      bkg_anumu_sel += event_weight;
+      bkg_anumu_sel += event_weight;  std::cout<<"ANUMU"<<std::endl;
       pEff->Fill(false, t->nu_e);
       _event_histo_1d->hmap_onebin["anumu"]->Fill(0.5, event_weight);
 
@@ -4355,7 +4347,7 @@ void Main::Maker::MakeFile()
     // CC0P or CCNpi
     //
     else if(nu_origin && t->ccnc==0 && t->nupdg==14 && t->fv==1 && trackfromneutrino && (t->ngenie_protons_300==0 ||(t->ngenie_pipms+t->ngenie_pion0s)>0 || t->ngenie_electrons>0)){
-      bkg_ccother_sel += event_weight;
+      bkg_ccother_sel += event_weight; std::cout<<"CCOther"<<std::endl;
       _event_histo_1d->hmap_onebin["cc_other"]->Fill(0.5, event_weight);
       hmap_trklen["cc_other"]->Fill(t->slc_longesttrack_length.at(scl_ll_max), event_weight);
       hmap_trkmom_classic["cc_other"]->Fill(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight);
@@ -4370,7 +4362,7 @@ void Main::Maker::MakeFile()
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->lep_costheta, event_weight, hmap_trktheta_genie_pm1_bs, "cc_other", fname_genie_pm1, wgts_genie_pm1);
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pangle, event_weight, hmap_trkptheta_genie_pm1_bs, "cc_other", fname_genie_pm1, wgts_genie_pm1);
 
-
+      std::cout<<"libo test hhh"<<std::endl;
 
 
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(0.5, event_weight, _event_histo_1d->hmap_onebin_genie_multisim_bs, "cc_other", fname_genie_multisim, wgts_genie_multisim);
@@ -4411,7 +4403,7 @@ void Main::Maker::MakeFile()
       } else{  
         hmap_pmult["cc_other"]->Fill(t->num_pfp_tracks-1, event_weight);
       }
-
+      std::cout<<"libo test ggg"<<std::endl;
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_genie_multisim_bs, "cc_other", fname_genie_multisim, wgts_genie_multisim);      
       if (!isdata && _fill_bootstrap_flux) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_flux_multisim_bs, "cc_other", fname_flux_multisim, wgts_flux_multisim);
       if (!isdata && _fill_bootstrap_extra_syst) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_extra_syst_multisim_bs, "cc_other", fname_extra_syst, wgts_extra_syst);
@@ -4426,17 +4418,17 @@ void Main::Maker::MakeFile()
       if (!isdata && _fill_bootstrap_flux) FillBootstrap(thetamup, event_weight, _event_histo_1d->hmap_thetamup_flux_multisim_bs, "cc_other", fname_flux_multisim, wgts_flux_multisim);
       if (!isdata && _fill_bootstrap_extra_syst) FillBootstrap(thetamup, event_weight, _event_histo_1d->hmap_thetamup_extra_syst_multisim_bs, "cc_other", fname_extra_syst, wgts_extra_syst);
       if (!isdata && _fill_bootstrap_mc_stat) FillBootstrap(thetamup, event_weight, _event_histo_1d->hmap_thetamup_mc_stat_multisim_bs, "cc_other", fname_mc_stat_multisim, wgts_mc_stat_multisim);
-
+      std::cout<<"libo test jjj"<<std::endl;
 
       _event_histo_1d->hmap_trkmom["cc_other"]->Fill(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight);
       _event_histo_1d->hmap_trkpmom["cc_other"]->Fill(t->pfp_reco_Mom_proton[pind], event_weight); 
       _event_histo_1d->hmap_trktheta["cc_other"]->Fill(t->slc_longesttrack_theta.at(scl_ll_max), event_weight);
       _event_histo_1d->hmap_trkptheta["cc_other"]->Fill(t->slc_longesttrack_theta.at(scl_ll_max), event_weight);
       _event_histo_1d->hmap_thetamup["cc_other"]->Fill(thetamup, event_weight);
-
+      std::cout<<"libo test kkk"<<std::endl;
       _event_histo->hmap_trktheta_trkmom["cc_other"]->Fill(t->slc_longesttrack_theta.at(scl_ll_max), t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight);
       _event_histo->hmap_trktheta_trkmom_poly["cc_other"]->Fill(t->slc_longesttrack_theta.at(scl_ll_max), t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight);
-      //characterize the cc background
+      std::cout<<"libo test 0"<<std::endl;//characterize the cc background
       if(t->ngenie_protons_300==0 && (t->ngenie_pipms+t->ngenie_pion0s)==0&& t->ngenie_electrons==0) {  //CC0P0Pi
         hmap_trklen["cc_0proton"]->Fill(t->pfp_reco_length[muind], event_weight);
         hmap_trkmom_classic["cc_0proton"]->Fill(t->pfp_reco_Mom_MCS[muind], event_weight);
@@ -4448,7 +4440,7 @@ void Main::Maker::MakeFile()
         hmap_trkpphi["cc_0proton"]->Fill(t->pfp_reco_phi[pind], event_weight);
         
         h_ngenie_proton->Fill(t->ngenie_protons, event_weight);
-        //std::cout<<"libo test 0 "<<std::endl;
+        std::cout<<"libo test 1 "<<std::endl;
         int munum=0;
         for(unsigned int ii=0; ii<t->pfp_reco_ismuoncandidate.size(); ii++){
                 if(t->pfp_truth_pdg[ii]==13) munum++;
@@ -4530,7 +4522,7 @@ void Main::Maker::MakeFile()
     // NUE
     //
     else if(nu_origin && t->ccnc==0 && (t->nupdg==-12 || t->nupdg==12) && t->fv==1 && trackfromneutrino){
-      bkg_nue_sel += event_weight;
+      bkg_nue_sel += event_weight;  std::cout<<"NUE"<<std::endl;
       pEff->Fill(false, t->nu_e);
       _event_histo_1d->hmap_onebin["nue"]->Fill(0.5, event_weight);
       hmap_trklen["nue"]->Fill(t->slc_longesttrack_length.at(scl_ll_max), event_weight);
@@ -4618,7 +4610,7 @@ void Main::Maker::MakeFile()
     // NC
     //
     else if(nu_origin && t->ccnc==1 && t->fv==1 && trackfromneutrino){
-      bkg_nc_sel += event_weight;
+      bkg_nc_sel += event_weight;  std::cout<<"NC"<<std::endl;
       pEff->Fill(false, t->nu_e);
       _event_histo_1d->hmap_onebin["nc"]->Fill(0.5, event_weight);
       hmap_trklen["nc"]->Fill(t->slc_longesttrack_length.at(scl_ll_max), event_weight);
@@ -4752,7 +4744,7 @@ void Main::Maker::MakeFile()
     // OUTFV
     //
     else if(nu_origin && t->fv==0 && trackfromneutrino){
-      bkg_outfv_sel += event_weight;
+      bkg_outfv_sel += event_weight;  std::cout<<"OUTFV"<<std::endl;
       pEff->Fill(false, t->nu_e);
       _event_histo_1d->hmap_onebin["outfv"]->Fill(0.5, event_weight);
       hmap_trklen["outfv"]->Fill(t->slc_longesttrack_length.at(scl_ll_max), event_weight);
@@ -4867,7 +4859,7 @@ void Main::Maker::MakeFile()
     // COSMIC
     //
     else {
-      bkg_cosmic_sel += event_weight;
+      bkg_cosmic_sel += event_weight; std::cout<<"COSMIC"<<std::endl;   
       // Add extra weight to event_weight if we are scaling the cosmic background (for example from overlays)
       if (_scale_cosmics) event_weight *= _scale_factor_cosmic;
       if (t->slc_crosses_top_boundary.at(scl_ll_max) == 1 ) bkg_cosmic_top_sel++;
@@ -4982,7 +4974,7 @@ void Main::Maker::MakeFile()
         _event_histo->hmap_trktheta_trkmom["cosmic_nostopmu"]->Fill(t->slc_longesttrack_theta.at(scl_ll_max), t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight);
         _event_histo->hmap_trktheta_trkmom_poly["cosmic_nostopmu"]->Fill(t->slc_longesttrack_theta.at(scl_ll_max), t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight);
       }
-
+      std::cout<<"end of background check"<<std::endl;
       // Restore the event weight
       if (_scale_cosmics) event_weight /= _scale_factor_cosmic;
     } // end of else to fill the histogram with background events
@@ -4990,7 +4982,7 @@ void Main::Maker::MakeFile()
     
   } // end of event loop
   
-  
+  std::cout<<"Start fill histograms of POT and print out section information"<<std::endl; 
   // Save POT and number of events 
   h_pot->SetBinContent(1, totalPOT);
   h_nevts->SetBinContent(1, total_events);

@@ -165,12 +165,11 @@ namespace DataTypes {
       hmap_trktheta_trkmom_poly["nc_other"] = new UBTH2Poly("h_trktheta_trkmom_poly_nc_other", ";cos(#theta);p_{#mu}", -1., 1., 0., 2.5);
       hmap_trktheta_trkmom_poly["signal_stopmu"] = new UBTH2Poly("h_trktheta_trkmom_poly_signal_stopmu", ";cos(#theta);p_{#mu}", -1., 1., 0., 2.5);
       hmap_trktheta_trkmom_poly["signal_nostopmu"] = new UBTH2Poly("h_trktheta_trkmom_poly_signal_nostopmu", ";cos(#theta);p_{#mu}", -1., 1., 0., 2.5);
+      hmap_trktheta_trkmom_poly["cc_other"] = new UBTH2Poly("h_trktheta_trkmom_poly_ccother", ";cos(#theta);p_{#mu}", -1., 1., 0., 2.5);
+
 
       h_poly_reco_per_true.resize(_n_poly_bins+1);
       for (int m = 0; m < _n_poly_bins+1; m++) {
-      hmap_trktheta_trkmom_poly["cc_other"] = new UBTH2Poly("h_trktheta_trkmom_poly_ccother", ";cos(#theta);p_{#mu}", -1., 1., 0., 2.5);
-      h_poly_reco_per_true.resize(_n_poly_bins);
-      for (int m = 0; m < _n_poly_bins; m++) {
         std::stringstream sstm;
         sstm << "poly_reco_per_true_" << m; 
         h_poly_reco_per_true[m] = new UBTH2Poly(sstm.str().c_str(), "poly_reco_per_true", -1., 1., 0., 2.5);
