@@ -3311,10 +3311,11 @@ void Main::Maker::MakeFile()
     }
 
     if(_ana_int_type=="ccinclusive_analysis"){trackfromneutrino=true;}
-
+   
     // AF - Move this upwards, before any cuts get applied
     for(unsigned int jj=0; jj<t->pfp_reco_ismuoncandidate.size(); jj++){
        if(t->pfp_reco_ismuoncandidate[jj]==0) continue;
+       if(inCV(t->pfp_reco_endx[jj], t->pfp_reco_endy[jj], t->pfp_reco_endz[jj])) {muon_contained = true;}
        muind=jj;  
     }
    
@@ -3496,7 +3497,7 @@ void Main::Maker::MakeFile()
     if(_ana_int_type=="cc1unp_analysis" && t->pfp_reco_Mom_proton[pind]<0.3) continue;
 
 
-
+    
     
 
     if(_ana_int_type=="cc1unp_analysis"){
@@ -3679,14 +3680,21 @@ void Main::Maker::MakeFile()
     
     _event_histo_1d->hmap_onebin["total"]->Fill(0.5, event_weight);
     hmap_trklen["total"]->Fill(t->slc_longesttrack_length.at(scl_ll_max), event_weight);
+    if(muon_contained) {
+    hmap_trkmom_classic["total"]->Fill(t->pfp_reco_Mom_muon[muind], event_weight);
+    }else {
     hmap_trkmom_classic["total"]->Fill(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight);
+    }
     hmap_trkphi["total"]->Fill(t->slc_longesttrack_phi.at(scl_ll_max), event_weight);
     hmap_trktheta_classic["total"]->Fill(t->slc_longesttrack_theta.at(scl_ll_max), event_weight);
     hmap_multpfp["total"]->Fill(t->slc_mult_pfp.at(scl_ll_max), event_weight);
     hmap_multtracktol["total"]->Fill(t->slc_mult_track_tolerance.at(scl_ll_max), event_weight);
 
-
+    if(muon_contained){
+    if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->pfp_reco_Mom_muon[muind], event_weight, hmap_trkmom_genie_pm1_bs, "total", fname_genie_pm1, wgts_genie_pm1); 
+    } else {
     if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight, hmap_trkmom_genie_pm1_bs, "total", fname_genie_pm1, wgts_genie_pm1);
+    }
     if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pmom, event_weight, hmap_trkpmom_genie_pm1_bs, "total", fname_genie_pm1, wgts_genie_pm1);
     if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->lep_costheta, event_weight, hmap_trktheta_genie_pm1_bs, "total", fname_genie_pm1, wgts_genie_pm1);
     if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pangle, event_weight, hmap_trkptheta_genie_pm1_bs, "total", fname_genie_pm1, wgts_genie_pm1);

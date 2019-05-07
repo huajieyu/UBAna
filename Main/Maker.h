@@ -305,7 +305,7 @@ namespace Main{
     int n_bins_pmom = 10; 
     int n_bins_pcostheta = 9;
 
-    double bins_muptheta[7] = {0.00, 1.00, 1.31, 1.5, 1.7, 2.04, 3.14};
+    double bins_muptheta[7] = {0.00, 0.8, 1.2, 1.57, 1.94, 2.34, 3.14};
     int n_bins_muptheta = 6;
   
 
@@ -326,7 +326,7 @@ namespace Main{
 
     // These variables are filled in the reco-true TTree in the code
     double _mom_true, _mom_mcs, _pmom_true, _pmom_reco;
-    bool _contained, _selected;
+    bool _contained, _selected, muon_contained;
     double _angle_true, _angle_reco;
     double _event_weight_fortree;
     std::vector<std::string> _wgtsnames_genie_multisim;
