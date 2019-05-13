@@ -198,7 +198,7 @@ namespace Main {
     
 
     bool _calculate_xsec = true;
-    bool _do_pm1sigma_plots = false;
+    bool _do_pm1sigma_plots = true;
     bool _do_reweighting_plots = true;
 
     std::string mc_bnbcosmic_file_name     = "ubxsecana_output.root";

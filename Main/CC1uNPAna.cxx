@@ -310,7 +310,7 @@ namespace Main {
   ReweightingPlotter genie_rw_plotter;
 
   if (_do_pm1sigma_plots) {
-
+    LOG_NORMAL()<<"start to do GENIE unisim calculations"<<std::endl;
     // Bootstrap number of events per type
     std::map<std::string, BootstrapTH1D> bs;
     for (auto it : map_bs) {
@@ -320,10 +320,10 @@ namespace Main {
     }
     // Make +-1 sigma plots from GENIE
     genie_rw_plotter.SetEventBootstrapMap(bs);
-    genie_rw_plotter.SetEfficiencyBootstraps(bs_genie_pm1_eff_mumom_num, bs_genie_pm1_eff_mumom_den);
-    genie_rw_plotter.MakePlots(0, false, true);
-    genie_rw_plotter.MakePlots(2, false, true);
-    genie_rw_plotter.MakeBackgroundPlots(0, false, true);  
+    genie_rw_plotter.SetEfficiencyBootstraps(bs_genie_pm1_eff_mumom_num, bs_genie_pm1_eff_mumom_den); std::cout<<"libo test 0"<<std::endl;
+    genie_rw_plotter.MakePlots(0, false, true);  std::cout<<"libo test 1"<<std::endl;
+    genie_rw_plotter.MakePlots(2, false, true);  std::cout<<"libo test 2"<<std::endl;
+    genie_rw_plotter.MakeBackgroundPlots(0, false, true);  std::cout<<"libo test 3"<<std::endl;
   }
 
 

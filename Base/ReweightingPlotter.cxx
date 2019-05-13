@@ -64,14 +64,14 @@ namespace Base {
       TH1D * temp_eff_den = (TH1D*)_bs_eff_den.GetNominal().Clone("temp_eff_den");
       histo->Divide(temp_eff_den);
       efficiency_nominal = _bs_eff_num.GetNominal().Integral() / _bs_eff_den.GetNominal().Integral();
-
+      std::cout<<"libo test RW-3"<<std::endl;
       // Numerator for efficiency calculation 
-      histo_map = _bs_eff_num.UnpackPMHisto();
+      histo_map = _bs_eff_num.UnpackPMHisto();std::cout<<"libo test RW-2"<<std::endl;
       histo_map_den = _bs_eff_den.UnpackPMHisto();
 
     }
 
-
+    std::cout<<"libo test RW-1"<<std::endl;
 
     // Make a directory to store the plots
     if (variable == 0) system("mkdir ./EvtWgtEfficiencyPlots");
@@ -90,7 +90,7 @@ namespace Base {
     if (variable == 3) outfile.open("./EvtWgtEventPlots/IntegralsCosThetaMu.txt");
   
   
-  
+    std::cout<<"libo test RW0"<<std::endl;  
   
     // Open LaTeX file to write the table
     std::ofstream latexFile;
@@ -120,7 +120,7 @@ namespace Base {
       latexFile3 << "\\centering" << std::endl;
     }
 
-
+    std::cout<<"libo test RW1"<<std::endl;
     bool is_first = true;
 
     int function_counter = 0;
@@ -159,7 +159,7 @@ namespace Base {
 
       }
 
-
+      std::cout<<"libo test RW2"<<std::endl;
 
       TString SaveName;
       if(variable == 0 || variable == 2) SaveName = "Pmu_"+function_name;
@@ -460,8 +460,8 @@ namespace Base {
   }
 
   void ReweightingPlotter::MakeBackgroundPlots(int variable, bool normalised, bool makeLaTeX) {
-    
-/*
+    /*
+
       // Pmu: variable == 0
   // CosThetaMu: variable == 1
 
@@ -905,7 +905,7 @@ namespace Base {
     latexFile3 << "\\end{adjustwidth}" << std::endl;
     latexFile3 << "\\end{figure}" << std::endl;
   }
-*/ 
+ */
 
   }
 
