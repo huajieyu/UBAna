@@ -543,6 +543,25 @@ namespace Base {
   }
 
 
+  UBTH2Poly* CrossSectionCalculator2DPoly::GetBackground(std::vector<std::string> bkg_prefixs)
+  {
+
+    UBTH2Poly* bkg = (UBTH2Poly*)_hmap_bnbcosmic["beam-off"]->Clone("bkg");
+    for (auto name : bkg_prefixs) {
+      if (name == "beam-off") continue;
+      bkg->Add(_hmap_bnbcosmic[name]);
+    }
+    return bkg;
+
+  }
+
+  UBTH2Poly* CrossSectionCalculator2DPoly::GetSignal()
+  {
+    UBTH2Poly* h_sig = _hmap_bnbcosmic["signal"];
+    return h_sig;
+  }
+
+
   UBTH2Poly* CrossSectionCalculator2DPoly::ExtractCrossSection(std::vector<std::string> bkg_prefixs, std::string xaxis_label, std::string yaxis_label, std::string zaxis_label, bool make_plots) 
   {
 
@@ -550,7 +569,7 @@ namespace Base {
     // The two histograms we acually need: MC and data (bkg subtracted)
     //
 
-    UBTH2Poly* h_mc = _hmap_bnbcosmic["signal"];
+    UBTH2Poly* h_mc = (UBTH2Poly*) _hmap_bnbcosmic["signal"]->Clone("h_mc");
     UBTH2Poly* h_data = (UBTH2Poly*)_h_bnbon->Clone("h_data");
     h_mc->SetTitle(_label.c_str());
     h_data->Sumw2();
@@ -571,8 +590,6 @@ namespace Base {
     }
 
 
-
-
     // LOG_INFO() << "Subtracting backgrouds: ";
     for (auto name : bkg_prefixs) 
     {
@@ -588,8 +605,6 @@ namespace Base {
 
 
 
-
-
     //
     // Divide by efficiency
     //
@@ -597,7 +612,6 @@ namespace Base {
 
     h_mc->Divide(h_eff);
     h_data->Divide(h_eff);
-
 
 
 

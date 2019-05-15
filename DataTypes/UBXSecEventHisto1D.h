@@ -116,13 +116,6 @@ namespace DataTypes {
     TH1D* h_eff_mumom_num = 0; ///< Efficiency Numerator - Single Differential (mumom)
     TH1D* h_eff_mumom_den = 0; ///< Efficiency Denominator - Single Differential (mumom)
 
-    TH1D* h_eff_mumom_num_p1[39];
-    TH1D* h_eff_mumom_den_p1[39];
-    TH1D* h_eff_mumom_num_m1[39];
-    TH1D* h_eff_mumom_den_m1[39];
-
-
-
     TH1D* h_eff_pmom_num=0;
     TH1D* h_eff_pmom_den=0;
 

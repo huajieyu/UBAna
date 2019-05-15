@@ -93,15 +93,6 @@ namespace DataTypes {
       h_eff_mumom_num = new TH1D("h_eff_mumom_num", "h_eff_mumom_num", n_bins_mumom, bins_mumom);
       h_eff_mumom_den = new TH1D("h_eff_mumom_den", "h_eff_mumom_den", n_bins_mumom, bins_mumom);
 
-
-      for(int i=0; i<39; i++){
-          h_eff_mumom_num_p1[i]=new TH1D(Form("h_eff_mumom_num_p1_%d",i), Form("h_eff_mumom_num_p1_%d",i), n_bins_mumom, bins_mumom);
-          h_eff_mumom_den_p1[i]=new TH1D(Form("h_eff_mumom_den_p1_%d",i), Form("h_eff_mumom_den_p1_%d",i), n_bins_mumom, bins_mumom);
-          h_eff_mumom_num_m1[i]=new TH1D(Form("h_eff_mumom_num_m1_%d",i), Form("h_eff_mumom_num_m1_%d",i), n_bins_mumom, bins_mumom);
-          h_eff_mumom_den_m1[i]=new TH1D(Form("h_eff_mumom_den_m1_%d",i), Form("h_eff_mumom_den_m1_%d",i), n_bins_mumom, bins_mumom);
-      }
-
-
       h_eff_pmom_num = new TH1D("h_eff_pmom_num", "h_eff_pmmom_num", n_bins_pmom, bins_pmom);
       h_eff_pmom_den = new TH1D("h_eff_pmom_den", "h_eff_pmmom_den", n_bins_pmom, bins_pmom);
 
