@@ -286,8 +286,8 @@ namespace Main {
   BootstrapTH1D * temp_bs;
 
 
-
-  mc_bnbcosmic_file->GetObject("hmap_trkmom_genie_pm1_bs", temp_map_bs);
+  //***************************************************************************
+  {mc_bnbcosmic_file->GetObject("hmap_trkmom_genie_pm1_bs", temp_map_bs);
   std::map<std::string,std::map<std::string,TH1D*>> map_bs = *temp_map_bs;
 
 
@@ -325,8 +325,132 @@ namespace Main {
     genie_rw_plotter.MakePlots(2, false, true);  
     genie_rw_plotter.MakeBackgroundPlots(0, false, true);
   }
+  }
+  //==================================================================================================
+  {mc_bnbcosmic_file->GetObject("hmap_trkpmom_genie_pm1_bs", temp_map_bs);
+  std::map<std::string,std::map<std::string,TH1D*>> map_bs = *temp_map_bs;
 
 
+
+
+  // Bootstrap efficiency - GENIE pm1sigma
+  mc_bnbcosmic_file->GetObject("bs_genie_pm1_eff_pmom_num", temp_bs);
+  BootstrapTH1D bs_genie_pm1_eff_pmom_num = *temp_bs;
+  mc_bnbcosmic_file->GetObject("bs_genie_pm1_eff_pmom_den", temp_bs);
+  BootstrapTH1D bs_genie_pm1_eff_pmom_den = *temp_bs;
+
+  // Boostrap reco-true
+  std::map<std::string,TH2D*>* temp_map_bs2;
+  mc_bnbcosmic_file->GetObject("bs_genie_pm1_true_reco_pmom", temp_map_bs2);
+  std::map<std::string,TH2D*> bs_true_reco_pmom_mc = *temp_map_bs2;
+
+
+
+  // Instantiate the GENIE reweighting plotter
+  ReweightingPlotter genie_rw_plotter;
+
+  if (_do_pm1sigma_plots) {
+    LOG_NORMAL()<<"start to do GENIE unisim calculations"<<std::endl;
+    // Bootstrap number of events per type
+    std::map<std::string, BootstrapTH1D> bs;
+    for (auto it : map_bs) {
+      BootstrapTH1D temp;
+      temp.SetAllHistograms(it.second);
+      bs[it.first] = temp;
+    }
+    // Make +-1 sigma plots from GENIE
+    genie_rw_plotter.SetEventBootstrapMap(bs);
+    genie_rw_plotter.SetEfficiencyBootstraps(bs_genie_pm1_eff_pmom_num, bs_genie_pm1_eff_pmom_den);
+    genie_rw_plotter.MakePlots(10, false, true);
+    genie_rw_plotter.MakePlots(12, false, true);  
+    //genie_rw_plotter.MakeBackgroundPlots(0, false, true);
+  }
+  }
+  //====================================================================================================
+  {mc_bnbcosmic_file->GetObject("hmap_trktheta_genie_pm1_bs", temp_map_bs);
+  std::map<std::string,std::map<std::string,TH1D*>> map_bs = *temp_map_bs;
+
+
+
+
+  // Bootstrap efficiency - GENIE pm1sigma
+  mc_bnbcosmic_file->GetObject("bs_genie_pm1_eff_muangle_num", temp_bs);
+  BootstrapTH1D bs_genie_pm1_eff_muangle_num = *temp_bs;
+  mc_bnbcosmic_file->GetObject("bs_genie_pm1_eff_muangle_den", temp_bs);
+  BootstrapTH1D bs_genie_pm1_eff_muangle_den = *temp_bs;
+
+  // Boostrap reco-true
+  std::map<std::string,TH2D*>* temp_map_bs2;
+  mc_bnbcosmic_file->GetObject("bs_genie_pm1_true_reco_muangle", temp_map_bs2);
+  std::map<std::string,TH2D*> bs_true_reco_muangle_mc = *temp_map_bs2;
+
+
+
+  // Instantiate the GENIE reweighting plotter
+  ReweightingPlotter genie_rw_plotter;
+
+  if (_do_pm1sigma_plots) {
+    LOG_NORMAL()<<"start to do GENIE unisim calculations"<<std::endl;
+    // Bootstrap number of events per type
+    std::map<std::string, BootstrapTH1D> bs;
+    for (auto it : map_bs) {
+      BootstrapTH1D temp;
+      temp.SetAllHistograms(it.second);
+      bs[it.first] = temp;
+    }
+    // Make +-1 sigma plots from GENIE
+    genie_rw_plotter.SetEventBootstrapMap(bs);
+    genie_rw_plotter.SetEfficiencyBootstraps(bs_genie_pm1_eff_muangle_num, bs_genie_pm1_eff_muangle_den);
+    genie_rw_plotter.MakePlots(1, false, true);
+    genie_rw_plotter.MakePlots(3, false, true);  
+    //genie_rw_plotter.MakeBackgroundPlots(0, false, true);
+  }
+  }
+  //=========================================================================================================
+  {mc_bnbcosmic_file->GetObject("hmap_trkptheta_genie_pm1_bs", temp_map_bs);
+  std::map<std::string,std::map<std::string,TH1D*>> map_bs = *temp_map_bs;
+
+
+
+
+  // Bootstrap efficiency - GENIE pm1sigma
+  mc_bnbcosmic_file->GetObject("bs_genie_pm1_eff_pangle_num", temp_bs);
+  BootstrapTH1D bs_genie_pm1_eff_pangle_num = *temp_bs;
+  mc_bnbcosmic_file->GetObject("bs_genie_pm1_eff_pangle_den", temp_bs);
+  BootstrapTH1D bs_genie_pm1_eff_pangle_den = *temp_bs;
+
+  // Boostrap reco-true
+  std::map<std::string,TH2D*>* temp_map_bs2;
+  mc_bnbcosmic_file->GetObject("bs_genie_pm1_true_reco_pangle", temp_map_bs2);
+  std::map<std::string,TH2D*> bs_true_reco_pangle_mc = *temp_map_bs2;
+
+
+
+  // Instantiate the GENIE reweighting plotter
+  ReweightingPlotter genie_rw_plotter;
+
+  if (_do_pm1sigma_plots) {
+    LOG_NORMAL()<<"start to do GENIE unisim calculations"<<std::endl;
+    // Bootstrap number of events per type
+    std::map<std::string, BootstrapTH1D> bs;
+    for (auto it : map_bs) {
+      BootstrapTH1D temp;
+      temp.SetAllHistograms(it.second);
+      bs[it.first] = temp;
+    }
+    // Make +-1 sigma plots from GENIE
+    genie_rw_plotter.SetEventBootstrapMap(bs);
+    genie_rw_plotter.SetEfficiencyBootstraps(bs_genie_pm1_eff_pangle_num, bs_genie_pm1_eff_pangle_den);
+    genie_rw_plotter.MakePlots(11, false, true);
+    genie_rw_plotter.MakePlots(13, false, true);  
+    //genie_rw_plotter.MakeBackgroundPlots(0, false, true);
+  }
+  }
+
+
+
+
+  //********************************************************************************************************
   // Currently not used
   std::map<std::string,std::map<std::string,TH1D*>> hmap_onebin_genie_multisim_bs_mc_dirt;
   std::map<std::string,std::map<std::string,TH1D*>> hmap_trkmom_genie_multisim_bs_mc_dirt;

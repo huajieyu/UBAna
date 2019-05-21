@@ -780,40 +780,49 @@ void Main::Maker::MakeFile()
   hmap_mctruth_chargedmult["other"] = new TH1D("h_mctruth_chargedmult_other", ";True Charged Particle Multiplicity;Selected Events", 10, 0, 10);
 
   std::map<std::string,TH2D*> hmap_mctruth_mucostheta_mumom;
-  hmap_mctruth_mucostheta_mumom["total"] = new TH2D("hmap_mctruth_mucostheta_mumom_total", ";True Muon cos(#theta);True Muon Momentum [GeV]", 25, -1, 1, 20, 0, 2.5);
-  hmap_mctruth_mucostheta_mumom["qe"] = new TH2D("hmap_mctruth_mucostheta_mumom_qe", ";True Muon cos(#theta);True Muon Momentum [GeV]", 25, -1, 1, 20, 0, 2.5);
-  hmap_mctruth_mucostheta_mumom["res"] = new TH2D("hmap_mctruth_mucostheta_mumom_res", ";True Muon cos(#theta);True Muon Momentum [GeV]", 25, -1, 1, 20, 0, 2.5);
-  hmap_mctruth_mucostheta_mumom["dis"] = new TH2D("hmap_mctruth_mucostheta_mumom_dis", ";True Muon cos(#theta);True Muon Momentum [GeV]", 25, -1, 1, 20, 0, 2.5);
-  hmap_mctruth_mucostheta_mumom["coh"] = new TH2D("hmap_mctruth_mucostheta_mumom_coh", ";True Muon cos(#theta);True Muon Momentum [GeV]", 25, -1, 1, 20, 0, 2.5);
-  hmap_mctruth_mucostheta_mumom["mec"] = new TH2D("hmap_mctruth_mucostheta_mumom_mec", ";True Muon cos(#theta);True Muon Momentum [GeV]", 25, -1, 1, 20, 0, 2.5);
-  hmap_mctruth_mucostheta_mumom["other"] = new TH2D("hmap_mctruth_mucostheta_mumom_other", ";True Muon cos(#theta);True Muon Momentum [GeV]", 25, -1, 1, 20, 0, 2.5);
+  hmap_mctruth_mucostheta_mumom["total"] = new TH2D("hmap_mctruth_mucostheta_mumom_total", ";True Muon cos(#theta);True Muon Momentum", 25, -1, 1, 20, 0, 2.5);
+  hmap_mctruth_mucostheta_mumom["qe"] = new TH2D("hmap_mctruth_mucostheta_mumom_qe", ";True Muon cos(#theta);True Muon Momentum", 25, -1, 1, 20, 0, 2.5);
+  hmap_mctruth_mucostheta_mumom["res"] = new TH2D("hmap_mctruth_mucostheta_mumom_res", ";True Muon cos(#theta);True Muon Momentum", 25, -1, 1, 20, 0, 2.5);
+  hmap_mctruth_mucostheta_mumom["dis"] = new TH2D("hmap_mctruth_mucostheta_mumom_dis", ";True Muon cos(#theta);True Muon Momentum", 25, -1, 1, 20, 0, 2.5);
+  hmap_mctruth_mucostheta_mumom["coh"] = new TH2D("hmap_mctruth_mucostheta_mumom_coh", ";True Muon cos(#theta);True Muon Momentum", 25, -1, 1, 20, 0, 2.5);
+  hmap_mctruth_mucostheta_mumom["mec"] = new TH2D("hmap_mctruth_mucostheta_mumom_mec", ";True Muon cos(#theta);True Muon Momentum", 25, -1, 1, 20, 0, 2.5);
+  hmap_mctruth_mucostheta_mumom["other"] = new TH2D("hmap_mctruth_mucostheta_mumom_other", ";True Muon cos(#theta);True Muon Momentum", 25, -1, 1, 20, 0, 2.5);
 
   std::map<std::string,TH1D*> hmap_mctruth_pmom;
-  hmap_mctruth_pmom["total"] = new TH1D("h_mctruth_pmom_total", ";True Proton Momentum [GeV];Selected Events", 20, 0, 2.5);
-  hmap_mctruth_pmom["qe"] = new TH1D("h_mctruth_pmom_qe", ";True Proton Momentum [GeV];Selected Events", 20, 0, 2.5);
-  hmap_mctruth_pmom["res"] = new TH1D("h_mctruth_pmom_res", ";True Proton Momentum [GeV];Selected Events", 20, 0, 2.5);
-  hmap_mctruth_pmom["dis"] = new TH1D("h_mctruth_pmom_dis", ";True Proton Momentum [GeV];Selected Events", 20, 0, 2.5);
-  hmap_mctruth_pmom["coh"] = new TH1D("h_mctruth_pmom_coh", ";True Proton Momentum [GeV];Selected Events", 20, 0, 2.5);
-  hmap_mctruth_pmom["mec"] = new TH1D("h_mctruth_pmom_mec", ";True Proton Momentum [GeV];Selected Events", 20, 0, 2.5);
-  hmap_mctruth_pmom["other"] = new TH1D("h_mctruth_pmom_other", ";True Proton Momentum [GeV];Selected Events", 20, 0, 2.5);
+  hmap_mctruth_pmom["total"] = new TH1D("h_mctruth_pmom_total", ";True Proton Momentum [GeV];Selected Events", 20, 0, 1.5);
+  hmap_mctruth_pmom["qe"] = new TH1D("h_mctruth_pmom_qe", ";True Proton Momentum [GeV];Selected Events", 20, 0, 1.5);
+  hmap_mctruth_pmom["res"] = new TH1D("h_mctruth_pmom_res", ";True Proton Momentum [GeV];Selected Events", 20, 0, 1.5);
+  hmap_mctruth_pmom["dis"] = new TH1D("h_mctruth_pmom_dis", ";True Proton Momentum [GeV];Selected Events", 20, 0, 1.5);
+  hmap_mctruth_pmom["coh"] = new TH1D("h_mctruth_pmom_coh", ";True Proton Momentum [GeV];Selected Events", 20, 0, 1.5);
+  hmap_mctruth_pmom["mec"] = new TH1D("h_mctruth_pmom_mec", ";True Proton Momentum [GeV];Selected Events", 20, 0, 1.5);
+  hmap_mctruth_pmom["other"] = new TH1D("h_mctruth_pmom_other", ";True Proton Momentum [GeV];Selected Events", 20, 0, 1.5);
 
   std::map<std::string,TH1D*> hmap_mctruth_pcostheta;
-  hmap_mctruth_pcostheta["total"] = new TH1D("h_mctruth_pcostheta_total", ";True Proton cos(#theta) [GeV];Selected Events", 25, -1, 1);
-  hmap_mctruth_pcostheta["qe"] = new TH1D("h_mctruth_pcostheta_qe", ";True Proton cos(#theta) [GeV];Selected Events", 25, -1, 1);
-  hmap_mctruth_pcostheta["res"] = new TH1D("h_mctruth_pcostheta_res", ";True Proton cos(#theta) [GeV];Selected Events", 25, -1, 1);
-  hmap_mctruth_pcostheta["dis"] = new TH1D("h_mctruth_pcostheta_dis", ";True Proton cos(#theta) [GeV];Selected Events", 25, -1, 1);
-  hmap_mctruth_pcostheta["coh"] = new TH1D("h_mctruth_pcostheta_coh", ";True Proton cos(#theta) [GeV];Selected Events", 25, -1, 1);
-  hmap_mctruth_pcostheta["mec"] = new TH1D("h_mctruth_pcostheta_mec", ";True Proton cos(#theta) [GeV];Selected Events", 25, -1, 1);
-  hmap_mctruth_pcostheta["other"] = new TH1D("h_mctruth_pcostheta_other", ";True Proton cos(#theta) [GeV];Selected Events", 25, -1, 1);
+  hmap_mctruth_pcostheta["total"] = new TH1D("h_mctruth_pcostheta_total", ";True Proton cos(#theta);Selected Events", 25, -1, 1);
+  hmap_mctruth_pcostheta["qe"] = new TH1D("h_mctruth_pcostheta_qe", ";True Proton cos(#theta);Selected Events", 25, -1, 1);
+  hmap_mctruth_pcostheta["res"] = new TH1D("h_mctruth_pcostheta_res", ";True Proton cos(#theta);Selected Events", 25, -1, 1);
+  hmap_mctruth_pcostheta["dis"] = new TH1D("h_mctruth_pcostheta_dis", ";True Proton cos(#theta);Selected Events", 25, -1, 1);
+  hmap_mctruth_pcostheta["coh"] = new TH1D("h_mctruth_pcostheta_coh", ";True Proton cos(#theta);Selected Events", 25, -1, 1);
+  hmap_mctruth_pcostheta["mec"] = new TH1D("h_mctruth_pcostheta_mec", ";True Proton cos(#theta);Selected Events", 25, -1, 1);
+  hmap_mctruth_pcostheta["other"] = new TH1D("h_mctruth_pcostheta_other", ";True Proton cos(#theta);Selected Events", 25, -1, 1);
 
   std::map<std::string,TH1D*> hmap_mctruth_pphi;
-  hmap_mctruth_pphi["total"] = new TH1D("h_mctruth_pphi_total", ";True Proton #phi [GeV];Selected Events", 20, -3.15, 3.15);
-  hmap_mctruth_pphi["qe"] = new TH1D("h_mctruth_pphi_qe", ";True Proton #phi [GeV];Selected Events", 20, -3.15, 3.15);
-  hmap_mctruth_pphi["res"] = new TH1D("h_mctruth_pphi_res", ";True Proton #phi [GeV];Selected Events", 20, -3.15, 3.15);
-  hmap_mctruth_pphi["dis"] = new TH1D("h_mctruth_pphi_dis", ";True Proton #phi [GeV];Selected Events", 20, -3.15, 3.15);
-  hmap_mctruth_pphi["coh"] = new TH1D("h_mctruth_pphi_coh", ";True Proton #phi [GeV];Selected Events", 20, -3.15, 3.15);
-  hmap_mctruth_pphi["mec"] = new TH1D("h_mctruth_pphi_mec", ";True Proton #phi [GeV];Selected Events", 20, -3.15, 3.15);
-  hmap_mctruth_pphi["other"] = new TH1D("h_mctruth_pphi_other", ";True Proton #phi [GeV];Selected Events", 20, -3.15, 3.15);
+  hmap_mctruth_pphi["total"] = new TH1D("h_mctruth_pphi_total", ";True Proton #phi [Rad];Selected Events", 20, -3.15, 3.15);
+  hmap_mctruth_pphi["qe"] = new TH1D("h_mctruth_pphi_qe", ";True Proton #phi [Rad;Selected Events", 20, -3.15, 3.15);
+  hmap_mctruth_pphi["res"] = new TH1D("h_mctruth_pphi_res", ";True Proton #phi [Rad];Selected Events", 20, -3.15, 3.15);
+  hmap_mctruth_pphi["dis"] = new TH1D("h_mctruth_pphi_dis", ";True Proton #phi [Rad];Selected Events", 20, -3.15, 3.15);
+  hmap_mctruth_pphi["coh"] = new TH1D("h_mctruth_pphi_coh", ";True Proton #phi [Rad];Selected Events", 20, -3.15, 3.15);
+  hmap_mctruth_pphi["mec"] = new TH1D("h_mctruth_pphi_mec", ";True Proton #phi [Rad];Selected Events", 20, -3.15, 3.15);
+  hmap_mctruth_pphi["other"] = new TH1D("h_mctruth_pphi_other", ";True Proton #phi [Rad];Selected Events", 20, -3.15, 3.15);
+
+  std::map<std::string,TH1D*> hmap_mctruth_thetamup;
+  hmap_mctruth_thetamup["total"] = new TH1D("h_mctruth_thetamup_total", ";#theta_{#mu p};Selected Events", 20, 0, 3.15);
+  hmap_mctruth_thetamup["qe"] = new TH1D("h_mctruth_thetamup_qe", ";#theta_{#mu p};Selected Events", 20, 0, 3.15);
+  hmap_mctruth_thetamup["res"] = new TH1D("h_mctruth_thetamup_res", ";#theta_{#mu p};Selected Events", 20, 0, 3.15);
+  hmap_mctruth_thetamup["dis"] = new TH1D("h_mctruth_thetamup_dis", ";#theta_{#mu p};Selected Events", 20, 0, 3.15);
+  hmap_mctruth_thetamup["coh"] = new TH1D("h_mctruth_thetamup_coh", ";#theta_{#mu p};Selected Events", 20, 0, 3.15);
+  hmap_mctruth_thetamup["mec"] = new TH1D("h_mctruth_thetamup_mec", ";#theta_{#mu p};Selected Events", 20, 0, 3.15);
+  hmap_mctruth_thetamup["other"] = new TH1D("h_mctruth_thetamup_other", ";#theta_{#mu p};Selected Events", 20, 0, 3.15);
 
 
   //
@@ -878,16 +887,20 @@ void Main::Maker::MakeFile()
   // True v.s. reco histograms for constructing smearing matrices
   //
   std::map<std::string,TH2D*> bs_genie_pm1_true_reco_mom;
-  bs_genie_pm1_true_reco_mom["nominal"] = new TH2D("bs_genie_pm1_true_reco_mom_nominal", ";Muon Momentum (Truth) [GeV]; Muon Momentum (MCS) [GeV]", n_bins_mumom, bins_mumom, n_bins_mumom, bins_mumom);
+  bs_genie_pm1_true_reco_mom["nominal"] = new TH2D("bs_genie_pm1_true_reco_mom_nominal", ";Muon Momentum (Truth) [GeV]; Muon Momentum [GeV]", n_bins_mumom, bins_mumom, n_bins_mumom, bins_mumom);
   
   std::map<std::string,TH2D*> bs_genie_pm1_true_reco_pmom;
-  bs_genie_pm1_true_reco_pmom["nominal"] = new TH2D("bs_genie_pm1_true_reco_pmom_nominal", ";Muon Momentum (Truth) [GeV]; Muon Momentum (MCS) [GeV]", n_bins_pmom, bins_pmom, n_bins_pmom, bins_pmom);
+  bs_genie_pm1_true_reco_pmom["nominal"] = new TH2D("bs_genie_pm1_true_reco_pmom_nominal", ";Proton Momentum (Truth) [GeV]; Proton Momentum [GeV]", n_bins_pmom, bins_pmom, n_bins_pmom, bins_pmom);
   
   std::map<std::string,TH2D*> bs_genie_pm1_true_reco_muangle;
-  bs_genie_pm1_true_reco_muangle["nominal"] = new TH2D("bs_genie_pm1_true_reco_muangle_nominal", ";Muon Momentum (Truth) [GeV]; Muon Momentum (MCS) [GeV]", n_bins_mucostheta, bins_mucostheta, n_bins_mucostheta, bins_mucostheta);
+  bs_genie_pm1_true_reco_muangle["nominal"] = new TH2D("bs_genie_pm1_true_reco_muangle_nominal", ";Muon Angle (Truth); Muon Angle", n_bins_mucostheta, bins_mucostheta, n_bins_mucostheta, bins_mucostheta);
   
   std::map<std::string,TH2D*> bs_genie_pm1_true_reco_pangle;
-  bs_genie_pm1_true_reco_pangle["nominal"] = new TH2D("bs_genie_pm1_true_reco_pangle_nominal", ";Muon Momentum (Truth) [GeV]; Muon Momentum (MCS) [GeV]", n_bins_pcostheta, bins_pcostheta, n_bins_pcostheta, bins_pcostheta);
+  bs_genie_pm1_true_reco_pangle["nominal"] = new TH2D("bs_genie_pm1_true_reco_pangle_nominal", ";Proton Angle (Truth); Proton Angle", n_bins_pcostheta, bins_pcostheta, n_bins_pcostheta, bins_pcostheta);
+  
+
+  std::map<std::string,TH2D*> bs_genie_pm1_true_reco_thetamup;
+  bs_genie_pm1_true_reco_thetamup["nominal"] = new TH2D("bs_genie_pm1_true_reco_thetamup_nominal", ";#theta_{#mu p} (Truth); #theta_{#mu p}", n_bins_muptheta, bins_muptheta, n_bins_muptheta, bins_muptheta);
   
 
 
@@ -1210,6 +1223,25 @@ void Main::Maker::MakeFile()
   hmap_trkptheta_genie_pm1_bs["signal_stopmu"]["nominal"] = new TH1D("h_trkptheta_signal_stopmu_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
   hmap_trkptheta_genie_pm1_bs["signal_nostopmu"]["nominal"] = new TH1D("h_trkptheta_signal_nostopmu_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
   hmap_trkptheta_genie_pm1_bs["cc_other"]["nominal"] = new TH1D("h_trkptheta_ccother_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+
+  std::map<std::string,std::map<std::string,TH1D*>> hmap_thetamup_genie_pm1_bs;
+  hmap_thetamup_genie_pm1_bs["total"]["nominal"] = new TH1D("h_thetamup_total_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+  hmap_thetamup_genie_pm1_bs["signal"]["nominal"] = new TH1D("h_thetamup_signal_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+  hmap_thetamup_genie_pm1_bs["cosmic"]["nominal"] = new TH1D("h_thetamup_cosmic_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+  hmap_thetamup_genie_pm1_bs["cosmic_stopmu"]["nominal"] = new TH1D("h_thetamup_cosmic_stopmu_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+  hmap_thetamup_genie_pm1_bs["cosmic_nostopmu"]["nominal"] = new TH1D("h_thetamup_cosmic_nostopmu_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+  hmap_thetamup_genie_pm1_bs["outfv"]["nominal"] = new TH1D("h_thetamup_outfv_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+  hmap_thetamup_genie_pm1_bs["outfv_stopmu"]["nominal"] = new TH1D("h_thetamup_outfv_stopmu_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+  hmap_thetamup_genie_pm1_bs["outfv_nostopmu"]["nominal"] = new TH1D("h_thetamup_outfv_nostopmu_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+  hmap_thetamup_genie_pm1_bs["nc"]["nominal"] = new TH1D("h_thetamup_nc_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+  hmap_thetamup_genie_pm1_bs["nc_proton"]["nominal"] = new TH1D("h_thetamup_nc_proton_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+  hmap_thetamup_genie_pm1_bs["nc_pion"]["nominal"] = new TH1D("h_thetamup_nc_pion_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+  hmap_thetamup_genie_pm1_bs["nc_other"]["nominal"] = new TH1D("h_thetamup_nc_other_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+  hmap_thetamup_genie_pm1_bs["anumu"]["nominal"] = new TH1D("h_thetamup_anumu_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+  hmap_thetamup_genie_pm1_bs["nue"]["nominal"] = new TH1D("h_thetamup_nue_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+  hmap_thetamup_genie_pm1_bs["signal_stopmu"]["nominal"] = new TH1D("h_thetamup_signal_stopmu_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+  hmap_thetamup_genie_pm1_bs["signal_nostopmu"]["nominal"] = new TH1D("h_thetamup_signal_nostopmu_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+  hmap_thetamup_genie_pm1_bs["cc_other"]["nominal"] = new TH1D("h_thetamup_ccother_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
 
  
 
@@ -1742,7 +1774,7 @@ void Main::Maker::MakeFile()
     // ************************
 
     // Set the weight names, just do it once (first event only)
-
+    //std::cout<<"libo test 0"<<std::endl;
     if (i == _initial_entry && !isdata && _fill_bootstrap_genie) {
       ofstream myfile;
       myfile.open("rewght_genie_pm1.txt");
@@ -1757,7 +1789,7 @@ void Main::Maker::MakeFile()
         //==============================================================
       }
       myfile.close();
-
+      //std::cout<<"libo test 1"<<std::endl;
       // Number of events
       for (auto iter : hmap_trkmom_genie_pm1_bs) {
 
@@ -1774,7 +1806,7 @@ void Main::Maker::MakeFile()
         }
 
       }
-
+      //std::cout<<"libo test 2"<<std::endl;
       for (auto iter : hmap_trkpmom_genie_pm1_bs) {
 
         std::string this_name = iter.first;
@@ -1790,7 +1822,7 @@ void Main::Maker::MakeFile()
         }
 
       }
-
+      //std::cout<<"libo test 3"<<std::endl;
       for (auto iter : hmap_trktheta_genie_pm1_bs) {
 
         std::string this_name = iter.first;
@@ -1806,7 +1838,7 @@ void Main::Maker::MakeFile()
         }
 
       }
-
+      //std::cout<<"libo test 4"<<std::endl;
       for (auto iter : hmap_trkptheta_genie_pm1_bs) {
 
         std::string this_name = iter.first;
@@ -1817,19 +1849,35 @@ void Main::Maker::MakeFile()
 
           std::string histo_name = "h_trkptheta_" + this_name + "_" + fname_genie_pm1.at(i);
           double this_bins_pcostheta[10] = {-1.00, -0.50, 0.00, 0.27, 0.45, 0.62, 0.76, 0.86, 0.94, 1.00};
-          hmap_trkptheta_genie_pm1_bs[this_name][fname_genie_pm1.at(i)] = new TH1D(histo_name.c_str(), "; Track momentum;", 9, this_bins_pcostheta); 
+          hmap_trkptheta_genie_pm1_bs[this_name][fname_genie_pm1.at(i)] = new TH1D(histo_name.c_str(), "; Track Angle;", 9, this_bins_pcostheta); 
 
         }
 
       }
+      //std::cout<<"libo test 5"<<std::endl;
+      for (auto iter : hmap_thetamup_genie_pm1_bs) {
 
-      // Efficiency
+        std::string this_name = iter.first;
+        std::map<std::string, TH1D*> bs_map = iter.second;
+
+        // Now emplace the histograms for the variations
+        for (size_t i = 0; i < fname_genie_pm1.size(); i++) {
+
+          std::string histo_name = "h_thetamup_" + this_name + "_" + fname_genie_pm1.at(i);
+          double this_bins_muptheta[7] = {0.00, 0.8, 1.2, 1.57, 1.94, 2.34, 3.14};
+          hmap_thetamup_genie_pm1_bs[this_name][fname_genie_pm1.at(i)] = new TH1D(histo_name.c_str(), "; Track Angle (MuP);", 6, this_bins_muptheta); 
+
+        }
+
+      }
+       // Efficiency
       for (size_t i = 0; i < fname_genie_pm1.size(); i++) {
         double this_bins_mumom[7] = {0.00, 0.18, 0.30, 0.48, 0.75, 1.14, 2.50};
         double this_bins_mucostheta[13] = {-1.00, -0.82, -0.66, -0.39, -0.16, 0.05, 0.25, 0.43, 0.59, 0.73, 0.83, 0.91, 1.00};
         double this_bins_pmom[11] = {0.30, 0.41, 0.495, 0.56, 0.62, 0.68, 0.74, 0.80, 0.87, 0.93, 1.50};
         double this_bins_pcostheta[10] = {-1.00, -0.50, 0.00, 0.27, 0.45, 0.62, 0.76, 0.86, 0.94, 1.00};
-
+        double this_bins_muptheta[7] = {0.00, 0.8, 1.2, 1.57, 1.94, 2.34, 3.14};
+ 
   
         std::string histo_name;// = "bs_genie_pm1_eff_mumom_num_" + fname_genie_pm1.at(i);
 
@@ -1840,10 +1888,13 @@ void Main::Maker::MakeFile()
         bs_genie_pm1_true_reco_pmom[fname_genie_pm1.at(i)] = new TH2D(histo_name.c_str(), ";Proton Momentum (Truth) [GeV]; Proton Momentum (MCS) [GeV]", 10, this_bins_pmom, 10, this_bins_pmom);
 
         histo_name = "bs_genie_pm1_true_reco_muangle_" + fname_genie_pm1.at(i);
-        bs_genie_pm1_true_reco_muangle[fname_genie_pm1.at(i)] = new TH2D(histo_name.c_str(), ";Muon Angle (Truth); Muon Angle (MCS)", 12, this_bins_mucostheta, 12, this_bins_mucostheta);
+        bs_genie_pm1_true_reco_muangle[fname_genie_pm1.at(i)] = new TH2D(histo_name.c_str(), ";Muon Angle (Truth); Muon Angle", 12, this_bins_mucostheta, 12, this_bins_mucostheta);
 
         histo_name = "bs_genie_pm1_true_reco_pangle_" + fname_genie_pm1.at(i);
-        bs_genie_pm1_true_reco_pangle[fname_genie_pm1.at(i)] = new TH2D(histo_name.c_str(), ";Proton Angle (Truth); Proton Angle (MCS)", 9, this_bins_pcostheta, 9, this_bins_pcostheta);
+        bs_genie_pm1_true_reco_pangle[fname_genie_pm1.at(i)] = new TH2D(histo_name.c_str(), ";Proton Angle (Truth); Proton Angle", 9, this_bins_pcostheta, 9, this_bins_pcostheta);
+
+        histo_name = "bs_genie_pm1_true_reco_thetamup_" + fname_genie_pm1.at(i);
+        bs_genie_pm1_true_reco_thetamup[fname_genie_pm1.at(i)] = new TH2D(histo_name.c_str(), ";Track Angle (Truth); Track Angle", 6, this_bins_muptheta, 6, this_bins_muptheta);
 
 
       }
@@ -1864,7 +1915,7 @@ void Main::Maker::MakeFile()
       bs_genie_pm1_eff_thetamup_num.SetWeightNames(fname_genie_pm1);
       bs_genie_pm1_eff_thetamup_den.SetWeightNames(fname_genie_pm1);
     }
-
+    //std::cout<<"libo test 6"<<std::endl;
     // Prepare the vector of weights to be used for bootstraps
     std::vector<double> wgts_genie_pm1;
     //ofstream outfile;
@@ -3703,13 +3754,13 @@ void Main::Maker::MakeFile()
     } else {
     if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight, hmap_trkmom_genie_pm1_bs, "total", fname_genie_pm1, wgts_genie_pm1);
     }
-    if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pmom, event_weight, hmap_trkpmom_genie_pm1_bs, "total", fname_genie_pm1, wgts_genie_pm1);
-    if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->lep_costheta, event_weight, hmap_trktheta_genie_pm1_bs, "total", fname_genie_pm1, wgts_genie_pm1);
-    if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pangle, event_weight, hmap_trkptheta_genie_pm1_bs, "total", fname_genie_pm1, wgts_genie_pm1);
+    if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, hmap_trkpmom_genie_pm1_bs, "total", fname_genie_pm1, wgts_genie_pm1);
+    if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->slc_longesttrack_theta.at(scl_ll_max), event_weight, hmap_trktheta_genie_pm1_bs, "total", fname_genie_pm1, wgts_genie_pm1);
+    if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->pfp_reco_costheta[pind], event_weight, hmap_trkptheta_genie_pm1_bs, "total", fname_genie_pm1, wgts_genie_pm1);
 
+    if (!isdata && _fill_bootstrap_genie) FillBootstrap(thetamup, event_weight, hmap_thetamup_genie_pm1_bs, "total", fname_genie_pm1, wgts_genie_pm1);
 
-
-
+    std::cout<<"Filled histogram for GENIE unisim"<<std::endl;
     if (!isdata && _fill_bootstrap_genie) FillBootstrap(0.5, event_weight, _event_histo_1d->hmap_onebin_genie_multisim_bs, "total", fname_genie_multisim, wgts_genie_multisim);
     if(muon_contained){
     if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->pfp_reco_Mom_muon[muind], event_weight, _event_histo_1d->hmap_trkmom_genie_multisim_bs, "total", fname_genie_multisim, wgts_genie_multisim);
@@ -3872,7 +3923,7 @@ void Main::Maker::MakeFile()
       if(!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pmom, t->pfp_reco_Mom_proton[pind], event_weight, bs_genie_pm1_true_reco_pmom, fname_genie_pm1, wgts_genie_pm1);
       if(!isdata && _fill_bootstrap_genie) FillBootstrap(_angle_true, _angle_reco, event_weight, bs_genie_pm1_true_reco_muangle, fname_genie_pm1, wgts_genie_pm1);
       if(!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pangle, t->pfp_reco_costheta[pind], event_weight, bs_genie_pm1_true_reco_pangle, fname_genie_pm1, wgts_genie_pm1);
-
+      if(!isdata && _fill_bootstrap_genie) FillBootstrap(temp_thetamup, thetamup, event_weight, bs_genie_pm1_true_reco_thetamup, fname_genie_pm1, wgts_genie_pm1);
 
 
 
@@ -4130,7 +4181,7 @@ void Main::Maker::MakeFile()
       hmap_mctruth_pmom["total"]->Fill(temp_pmom, event_weight);
       hmap_mctruth_pcostheta["total"]->Fill(temp_pangle, event_weight);
       hmap_mctruth_pphi["total"]->Fill(temp_pphi, event_weight);
-
+      hmap_mctruth_thetamup["total"]->Fill(temp_thetamup, event_weight);
 
       if (t->mode == 0) {
         hmap_mctruth_nuenergy["qe"]->Fill(t->nu_e, event_weight);
@@ -4143,6 +4194,7 @@ void Main::Maker::MakeFile()
         hmap_mctruth_pmom["qe"]->Fill(temp_pmom, event_weight);
         hmap_mctruth_pcostheta["qe"]->Fill(temp_pangle, event_weight);
         hmap_mctruth_pphi["qe"]->Fill(temp_pphi, event_weight);
+        hmap_mctruth_thetamup["qe"]->Fill(temp_thetamup, event_weight);
       }
       if (t->mode == 1) {
         hmap_mctruth_nuenergy["res"]->Fill(t->nu_e, event_weight);
@@ -4155,6 +4207,7 @@ void Main::Maker::MakeFile()
         hmap_mctruth_pmom["res"]->Fill(temp_pmom, event_weight);
         hmap_mctruth_pcostheta["res"]->Fill(temp_pangle, event_weight);
         hmap_mctruth_pphi["res"]->Fill(temp_pphi, event_weight);
+        hmap_mctruth_thetamup["res"]->Fill(temp_thetamup, event_weight);
       }
       if (t->mode == 2) {
         hmap_mctruth_nuenergy["dis"]->Fill(t->nu_e, event_weight);
@@ -4167,6 +4220,7 @@ void Main::Maker::MakeFile()
         hmap_mctruth_pmom["dis"]->Fill(temp_pmom, event_weight);
         hmap_mctruth_pcostheta["dis"]->Fill(temp_pangle, event_weight);
         hmap_mctruth_pphi["dis"]->Fill(temp_pphi, event_weight);
+        hmap_mctruth_thetamup["dis"]->Fill(temp_thetamup, event_weight);
       }
       if (t->mode == 3) {
         hmap_mctruth_nuenergy["coh"]->Fill(t->nu_e, event_weight);
@@ -4179,6 +4233,7 @@ void Main::Maker::MakeFile()
         hmap_mctruth_pmom["coh"]->Fill(temp_pmom, event_weight);
         hmap_mctruth_pcostheta["coh"]->Fill(temp_pangle, event_weight);
         hmap_mctruth_pphi["coh"]->Fill(temp_pphi, event_weight);
+        hmap_mctruth_thetamup["coh"]->Fill(temp_thetamup, event_weight);
       }
       if (t->mode == 10) {
         hmap_mctruth_nuenergy["mec"]->Fill(t->nu_e, event_weight);
@@ -4191,6 +4246,7 @@ void Main::Maker::MakeFile()
         hmap_mctruth_pmom["mec"]->Fill(temp_pmom, event_weight);
         hmap_mctruth_pcostheta["mec"]->Fill(temp_pangle, event_weight);
         hmap_mctruth_pphi["mec"]->Fill(temp_pphi, event_weight);
+        hmap_mctruth_thetamup["mec"]->Fill(temp_thetamup, event_weight);
       }
 
       pEff->Fill(true, t->nu_e);
@@ -4203,6 +4259,7 @@ void Main::Maker::MakeFile()
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pmom, event_weight, hmap_trkpmom_genie_pm1_bs, "signal", fname_genie_pm1, wgts_genie_pm1);
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pangle, event_weight, hmap_trkptheta_genie_pm1_bs, "signal", fname_genie_pm1, wgts_genie_pm1);
 
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(thetamup, event_weight, hmap_thetamup_genie_pm1_bs, "signal", fname_genie_pm1, wgts_genie_pm1);
 
 
 
@@ -4350,6 +4407,8 @@ void Main::Maker::MakeFile()
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->lep_costheta, event_weight, hmap_trktheta_genie_pm1_bs, "anumu", fname_genie_pm1, wgts_genie_pm1);
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pangle, event_weight, hmap_trkptheta_genie_pm1_bs, "anumu", fname_genie_pm1, wgts_genie_pm1);
 
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(thetamup, event_weight, hmap_thetamup_genie_pm1_bs, "anumu", fname_genie_pm1, wgts_genie_pm1);
+
 
 
 
@@ -4464,7 +4523,8 @@ void Main::Maker::MakeFile()
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->lep_costheta, event_weight, hmap_trktheta_genie_pm1_bs, "cc_other", fname_genie_pm1, wgts_genie_pm1);
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pangle, event_weight, hmap_trkptheta_genie_pm1_bs, "cc_other", fname_genie_pm1, wgts_genie_pm1);
 
-      //std::cout<<"libo test hhh"<<std::endl;
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(thetamup, event_weight, hmap_thetamup_genie_pm1_bs, "cc_other", fname_genie_pm1, wgts_genie_pm1);
+
 
 
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(0.5, event_weight, _event_histo_1d->hmap_onebin_genie_multisim_bs, "cc_other", fname_genie_multisim, wgts_genie_multisim);
@@ -4666,6 +4726,8 @@ void Main::Maker::MakeFile()
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->lep_costheta, event_weight, hmap_trktheta_genie_pm1_bs, "nue", fname_genie_pm1, wgts_genie_pm1);
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pangle, event_weight, hmap_trkptheta_genie_pm1_bs, "nue", fname_genie_pm1, wgts_genie_pm1);
 
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(thetamup, event_weight, hmap_thetamup_genie_pm1_bs, "nue", fname_genie_pm1, wgts_genie_pm1);
+
 
 
 
@@ -4780,6 +4842,8 @@ void Main::Maker::MakeFile()
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pmom, event_weight, hmap_trkpmom_genie_pm1_bs, "nc", fname_genie_pm1, wgts_genie_pm1);
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->lep_costheta, event_weight, hmap_trktheta_genie_pm1_bs, "nc", fname_genie_pm1, wgts_genie_pm1);
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pangle, event_weight, hmap_trkptheta_genie_pm1_bs, "nc", fname_genie_pm1, wgts_genie_pm1);
+
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(thetamup, event_weight, hmap_thetamup_genie_pm1_bs, "nc", fname_genie_pm1, wgts_genie_pm1);
 
 
 
@@ -4942,6 +5006,8 @@ void Main::Maker::MakeFile()
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->lep_costheta, event_weight, hmap_trktheta_genie_pm1_bs, "outfv", fname_genie_pm1, wgts_genie_pm1);
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pangle, event_weight, hmap_trkptheta_genie_pm1_bs, "outfv", fname_genie_pm1, wgts_genie_pm1);
 
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(thetamup, event_weight, hmap_thetamup_genie_pm1_bs, "outfv", fname_genie_pm1, wgts_genie_pm1);
+
 
 
 
@@ -5086,6 +5152,8 @@ void Main::Maker::MakeFile()
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pmom, event_weight, hmap_trkpmom_genie_pm1_bs, "cosmic", fname_genie_pm1, wgts_genie_pm1);
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->lep_costheta, event_weight, hmap_trktheta_genie_pm1_bs, "cosmic", fname_genie_pm1, wgts_genie_pm1);
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pangle, event_weight, hmap_trkptheta_genie_pm1_bs, "cosmic", fname_genie_pm1, wgts_genie_pm1);
+
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(thetamup, event_weight, hmap_thetamup_genie_pm1_bs, "cosmic", fname_genie_pm1, wgts_genie_pm1);
 
 
 
@@ -6188,7 +6256,7 @@ void Main::Maker::MakeFile()
   file_out->WriteObject(&hmap_mctruth_pmom, "hmap_mctruth_pmom");
   file_out->WriteObject(&hmap_mctruth_pcostheta, "hmap_mctruth_pcostheta");
   file_out->WriteObject(&hmap_mctruth_pphi, "hmap_mctruth_pphi");
- 
+  file_out->WriteObject(&hmap_mctruth_thetamup, "hmap_mctruth_thetamup"); 
 
 
   // Efficiency - GENIE pm1sigma
@@ -6213,13 +6281,14 @@ void Main::Maker::MakeFile()
   file_out->WriteObject(&hmap_trktheta_genie_pm1_bs, "hmap_trktheta_genie_pm1_bs");
   file_out->WriteObject(&hmap_trkpmom_genie_pm1_bs, "hmap_trkpmom_genie_pm1_bs");
   file_out->WriteObject(&hmap_trkptheta_genie_pm1_bs, "hmap_trkptheta_genie_pm1_bs");
+  file_out->WriteObject(&hmap_thetamup_genie_pm1_bs, "hmap_thetamup_genie_pm1_bs");
 
   // Reco-True - GENIE pm1sigma
   file_out->WriteObject(&bs_genie_pm1_true_reco_mom, "bs_genie_pm1_true_reco_mom");
   file_out->WriteObject(&bs_genie_pm1_true_reco_pmom, "bs_genie_pm1_true_reco_pmom");
   file_out->WriteObject(&bs_genie_pm1_true_reco_muangle, "bs_genie_pm1_true_reco_muangle");
   file_out->WriteObject(&bs_genie_pm1_true_reco_pangle, "bs_genie_pm1_true_reco_pangle");
-
+  file_out->WriteObject(&bs_genie_pm1_true_reco_thetamup, "bs_genie_pm1_true_reco_thetamup");
 
 
 
