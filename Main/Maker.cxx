@@ -73,6 +73,7 @@ bool pion_reint=false;
 float thetamup = -999.0;
 float ptmis = -999.0;
 float alphat= -999.0;
+float phit = -999.0;
 float enucal=-999.0;
 float etatest=-999.0;
 float FVx = 256.35;
@@ -1573,6 +1574,15 @@ void Main::Maker::MakeFile()
   hmap_alphat["anumu"] = new TH1D("h_alphat_anumu", "; #alpha_{T};", 30, 0, 3.14);
   hmap_alphat["nue"] = new TH1D("h_alphat_nue", "; #alpha_{T};", 30, 0, 3.14);
   hmap_alphat["cc_other"] = new TH1D("h_alphat_ccother", "; #alpha_{T};", 30, 0,3.14);
+  std::map<std::string,TH1D*> hmap_phit;
+  hmap_phit["total"] = new TH1D("h_phit_total", "; #alpha_{T};", 30, 0, 3.14);
+  hmap_phit["signal"] = new TH1D("h_phit_signal", "; #alpha_{T};", 30, 0, 3.14);
+  hmap_phit["cosmic"] = new TH1D("h_phit_cosmic", "; #alpha_{T};", 30, 0, 3.14);
+  hmap_phit["outfv"] = new TH1D("h_phit_outfv", "; #alpha_{T};", 30, 0, 3.14);
+  hmap_phit["nc"] = new TH1D("h_phit_nc", "; #alpha_{T};", 30, 0, 3.14);
+  hmap_phit["anumu"] = new TH1D("h_phit_anumu", "; #alpha_{T};", 30, 0, 3.14);
+  hmap_phit["nue"] = new TH1D("h_phit_nue", "; #alpha_{T};", 30, 0, 3.14);
+  hmap_phit["cc_other"] = new TH1D("h_phit_ccother", "; #alpha_{T};", 30, 0,3.14);
   std::map<std::string,TH1D*> hmap_enucal;
   hmap_enucal["total"] = new TH1D("h_enucal_total", "; Calculated Enu;", 30, 0, 2000.0);
   hmap_enucal["signal"] = new TH1D("h_enucal_signal", "; Calculated Enu;", 30, 0, 2000.0);
@@ -2675,6 +2685,18 @@ void Main::Maker::MakeFile()
     if (_ana_int_type == "cc1unp_analysis"){
     if (t->nupdg == 14 && t->ccnc == 0 && t->fv == 1 /*&& (t->tvtx_z[0] < 675 || t->tvtx_z[0] > 775)*/){
       if(t->ngenie_muons>0 && t->ngenie_protons_300>0 &&(t->ngenie_electrons<1 && t->ngenie_pipms<1 && t->ngenie_pion0s<1)) { 
+      //find out the leading proton momentum
+      float ppindex=-999.0;
+      float epindex=-999.0;
+      for(size_t hh=0; hh<t->genie_mcpar_pdgcode.size(); hh++){
+          if(abs(t->genie_mcpar_pdgcode[hh]==2212) && t->genie_mcpar_energy[hh]>epindex) {
+             epindex=t->genie_mcpar_energy[hh];
+             ppindex=TMath::Sqrt(t->genie_mcpar_px[hh]*t->genie_mcpar_px[hh]+
+                                 t->genie_mcpar_py[hh]*t->genie_mcpar_py[hh]+
+                                 t->genie_mcpar_pz[hh]*t->genie_mcpar_pz[hh]);
+          }
+      }
+      if(t->true_muon_mom_matched >0.1 && ppindex<1.2){
       nsignal += event_weight;
       isSignal = true;
 
@@ -2683,6 +2705,7 @@ void Main::Maker::MakeFile()
       if (t->mode == 2) nsignal_dis += event_weight;
       if (t->mode == 3) nsignal_coh += event_weight;
       if (t->mode == 10) nsignal_mec += event_weight;
+      }
       }
     }
     }//end of if this is cc1unp analysis
@@ -3554,7 +3577,8 @@ void Main::Maker::MakeFile()
     selected_events_percut["chi2"] +=event_weight;
 
     if(_ana_int_type=="cc1unp_analysis" && t->pfp_reco_Mom_proton[pind]<0.3) continue;
-
+    if(_ana_int_type=="cc1unp_analysis" && t->pfp_reco_Mom_proton[pind]>1.2) continue;
+    if(_ana_int_type=="cc1unp_analysis" && t->pfp_reco_Mom_muon[muind]<0.1) continue;
 
     
     
@@ -3571,11 +3595,21 @@ void Main::Maker::MakeFile()
        
       float muonmass=0.1069;
       float protonmass=0.938;
-      ptmis=0.; alphat=0.;  enucal=0.;
+      ptmis=0.; alphat=0.;  phit=0.; enucal=0.;
+      if(muon_contained){
+      pxl     =t->pfp_reco_Mom_muon[muind]*TMath::Sin(t->pfp_reco_theta[muind])*TMath::Cos(t->pfp_reco_phi[muind]);
+      pyl     =t->pfp_reco_Mom_muon[muind]*TMath::Sin(t->pfp_reco_theta[muind])*TMath::Sin(t->pfp_reco_phi[muind]);
+      } else {
       pxl     =t->pfp_reco_Mom_MCS[muind]*TMath::Sin(t->pfp_reco_theta[muind])*TMath::Cos(t->pfp_reco_phi[muind]);
       pyl     =t->pfp_reco_Mom_MCS[muind]*TMath::Sin(t->pfp_reco_theta[muind])*TMath::Sin(t->pfp_reco_phi[muind]);
+      }
+      if(muon_contained) {
+           px_total=t->pfp_reco_Mom_muon[muind]*TMath::Sin(t->pfp_reco_theta[muind])*TMath::Cos(t->pfp_reco_phi[muind]);
+           py_total=t->pfp_reco_Mom_muon[muind]**TMath::Sin(t->pfp_reco_theta[muind])*TMath::Sin(t->pfp_reco_phi[muind]); 
+      } else{ 
       px_total=t->pfp_reco_Mom_MCS[muind]*TMath::Sin(t->pfp_reco_theta[muind])*TMath::Cos(t->pfp_reco_phi[muind]);
       py_total=t->pfp_reco_Mom_MCS[muind]*TMath::Sin(t->pfp_reco_theta[muind])*TMath::Sin(t->pfp_reco_phi[muind]);
+      }
       Esum=sqrt(t->pfp_reco_Mom_MCS[muind]*t->pfp_reco_Mom_MCS[muind]+muonmass*muonmass);
 
       pion_reco=false;
@@ -3615,6 +3649,9 @@ void Main::Maker::MakeFile()
       ptmis=TMath::Sqrt(px_total*px_total+py_total*py_total); 
       alphat=TMath::ACos((-pxl*px_total-pyl*py_total)/
                          (TMath::Sqrt(pxl*pxl+pyl*pyl)*TMath::Sqrt(px_total*px_total+py_total*py_total)));
+      phit = TMath::ACos((-pxl*(px_total-pxl)-pyl*(py_total-pyl))/
+                         (TMath::Sqrt(pxl*pxl+pyl*pyl)*TMath::Sqrt((px_total-pxl)*(px_total-pxl)+(py_total-pyl)*(py_total-pyl))));
+
       enucal=Ecalomiss(Esum, ptmis, t->pfp_reco_ismuoncandidate.size()-1);
       if(t->pfp_reco_length[muind]>5 && t->pfp_reco_length[pind]>5){
          etatest=getEta(t->pfp_reco_dQdx, t->pfp_reco_RR, t->pfp_reco_length,  muind, pind);
@@ -3809,6 +3846,7 @@ void Main::Maker::MakeFile()
     hmap_ptmis["total"]->Fill(ptmis, event_weight);
     hmap_etatest["total"]->Fill(etatest, event_weight);
     hmap_alphat["total"]->Fill(alphat, event_weight);
+    hmap_phit["total"]->Fill(phit, event_weight);
     hmap_enucal["total"]->Fill(enucal, event_weight);
     hmap_nhits_leadingp["total"]->Fill(t->pfp_reco_dEdx[pind].size(), event_weight);
 
@@ -4311,6 +4349,7 @@ void Main::Maker::MakeFile()
       hmap_ptmis["signal"]->Fill(ptmis, event_weight);
       if(!isdata){hmap_etatest["signal"]->Fill(etatest, event_weight);}
       hmap_alphat["signal"]->Fill(alphat, event_weight);
+      hmap_phit["signal"]->Fill(phit, event_weight);
       hmap_enucal["signal"]->Fill(enucal, event_weight);
       hmap_nhits_leadingp["signal"]->Fill(t->pfp_reco_dEdx[pind].size(), event_weight);
       if(_showerastrack){
@@ -4459,6 +4498,7 @@ void Main::Maker::MakeFile()
       hmap_ptmis["anumu"]->Fill(ptmis, event_weight);
       if(!isdata){hmap_etatest["anumu"]->Fill(etatest, event_weight);}
       hmap_alphat["anumu"]->Fill(alphat, event_weight);
+      hmap_phit["anumu"]->Fill(phit, event_weight);
       hmap_enucal["anumu"]->Fill(enucal, event_weight);
       hmap_nhits_leadingp["anumu"]->Fill(t->pfp_reco_dEdx[pind].size(), event_weight);
       if(_showerastrack){
@@ -4574,6 +4614,7 @@ void Main::Maker::MakeFile()
       hmap_ptmis["cc_other"]->Fill(ptmis, event_weight);
       if(!isdata){hmap_etatest["cc_other"]->Fill(etatest, event_weight);}
       hmap_alphat["cc_other"]->Fill(alphat, event_weight);
+      hmap_phit["cc_other"]->Fill(phit, event_weight);
       hmap_enucal["cc_other"]->Fill(enucal, event_weight);
       hmap_nhits_leadingp["cc_other"]->Fill(t->pfp_reco_dEdx[pind].size(), event_weight);
       if(_showerastrack){ 
@@ -4778,6 +4819,7 @@ void Main::Maker::MakeFile()
       hmap_ptmis["nue"]->Fill(ptmis, event_weight);
       if(!isdata){hmap_etatest["nue"]->Fill(etatest, event_weight);}
       hmap_alphat["nue"]->Fill(alphat, event_weight);
+      hmap_phit["nue"]->Fill(phit, event_weight);
       hmap_enucal["nue"]->Fill(enucal, event_weight); 
       hmap_nhits_leadingp["nue"]->Fill(t->pfp_reco_dEdx[pind].size(), event_weight);
       if(_showerastrack){
@@ -4895,6 +4937,7 @@ void Main::Maker::MakeFile()
       hmap_ptmis["nc"]->Fill(ptmis, event_weight);
       if(!isdata){hmap_etatest["nc"]->Fill(etatest, event_weight);}
       hmap_alphat["nc"]->Fill(alphat, event_weight);
+      hmap_phit["nc"]->Fill(phit, event_weight);
       hmap_enucal["nc"]->Fill(enucal, event_weight);
       hmap_nhits_leadingp["nc"]->Fill(t->pfp_reco_dEdx[pind].size(), event_weight);
       if(_showerastrack){
@@ -5058,6 +5101,7 @@ void Main::Maker::MakeFile()
       hmap_ptmis["outfv"]->Fill(ptmis, event_weight);
       if(!isdata){hmap_etatest["outfv"]->Fill(etatest, event_weight);}
       hmap_alphat["outfv"]->Fill(alphat, event_weight);
+      hmap_phit["outfv"]->Fill(phit, event_weight);
       hmap_enucal["outfv"]->Fill(enucal, event_weight);
       hmap_nhits_leadingp["outfv"]->Fill(t->pfp_reco_dEdx[pind].size(), event_weight);
       if(_showerastrack){
@@ -5205,6 +5249,7 @@ void Main::Maker::MakeFile()
       hmap_ptmis["cosmic"]->Fill(ptmis, event_weight);
       if(!isdata){hmap_etatest["cosmic"]->Fill(etatest, event_weight);}
       hmap_alphat["cosmic"]->Fill(alphat, event_weight);
+      hmap_phit["cosmic"]->Fill(phit, event_weight);
       hmap_enucal["cosmic"]->Fill(enucal, event_weight);
       hmap_nhits_leadingp["cosmic"]->Fill(t->pfp_reco_dEdx[pind].size(), event_weight);
       if(_showerastrack){
@@ -6233,6 +6278,7 @@ void Main::Maker::MakeFile()
   file_out->WriteObject(&hmap_ptmis, "hmap_ptmis");
   file_out->WriteObject(&hmap_etatest, "hmap_etatest");
   file_out->WriteObject(&hmap_alphat, "hmap_alphat");
+  file_out->WriteObject(&hmap_phit, "hmap_phit");
   file_out->WriteObject(&hmap_enucal, "hmap_enucal");
   file_out->WriteObject(&hmap_nhits_leadingp, "hmap_nhits_leadingp");
   file_out->WriteObject(&hmap_pmult, "hmap_pmult");
