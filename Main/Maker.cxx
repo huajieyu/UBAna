@@ -3605,7 +3605,7 @@ void Main::Maker::MakeFile()
       }
       if(muon_contained) {
            px_total=t->pfp_reco_Mom_muon[muind]*TMath::Sin(t->pfp_reco_theta[muind])*TMath::Cos(t->pfp_reco_phi[muind]);
-           py_total=t->pfp_reco_Mom_muon[muind]**TMath::Sin(t->pfp_reco_theta[muind])*TMath::Sin(t->pfp_reco_phi[muind]); 
+           py_total=t->pfp_reco_Mom_muon[muind]*TMath::Sin(t->pfp_reco_theta[muind])*TMath::Sin(t->pfp_reco_phi[muind]); 
       } else{ 
       px_total=t->pfp_reco_Mom_MCS[muind]*TMath::Sin(t->pfp_reco_theta[muind])*TMath::Cos(t->pfp_reco_phi[muind]);
       py_total=t->pfp_reco_Mom_MCS[muind]*TMath::Sin(t->pfp_reco_theta[muind])*TMath::Sin(t->pfp_reco_phi[muind]);
