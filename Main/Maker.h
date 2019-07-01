@@ -244,6 +244,13 @@ namespace Main{
                        std::vector<std::string> fname, 
                        std::vector<double> wgts_genie);
 
+    void FillBootstrap_test(double fill_value1,
+                            double fill_value2,
+                            double evt_wgt, 
+                            std::map<std::string,TH2D*> bs_genie_pm1_reco_true_mom,
+                            std::vector<std::string> fname,
+                            std::vector<double> wgts_genie);
+ 
     void AddPolyBins(UBTH2Poly * h);
 
     void AddPolyBins(BootstrapTH2DPoly h);
