@@ -501,6 +501,197 @@ namespace DataTypes {
       bs_mc_stat_multisim_true_reco_pangle = new BootstrapTH2D("bs_mc_stat_multisim_true_reco_pangle", ";Proton CosTheta (Truth); Proton CosTheta (Reco)", n_bins_pcostheta, bins_pcostheta, n_bins_pcostheta, bins_pcostheta);
 
 
+      GENIE_par.push_back("genie_AGKYpT_Genie_p1");
+      GENIE_par.push_back("genie_AGKYpT_Genie_m1");
+      GENIE_par.push_back("genie_AGKYxF_Genie_p1");
+      GENIE_par.push_back("genie_AGKYxF_Genie_m1");
+      GENIE_par.push_back("genie_DISAth_Genie_p1");
+      GENIE_par.push_back("genie_DISAth_Genie_m1");
+      GENIE_par.push_back("genie_DISBth_Genie_p1");
+      GENIE_par.push_back("genie_DISBth_Genie_m1");
+      GENIE_par.push_back("genie_DISCv1u_Genie_p1");
+      GENIE_par.push_back("genie_DISCv1u_Genie_m1");
+      GENIE_par.push_back("genie_DISCv2u_Genie_p1");
+      GENIE_par.push_back("genie_DISCv2u_Genie_m1");
+      GENIE_par.push_back("genie_FermiGasModelKf_Genie_p1");
+      GENIE_par.push_back("genie_FermiGasModelKf_Genie_m1");
+      GENIE_par.push_back("genie_FermiGasModelSf_Genie_p1");
+      GENIE_par.push_back("genie_FermiGasModelSf_Genie_m1");
+      GENIE_par.push_back("genie_FormZone_Genie_p1");
+      GENIE_par.push_back("genie_FormZone_Genie_m1");
+      GENIE_par.push_back("genie_IntraNukeNabs_Genie_p1");
+      GENIE_par.push_back("genie_IntraNukeNabs_Genie_m1");
+      GENIE_par.push_back("genie_IntraNukeNcex_Genie_p1");
+      GENIE_par.push_back("genie_IntraNukeNcex_Genie_m1");
+      GENIE_par.push_back("genie_IntraNukeNel_Genie_p1");
+      GENIE_par.push_back("genie_IntraNukeNel_Genie_m1");
+      GENIE_par.push_back("genie_IntraNukeNinel_Genie_p1");
+      GENIE_par.push_back("genie_IntraNukeNinel_Genie_m1");
+      GENIE_par.push_back("genie_IntraNukeNmfp_Genie_p1");
+      GENIE_par.push_back("genie_IntraNukeNmfp_Genie_m1");
+      GENIE_par.push_back("genie_IntraNukeNpi_Genie_p1");
+      GENIE_par.push_back("genie_IntraNukeNpi_Genie_m1");
+      GENIE_par.push_back("genie_IntraNukePIabs_Genie_p1");
+      GENIE_par.push_back("genie_IntraNukePIabs_Genie_m1");
+      GENIE_par.push_back("genie_IntraNukePIcex_Genie_p1");
+      GENIE_par.push_back("genie_IntraNukePIcex_Genie_m1");
+      GENIE_par.push_back("genie_IntraNukePIel_Genie_p1");
+      GENIE_par.push_back("genie_IntraNukePIel_Genie_m1");
+      GENIE_par.push_back("genie_IntraNukePIinel_Genie_p1");
+      GENIE_par.push_back("genie_IntraNukePIinel_Genie_m1");
+      GENIE_par.push_back("genie_IntraNukePImfp_Genie_p1");
+      GENIE_par.push_back("genie_IntraNukePImfp_Genie_m1");
+      GENIE_par.push_back("genie_IntraNukePIpi_Genie_p1");
+      GENIE_par.push_back("genie_IntraNukePIpi_Genie_m1");
+      GENIE_par.push_back("genie_NC_Genie_p1");
+      GENIE_par.push_back("genie_NC_Genie_m1");
+      GENIE_par.push_back("genie_NonResRvbarp1pi_Genie_p1");
+      GENIE_par.push_back("genie_NonResRvbarp1pi_Genie_m1");
+      GENIE_par.push_back("genie_NonResRvbarp2pi_Genie_p1");
+      GENIE_par.push_back("genie_NonResRvbarp2pi_Genie_m1");
+      GENIE_par.push_back("genie_NonResRvp1pi_Genie_p1");
+      GENIE_par.push_back("genie_NonResRvp1pi_Genie_m1");
+      GENIE_par.push_back("genie_NonResRvp2pi_Genie_p1");
+      GENIE_par.push_back("genie_NonResRvp2pi_Genie_m1");
+      GENIE_par.push_back("genie_ResDecayEta_Genie_p1");
+      GENIE_par.push_back("genie_ResDecayEta_Genie_m1");
+      GENIE_par.push_back("genie_ResDecayGamma_Genie_p1");
+      GENIE_par.push_back("genie_ResDecayGamma_Genie_m1");
+      GENIE_par.push_back("genie_ResDecayTheta_Genie_p1");
+      GENIE_par.push_back("genie_ResDecayTheta_Genie_m1");
+      GENIE_par.push_back("genie_ccresAxial_Genie_p1");
+      GENIE_par.push_back("genie_ccresAxial_Genie_m1");
+      GENIE_par.push_back("genie_ccresVector_Genie_p1");
+      GENIE_par.push_back("genie_ccresVector_Genie_m1");
+      GENIE_par.push_back("genie_cohMA_Genie_p1");
+      GENIE_par.push_back("genie_cohMA_Genie_m1");
+      GENIE_par.push_back("genie_cohR0_Genie_p1");
+      GENIE_par.push_back("genie_cohR0_Genie_m1");
+      GENIE_par.push_back("genie_ncelAxial_Genie_p1");
+      GENIE_par.push_back("genie_ncelAxial_Genie_m1");
+      GENIE_par.push_back("genie_ncelEta_Genie_p1");
+      GENIE_par.push_back("genie_ncelEta_Genie_m1");
+      GENIE_par.push_back("genie_ncresAxial_Genie_p1");
+      GENIE_par.push_back("genie_ncresAxial_Genie_m1");
+      GENIE_par.push_back("genie_ncresVector_Genie_p1");
+      GENIE_par.push_back("genie_ncresVector_Genie_m1");
+      GENIE_par.push_back("genie_qema_Genie_p1");
+      GENIE_par.push_back("genie_qema_Genie_m1");
+      GENIE_par.push_back("genie_qevec_Genie_p1");
+      GENIE_par.push_back("genie_qevec_Genie_m1");
+      for(unsigned int i = 0; i<GENIE_par.size(); i++){
+           bs_genie_pm1_true_reco_mom[GENIE_par.at(i)]= new TH2D("bs_genie_pm1_true_reco_mumom", ";Muon Momentum (Truth); Muon Momentum (Reco)", n_bins_mumom, bins_mumom, n_bins_mumom, bins_mumom);
+           bs_genie_pm1_true_reco_pmom[GENIE_par.at(i)] = new TH2D("bs_genie_pm1_true_reco_pmom", ";Proton Momentum (Truth); Proton Momentum (Reco)", n_bins_pmom, bins_pmom, n_bins_pmom, bins_pmom);
+           bs_genie_pm1_true_reco_muangle[GENIE_par.at(i)] = new TH2D("bs_genie_pm1_true_reco_mucostheta", ";Muon CosTheta (Truth); Muon CosTheta (Reco)", n_bins_mucostheta, bins_mucostheta, n_bins_mucostheta, bins_mucostheta);
+           bs_genie_pm1_true_reco_pangle[GENIE_par.at(i)] = new TH2D("bs_genie_pm1_true_reco_pcostheta", ";Proton CosTheta (Truth); Proton CosTheta (Reco)", n_bins_pcostheta, bins_pcostheta, n_bins_pcostheta, bins_pcostheta);
+           bs_genie_pm1_true_reco_thetamup[GENIE_par.at(i)] = new TH2D("bs_genie_pm1_true_reco_thetamup", ";Muon Momentum (Truth); Muon Momentum (Reco)", n_bins_muptheta, bins_muptheta, n_bins_muptheta, bins_muptheta);
+       }
+
+
+      //Reco to true histograms for every GENIE unisim
+      bs_genie_pm1_true_reco_mom["nominal"] = new TH2D("bs_genie_pm1_true_reco_mumom", ";Muon Momentum (Truth); Muon Momentum (Reco)", n_bins_mumom, bins_mumom, n_bins_mumom, bins_mumom);
+      bs_genie_pm1_true_reco_pmom["nominal"] = new TH2D("bs_genie_pm1_true_reco_pmom", ";Proton Momentum (Truth); Proton Momentum (Reco)", n_bins_pmom, bins_pmom, n_bins_pmom, bins_pmom);
+      bs_genie_pm1_true_reco_muangle["nominal"] = new TH2D("bs_genie_pm1_true_reco_mucostheta", ";Muon CosTheta (Truth); Muon CosTheta (Reco)", n_bins_mucostheta, bins_mucostheta, n_bins_mucostheta, bins_mucostheta);
+      bs_genie_pm1_true_reco_pangle["nominal"] = new TH2D("bs_genie_pm1_true_reco_pcostheta", ";Proton CosTheta (Truth); Proton CosTheta (Reco)", n_bins_pcostheta, bins_pcostheta, n_bins_pcostheta, bins_pcostheta);
+      bs_genie_pm1_true_reco_thetamup["nominal"] = new TH2D("bs_genie_pm1_true_reco_thetamup", ";Muon Momentum (Truth); Muon Momentum (Reco)", n_bins_muptheta, bins_muptheta, n_bins_muptheta, bins_muptheta);
+      
+      //=============================================================================================================
+      hmap_trkmom_genie_pm1_bs["total"]["nominal"] = new TH1D("h_trkmom_total_genie_pm1_nominal", "; Track momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkmom_genie_pm1_bs["signal"]["nominal"] = new TH1D("h_trkmom_signal_genie_pm1_nominal", "; Track momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkmom_genie_pm1_bs["cosmic"]["nominal"] = new TH1D("h_trkmom_cosmic_genie_pm1_nominal", "; Track momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkmom_genie_pm1_bs["cosmic_stopmu"]["nominal"] = new TH1D("h_trkmom_cosmic_stopmu_genie_pm1_nominal", "; Track momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkmom_genie_pm1_bs["cosmic_nostopmu"]["nominal"] = new TH1D("h_trkmom_cosmic_nostopmu_genie_pm1_nominal", "; Track momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkmom_genie_pm1_bs["outfv"]["nominal"] = new TH1D("h_trkmom_outfv_genie_pm1_nominal", "; Track momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkmom_genie_pm1_bs["outfv_stopmu"]["nominal"] = new TH1D("h_trkmom_outfv_stopmu_genie_pm1_nominal", "; Track momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkmom_genie_pm1_bs["outfv_nostopmu"]["nominal"] = new TH1D("h_trkmom_outfv_nostopmu_genie_pm1_nominal", "; Track momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkmom_genie_pm1_bs["nc"]["nominal"] = new TH1D("h_trkmom_nc_genie_pm1_nominal", "; Track momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkmom_genie_pm1_bs["nc_proton"]["nominal"] = new TH1D("h_trkmom_nc_proton_genie_pm1_nominal", "; Track momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkmom_genie_pm1_bs["nc_pion"]["nominal"] = new TH1D("h_trkmom_nc_pion_genie_pm1_nominal", "; Track momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkmom_genie_pm1_bs["nc_other"]["nominal"] = new TH1D("h_trkmom_nc_other_genie_pm1_nominal", "; Track momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkmom_genie_pm1_bs["anumu"]["nominal"] = new TH1D("h_trkmom_anumu_genie_pm1_nominal", "; Track momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkmom_genie_pm1_bs["nue"]["nominal"] = new TH1D("h_trkmom_nue_genie_pm1_nominal", "; Track momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkmom_genie_pm1_bs["signal_stopmu"]["nominal"] = new TH1D("h_trkmom_signal_stopmu_genie_pm1_nominal", "; Track momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkmom_genie_pm1_bs["signal_nostopmu"]["nominal"] = new TH1D("h_trkmom_signal_nostopmu_genie_pm1_nominal", "; Track momentum;", n_bins_mumom, bins_mumom);
+      hmap_trkmom_genie_pm1_bs["cc_other"]["nominal"] = new TH1D("h_trkmom_ccother_genie_pm1_nominal", "; Track momentum;", n_bins_mumom, bins_mumom);
+
+
+      hmap_trktheta_genie_pm1_bs["total"]["nominal"] = new TH1D("h_trktheta_total_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+      hmap_trktheta_genie_pm1_bs["signal"]["nominal"] = new TH1D("h_trktheta_signal_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+      hmap_trktheta_genie_pm1_bs["cosmic"]["nominal"] = new TH1D("h_trktheta_cosmic_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+      hmap_trktheta_genie_pm1_bs["cosmic_stopmu"]["nominal"] = new TH1D("h_trktheta_cosmic_stopmu_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+      hmap_trktheta_genie_pm1_bs["cosmic_nostopmu"]["nominal"] = new TH1D("h_trktheta_cosmic_nostopmu_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+      hmap_trktheta_genie_pm1_bs["outfv"]["nominal"] = new TH1D("h_trktheta_outfv_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+      hmap_trktheta_genie_pm1_bs["outfv_stopmu"]["nominal"] = new TH1D("h_trktheta_outfv_stopmu_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+      hmap_trktheta_genie_pm1_bs["outfv_nostopmu"]["nominal"] = new TH1D("h_trktheta_outfv_nostopmu_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+      hmap_trktheta_genie_pm1_bs["nc"]["nominal"] = new TH1D("h_trktheta_nc_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+      hmap_trktheta_genie_pm1_bs["nc_proton"]["nominal"] = new TH1D("h_trktheta_nc_proton_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+      hmap_trktheta_genie_pm1_bs["nc_pion"]["nominal"] = new TH1D("h_trktheta_nc_pion_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+      hmap_trktheta_genie_pm1_bs["nc_other"]["nominal"] = new TH1D("h_trktheta_nc_other_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+      hmap_trktheta_genie_pm1_bs["anumu"]["nominal"] = new TH1D("h_trktheta_anumu_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+      hmap_trktheta_genie_pm1_bs["nue"]["nominal"] = new TH1D("h_trktheta_nue_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+      hmap_trktheta_genie_pm1_bs["signal_stopmu"]["nominal"] = new TH1D("h_trktheta_signal_stopmu_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+      hmap_trktheta_genie_pm1_bs["signal_nostopmu"]["nominal"] = new TH1D("h_trktheta_signal_nostopmu_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+      hmap_trktheta_genie_pm1_bs["cc_other"]["nominal"] = new TH1D("h_trktheta_ccother_genie_pm1_nominal", "; Track Angle;", n_bins_mucostheta, bins_mucostheta);
+
+      hmap_trkpmom_genie_pm1_bs["total"]["nominal"] = new TH1D("h_trkpmom_total_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_genie_pm1_bs["signal"]["nominal"] = new TH1D("h_trkpmom_signal_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_genie_pm1_bs["cosmic"]["nominal"] = new TH1D("h_trkpmom_cosmic_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_genie_pm1_bs["cosmic_stopmu"]["nominal"] = new TH1D("h_trkpmom_cosmic_stopmu_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_genie_pm1_bs["cosmic_nostopmu"]["nominal"] = new TH1D("h_trkpmom_cosmic_nostopmu_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_genie_pm1_bs["outfv"]["nominal"] = new TH1D("h_trkpmom_outfv_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_genie_pm1_bs["outfv_stopmu"]["nominal"] = new TH1D("h_trkpmom_outfv_stopmu_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_genie_pm1_bs["outfv_nostopmu"]["nominal"] = new TH1D("h_trkpmom_outfv_nostopmu_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_genie_pm1_bs["nc"]["nominal"] = new TH1D("h_trkpmom_nc_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_genie_pm1_bs["nc_proton"]["nominal"] = new TH1D("h_trkpmom_nc_proton_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_genie_pm1_bs["nc_pion"]["nominal"] = new TH1D("h_trkpmom_nc_pion_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_genie_pm1_bs["nc_other"]["nominal"] = new TH1D("h_trkpmom_nc_other_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_genie_pm1_bs["anumu"]["nominal"] = new TH1D("h_trkpmom_anumu_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_genie_pm1_bs["nue"]["nominal"] = new TH1D("h_trkpmom_nue_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_genie_pm1_bs["signal_stopmu"]["nominal"] = new TH1D("h_trkpmom_signal_stopmu_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_genie_pm1_bs["signal_nostopmu"]["nominal"] = new TH1D("h_trkpmom_signal_nostopmu_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+      hmap_trkpmom_genie_pm1_bs["cc_other"]["nominal"] = new TH1D("h_trkpmom_ccother_genie_pm1_nominal", "; Track momentum;", n_bins_pmom, bins_pmom);
+     
+      hmap_trkptheta_genie_pm1_bs["total"]["nominal"] = new TH1D("h_trkptheta_total_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+      hmap_trkptheta_genie_pm1_bs["signal"]["nominal"] = new TH1D("h_trkptheta_signal_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+      hmap_trkptheta_genie_pm1_bs["cosmic"]["nominal"] = new TH1D("h_trkptheta_cosmic_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+      hmap_trkptheta_genie_pm1_bs["cosmic_stopmu"]["nominal"] = new TH1D("h_trkptheta_cosmic_stopmu_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+      hmap_trkptheta_genie_pm1_bs["cosmic_nostopmu"]["nominal"] = new TH1D("h_trkptheta_cosmic_nostopmu_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+      hmap_trkptheta_genie_pm1_bs["outfv"]["nominal"] = new TH1D("h_trkptheta_outfv_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+      hmap_trkptheta_genie_pm1_bs["outfv_stopmu"]["nominal"] = new TH1D("h_trkptheta_outfv_stopmu_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+      hmap_trkptheta_genie_pm1_bs["outfv_nostopmu"]["nominal"] = new TH1D("h_trkptheta_outfv_nostopmu_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+      hmap_trkptheta_genie_pm1_bs["nc"]["nominal"] = new TH1D("h_trkptheta_nc_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+      hmap_trkptheta_genie_pm1_bs["nc_proton"]["nominal"] = new TH1D("h_trkptheta_nc_proton_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+      hmap_trkptheta_genie_pm1_bs["nc_pion"]["nominal"] = new TH1D("h_trkptheta_nc_pion_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+      hmap_trkptheta_genie_pm1_bs["nc_other"]["nominal"] = new TH1D("h_trkptheta_nc_other_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+      hmap_trkptheta_genie_pm1_bs["anumu"]["nominal"] = new TH1D("h_trkptheta_anumu_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+      hmap_trkptheta_genie_pm1_bs["nue"]["nominal"] = new TH1D("h_trkptheta_nue_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+      hmap_trkptheta_genie_pm1_bs["signal_stopmu"]["nominal"] = new TH1D("h_trkptheta_signal_stopmu_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+      hmap_trkptheta_genie_pm1_bs["signal_nostopmu"]["nominal"] = new TH1D("h_trkptheta_signal_nostopmu_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+      hmap_trkptheta_genie_pm1_bs["cc_other"]["nominal"] = new TH1D("h_trkptheta_ccother_genie_pm1_nominal", "; Track Angle;", n_bins_pcostheta, bins_pcostheta);
+    
+      hmap_thetamup_genie_pm1_bs["total"]["nominal"] = new TH1D("h_thetamup_total_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_genie_pm1_bs["signal"]["nominal"] = new TH1D("h_thetamup_signal_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_genie_pm1_bs["cosmic"]["nominal"] = new TH1D("h_thetamup_cosmic_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_genie_pm1_bs["cosmic_stopmu"]["nominal"] = new TH1D("h_thetamup_cosmic_stopmu_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_genie_pm1_bs["cosmic_nostopmu"]["nominal"] = new TH1D("h_thetamup_cosmic_nostopmu_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_genie_pm1_bs["outfv"]["nominal"] = new TH1D("h_thetamup_outfv_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_genie_pm1_bs["outfv_stopmu"]["nominal"] = new TH1D("h_thetamup_outfv_stopmu_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_genie_pm1_bs["outfv_nostopmu"]["nominal"] = new TH1D("h_thetamup_outfv_nostopmu_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_genie_pm1_bs["nc"]["nominal"] = new TH1D("h_thetamup_nc_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_genie_pm1_bs["nc_proton"]["nominal"] = new TH1D("h_thetamup_nc_proton_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_genie_pm1_bs["nc_pion"]["nominal"] = new TH1D("h_thetamup_nc_pion_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_genie_pm1_bs["nc_other"]["nominal"] = new TH1D("h_thetamup_nc_other_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_genie_pm1_bs["anumu"]["nominal"] = new TH1D("h_thetamup_anumu_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_genie_pm1_bs["nue"]["nominal"] = new TH1D("h_thetamup_nue_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_genie_pm1_bs["signal_stopmu"]["nominal"] = new TH1D("h_thetamup_signal_stopmu_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_genie_pm1_bs["signal_nostopmu"]["nominal"] = new TH1D("h_thetamup_signal_nostopmu_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+      hmap_thetamup_genie_pm1_bs["cc_other"]["nominal"] = new TH1D("h_thetamup_ccother_genie_pm1_nominal", "; Track Angle;", n_bins_muptheta, bins_muptheta);
+ 
+
+
+
+
+
 
 
       //==============================================================================================================

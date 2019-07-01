@@ -245,8 +245,33 @@ namespace DataTypes {
     BootstrapTH2D * bs_mc_stat_multisim_true_reco_pangle = 0; ///< Reco to true histograms for every universe - Single Differential (pangle) - MC Stat
     //==================================================================================================================================================
 
+    /*BootstrapTH2D * bs_genie_pm1_true_reco_mom = 0;
+    BootstrapTH2D * bs_genie_pm1_true_reco_pmom = 0;
+    BootstrapTH2D * bs_genie_pm1_true_reco_muangle = 0;
+    BootstrapTH2D * bs_genie_pm1_true_reco_pangle = 0;
+    BootstrapTH2D * bs_genie_pm1_true_reco_thetamup = 0;
+    */
+    //==================================================================================================================================================== 
+    // Number of events histograms - Cross Section Muon Momentum - GENIE pm1sigma
+    std::vector<std::string> GENIE_par;
+    std::map<std::string,TH2D*> bs_genie_pm1_true_reco_mom;
+    std::map<std::string,TH2D*> bs_genie_pm1_true_reco_pmom;
+    std::map<std::string,TH2D*> bs_genie_pm1_true_reco_muangle;
+    std::map<std::string,TH2D*> bs_genie_pm1_true_reco_pangle;
+    std::map<std::string,TH2D*> bs_genie_pm1_true_reco_thetamup;
 
 
+
+
+    std::map<std::string,std::map<std::string,TH1D*>> hmap_trkmom_genie_pm1_bs;
+    std::map<std::string,std::map<std::string,TH1D*>> hmap_trktheta_genie_pm1_bs;
+    std::map<std::string,std::map<std::string,TH1D*>> hmap_trkpmom_genie_pm1_bs;
+    std::map<std::string,std::map<std::string,TH1D*>> hmap_trkptheta_genie_pm1_bs;
+    std::map<std::string,std::map<std::string,TH1D*>> hmap_thetamup_genie_pm1_bs;
+
+
+
+ 
 
     TH1D* h_eff_muphi_num = 0;
     TH1D* h_eff_muphi_den = 0;
