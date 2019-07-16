@@ -284,7 +284,8 @@ namespace Main {
   // Create placeholders to get stuff from file
   //std::map<std::string,std::map<std::string,TH1D*>>* temp_map_bs;
   BootstrapTH1D * temp_bs;
-
+  BootstrapTH1D * temp_eff_pm1_num;
+  BootstrapTH1D * temp_eff_pm1_den;
 
   //***************************************************************************
   UBXSecEventHisto1D * _event_histo_1d_mc_genie_unisim = 0;
@@ -312,9 +313,16 @@ namespace Main {
     mc_dirt_file->GetObject("UBXSecEventHisto1D", _event_histo_1d_dirt_genie_unisim);
   }
 
+  LOG_NORMAL()<<"try to get the effeiciency of each universe of the GENIE unisim first"<<std::endl;
+
+  LOG_NORMAL()<<"start making plot of the GENIE unisim"<<std::endl;
 
 
-  std::cout<<"start making plot of the GENIE unisim"<<std::endl;
+
+
+
+
+
   {//mc_bnbcosmic_file->GetObject("hmap_trkmom_genie_pm1_bs", temp_map_bs);
   //std::map<std::string,std::map<std::string,TH1D*>> map_bs = *temp_map_bs;
   std::map<std::string,std::map<std::string, TH1D*>> map_bs = _event_histo_1d_mc_genie_unisim->hmap_trkmom_genie_pm1_bs;
@@ -353,7 +361,7 @@ namespace Main {
     genie_rw_plotter.MakeBackgroundPlots(0, false, true);
   }
   }
-  std::cout<<"ploted GENIE unisim for muon momentum"<<std::endl;
+  //std::cout<<"ploted GENIE unisim for muon momentum"<<std::endl;
   //==================================================================================================
   {//mc_bnbcosmic_file->GetObject("hmap_trkpmom_genie_pm1_bs", temp_map_bs);
   //std::map<std::string,std::map<std::string,TH1D*>> map_bs = *temp_map_bs;
@@ -394,10 +402,11 @@ namespace Main {
     genie_rw_plotter.SetEfficiencyBootstraps(bs_genie_pm1_eff_pmom_num, bs_genie_pm1_eff_pmom_den);
     genie_rw_plotter.MakePlots(10, false, true);
     genie_rw_plotter.MakePlots(12, false, true);  
-    //genie_rw_plotter.MakeBackgroundPlots(0, false, true);
+    genie_rw_plotter.MakeBackgroundPlots(1, false, true);
   }
   }
   //====================================================================================================
+  //std::cout<<"ploted GENIE unisim for proton momentum"<<std::endl;
   {//mc_bnbcosmic_file->GetObject("hmap_trktheta_genie_pm1_bs", temp_map_bs);
   //std::map<std::string,std::map<std::string,TH1D*>> map_bs = *temp_map_bs;
   std::map<std::string,std::map<std::string, TH1D*>> map_bs = _event_histo_1d_mc_genie_unisim->hmap_trktheta_genie_pm1_bs;
@@ -436,10 +445,11 @@ namespace Main {
     genie_rw_plotter.SetEfficiencyBootstraps(bs_genie_pm1_eff_muangle_num, bs_genie_pm1_eff_muangle_den);
     genie_rw_plotter.MakePlots(1, false, true);
     genie_rw_plotter.MakePlots(3, false, true);  
-    //genie_rw_plotter.MakeBackgroundPlots(0, false, true);
+    genie_rw_plotter.MakeBackgroundPlots(2, false, true);
   }
   }
   //=========================================================================================================
+  //std::cout<<"ploted GENIE unisim for muon angle"<<std::endl;
   {//mc_bnbcosmic_file->GetObject("hmap_trkptheta_genie_pm1_bs", temp_map_bs);
   //std::map<std::string,std::map<std::string,TH1D*>> map_bs = *temp_map_bs;
   std::map<std::string,std::map<std::string, TH1D*>> map_bs = _event_histo_1d_mc_genie_unisim->hmap_trkptheta_genie_pm1_bs;
@@ -478,10 +488,11 @@ namespace Main {
     genie_rw_plotter.SetEfficiencyBootstraps(bs_genie_pm1_eff_pangle_num, bs_genie_pm1_eff_pangle_den);
     genie_rw_plotter.MakePlots(11, false, true);
     genie_rw_plotter.MakePlots(13, false, true);  
-    //genie_rw_plotter.MakeBackgroundPlots(0, false, true);
+    genie_rw_plotter.MakeBackgroundPlots(3, false, true);
   }
   }
 
+  //std::cout<<"ploted GENIE unisim for proton angle"<<std::endl;
   {//mc_bnbcosmic_file->GetObject("hmap_thetamup_genie_pm1_bs", temp_map_bs);
   //std::map<std::string,std::map<std::string,TH1D*>> map_bs = *temp_map_bs;
   std::map<std::string,std::map<std::string,TH1D*>> map_bs = _event_histo_1d_mc_genie_unisim->hmap_thetamup_genie_pm1_bs;
@@ -504,7 +515,6 @@ namespace Main {
 
   // Instantiate the GENIE reweighting plotter
   ReweightingPlotter genie_rw_plotter;
-
   if (_do_pm1sigma_plots) {
     LOG_NORMAL()<<"start to do GENIE unisim calculations"<<std::endl;
     // Bootstrap number of events per type
@@ -519,97 +529,108 @@ namespace Main {
     genie_rw_plotter.SetEfficiencyBootstraps(bs_genie_pm1_eff_thetamup_num, bs_genie_pm1_eff_thetamup_den);
     genie_rw_plotter.MakePlots(100, false, true);
     genie_rw_plotter.MakePlots(102, false, true);  
-    //genie_rw_plotter.MakeBackgroundPlots(0, false, true);
+    genie_rw_plotter.MakeBackgroundPlots(4, false, true);
   }
   }
   //============================================================================================
   std::vector<std::string> GENIE_par;
-      GENIE_par.push_back("genie_AGKYpT_Genie_p1");
       GENIE_par.push_back("genie_AGKYpT_Genie_m1");
-      GENIE_par.push_back("genie_AGKYxF_Genie_p1");
+      GENIE_par.push_back("genie_AGKYpT_Genie_p1");
       GENIE_par.push_back("genie_AGKYxF_Genie_m1");
-      GENIE_par.push_back("genie_DISAth_Genie_p1");
+      GENIE_par.push_back("genie_AGKYxF_Genie_p1");
       GENIE_par.push_back("genie_DISAth_Genie_m1");
-      GENIE_par.push_back("genie_DISBth_Genie_p1");
+      GENIE_par.push_back("genie_DISAth_Genie_p1");
       GENIE_par.push_back("genie_DISBth_Genie_m1");
-      GENIE_par.push_back("genie_DISCv1u_Genie_p1");
+      GENIE_par.push_back("genie_DISBth_Genie_p1");
       GENIE_par.push_back("genie_DISCv1u_Genie_m1");
-      GENIE_par.push_back("genie_DISCv2u_Genie_p1");
+      GENIE_par.push_back("genie_DISCv1u_Genie_p1");
       GENIE_par.push_back("genie_DISCv2u_Genie_m1");
-      GENIE_par.push_back("genie_FermiGasModelKf_Genie_p1");
+      GENIE_par.push_back("genie_DISCv2u_Genie_p1");
       GENIE_par.push_back("genie_FermiGasModelKf_Genie_m1");
-      GENIE_par.push_back("genie_FermiGasModelSf_Genie_p1");
+      GENIE_par.push_back("genie_FermiGasModelKf_Genie_p1");
       GENIE_par.push_back("genie_FermiGasModelSf_Genie_m1");
-      GENIE_par.push_back("genie_FormZone_Genie_p1");
+      GENIE_par.push_back("genie_FermiGasModelSf_Genie_p1");
       GENIE_par.push_back("genie_FormZone_Genie_m1");
-      GENIE_par.push_back("genie_IntraNukeNabs_Genie_p1");
+      GENIE_par.push_back("genie_FormZone_Genie_p1");
       GENIE_par.push_back("genie_IntraNukeNabs_Genie_m1");
-      GENIE_par.push_back("genie_IntraNukeNcex_Genie_p1");
+      GENIE_par.push_back("genie_IntraNukeNabs_Genie_p1");
       GENIE_par.push_back("genie_IntraNukeNcex_Genie_m1");
-      GENIE_par.push_back("genie_IntraNukeNel_Genie_p1");
+      GENIE_par.push_back("genie_IntraNukeNcex_Genie_p1");
       GENIE_par.push_back("genie_IntraNukeNel_Genie_m1");
-      GENIE_par.push_back("genie_IntraNukeNinel_Genie_p1");
+      GENIE_par.push_back("genie_IntraNukeNel_Genie_p1");
       GENIE_par.push_back("genie_IntraNukeNinel_Genie_m1");
-      GENIE_par.push_back("genie_IntraNukeNmfp_Genie_p1");
+      GENIE_par.push_back("genie_IntraNukeNinel_Genie_p1");
       GENIE_par.push_back("genie_IntraNukeNmfp_Genie_m1");
-      GENIE_par.push_back("genie_IntraNukeNpi_Genie_p1");
+      GENIE_par.push_back("genie_IntraNukeNmfp_Genie_p1");
       GENIE_par.push_back("genie_IntraNukeNpi_Genie_m1");
-      GENIE_par.push_back("genie_IntraNukePIabs_Genie_p1");
+      GENIE_par.push_back("genie_IntraNukeNpi_Genie_p1");
       GENIE_par.push_back("genie_IntraNukePIabs_Genie_m1");
-      GENIE_par.push_back("genie_IntraNukePIcex_Genie_p1");
+      GENIE_par.push_back("genie_IntraNukePIabs_Genie_p1");
       GENIE_par.push_back("genie_IntraNukePIcex_Genie_m1");
-      GENIE_par.push_back("genie_IntraNukePIel_Genie_p1");
+      GENIE_par.push_back("genie_IntraNukePIcex_Genie_p1");
       GENIE_par.push_back("genie_IntraNukePIel_Genie_m1");
-      GENIE_par.push_back("genie_IntraNukePIinel_Genie_p1");
+      GENIE_par.push_back("genie_IntraNukePIel_Genie_p1");
       GENIE_par.push_back("genie_IntraNukePIinel_Genie_m1");
-      GENIE_par.push_back("genie_IntraNukePImfp_Genie_p1");
+      GENIE_par.push_back("genie_IntraNukePIinel_Genie_p1");
       GENIE_par.push_back("genie_IntraNukePImfp_Genie_m1");
-      GENIE_par.push_back("genie_IntraNukePIpi_Genie_p1");
+      GENIE_par.push_back("genie_IntraNukePImfp_Genie_p1");
       GENIE_par.push_back("genie_IntraNukePIpi_Genie_m1");
-      GENIE_par.push_back("genie_NC_Genie_p1");
+      GENIE_par.push_back("genie_IntraNukePIpi_Genie_p1");
       GENIE_par.push_back("genie_NC_Genie_m1");
-      GENIE_par.push_back("genie_NonResRvbarp1pi_Genie_p1");
+      GENIE_par.push_back("genie_NC_Genie_p1");
       GENIE_par.push_back("genie_NonResRvbarp1pi_Genie_m1");
-      GENIE_par.push_back("genie_NonResRvbarp2pi_Genie_p1");
+      GENIE_par.push_back("genie_NonResRvbarp1pi_Genie_p1");
       GENIE_par.push_back("genie_NonResRvbarp2pi_Genie_m1");
-      GENIE_par.push_back("genie_NonResRvp1pi_Genie_p1");
+      GENIE_par.push_back("genie_NonResRvbarp2pi_Genie_p1");
       GENIE_par.push_back("genie_NonResRvp1pi_Genie_m1");
-      GENIE_par.push_back("genie_NonResRvp2pi_Genie_p1");
+      GENIE_par.push_back("genie_NonResRvp1pi_Genie_p1");
       GENIE_par.push_back("genie_NonResRvp2pi_Genie_m1");
-      GENIE_par.push_back("genie_ResDecayEta_Genie_p1");
+      GENIE_par.push_back("genie_NonResRvp2pi_Genie_p1");
       GENIE_par.push_back("genie_ResDecayEta_Genie_m1");
-      GENIE_par.push_back("genie_ResDecayGamma_Genie_p1");
+      GENIE_par.push_back("genie_ResDecayEta_Genie_p1");
       GENIE_par.push_back("genie_ResDecayGamma_Genie_m1");
-      GENIE_par.push_back("genie_ResDecayTheta_Genie_p1");
+      GENIE_par.push_back("genie_ResDecayGamma_Genie_p1");
       GENIE_par.push_back("genie_ResDecayTheta_Genie_m1");
-      GENIE_par.push_back("genie_ccresAxial_Genie_p1");
+      GENIE_par.push_back("genie_ResDecayTheta_Genie_p1");
       GENIE_par.push_back("genie_ccresAxial_Genie_m1");
-      GENIE_par.push_back("genie_ccresVector_Genie_p1");
+      GENIE_par.push_back("genie_ccresAxial_Genie_p1");
       GENIE_par.push_back("genie_ccresVector_Genie_m1");
-      GENIE_par.push_back("genie_cohMA_Genie_p1");
+      GENIE_par.push_back("genie_ccresVector_Genie_p1");
       GENIE_par.push_back("genie_cohMA_Genie_m1");
-      GENIE_par.push_back("genie_cohR0_Genie_p1");
+      GENIE_par.push_back("genie_cohMA_Genie_p1");
       GENIE_par.push_back("genie_cohR0_Genie_m1");
-      GENIE_par.push_back("genie_ncelAxial_Genie_p1");
+      GENIE_par.push_back("genie_cohR0_Genie_p1");
       GENIE_par.push_back("genie_ncelAxial_Genie_m1");
-      GENIE_par.push_back("genie_ncelEta_Genie_p1");
+      GENIE_par.push_back("genie_ncelAxial_Genie_p1");
       GENIE_par.push_back("genie_ncelEta_Genie_m1");
-      GENIE_par.push_back("genie_ncresAxial_Genie_p1");
+      GENIE_par.push_back("genie_ncelEta_Genie_p1");
       GENIE_par.push_back("genie_ncresAxial_Genie_m1");
-      GENIE_par.push_back("genie_ncresVector_Genie_p1");
+      GENIE_par.push_back("genie_ncresAxial_Genie_p1");
       GENIE_par.push_back("genie_ncresVector_Genie_m1");
-      GENIE_par.push_back("genie_qema_Genie_p1");
+      GENIE_par.push_back("genie_ncresVector_Genie_p1");
       GENIE_par.push_back("genie_qema_Genie_m1");
-      GENIE_par.push_back("genie_qevec_Genie_p1");
+      GENIE_par.push_back("genie_qema_Genie_p1");
       GENIE_par.push_back("genie_qevec_Genie_m1");
+      GENIE_par.push_back("genie_qevec_Genie_p1");
+      GENIE_par.push_back("nominal");
    //<<<<<<<<<<<<<<Calculate Systematics on XSec<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<,<<<<
 
 
   CrossSectionCalculator1D _xsec_calc_test;
+  _xsec_calc_test.SetScaleFactors(scale_factor_mc_bnbcosmic, scale_factor_bnbon, scale_factor_extbnb, scale_factor_mc_dirt);
+  _xsec_calc_test.SetPOT(bnbon_pot_meas);
+  _xsec_calc_test.SetOutDir("output_genie_unisim");
+  _xsec_calc_test.SetFluxCorrectionWeight(_flux_correction_weight);
+  std::cout<<"reweight factor of flux is "<<_flux_correction_weight<<std::endl;
+  std::cout<<"estimated flux is "<<_xsec_calc_test.EstimateFlux()<<std::endl;
+
+
+
     /*
     */
 
   if(_do_pm1sigma_xsec_plots){
+    TFile *file1 = new TFile("output_test.root", "RECREATE");
      //loop over all the genie_parameters to calculate the efficiency
     std::vector<std::string> bkg_names = {"beam-off", "cosmic", "outfv", "nc", "nue", "anumu", "cc_other"};
     if (mc_dirt_file) {
@@ -618,8 +639,7 @@ namespace Main {
 
 
      int n_bins_temp;
-     std::cout<<"test of the size of bs_genie_pm1_true_reco"<<_event_histo_1d_mc_genie_unisim->bs_genie_pm1_true_reco_mom.size()<<std::endl;
-     for(unsigned int kkbins=0; kkbins<5; kkbins++){
+     for(unsigned int kkbins=0; kkbins<1; kkbins++){
         if(kkbins==0) n_bins_temp = _event_histo_1d_mc_genie_unisim->hmap_trkmom["total"]->GetNbinsX();
         if(kkbins==1) n_bins_temp = _event_histo_1d_mc_genie_unisim->hmap_trkpmom["total"]->GetNbinsX();
         if(kkbins==2) n_bins_temp = _event_histo_1d_mc_genie_unisim->hmap_trktheta["total"]->GetNbinsX();
@@ -628,59 +648,247 @@ namespace Main {
 
 
         //for(unsigned int ind=0; ind<_event_histo_1d_mc_genie_unisim->bs_genie_pm1_true_reco_thetamup.size(); ind++){
-        for(unsigned int ind=0; ind<79; ind++){
+        for(unsigned int ind=0; ind<GENIE_par.size(); ind++){
+            if (ind != GENIE_par.size()-1) continue;
             TMatrix S_2d; S_2d.Clear(); S_2d.ResizeTo(n_bins_temp + 1, n_bins_temp + 1);
             MigrationMatrix2D migrationmatrix2d;
             migrationmatrix2d.SetNBins(n_bins_temp, n_bins_temp);
             if(kkbins==0){
-            migrationmatrix2d.SetTrueRecoHistogram(_event_histo_1d_mc_genie_unisim->bs_genie_pm1_true_reco_mom[GENIE_par[ind]]);}
-            if(kkbins==1){
-            migrationmatrix2d.SetTrueRecoHistogram(_event_histo_1d_mc_genie_unisim->bs_genie_pm1_true_reco_mom[GENIE_par[ind]]);}
-            if(kkbins==2){
-            migrationmatrix2d.SetTrueRecoHistogram(_event_histo_1d_mc_genie_unisim->bs_genie_pm1_true_reco_mom[GENIE_par[ind]]);}
-            if(kkbins==3){
-            migrationmatrix2d.SetTrueRecoHistogram(_event_histo_1d_mc_genie_unisim->bs_genie_pm1_true_reco_mom[GENIE_par[ind]]);}
-            if(kkbins==4){
-            migrationmatrix2d.SetTrueRecoHistogram(_event_histo_1d_mc_genie_unisim->bs_genie_pm1_true_reco_mom[GENIE_par[ind]]);}
+            migrationmatrix2d.SetTrueRecoHistogram(_event_histo_1d_mc_genie_unisim->bs_genie_pm1_true_reco_mom[GENIE_par[ind]]);
+              /*for(int jj=0; jj<n_bins_temp; jj++){
+                   for(int kk=0; kk<n_bins_temp;kk++){
+                        std::cout<<_event_histo_1d_mc_genie_unisim->bs_genie_pm1_true_reco_mom[GENIE_par[ind]]->GetBinContent(jj, kk)<<"  ";
+                   }
+              }    std::cout<<std::endl;*/
+            }
 
+
+            if(kkbins==1){
+            migrationmatrix2d.SetTrueRecoHistogram(_event_histo_1d_mc_genie_unisim->bs_genie_pm1_true_reco_pmom[GENIE_par[ind]]);
+         
+            }
+            if(kkbins==2){
+            migrationmatrix2d.SetTrueRecoHistogram(_event_histo_1d_mc_genie_unisim->bs_genie_pm1_true_reco_muangle[GENIE_par[ind]]);
+ 
+            }
+            if(kkbins==3){
+            migrationmatrix2d.SetTrueRecoHistogram(_event_histo_1d_mc_genie_unisim->bs_genie_pm1_true_reco_pangle[GENIE_par[ind]]);
+
+            }
+            if(kkbins==4){
+            migrationmatrix2d.SetTrueRecoHistogram(_event_histo_1d_mc_genie_unisim->bs_genie_pm1_true_reco_thetamup[GENIE_par[ind]]);
+
+            }
+            
+
+            
+
+
+
+ 
             S_2d = migrationmatrix2d.CalculateMigrationMatrix();
             
             _xsec_calc_test.Reset();
             _xsec_calc_test.set_verbosity(Base::msg::kINFO);
             _xsec_calc_test.SetMigrationMatrix(S_2d);
 
-            //get the histograms of selected event, signal and background
-            if (kkbins==0) {_xsec_calc_test.SetHistograms(_event_histo_1d_mc_genie_unisim->hmap_trkmom_genie_pm1_bs, _event_histo_1d_bnbon_genie_unisim->hmap_trkmom_genie_pm1_bs["total"]["nominal"], _event_histo_1d_extbnb_genie_unisim->hmap_trkmom_genie_pm1_bs["total"]["nominal"], _event_histo_1d_dirt_genie_unisim->hmap_trkmom_genie_pm1_bs);}
-            if (kkbins==1) {_xsec_calc_test.SetHistograms(_event_histo_1d_mc_genie_unisim->hmap_trkpmom_genie_pm1_bs, _event_histo_1d_bnbon_genie_unisim->hmap_trkpmom_genie_pm1_bs["total"]["nominal"], _event_histo_1d_extbnb_genie_unisim->hmap_trkpmom_genie_pm1_bs["total"]["nominal"], _event_histo_1d_dirt_genie_unisim->hmap_trkpmom_genie_pm1_bs);}
-            if (kkbins==2) {_xsec_calc_test.SetHistograms(_event_histo_1d_mc_genie_unisim->hmap_trktheta_genie_pm1_bs, _event_histo_1d_bnbon_genie_unisim->hmap_trktheta_genie_pm1_bs["total"]["nominal"], _event_histo_1d_extbnb_genie_unisim->hmap_trktheta_genie_pm1_bs["total"]["nominal"], _event_histo_1d_dirt_genie_unisim->hmap_trktheta_genie_pm1_bs);}
-            if (kkbins==3) {_xsec_calc_test.SetHistograms(_event_histo_1d_mc_genie_unisim->hmap_trkptheta_genie_pm1_bs, _event_histo_1d_bnbon_genie_unisim->hmap_trkptheta_genie_pm1_bs["total"]["nominal"], _event_histo_1d_extbnb_genie_unisim->hmap_trkptheta_genie_pm1_bs["total"]["nominal"], _event_histo_1d_dirt_genie_unisim->hmap_trkptheta_genie_pm1_bs);}
-            if (kkbins==4) {_xsec_calc_test.SetHistograms(_event_histo_1d_mc_genie_unisim->hmap_trkmom_genie_pm1_bs, _event_histo_1d_bnbon_genie_unisim->hmap_trkmom_genie_pm1_bs["total"]["nominal"], _event_histo_1d_extbnb_genie_unisim->hmap_trkmom_genie_pm1_bs["total"]["nominal"], _event_histo_1d_dirt_genie_unisim->hmap_trkmom_genie_pm1_bs);}
-            
-              // Muon momentum
-              TH1D * h_truth_xsec_mumom = (TH1D*)mc_bnbcosmic_file->Get("h_truth_xsec_mumom");
+            std::map<std::string, std::map<std::string, TH1D*>> hmap_genieunisim_test;
 
-              // Muon costheta
-              TH1D * h_truth_xsec_muangle = (TH1D*)mc_bnbcosmic_file->Get("h_truth_xsec_muangle");
+            
+            if(kkbins==0) {hmap_genieunisim_test=_event_histo_1d_mc_genie_unisim->hmap_trkmom_genie_pm1_bs;}
+            if(kkbins==1) {hmap_genieunisim_test=_event_histo_1d_mc_genie_unisim->hmap_trkpmom_genie_pm1_bs;}
+            if(kkbins==2) {hmap_genieunisim_test=_event_histo_1d_mc_genie_unisim->hmap_trktheta_genie_pm1_bs;}
+            if(kkbins==3) {hmap_genieunisim_test=_event_histo_1d_mc_genie_unisim->hmap_trkptheta_genie_pm1_bs;}
+            if(kkbins==4) {hmap_genieunisim_test=_event_histo_1d_mc_genie_unisim->hmap_thetamup_genie_pm1_bs;}
+            
+            std::map<std::string, std::map<std::string, TH1D*>> hmap_dirt_genieunisim_test;
+
+            
+            if(kkbins==0) {hmap_dirt_genieunisim_test=_event_histo_1d_dirt_genie_unisim->hmap_trkmom_genie_pm1_bs;}
+            if(kkbins==1) {hmap_dirt_genieunisim_test=_event_histo_1d_dirt_genie_unisim->hmap_trkpmom_genie_pm1_bs;}
+            if(kkbins==2) {hmap_dirt_genieunisim_test=_event_histo_1d_dirt_genie_unisim->hmap_trktheta_genie_pm1_bs;}
+            if(kkbins==3) {hmap_dirt_genieunisim_test=_event_histo_1d_dirt_genie_unisim->hmap_trkptheta_genie_pm1_bs;}
+            if(kkbins==4) {hmap_dirt_genieunisim_test=_event_histo_1d_dirt_genie_unisim->hmap_thetamup_genie_pm1_bs;}
+ 
+
+            std::map<std::string, TH1D*> hmap_var_test;
+            std::map<std::string, BootstrapTH1D> hmap_newtemp_test;
+            //loop over all the channels and get the histograms
+            for (auto it : hmap_genieunisim_test){ //size == 17 which are the type of signal and 
+                 
+                 BootstrapTH1D temp_test;
+                 temp_test.SetAllHistograms(it.second);
+                 hmap_newtemp_test[it.first] = temp_test;
+                 //std::cout<<"libo test "<<hmap_newtemp_test[it.first].GetNUniverses()<<std::endl;
+                 std::vector<std::string> universe_names = hmap_newtemp_test[it.first].GetUniverseNames();
+                 std::cout<<"start to print out the universe names"<<std::endl;
+                 //for(unsigned int iii=0; iii<universe_names.size(); iii++){
+                 //    std::cout<<"trying to GENIE the universes: "<<universe_names.at(iii)<<std::endl;
+                 //} 
+                 std::cout<<"end of print out the universe names "<<std::endl;
+                 TH1D histo_4test;
+                 hmap_newtemp_test[it.first].GetUniverseHisto(universe_names.at(ind), histo_4test);
+                 hmap_var_test[it.first]=(TH1D*)histo_4test.Clone();
+            }
+
+            TH1D *libo_eff_pm1_num;
+            TH1D *libo_eff_pm1_den;
+            TH1D myobject_eff_pm1_num;
+            TH1D myobject_eff_pm1_den;
+            if (kkbins==0){
+               mc_bnbcosmic_file->GetObject("bs_genie_pm1_eff_mumom_num", temp_eff_pm1_num);
+               mc_bnbcosmic_file->GetObject("bs_genie_pm1_eff_mumom_den", temp_eff_pm1_den);
+            } else if (kkbins==1){
+               mc_bnbcosmic_file->GetObject("bs_genie_pm1_eff_pmom_num", temp_eff_pm1_num);
+               mc_bnbcosmic_file->GetObject("bs_genie_pm1_eff_pmom_den", temp_eff_pm1_den);
+            } else if (kkbins==2){
+               mc_bnbcosmic_file->GetObject("bs_genie_pm1_eff_muangle_num", temp_eff_pm1_num);
+               mc_bnbcosmic_file->GetObject("bs_genie_pm1_eff_muangle_den", temp_eff_pm1_den);
+            } else if (kkbins==3){
+               mc_bnbcosmic_file->GetObject("bs_genie_pm1_eff_pangle_num", temp_eff_pm1_num);
+               mc_bnbcosmic_file->GetObject("bs_genie_pm1_eff_pangle_den", temp_eff_pm1_den);
+            } else if (kkbins==4){
+               mc_bnbcosmic_file->GetObject("bs_genie_pm1_eff_thetamup_num", temp_eff_pm1_num);
+               mc_bnbcosmic_file->GetObject("bs_genie_pm1_eff_thetamup_den", temp_eff_pm1_den);
+            }
+            std::vector<std::string> universe_names_eff=temp_eff_pm1_num->GetUniverseNames();
+            temp_eff_pm1_num->GetUniverseHisto(universe_names_eff.at(ind), myobject_eff_pm1_num);
+            temp_eff_pm1_den->GetUniverseHisto(universe_names_eff.at(ind), myobject_eff_pm1_den);
+
+            libo_eff_pm1_num = &myobject_eff_pm1_num;
+            libo_eff_pm1_den = &myobject_eff_pm1_den;
+
+            //std::cout<<libo_eff_pm1_num->GetNbinsX()<<" "<<libo_eff_pm1_num->GetBinContent(1)<<std::endl;
+
+
+            //get the histograms of selected event, signal and background
+            if (kkbins==0) {
+                _xsec_calc_test.SetHistograms(hmap_var_test, _event_histo_1d_bnbon_genie_unisim->hmap_trkmom["total"], _event_histo_1d_extbnb_genie_unisim->hmap_trkmom["total"],  _event_histo_1d_dirt_genie_unisim->hmap_trkmom);
+                //_xsec_calc_test.SetTruthHistograms(_event_histo_1d_mc_genie_unisim->h_eff_mumom_num, _event_histo_1d_mc_genie_unisim->h_eff_mumom_den);
+            }
+            if (kkbins==1) {
+                _xsec_calc_test.SetHistograms(hmap_var_test, _event_histo_1d_bnbon_genie_unisim->hmap_trkpmom["total"], _event_histo_1d_extbnb_genie_unisim->hmap_trkpmom["total"], _event_histo_1d_dirt_genie_unisim->hmap_trkpmom);
+                //_xsec_calc_test.SetTruthHistograms(_event_histo_1d_mc_genie_unisim->h_eff_pmom_num, _event_histo_1d_mc_genie_unisim->h_eff_pmom_den);
+            }
+            if (kkbins==2) {
+                _xsec_calc_test.SetHistograms(hmap_var_test, _event_histo_1d_bnbon_genie_unisim->hmap_trktheta["total"], _event_histo_1d_extbnb_genie_unisim->hmap_trktheta["total"], _event_histo_1d_dirt_genie_unisim->hmap_trktheta);
+                //_xsec_calc_test.SetTruthHistograms(_event_histo_1d_mc_genie_unisim->h_eff_muangle_num, _event_histo_1d_mc_genie_unisim->h_eff_muangle_den);
+            }
+            if (kkbins==3) {
+                _xsec_calc_test.SetHistograms(hmap_var_test, _event_histo_1d_bnbon_genie_unisim->hmap_trkptheta["total"], _event_histo_1d_extbnb_genie_unisim->hmap_trkptheta["total"], _event_histo_1d_dirt_genie_unisim->hmap_trkptheta);
+                //_xsec_calc_test.SetTruthHistograms(_event_histo_1d_mc_genie_unisim->h_eff_pangle_num, _event_histo_1d_mc_genie_unisim->h_eff_pangle_den);
+            }
+            if (kkbins==4) {
+                _xsec_calc_test.SetHistograms(hmap_var_test, _event_histo_1d_bnbon_genie_unisim->hmap_thetamup["total"], _event_histo_1d_extbnb_genie_unisim->hmap_trkmom["total"], _event_histo_1d_dirt_genie_unisim->hmap_thetamup);
+                //_xsec_calc_test.SetTruthHistograms(_event_histo_1d_mc_genie_unisim->h_eff_thetamup_num, _event_histo_1d_mc_genie_unisim->h_eff_thetamup_den);
+            }
+            //for(int tt=0; tt<n_bins_temp; tt++){
+            //      std::cout<<"bin content of bnb on file in the "<<tt<<"th bin is "<<_event_histo_1d_bnbon_genie_unisim->hmap_trkmom["total"]->GetBinContent(tt+1)<<std::endl;
+            //}
+            //set truth histograms to calculate for efficiency calculation
+                        
+
+            _xsec_calc_test.SetTruthHistograms(libo_eff_pm1_num, libo_eff_pm1_den);
+                       
+            // Muon momentum
+            TH1D * h_truth_xsec_mumom = (TH1D*)mc_bnbcosmic_file->Get("h_truth_xsec_mumom");
+         
+            // Muon costheta
+            TH1D * h_truth_xsec_muangle = (TH1D*)mc_bnbcosmic_file->Get("h_truth_xsec_muangle");
 
   
-              TH1D * h_truth_xsec_pmom = (TH1D*)bnbon_file->Get("h_truth_xsec_pmom");
-              TH1D * h_truth_xsec_pangle = (TH1D*)bnbon_file->Get("h_truth_xsec_pangle");
-              TH1D * h_truth_xsec_thetamup = (TH1D*)bnbon_file->Get("h_truth_xsec_thetamup");
- 
-            if (kkbins==0) {_xsec_calc_test.SetTruthXSec(h_truth_xsec_mumom);}
-            if (kkbins==1) {_xsec_calc_test.SetTruthXSec(h_truth_xsec_pmom);}
-            if (kkbins==2) {_xsec_calc_test.SetTruthXSec(h_truth_xsec_muangle);}
-            if (kkbins==3) {_xsec_calc_test.SetTruthXSec(h_truth_xsec_pangle);}
-            if (kkbins==4) {_xsec_calc_test.SetTruthXSec(h_truth_xsec_thetamup);}
-            std::string temp_title_x=" "; std::string temp_title_y=" ";
+            TH1D * h_truth_xsec_pmom = (TH1D*)mc_bnbcosmic_file->Get("h_truth_xsec_pmom");
+            TH1D * h_truth_xsec_pangle = (TH1D*)mc_bnbcosmic_file->Get("h_truth_xsec_pangle");
+            TH1D * h_truth_xsec_thetamup = (TH1D*)mc_bnbcosmic_file->Get("h_truth_xsec_thetamup");
+
+            std::string temp_title_x=""; std::string temp_title_y="";
+            std::cout<<"libo test 1111"<<std::endl; 
+            if (kkbins==0) {
+                _xsec_calc_test.SetTruthXSec(h_truth_xsec_mumom);
+                temp_title_x="P_{#mu}^{reco}[GeV]"; temp_title_y="d#sigma/dp_{#mu}^{reco}[10^{-38} cm^{2}/GeV]";
+                _xsec_calc_test.SetNameAndLabel("trkmom"+GENIE_par[ind],";P_{#mu}[GeV]; Selected Events");
+                //_xsec_calc_test.SaveEventNumbers("trkmom.tex");
+            }
+            if (kkbins==1) {
+                _xsec_calc_test.SetTruthXSec(h_truth_xsec_pmom);
+                temp_title_x="P_{proton}^{reco}[GeV]"; temp_title_y="d#sigma/dp_{proton}^{reco}[10^{-38} cm^{2}/GeV]";
+                _xsec_calc_test.SetNameAndLabel("trkpmom"+GENIE_par[ind],";P_{proton}[GeV]; Selected Events");
+                //_xsec_calc_test.SaveEventNumbers("trkpmom.tex");
+            }
+            if (kkbins==2) {
+                _xsec_calc_test.SetTruthXSec(h_truth_xsec_muangle);
+                temp_title_x="cos#theta_{#mu}^{reco}"; temp_title_y="d#sigma/dcos#theta_{#mu}^{reco}[10^{-38} cm^{2}]";
+                _xsec_calc_test.SetNameAndLabel("trktheta"+GENIE_par[ind],";cos#theta_{#mu}; Selected Events");
+                //_xsec_calc_test.SaveEventNumbers("trktheta.tex");
+            }
+            if (kkbins==3) {
+                _xsec_calc_test.SetTruthXSec(h_truth_xsec_pangle);
+                temp_title_x="cos#theta_{proton}^{reco}"; temp_title_y="d#sigma/dcos#theta_{proton}^{reco}[10^{-38} cm^{2}]";
+                _xsec_calc_test.SetNameAndLabel("trkptheta"+GENIE_par[ind],";cos#theta_{proton}; Selected Events");
+                //_xsec_calc_test.SaveEventNumbers("trkptheta.tex");
+            }
+            if (kkbins==4) {
+                _xsec_calc_test.SetTruthXSec(h_truth_xsec_thetamup);
+                temp_title_x="#theta_{#mu,p}^{reco}"; temp_title_y="d#sigma/d#theta_{#mu,p}^{reco}[10^{-38} cm^{2}]";
+                _xsec_calc_test.SetNameAndLabel("thetamup"+GENIE_par[ind],";#theta_{#mu,p}; Selected Events");
+                //_xsec_calc_test.SaveEventNumbers("thetamup.tex");
+            }
+
+            std::cout<<"libo test 2222 "<<std::endl;
+            _xsec_calc_test.ProcessPlots();
+            _xsec_calc_test.SaveEventNumbers("trk_var.tex");
+            _xsec_calc_test.Draw();
+            _xsec_calc_test.Draw(bkg_names);
+            _xsec_calc_test.Smear(n_bins_temp, n_bins_temp);
+
+
             TH1D * xsec_temp = _xsec_calc_test.ExtractCrossSection(bkg_names, temp_title_x, temp_title_y);
-            std::string save_name = "xsec_pm1_"+GENIE_par[ind];
+
+            TH1D * xsec_temp_mc = _xsec_calc_test.GetMCCrossSection();
+            for(int gg=0; gg<n_bins_temp; gg++){
+                   std::cout<<"the extracted xsec of the Data and MC in the "<<gg<< "th bins is"<<xsec_temp->GetBinContent(gg+1)<<"  "<<xsec_temp_mc->GetBinContent(gg+1)<<std::endl; 
+            }
+
+            std::string save_name="";
+            std::string save_name_MC="";
+            if(kkbins == 0){
+             save_name = "xsec_trkmom_pm1_"+GENIE_par[ind];
+             save_name_MC = "xsec_trkmom_pm1_MC_"+GENIE_par[ind];
+            }
+            if(kkbins == 1){
+             save_name = "xsec_trkpmom_pm1_"+GENIE_par[ind];
+             save_name_MC = "xsec_trkpmom_pm1_MC_"+GENIE_par[ind];
+            }
+            if(kkbins == 2){
+             save_name = "xsec_trktheta_pm1_"+GENIE_par[ind];
+             save_name_MC = "xsec_trktheta_pm1_MC_"+GENIE_par[ind];
+            }
+            if(kkbins == 3){
+             save_name = "xsec_trkptheta_pm1_"+GENIE_par[ind];
+             save_name_MC = "xsec_trkptheta_pm1_MC_"+GENIE_par[ind];
+            }
+            if(kkbins == 4){
+             save_name = "xsec_thetamup_pm1_"+GENIE_par[ind];
+             save_name_MC = "xsec_thetamup_pm1_MC_"+GENIE_par[ind];
+            }
+
+
+
+
+
+
+
+
             xsec_temp->Write(save_name.c_str());
+            xsec_temp_mc->Write(save_name_MC.c_str());
+            
 
 
-        } 
-     }
-  }
+
+        } //end of loop over all the functions 
+     } //end of loop over all the kinematic variables
+  file1->Close();
+  } //end of loop over do_pm1sigma_xsec
   //********************************************************************************************************
   // Currently not used
   std::map<std::string,std::map<std::string,TH1D*>> hmap_onebin_genie_multisim_bs_mc_dirt;
@@ -1276,7 +1484,7 @@ namespace Main {
     // Muon Momentum: Cross section reweighting
     //
     int n_bins_mumom = _event_histo_1d_mc->hmap_trkmom["total"]->GetNbinsX();
-    std::cout<<"libo test 0"<<std::endl;
+    
     if (_do_reweighting_plots) {
 
       //

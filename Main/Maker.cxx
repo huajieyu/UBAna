@@ -3903,19 +3903,21 @@ void Main::Maker::MakeFile()
       _event_histo_1d->h_true_reco_costheta->Fill(_angle_true, _angle_reco, event_weight);
       //===============================================================================================================================================
       std::cout<<"libo test 0"<<std::endl;
-      if(!isdata && _fill_bootstrap_genie) FillBootstrap_test(_mom_true, _mom_mcs, event_weight, _event_histo_1d->bs_genie_pm1_true_reco_mom, fname_genie_pm1, wgts_genie_pm1);
+      /*if(!isdata && _fill_bootstrap_genie) FillBootstrap_test(_mom_true, _mom_mcs, event_weight, _event_histo_1d->bs_genie_pm1_true_reco_mom, fname_genie_pm1, wgts_genie_pm1);
       if(!isdata && _fill_bootstrap_genie) FillBootstrap_test(temp_pmom, t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->bs_genie_pm1_true_reco_pmom, fname_genie_pm1, wgts_genie_pm1);
       if(!isdata && _fill_bootstrap_genie) FillBootstrap_test(_angle_true, _angle_reco, event_weight, _event_histo_1d->bs_genie_pm1_true_reco_muangle, fname_genie_pm1, wgts_genie_pm1);
       if(!isdata && _fill_bootstrap_genie) FillBootstrap_test(temp_pangle, t->pfp_reco_costheta[pind], event_weight, _event_histo_1d->bs_genie_pm1_true_reco_pangle, fname_genie_pm1, wgts_genie_pm1);
       if(!isdata && _fill_bootstrap_genie) FillBootstrap_test(temp_thetamup, thetamup, event_weight, _event_histo_1d->bs_genie_pm1_true_reco_thetamup, fname_genie_pm1, wgts_genie_pm1);
       std::cout<<"libo test 1"<<std::endl;
-
-      /*if(!isdata && _fill_bootstrap_genie) FillBootstrap(_mom_true, _mom_mcs, event_weight, _event_histo_1d->bs_genie_pm1_true_reco_mom, wgts_genie_pm1);
-      if(!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pmom, t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->bs_genie_pm1_true_reco_pmom,  wgts_genie_pm1);
-      if(!isdata && _fill_bootstrap_genie) FillBootstrap(_angle_true, _angle_reco, event_weight, _event_histo_1d->bs_genie_pm1_true_reco_muangle, wgts_genie_pm1);
-      if(!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pangle, t->pfp_reco_costheta[pind], event_weight, _event_histo_1d->bs_genie_pm1_true_reco_pangle, wgts_genie_pm1);
-      if(!isdata && _fill_bootstrap_genie) FillBootstrap(temp_thetamup, thetamup, event_weight, _event_histo_1d->bs_genie_pm1_true_reco_thetamup, wgts_genie_pm1);
       */
+      if(!isdata && _fill_bootstrap_genie) FillBootstrap(_mom_true, _mom_mcs, event_weight, _event_histo_1d->bs_genie_pm1_true_reco_mom, fname_genie_pm1, wgts_genie_pm1);
+      if(!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pmom, t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->bs_genie_pm1_true_reco_pmom, fname_genie_pm1, wgts_genie_pm1);
+      if(!isdata && _fill_bootstrap_genie) FillBootstrap(_angle_true, _angle_reco, event_weight, _event_histo_1d->bs_genie_pm1_true_reco_muangle, fname_genie_pm1, wgts_genie_pm1);
+      if(!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pangle, t->pfp_reco_costheta[pind], event_weight, _event_histo_1d->bs_genie_pm1_true_reco_pangle, fname_genie_pm1, wgts_genie_pm1);
+      if(!isdata && _fill_bootstrap_genie) FillBootstrap(temp_thetamup, thetamup, event_weight, _event_histo_1d->bs_genie_pm1_true_reco_thetamup, fname_genie_pm1, wgts_genie_pm1);
+       
+      /*
+     */
 
       if(!isdata && _fill_bootstrap_genie) _event_histo_1d->bs_genie_multisim_true_reco_mumom->Fill(_mom_true, _mom_mcs, event_weight, wgts_genie_multisim);
       if(!isdata && _fill_bootstrap_genie) _event_histo_1d->bs_genie_multisim_true_reco_muangle->Fill(_angle_true, _angle_reco, event_weight, wgts_genie_multisim);

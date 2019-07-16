@@ -59,6 +59,7 @@
 #include "TLine.h"
 
 #include "ubana/DataTypes/BootstrapTH1D.h"
+#include "ubana/DataTypes/UBXSecEventHisto1D.h"
 
 using namespace DataTypes;
 
@@ -95,7 +96,7 @@ namespace Base {
     void MakeBackgroundPlots(int variable = 0, bool normalised = false, bool makeLatex = false);
 
     ///
-    void MakeXsecDiffPlots(bool makeLaTeX = false);
+    void MakeXsecDiffPlots(int variable = 0, bool makeLaTeX = false);
 
   private:
 
