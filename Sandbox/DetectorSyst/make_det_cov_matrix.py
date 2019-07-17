@@ -68,41 +68,14 @@ for i in xrange(0, xsec_mumom_cv.GetNbinsX()):
 		cov_matrix_mumom.SetBinContent(i+1, j+1, 0) 
 		cov_matrix_mumom_frac.SetBinContent(i+1, j+1, 0)
 
-
-for i in xrange(0, n_bins_muangle):
-	for j in xrange(0, n_bins_mumom):
-		for m in xrange(0, n_bins_muangle):
-			for n in xrange(0, n_bins_mumom):
-
-				a = j + i * n_bins_mumom + 1;
-				b = n + m * n_bins_mumom + 1;
-
-				cov_matrix_muangle_mumom.SetBinContent(a, b, 0)
-				cov_matrix_muangle_mumom_frac.SetBinContent(a, b, 0)
-
-for i in xrange(0, n_bins_poly):
-	for j in xrange(0, n_bins_poly):
-		cov_matrix_poly_muangle_mumom.SetBinContent(i+1, j+1, 0) 
-		cov_matrix_poly_muangle_mumom_frac.SetBinContent(i+1, j+1, 0)
-
-# for i in xrange(0, n_bins_muangle):
-# 	for j in xrange(0, n_bins_mumom):
-# 		print "Cross Section at ", i, j , xsec_muangle_mumom_cv.GetBinContent(i+1, j+1)
+for i in xrange(0, xsec_muangle_cv.GetNbinsX()):
+	for j in xrange(0, xsec_muangle_cv.GetNbinsX()):
+		cov_matrix_muangle.SetBinContent(i+1, j+1, 0) 
+		cov_matrix_muangle_frac.SetBinContent(i+1, j+1, 0)
 
 
 
 
-
-
-
-det_syst_list = ["CV", "dataSCE", "withDIC", "squeezeResp", "stretchResp", "DLdown", "DLup", "DTdown", "DTup", "LArG4BugFix", "downPEnoise", "upPEnoise", "noiseAmpDown", "noiseAmpUp", "enhancedexttpcvis", "lifetime10ms", "birksrecomb" ,"deadSaturatedChannels", "altDeadChannels"]
-det_syst_list = ["CV", "dataSCE", "withDIC", "squeezeResp", "DLdown", "DTdown", "LArG4BugFix", "downPEnoise", "noiseAmpDown", "enhancedexttpcvis", "lifetime10ms", "birksrecomb" ,"deadSaturatedChannels", "altDeadChannels"]
-
-
-stat_err_perbin_mumom = [0.0041, 0.013, 0.010, 0.0048, 0.0028, 0.00067]
-stat_err_perbin_muangle = [0.0034, 0.0026, 0.0060, 0.0038, 0.0055, 0.0087, 0.0080, 0.011, 0.018]
-stat_err_perbin_onebin = 0.0091
-=======
 for i in xrange(0, xsec_pmom_cv.GetNbinsX()):
 	for j in xrange(0, xsec_pmom_cv.GetNbinsX()):
 		cov_matrix_pmom.SetBinContent(i+1, j+1, 0) 
@@ -120,7 +93,7 @@ for i in xrange(0, xsec_thetamup_cv.GetNbinsX()):
 
 print "start to set the detector systematic list and statistic bin values for analysis"
 
-det_syst_list = ["CV", "DLdown", "DLup", "DTdown", "DTup", "LArG4BugFix", "altDeadChannels", "dataSCE", "downPEnoise", "enhancedexttpcvis","lifetime10ms", "noiseAmpDown", "noiseAmpUp", "squeezeResp", "stretchResp", "upPEnoise", "withDIC"]
+#det_syst_list = ["CV", "DLdown", "DLup", "DTdown", "DTup", "LArG4BugFix", "altDeadChannels", "dataSCE", "downPEnoise", "enhancedexttpcvis","lifetime10ms", "noiseAmpDown", "noiseAmpUp", "squeezeResp", "stretchResp", "upPEnoise", "withDIC"]
 #det_syst_list = ["CV", "DLdown", "DLup", "DTup", "DTdown", "noiseAmpUp", "noiseAmpDown", "squeezeResp", "stretchResp", "downPEnoise", "upPEnoise","LArG4BugFix", "altDeadChannels", "dataSCE", "deadSaturatedChannels", "enhancedexttpcvis","lifetime10ms", "withDIC"]
 
 ######YOU HAVE TO RUN THESE SYSTEMATICS ONE AT A TIME RIGHT NOW!!!!!
@@ -142,14 +115,14 @@ det_syst_list = ["CV", "DLdown", "DLup", "DTdown", "DTup", "LArG4BugFix", "altDe
 #det_syst_list = ["dataSCE"]
 #det_syst_list = ["enhancedexttpcvis"]
 #det_syst_list = ["lifetime10ms"]
-#det_syst_list = ["withDIC"]
+det_syst_list = ["withDIC"]
+#det_syst_list = ["CV_tune3"]
 
 #stat_err_perbin_mumom = [0.0041, 0.013, 0.010, 0.0048, 0.0028, 0.00067]
 #stat_err_perbin_muangle = [0.0034, 0.0026, 0.0060, 0.0038, 0.0055, 0.0087, 0.0080, 0.011, 0.018]
 #stat_err_perbin_pmom = []
 #stat_err_perbin_pangle = []
 #stat_err_perbin_onebin = 0.0091
->>>>>>> libo
 
 stat_err_perbin_mumom = [0, 0, 0, 0, 0, 0]
 stat_err_perbin_muangle = [0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -211,54 +184,9 @@ for syst_name in det_syst_list:
 			cov_matrix_muangle_frac.SetBinContent(i+1, j+1, cov_matrix_muangle_frac.GetBinContent(i+1, j+1) + d0_frac)
 
 
-	for i in xrange(0, n_bins_muangle):
-		for j in xrange(0, n_bins_mumom):
-			for m in xrange(0, n_bins_muangle):
-				for n in xrange(0, n_bins_mumom):
-					a = j + i * n_bins_mumom + 1;
-					b = n + m * n_bins_mumom + 1;
-					# print 'a', a, 'b', b
-					# my_a = 12 #5
-					# my_b = 12 #5
-					# if (a==my_a and b==my_b): print 'Here starts', syst_name
-					# if (a==my_a and b==my_b): print 'i', i, ', j', j, ', m', m, ', n', n
-					# if (a==my_a and b==my_b): print 'syst', xsec_muangle_mumom.GetBinContent(i+1, j+1), '   cv', xsec_muangle_mumom_cv.GetBinContent(i+1, j+1)
-					d0 = (xsec_muangle_mumom.GetBinContent(i+1, j+1) - xsec_muangle_mumom_cv.GetBinContent(i+1, j+1))*(xsec_muangle_mumom.GetBinContent(m+1, n+1) - xsec_muangle_mumom_cv.GetBinContent(m+1, n+1))
-					den = ((xsec_muangle_mumom_cv.GetBinContent(i+1, j+1))*xsec_muangle_mumom_cv.GetBinContent(m+1, n+1))
-					cov_matrix_muangle_mumom.SetBinContent(a, b, cov_matrix_muangle_mumom.GetBinContent(a, b) + d0)
-					# print 'd0', d0
-					# if (a==my_a and b==my_b): print 'd0', d0, 'den', den
-					if (den != 0):
-						d0_frac = d0 / den
-						# if (a==my_a and b==my_b): print 'd0_frac', d0_frac 
-						cov_matrix_muangle_mumom_frac.SetBinContent(a, b, cov_matrix_muangle_mumom_frac.GetBinContent(a, b) + d0_frac)
-					# if (a==my_a and b==my_b): print 'Here ends', syst_name
-
-
-
-
-	for i in xrange(0, n_bins_poly):
-		for j in xrange(0, n_bins_poly):
-			d0 = (xsec_poly_muangle_mumom.GetBinContent(i+1) - xsec_poly_muangle_mumom_cv.GetBinContent(i+1))*(xsec_poly_muangle_mumom.GetBinContent(j+1) - xsec_poly_muangle_mumom_cv.GetBinContent(j+1))
-			d0_frac = d0 / (xsec_poly_muangle_mumom_cv.GetBinContent(i+1)*xsec_poly_muangle_mumom_cv.GetBinContent(j+1))
-			cov_matrix_poly_muangle_mumom.SetBinContent(i+1, j+1, cov_matrix_poly_muangle_mumom.GetBinContent(i+1, j+1) + d0) 
-			cov_matrix_poly_muangle_mumom_frac.SetBinContent(i+1, j+1, cov_matrix_poly_muangle_mumom_frac.GetBinContent(i+1, j+1) + d0_frac)
-
-
-
-
-print "Total onebin syst err:", math.sqrt(syst_total_xsec)
-print "Total onebin syst err (relative):", math.sqrt(syst_total_xsec) / xsec_onebin_cv.GetBinContent(1)
-
-# for i in xrange(0, xsec_mumom_cv.GetNbinsX()):
-# 	print "bin", i+1, "sqrt of d0_frac", math.sqrt(syst_mumom[i]) 
-
-
-
 
 # gStyle.SetPalette(kDeepSea);
 
-=======
 	for i in xrange(0, xsec_pmom.GetNbinsX()):
 #		for j in xrange(0, xsec_pmom.GetNbinsX()):
 		for j in xrange(0, xsec_pmom.GetNbinsX()):
@@ -275,7 +203,6 @@ print "Total onebin syst err (relative):", math.sqrt(syst_total_xsec) / xsec_one
 				print "The Cov matrix value: ", cov_matrix_pmom.GetBinContent(i+1,j+1)
 				print "The Fractional Cov matrix value: ", cov_matrix_pmom_frac.GetBinContent(i+1,j+1)
 			# syst_pmom[i] = syst_pmom[i] + d0_frac
->>>>>>> libo
 
 
   
@@ -357,22 +284,9 @@ print "Total onebin syst err (relative):", math.sqrt(syst_total_xsec) / xsec_one
 # cov_matrix_mumom
 # cov_matrix_mumom.Draw("colz TEXT")
 
-cov_file = TFile("covariance_detector.root", "RECREATE");
-cov_file.cd();
-cov_matrix_onebin.Write("covariance_matrix_detector_onebin");
-cov_matrix_mumom.Write("covariance_matrix_detector_mumom");
-cov_matrix_muangle.Write("covariance_matrix_detector_muangle");
-cov_matrix_muangle_mumom.Write("covariance_matrix_detector_muangle_mumom");
-cov_matrix_poly_muangle_mumom.Write("covariance_matrix_poly_detector_muangle_mumom");
-cov_matrix_onebin_frac.Write("frac_covariance_matrix_detector_onebin");
-cov_matrix_mumom_frac.Write("frac_covariance_matrix_detector_mumom");
-cov_matrix_muangle_frac.Write("frac_covariance_matrix_detector_muangle");
-cov_matrix_muangle_mumom_frac.Write("frac_covariance_matrix_detector_muangle_mumom");
-cov_matrix_poly_muangle_mumom_frac.Write("frac_covariance_matrix_poly_detector_muangle_mumom");
-cov_file.Close();
 
-gStyle.SetPaintTextFormat("4.3f");
-c_mumom = TCanvas()
+	gStyle.SetPaintTextFormat("4.3f");
+	c_mumom = TCanvas()
 	cov_file_name = "covariance_detector_" + syst_name +".root"
 #	cov_file = TFile("covariance_detector.root", "RECREATE");
 	cov_file = TFile(cov_file_name, "RECREATE");
@@ -391,7 +305,6 @@ c_mumom = TCanvas()
 
 	gStyle.SetPaintTextFormat("4.3f");
 	c_mumom = TCanvas()
->>>>>>> libo
 # cov_matrix_mumom_frac.SetMarkerColor(kWhite);
 	cov_matrix_mumom_frac.SetMarkerSize(1.6);
 	cov_matrix_mumom_frac.GetXaxis().SetTitle("Bin i");
@@ -441,64 +354,5 @@ c_mumom = TCanvas()
 	cov_matrix_thetamup_frac.GetYaxis().CenterTitle();
 	cov_matrix_thetamup_frac.Draw("colz TEXT")
 
-#gStyle.SetPaintTextFormat("4.2f");
-#c_muangle_mumom = TCanvas()
-# cov_matrix_muangle_mumom_frac.SetMarkerColor(kWhite);
-#cov_matrix_muangle_mumom_frac.SetMarkerSize(1.1);
-#cov_matrix_muangle_mumom_frac.GetXaxis().SetTitle("Bin ij");
-#cov_matrix_muangle_mumom_frac.GetYaxis().SetTitle("Bin mn");
-#cov_matrix_muangle_mumom_frac.GetXaxis().CenterTitle();
-#cov_matrix_muangle_mumom_frac.GetYaxis().CenterTitle();
-#cov_matrix_muangle_mumom_frac.Draw("colz TEXT")
-
-#gStyle.SetPaintTextFormat("4.2f");
-#c_muangle_mumom_poly = TCanvas()
-# cov_matrix_muangle_mumom_frac.SetMarkerColor(kWhite);
-cov_matrix_poly_muangle_mumom_frac.SetMarkerSize(1.1);
-cov_matrix_poly_muangle_mumom_frac.GetXaxis().SetTitle("Bin i");
-cov_matrix_poly_muangle_mumom_frac.GetYaxis().SetTitle("Bin j");
-cov_matrix_poly_muangle_mumom_frac.GetXaxis().CenterTitle();
-cov_matrix_poly_muangle_mumom_frac.GetYaxis().CenterTitle();
-cov_matrix_poly_muangle_mumom_frac.SetMaximum(2)
-cov_matrix_poly_muangle_mumom_frac.SetMinimum(-2)
-cov_matrix_poly_muangle_mumom_frac.Draw("colz TEXT")
-#cov_matrix_poly_muangle_mumom_frac.SetMarkerSize(1.1);
-#cov_matrix_poly_muangle_mumom_frac.GetXaxis().SetTitle("Bin i");
-#cov_matrix_poly_muangle_mumom_frac.GetYaxis().SetTitle("Bin j");
-#cov_matrix_poly_muangle_mumom_frac.GetXaxis().CenterTitle();
-#cov_matrix_poly_muangle_mumom_frac.GetYaxis().CenterTitle();
-#cov_matrix_poly_muangle_mumom_frac.SetMaximum(1.5)
-#cov_matrix_poly_muangle_mumom_frac.SetMinimum(-1.5)
-#cov_matrix_poly_muangle_mumom_frac.Draw("colz TEXT")
-
-# gStyle.SetPaintTextFormat("4.3f");
-# c_mumom = TCanvas()
-# cov_matrix_mumom.SetMarkerColor(kWhite);
-# cov_matrix_mumom.SetMarkerSize(1.6);
-# cov_matrix_mumom.GetXaxis().SetTitle("Bin i");
-# cov_matrix_mumom.GetYaxis().SetTitle("Bin j");
-# cov_matrix_mumom.GetXaxis().CenterTitle();
-# cov_matrix_mumom.GetYaxis().CenterTitle();
-# cov_matrix_mumom.Draw("colz TEXT")
-
-# gStyle.SetPaintTextFormat("4.3f");
-# c_muangle = TCanvas()
-# cov_matrix_muangle.SetMarkerColor(kWhite);
-# cov_matrix_muangle.SetMarkerSize(1.6);
-# cov_matrix_muangle.GetXaxis().SetTitle("Bin i");
-# cov_matrix_muangle.GetYaxis().SetTitle("Bin j");
-# cov_matrix_muangle.GetXaxis().CenterTitle();
-# cov_matrix_muangle.GetYaxis().CenterTitle();
-# cov_matrix_muangle.Draw("colz TEXT")
-
-# gStyle.SetPaintTextFormat("4.2f");
-# c_muangle_mumom = TCanvas()
-# cov_matrix_muangle_mumom.SetMarkerColor(kWhite);
-# cov_matrix_muangle_mumom.SetMarkerSize(1.1);
-# cov_matrix_muangle_mumom.GetXaxis().SetTitle("Bin ij");
-# cov_matrix_muangle_mumom.GetYaxis().SetTitle("Bin mn");
-# cov_matrix_muangle_mumom.GetXaxis().CenterTitle();
-# cov_matrix_muangle_mumom.GetYaxis().CenterTitle();
-# cov_matrix_muangle_mumom.Draw("colz")
 
 raw_input("Please press enter to exit.")
