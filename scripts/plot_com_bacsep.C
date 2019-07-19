@@ -129,7 +129,7 @@ void plot_com_bacsep(){
 
 
 
-  gROOT->SetBatch();
+  gROOT->SetBatch(1);
 /*  
 */
 /*
