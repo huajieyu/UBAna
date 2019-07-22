@@ -775,13 +775,13 @@ void Main::Maker::MakeFile()
   hmap_mctruth_nuenergy["other"] = new TH1D("h_mctruth_nuenergy_other", ";True Neutrino Energy [GeV];Selected Events", 20, 0, 3);
 
   std::map<std::string,TH1D*> hmap_mctruth_mumom;
-  hmap_mctruth_mumom["total"] = new TH1D("h_mctruth_mumom_total", ";True Muon Momentum [GeV];Selected Events", 20, 0, 2.5);
-  hmap_mctruth_mumom["qe"] = new TH1D("h_mctruth_mumom_qe", ";True Muon Momentum [GeV];Selected Events", 20, 0, 2.5);
-  hmap_mctruth_mumom["res"] = new TH1D("h_mctruth_mumom_res", ";True Muon Momentum [GeV];Selected Events", 20, 0, 2.5);
-  hmap_mctruth_mumom["dis"] = new TH1D("h_mctruth_mumom_dis", ";True Muon Momentum [GeV];Selected Events", 20, 0, 2.5);
-  hmap_mctruth_mumom["coh"] = new TH1D("h_mctruth_mumom_coh", ";True Muon Momentum [GeV];Selected Events", 20, 0, 2.5);
-  hmap_mctruth_mumom["mec"] = new TH1D("h_mctruth_mumom_mec", ";True Muon Momentum [GeV];Selected Events", 20, 0, 2.5);
-  hmap_mctruth_mumom["other"] = new TH1D("h_mctruth_mumom_other", ";True Muon Momentum [GeV];Selected Events", 20, 0, 2.5);
+  hmap_mctruth_mumom["total"] = new TH1D("h_mctruth_mumom_total", ";True Muon Momentum [GeV];Selected Events", 20, 0.1, 2.5);
+  hmap_mctruth_mumom["qe"] = new TH1D("h_mctruth_mumom_qe", ";True Muon Momentum [GeV];Selected Events", 20, 0.1, 2.5);
+  hmap_mctruth_mumom["res"] = new TH1D("h_mctruth_mumom_res", ";True Muon Momentum [GeV];Selected Events", 20, 0.1, 2.5);
+  hmap_mctruth_mumom["dis"] = new TH1D("h_mctruth_mumom_dis", ";True Muon Momentum [GeV];Selected Events", 20, 0.1, 2.5);
+  hmap_mctruth_mumom["coh"] = new TH1D("h_mctruth_mumom_coh", ";True Muon Momentum [GeV];Selected Events", 20, 0.1, 2.5);
+  hmap_mctruth_mumom["mec"] = new TH1D("h_mctruth_mumom_mec", ";True Muon Momentum [GeV];Selected Events", 20, 0.1, 2.5);
+  hmap_mctruth_mumom["other"] = new TH1D("h_mctruth_mumom_other", ";True Muon Momentum [GeV];Selected Events", 20, 0.1, 2.5);
 
   std::map<std::string,TH1D*> hmap_mctruth_mucostheta;
   hmap_mctruth_mucostheta["total"] = new TH1D("h_mctruth_mucostheta_total", ";True Muon cos(#theta);Selected Events", 25, -1, 1);
@@ -820,13 +820,13 @@ void Main::Maker::MakeFile()
   hmap_mctruth_mucostheta_mumom["other"] = new TH2D("hmap_mctruth_mucostheta_mumom_other", ";True Muon cos(#theta);True Muon Momentum", 25, -1, 1, 20, 0, 2.5);
 
   std::map<std::string,TH1D*> hmap_mctruth_pmom;
-  hmap_mctruth_pmom["total"] = new TH1D("h_mctruth_pmom_total", ";True Proton Momentum [GeV];Selected Events", 20, 0, 1.5);
-  hmap_mctruth_pmom["qe"] = new TH1D("h_mctruth_pmom_qe", ";True Proton Momentum [GeV];Selected Events", 20, 0, 1.5);
-  hmap_mctruth_pmom["res"] = new TH1D("h_mctruth_pmom_res", ";True Proton Momentum [GeV];Selected Events", 20, 0, 1.5);
-  hmap_mctruth_pmom["dis"] = new TH1D("h_mctruth_pmom_dis", ";True Proton Momentum [GeV];Selected Events", 20, 0, 1.5);
-  hmap_mctruth_pmom["coh"] = new TH1D("h_mctruth_pmom_coh", ";True Proton Momentum [GeV];Selected Events", 20, 0, 1.5);
-  hmap_mctruth_pmom["mec"] = new TH1D("h_mctruth_pmom_mec", ";True Proton Momentum [GeV];Selected Events", 20, 0, 1.5);
-  hmap_mctruth_pmom["other"] = new TH1D("h_mctruth_pmom_other", ";True Proton Momentum [GeV];Selected Events", 20, 0, 1.5);
+  hmap_mctruth_pmom["total"] = new TH1D("h_mctruth_pmom_total", ";True Proton Momentum [GeV];Selected Events", 24, 0, 1.2);
+  hmap_mctruth_pmom["qe"] = new TH1D("h_mctruth_pmom_qe", ";True Proton Momentum [GeV];Selected Events", 24, 0, 1.2);
+  hmap_mctruth_pmom["res"] = new TH1D("h_mctruth_pmom_res", ";True Proton Momentum [GeV];Selected Events", 24, 0, 1.2);
+  hmap_mctruth_pmom["dis"] = new TH1D("h_mctruth_pmom_dis", ";True Proton Momentum [GeV];Selected Events", 24, 0, 1.2);
+  hmap_mctruth_pmom["coh"] = new TH1D("h_mctruth_pmom_coh", ";True Proton Momentum [GeV];Selected Events", 24, 0, 1.2);
+  hmap_mctruth_pmom["mec"] = new TH1D("h_mctruth_pmom_mec", ";True Proton Momentum [GeV];Selected Events", 24, 0, 1.2);
+  hmap_mctruth_pmom["other"] = new TH1D("h_mctruth_pmom_other", ";True Proton Momentum [GeV];Selected Events", 24, 0, 1.2);
 
   std::map<std::string,TH1D*> hmap_mctruth_pcostheta;
   hmap_mctruth_pcostheta["total"] = new TH1D("h_mctruth_pcostheta_total", ";True Proton cos(#theta);Selected Events", 25, -1, 1);
@@ -869,13 +869,13 @@ void Main::Maker::MakeFile()
   hmap_mctruth_nuenergy_gen["other"] = new TH1D("h_mctruth_nuenergy_gen_other", ";True Neutrino Energy [GeV];Selected Events", 20, 0, 3);
 
   std::map<std::string,TH1D*> hmap_mctruth_mumom_gen;
-  hmap_mctruth_mumom_gen["total"] = new TH1D("h_mctruth_mumom_gen_total", ";True Muon Momentum [GeV];Selected Events", 20, 0, 2.5);
-  hmap_mctruth_mumom_gen["qe"] = new TH1D("h_mctruth_mumom_gen_qe", ";True Muon Momentum [GeV];Selected Events", 20, 0, 2.5);
-  hmap_mctruth_mumom_gen["res"] = new TH1D("h_mctruth_mumom_gen_res", ";True Muon Momentum [GeV];Selected Events", 20, 0, 2.5);
-  hmap_mctruth_mumom_gen["dis"] = new TH1D("h_mctruth_mumom_gen_dis", ";True Muon Momentum [GeV];Selected Events", 20, 0, 2.5);
-  hmap_mctruth_mumom_gen["coh"] = new TH1D("h_mctruth_mumom_gen_coh", ";True Muon Momentum [GeV];Selected Events", 20, 0, 2.5);
-  hmap_mctruth_mumom_gen["mec"] = new TH1D("h_mctruth_mumom_gen_mec", ";True Muon Momentum [GeV];Selected Events", 20, 0, 2.5);
-  hmap_mctruth_mumom_gen["other"] = new TH1D("h_mctruth_mumom_gen_other", ";True Muon Momentum [GeV];Selected Events", 20, 0, 2.5);
+  hmap_mctruth_mumom_gen["total"] = new TH1D("h_mctruth_mumom_gen_total", ";True Muon Momentum [GeV];Selected Events", 20, 0.1, 2.5);
+  hmap_mctruth_mumom_gen["qe"] = new TH1D("h_mctruth_mumom_gen_qe", ";True Muon Momentum [GeV];Selected Events", 20, 0.1, 2.5);
+  hmap_mctruth_mumom_gen["res"] = new TH1D("h_mctruth_mumom_gen_res", ";True Muon Momentum [GeV];Selected Events", 20, 0.1, 2.5);
+  hmap_mctruth_mumom_gen["dis"] = new TH1D("h_mctruth_mumom_gen_dis", ";True Muon Momentum [GeV];Selected Events", 20, 0.1, 2.5);
+  hmap_mctruth_mumom_gen["coh"] = new TH1D("h_mctruth_mumom_gen_coh", ";True Muon Momentum [GeV];Selected Events", 20, 0.1, 2.5);
+  hmap_mctruth_mumom_gen["mec"] = new TH1D("h_mctruth_mumom_gen_mec", ";True Muon Momentum [GeV];Selected Events", 20, 0.1, 2.5);
+  hmap_mctruth_mumom_gen["other"] = new TH1D("h_mctruth_mumom_gen_other", ";True Muon Momentum [GeV];Selected Events", 20, 0.1, 2.5);
 
   std::map<std::string,TH1D*> hmap_mctruth_mucostheta_gen;
   hmap_mctruth_mucostheta_gen["total"] = new TH1D("h_mctruth_mucostheta_gen_total", ";True Muon cos(#theta);Selected Events", 25, -1, 1);
@@ -1165,7 +1165,7 @@ void Main::Maker::MakeFile()
   hmap_trkmom_classic["cosmic_stopmu"] = new TH1D("h_trkmom_classic_cosmic_stopmu", "; Track momentum;", 25, 0, 2.5);
   hmap_trkmom_classic["cosmic_nostopmu"] = new TH1D("h_trkmom_classic_cosmic_nostopmu", "; Track momentum;", 25, 0, 2.5);
   hmap_trkmom_classic["outfv"] = new TH1D("h_trkmom_classic_outfv", "; Track momentum;", 25, 0, 2.5);
-  hmap_trkmom_classic["outfv_stopmu"] = new TH1D("h_trkmom_classic_outfv_stopmu", "; Track momentum;", 25, 5, 2.5);
+  hmap_trkmom_classic["outfv_stopmu"] = new TH1D("h_trkmom_classic_outfv_stopmu", "; Track momentum;", 25, 0, 2.5);
   hmap_trkmom_classic["outfv_nostopmu"] = new TH1D("h_trkmom_classic_outfv_nostopmu", "; Track momentum;", 25, 0, 2.5);
   hmap_trkmom_classic["nc"] = new TH1D("h_trkmom_classic_nc", "; Track momentum;", 25, 0, 2.5);
   hmap_trkmom_classic["nc_proton"] = new TH1D("h_trkmom_classic_nc_proton", "; Track momentum;", 25, 0, 2.5);
@@ -1746,7 +1746,7 @@ void Main::Maker::MakeFile()
         for (size_t i = 0; i < fname_genie_pm1.size(); i++) {
 
           std::string histo_name = "h_trkmom_" + this_name + "_" + fname_genie_pm1.at(i);
-          double this_bins_mumom[7] = {0.00, 0.18, 0.30, 0.48, 0.75, 1.14, 2.50};
+          double this_bins_mumom[7] = {0.1, 0.18, 0.30, 0.48, 0.75, 1.14, 2.50};
           _event_histo_1d->hmap_trkmom_genie_pm1_bs[this_name][fname_genie_pm1.at(i)] = new TH1D(histo_name.c_str(), "; Track momentum;", 6, this_bins_mumom); 
 
         }
@@ -1762,7 +1762,7 @@ void Main::Maker::MakeFile()
         for (size_t i = 0; i < fname_genie_pm1.size(); i++) {
 
           std::string histo_name = "h_trkpmom_" + this_name + "_" + fname_genie_pm1.at(i);
-          double this_bins_pmom[11] = {0.30, 0.41, 0.495, 0.56, 0.62, 0.68, 0.74, 0.80, 0.87, 0.93, 1.50};
+          double this_bins_pmom[11] = {0.30, 0.41, 0.495, 0.56, 0.62, 0.68, 0.74, 0.80, 0.87, 0.93, 1.20};
           _event_histo_1d->hmap_trkpmom_genie_pm1_bs[this_name][fname_genie_pm1.at(i)] = new TH1D(histo_name.c_str(), "; Track momentum;", 10, this_bins_pmom); 
 
         }
@@ -1818,9 +1818,9 @@ void Main::Maker::MakeFile()
       }
        // Efficiency
       /*for (size_t i = 0; i < fname_genie_pm1.size(); i++) {
-        double this_bins_mumom[7] = {0.00, 0.18, 0.30, 0.48, 0.75, 1.14, 2.50};
+        double this_bins_mumom[7] = {0.1, 0.18, 0.30, 0.48, 0.75, 1.14, 2.50};
         double this_bins_mucostheta[13] = {-1.00, -0.82, -0.66, -0.39, -0.16, 0.05, 0.25, 0.43, 0.59, 0.73, 0.83, 0.91, 1.00};
-        double this_bins_pmom[11] = {0.30, 0.41, 0.495, 0.56, 0.62, 0.68, 0.74, 0.80, 0.87, 0.93, 1.50};
+        double this_bins_pmom[11] = {0.30, 0.41, 0.495, 0.56, 0.62, 0.68, 0.74, 0.80, 0.87, 0.93, 1.20};
         double this_bins_pcostheta[10] = {-1.00, -0.50, 0.00, 0.27, 0.45, 0.62, 0.76, 0.86, 0.94, 1.00};
         double this_bins_muptheta[7] = {0.00, 0.8, 1.2, 1.57, 1.94, 2.34, 3.14};
  
