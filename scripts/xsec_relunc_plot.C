@@ -83,22 +83,26 @@ void xsec_relunc_plot(){
   TFile* inputfile1;
   TFile* inputfile2;
 
-  double bins_mumom[7] = {0.00, 0.18, 0.30, 0.48, 0.75, 1.14, 2.50};
+  double bins_mumom[7] = {0.1, 0.18, 0.30, 0.48, 0.75, 1.14, 2.50};
   double bins_mucostheta[13] = {-1.00, -0.82, -0.66, -0.39, -0.16, 0.05, 0.25, 0.43, 0.59, 0.73, 0.83, 0.91, 1.00};
   int n_bins_mumom = 6;
   int n_bins_mucostheta = 12;
 
+  double bins_testmu[8]={0.0, 0.1, 0.18, 0.30, 0.48, 0.75, 1.14, 2.50};
+  double bins_testp[12]={0.0, 0.30, 0.41, 0.495, 0.56, 0.62, 0.68, 0.74, 0.80, 0.87, 0.93, 1.20};
+  int n_bins_testmu = 7;
+  int n_bins_testp = 11;
 
-  double bins_pmom[11] = {0.30, 0.41, 0.495, 0.56, 0.62, 0.68, 0.74, 0.80, 0.87, 0.93, 1.50};
+
+  double bins_pmom[11] = {0.30, 0.41, 0.495, 0.56, 0.62, 0.68, 0.74, 0.80, 0.87, 0.93, 1.20};
   double bins_pcostheta[10] = {-1.00, -0.50, 0.00, 0.27, 0.45, 0.62, 0.76, 0.86, 0.94, 1.00};
-
   int n_bins_pmom = 10; 
   int n_bins_pcostheta = 9;
 
   double bins_muptheta[7] = {0.00, 0.8, 1.2, 1.57, 1.94, 2.34, 3.14};
   int n_bins_muptheta = 6;
  
-int sys_sel=6;
+int sys_sel=0;
 string syst_unc_name="";
 std::vector<std::string> syst_unc_list;
 
@@ -194,6 +198,10 @@ if(sys_sel==6){
  }
 
 auto mg=new TMultiGraph;
+
+TH1D *gr_testmu;
+TH1D *gr_testp;
+
 TH1D *total_mumom_1;
 TH1D *gr_mumom_1[20];
 //TH1D *gr_mumom_2[20];
@@ -220,7 +228,7 @@ TH1D *gr_thetamup_1[20];
  total_mumom_1->SetMinimum(0); 
  total_mumom_1->SetMaximum(1.0);
  
- total_pmom_1=new TH1D(Form("Total_Proton_Momentum_%d",dd), Form("Total_Proon_Momentum_%d",dd), n_bins_pmom, bins_pmom);
+ total_pmom_1=new TH1D(Form("Total_Proton_Momentum_%d",dd), Form("Total_Proton_Momentum_%d",dd), n_bins_pmom, bins_pmom);
  total_pmom_1->GetXaxis()->SetTitle("P_{proton}[GeV]");
  total_pmom_1->GetYaxis()->SetTitle("Relative Uncertainty");
  total_pmom_1->SetLineColor(2);
@@ -255,6 +263,22 @@ TH1D *gr_thetamup_1[20];
  total_thetamup_1->SetFillStyle(0);
  total_thetamup_1->SetMinimum(0); 
  total_thetamup_1->SetMaximum(1.0);
+
+gr_testmu= new TH1D("gr_testmu", "gr_testmu", n_bins_testmu, bins_testmu);
+gr_testmu->GetXaxis()->SetTitle("P_{#mu}[GeV]");
+gr_testmu->GetYaxis()->SetTitle("Relative Uncertainty");
+gr_testp= new TH1D("gr_testp", "gr_testp", n_bins_testp, bins_testp);
+gr_testp->GetXaxis()->SetTitle("P_{proton}[GeV]");
+gr_testp->GetYaxis()->SetTitle("Relative Uncertainty");
+
+for(int tt=0; tt<n_bins_testmu; tt++){
+  gr_testmu->SetBinContent(0, tt);
+}
+
+for(int tt=0; tt<n_bins_testp; tt++){
+  gr_testp->SetBinContent(0, tt);
+}
+
 
 for(int k=0; k<syst_unc_list.size(); k++){
    gr_mumom_1[k]=new TH1D(Form("Muon_Momentum_%d",k), Form("Muon_Momentum_%d",k), n_bins_mumom, bins_mumom); 
@@ -439,6 +463,7 @@ for(int j=0; j<syst_unc_list.size(); j++){
    Double_t xbinind_mumom[nbins];
    
    std::cout<<"libo test 2"<<std::endl;
+  
    for(int i=0; i<nbins; i++){
      xsec_unc_mumom_1[i]=covariance_matrix_mumom_1->GetBinContent(i+1,i+1);
      //***********************************************************
@@ -713,11 +738,14 @@ for(int i=0; i<total_thetamup_1->GetNbinsX(); i++){  total_thetamup_1->SetBinCon
 
   std::cout<<"size of the syst unc vector is "<<syst_unc_list.size()<<std::endl;
 
+  if(sys_sel==0 || sys_sel==4 || sys_sel ==3){gr_testmu->SetMaximum(0.3);}
+  if(sys_sel==5){gr_testmu->SetMaximum(0.1);}
+  gr_testmu->Draw();
   for(int kk=0; kk<syst_unc_list.size(); kk++){
     if(sys_sel==0 ||sys_sel==4 || sys_sel==3) gr_mumom_1[kk]->SetMaximum(0.5);
-    if(sys_sel==5) gr_mumom_1[kk]->SetMaximum(0.05);
+    if(sys_sel==5) gr_mumom_1[kk]->SetMaximum(0.1);
     if(kk==0){
-         gr_mumom_1[kk]->Draw(); }
+         gr_mumom_1[kk]->Draw("same"); }
     else{
          gr_mumom_1[kk]->Draw("same"); }
    legend->AddEntry(gr_mumom_1[kk], syst_unc_list[kk].c_str());
@@ -733,12 +761,16 @@ for(int i=0; i<total_thetamup_1->GetNbinsX(); i++){  total_thetamup_1->SetBinCon
 
   
   TCanvas *c_pmom = new TCanvas("c_pmom"); 
+  if(sys_sel==0 || sys_sel==4 || sys_sel==3) {gr_testp->SetMaximum(0.3);}
+  if(sys_sel==5) {gr_testp->SetMaximum(0.2);}
+  gr_testp->Draw();
   for(int kk=0; kk<syst_unc_list.size(); kk++){
-    if(sys_sel==0 ||sys_sel==4) gr_pmom_1[kk]->SetMaximum(0.15);
+    if(sys_sel==0) gr_pmom_1[kk]->SetMaximum(0.15);
+    if(sys_sel==4) gr_pmom_1[kk]->SetMaximum(0.5);
     if(sys_sel==3) gr_pmom_1[kk]->SetMaximum(0.5);
-    if(sys_sel==5) gr_pmom_1[kk]->SetMaximum(0.1);
+    if(sys_sel==5) gr_pmom_1[kk]->SetMaximum(0.2);
     if(kk==0){
-         gr_pmom_1[kk]->Draw(); }
+         gr_pmom_1[kk]->Draw("same"); }
     else{
          gr_pmom_1[kk]->Draw("same"); }
   }  
@@ -754,7 +786,7 @@ for(int i=0; i<total_thetamup_1->GetNbinsX(); i++){  total_thetamup_1->SetBinCon
   TCanvas *c_muangle = new TCanvas("c_muangle"); 
   for(int kk=0; kk<syst_unc_list.size(); kk++){
     if(sys_sel==0 ||sys_sel==4 || sys_sel==3) gr_muangle_1[kk]->SetMaximum(0.5);
-    if(sys_sel==5) gr_muangle_1[kk]->SetMaximum(0.05);
+    if(sys_sel==5) gr_muangle_1[kk]->SetMaximum(0.1);
     if(kk==0){
          gr_muangle_1[kk]->Draw(); }
     else{
@@ -773,7 +805,7 @@ for(int i=0; i<total_thetamup_1->GetNbinsX(); i++){  total_thetamup_1->SetBinCon
   TCanvas *c_pangle = new TCanvas("c_pangle"); 
   for(int kk=0; kk<syst_unc_list.size(); kk++){
     if(sys_sel==0 ||sys_sel==4 || sys_sel==3) gr_pangle_1[kk]->SetMaximum(0.5);
-    if(sys_sel==5) gr_pangle_1[kk]->SetMaximum(0.05);
+    if(sys_sel==5) gr_pangle_1[kk]->SetMaximum(0.1);
     if(kk==0){
          gr_pangle_1[kk]->Draw(); }
     else{
@@ -791,7 +823,7 @@ for(int i=0; i<total_thetamup_1->GetNbinsX(); i++){  total_thetamup_1->SetBinCon
   TCanvas *c_thetamup = new TCanvas("c_thetamup"); 
   for(int kk=0; kk<syst_unc_list.size(); kk++){
     if(sys_sel==0 ||sys_sel==4 || sys_sel==3) gr_thetamup_1[kk]->SetMaximum(0.5);
-    if(sys_sel==5) gr_thetamup_1[kk]->SetMaximum(0.05);
+    if(sys_sel==5) gr_thetamup_1[kk]->SetMaximum(0.1);
     if(kk==0){
          gr_thetamup_1[kk]->Draw(); }
     else{

@@ -37,12 +37,39 @@ void plot_uncertainty(){
     //gStyle->SetGridStyle();
     //gStyle->SetErrorX(0.0001);
 
+  double bins_testmu[8]={0.0, 0.1, 0.18, 0.30, 0.48, 0.75, 1.14, 2.50};
+  double bins_testp[12]={0.0, 0.30, 0.41, 0.495, 0.56, 0.62, 0.68, 0.74, 0.80, 0.87, 0.93, 1.20};
+  int n_bins_testmu = 7;
+  int n_bins_testp = 11;
+
+
+    TH1D *gr_testmu;
+    TH1D *gr_testp;
+
+
+    gr_testmu= new TH1D("gr_testmu", "gr_testmu", n_bins_testmu, bins_testmu);
+    gr_testmu->GetXaxis()->SetTitle("P_{#mu}[GeV]");
+    gr_testmu->GetYaxis()->SetTitle("Relative Uncertainty");
+    gr_testp= new TH1D("gr_testp", "gr_testp", n_bins_testp, bins_testp);
+    gr_testp->GetXaxis()->SetTitle("P_{proton}[GeV]");
+    gr_testp->GetYaxis()->SetTitle("Relative Uncertainty");
+
+    for(int tt=0; tt<n_bins_testmu; tt++){
+       gr_testmu->SetBinContent(0, tt);
+    }
+
+    for(int tt=0; tt<n_bins_testp; tt++){
+       gr_testp->SetBinContent(0, tt);
+    }
+
+
     std::vector<std::string> syst_unc_type;
     syst_unc_type.push_back("genie");
-    syst_unc_type.push_back("total_flux");
-    syst_unc_type.push_back("ccmecqe");
-    syst_unc_type.push_back("reint");
-    syst_unc_type.push_back("detector_syst");
+    //syst_unc_type.push_back("total_flux");
+    //syst_unc_type.push_back("ccmecqe");
+    //syst_unc_type.push_back("reint");
+    //syst_unc_type.push_back("CCMEC+CCQE+Reinteraction");
+    //syst_unc_type.push_back("detector_syst");
     syst_unc_type.push_back("Stat. Unc");
     
     TFile * inputfile[5];
@@ -64,13 +91,13 @@ void plot_uncertainty(){
     TH1D* stat_pangle;
     TH1D* stat_thetamup;
 
-    double bins_mumom[7] = {0.00, 0.18, 0.30, 0.48, 0.75, 1.14, 2.50};
+    double bins_mumom[7] = {0.1, 0.18, 0.30, 0.48, 0.75, 1.14, 2.50};
     double bins_mucostheta[13] = {-1.00, -0.82, -0.66, -0.39, -0.16, 0.05, 0.25, 0.43, 0.59, 0.73, 0.83, 0.91, 1.00};
     int n_bins_mumom = 6;
     int n_bins_mucostheta = 12;
 
 
-    double bins_pmom[11] = {0.30, 0.41, 0.495, 0.56, 0.62, 0.68, 0.74, 0.80, 0.87, 0.93, 1.50};
+    double bins_pmom[11] = {0.30, 0.41, 0.495, 0.56, 0.62, 0.68, 0.74, 0.80, 0.87, 0.93, 1.20};
     double bins_pcostheta[10] = {-1.00, -0.50, 0.00, 0.27, 0.45, 0.62, 0.76, 0.86, 0.94, 1.00};
 
     int n_bins_pmom = 10; 
@@ -260,13 +287,16 @@ void plot_uncertainty(){
 
     TCanvas * c_mumom=new TCanvas("c_mumom", "c_mumom");
 
+
+
+    gr_testmu->Draw();
     for(k=0; k<total_mumom_1->GetNbinsX(); k++){
         total_mumom_1->SetBinContent(k+1, sqrt(total_mumom_1->GetBinContent(k+1)));
     }
     int ind=0; 
     for(ind=0; ind<syst_unc_type.size(); ind++){
         if(ind==0){
-           Total_Muon_Momentum_9999[ind]->Draw();
+           Total_Muon_Momentum_9999[ind]->Draw("same");
         }else{
            Total_Muon_Momentum_9999[ind]->Draw("same");
         }
@@ -279,12 +309,14 @@ void plot_uncertainty(){
     //=====================================================================================
     TCanvas * c_pmom=new TCanvas("c_pmom", "c_pmom");
 
+
+    gr_testp->Draw();
     for(k=0; k<total_pmom_1->GetNbinsX(); k++){
         total_pmom_1->SetBinContent(k+1, sqrt(total_pmom_1->GetBinContent(k+1)));
     }
     for(ind=0; ind<syst_unc_type.size(); ind++){
         if(ind==0){
-           Total_Proton_Momentum_9999[ind]->Draw();
+           Total_Proton_Momentum_9999[ind]->Draw("same");
         }else{
            Total_Proton_Momentum_9999[ind]->Draw("same");
         }
