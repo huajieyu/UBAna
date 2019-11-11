@@ -123,6 +123,9 @@ namespace DataTypes {
     TH1D* h_eff_thetamup_den=0;
 
     TH2D * h_true_reco_mom = 0; ///< Reco to true histogram - Single Differential (mumom)
+    //TH2D * h_true_reco_contained_mom = 0;
+    //TH2D * h_true_reco_exiting_mom = 0;
+
     TH2D * h_true_reco_pmom = 0;
     TH2D * h_true_reco_thetamup=0;
 

@@ -520,7 +520,7 @@ namespace Base {
   // Create output directory
   system("mkdir ./EvtWgtBackgroundPlots");
   system("mkdir ./EvtWgtBackgroundPlots_reducedLegend"); 
- 
+  system("mkdir ./EvtWgtBackground_RelativeUncertainty"); 
   // Avoid root to dislay the canvases
   gROOT->SetBatch(kTRUE);
   
@@ -544,6 +544,10 @@ namespace Base {
   double outfv_nominal = _map_bs["outfv"].GetNominal().Integral();
   double cosmic_nominal = _map_bs["cosmic"].GetNominal().Integral();
   double ccother_nominal = _map_bs["cc_other"].GetNominal().Integral();
+
+  
+
+
 
   if(makeLaTeX) {
     if (variable == 0) latexFile.open("./EvtWgtBackgroundPlots/evtwgtBackgroundPmu.tex");
@@ -600,8 +604,18 @@ namespace Base {
   std::map<std::string, std::vector<TH1D>> map_bs_outfv = _map_bs["outfv"].UnpackPMHisto();
   std::map<std::string, std::vector<TH1D>> map_bs_cosmic = _map_bs["cosmic"].UnpackPMHisto();
   std::map<std::string, std::vector<TH1D>> map_bs_ccother = _map_bs["cc_other"].UnpackPMHisto();
-  
 
+  
+  
+  
+  /*std::cout<<"<<<<<<<<<<<<<<<<<<<<<<<<<<<<number of Universes is "<<map_bs_ccother.GetNUniverses()<<std::endl; 
+  std::cout<<"<<<<<<<<<<<<<<<<<<<<<<<<<<<<integral of the m1(ccother) is "<<map_bs_ccother.at(75).Integral()<<std::endl; 
+  std::cout<<"<<<<<<<<<<<<<<<<<<<<<<<<<<<<integral of the p1(ccother) is "<<map_bs_ccother.at(75).Integral()<<std::endl; 
+
+  std::cout<<"<<<<<<<<<<<<<<<<<<<<<<<<<<<<integral of the nominal(cosmics) is "<<map_bs_cosmic.at(75).Integral()<<std::endl; 
+  std::cout<<"<<<<<<<<<<<<<<<<<<<<<<<<<<<<integral of the m1(cosmics) is "<<map_bs_cosmic.at(75).Integral()<<std::endl; 
+  std::cout<<"<<<<<<<<<<<<<<<<<<<<<<<<<<<<integral of the p1(cosmics) is "<<map_bs_cosmic.at(75).Integral()<<std::endl; 
+  */
  
 
   int function_counter = 0;
@@ -613,6 +627,7 @@ namespace Base {
     std::string function_name = iter.first;
 
     auto ii = map_bs_anumu.find(function_name);
+
     std::vector<TH1D> anumu_v = ii->second;
     const TH1D* anumu_nom = &_map_bs["anumu"].GetNominal();
     ii = map_bs_nue.find(function_name);
@@ -627,6 +642,7 @@ namespace Base {
     ii = map_bs_cosmic.find(function_name);
     std::vector<TH1D> cosmic_v = ii->second;
     const TH1D* cosmic_nom = &_map_bs["cosmic"].GetNominal();
+    ii = map_bs_ccother.find(function_name);
     std::vector<TH1D> ccother_v = ii->second;
     const TH1D* ccother_nom = &_map_bs["cc_other"].GetNominal();
 
@@ -694,6 +710,8 @@ namespace Base {
       histo_ccother      = (TH1D*) (ccother_nom->Clone("histo_ccother"));
       histo_ccother_p1   = (TH1D*) (ccother_v.at(1).Clone("histo_ccother_p1"));
       histo_ccother_m1   = (TH1D*) (ccother_v.at(0).Clone("histo_ccother_m1"));
+      //std::cout<<"libo test ccother<<<<<<<<<<<<<<<"<<histo_ccother_p1->Integral()<<"  "<<histo_ccother_m1->Integral()<<std::endl;
+      //std::cout<<"libo test cosmic<<<<<<<<<<<<<<<"<<histo_cosmic_p1->Integral()<<"  "<<histo_cosmic_m1->Integral()<<std::endl;
 
 
     }
@@ -855,6 +873,33 @@ namespace Base {
     
     c->Print("./EvtWgtBackgroundPlots/" + SaveName + ".C");
     c->Print("./EvtWgtBackgroundPlots/" + SaveName + ".pdf");
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
 
     // Reduced Legend Plots
@@ -905,6 +950,61 @@ namespace Base {
 
     c->Print("./EvtWgtBackgroundPlots_reducedLegend/" + SaveName + ".C");
     c->Print("./EvtWgtBackgroundPlots_reducedLegend/" + SaveName + ".pdf");
+
+    //try to plot the relative uncertainty here
+
+    c->SetLogy(false);
+
+     
+    TH1D * histo_totalbkg_nominal;
+    TH1D * histo_totalbkg_p1;
+    TH1D * histo_totalbkg_m1;
+
+    histo_totalbkg_nominal=(TH1D*)histo_anumu->Clone();
+    histo_totalbkg_nominal->Add(histo_nue);
+    histo_totalbkg_nominal->Add(histo_nc);
+    histo_totalbkg_nominal->Add(histo_outfv);
+    histo_totalbkg_nominal->Add(histo_cosmic);
+    histo_totalbkg_nominal->Add(histo_ccother);
+
+    histo_totalbkg_p1=(TH1D*)histo_anumu_p1->Clone();
+    histo_totalbkg_p1->Add(histo_nue_p1);
+    histo_totalbkg_p1->Add(histo_nc_p1);
+    histo_totalbkg_p1->Add(histo_outfv_p1);
+    histo_totalbkg_p1->Add(histo_cosmic_p1);
+    histo_totalbkg_p1->Add(histo_ccother_p1);
+    histo_totalbkg_p1->Add(histo_totalbkg_nominal, -1.0);
+    histo_totalbkg_p1->Divide(histo_totalbkg_nominal);
+
+    histo_totalbkg_m1=(TH1D*)histo_anumu_m1->Clone();
+    histo_totalbkg_m1->Add(histo_nue_m1);
+    histo_totalbkg_m1->Add(histo_nc_m1);
+    histo_totalbkg_m1->Add(histo_outfv_m1);
+    histo_totalbkg_m1->Add(histo_cosmic_m1);
+    histo_totalbkg_m1->Add(histo_ccother_m1);
+    histo_totalbkg_m1->Add(histo_totalbkg_nominal, -1.0);
+    histo_totalbkg_m1->Divide(histo_totalbkg_nominal);
+
+
+    histo_totalbkg_p1->SetLineColor(kRed);
+    histo_totalbkg_m1->SetLineColor(kBlue);
+    //histo_totalbkg_p1->SetMaximum();
+    //histo_totalbkg_m1->SetMinimum(-0.5);
+    histo_totalbkg_p1->Draw("hist");
+    histo_totalbkg_m1->Draw("hist,same");
+
+
+    c->Print("./EvtWgtBackground_RelativeUncertainty/" + SaveName + ".C");
+    c->Print("./EvtWgtBackground_RelativeUncertainty/" + SaveName + ".pdf");
+
+
+
+
+
+
+
+
+
 
     if (makeLaTeX) {
         latexFile3 << "\\subfloat[][]" << std::endl;

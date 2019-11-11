@@ -287,6 +287,11 @@ namespace Base {
       // Calculate flux for this universe
       //
       //std::string _flux_unc_type = "FluxUnisim";
+      if(_flux_unc_type=="piplus_PrimaryHadronSWCentralS") {_flux_unc_type="piplus";}
+      if(_flux_unc_type=="piminus_PrimaryHadronSWCentral") {_flux_unc_type="piminus";}
+      if(_flux_unc_type=="kminus_PrimaryHadronNormalizat") {_flux_unc_type="kminus";}
+      if(_flux_unc_type=="kplus_PrimaryHadronFeynmanScal") {_flux_unc_type="kplus";}
+      if(_flux_unc_type=="kzero_PrimaryHadronSanfordWang") {_flux_unc_type="kzero";}
       if (_rwgt_flux && universe_names.at(s) != "nominal") {
       	std::string flux_file = "MCC8_FluxHistograms_Uncertainties.root";
 
@@ -299,7 +304,7 @@ namespace Base {
           LOG_CRITICAL() << "[CrossSectionBootstrapCalculator1D] Universe name is not nominal nor universeXXX." << std::endl;
           throw std::exception();
         }
-
+        
       	std::stringstream sstm;
         sstm << "numu/" << _flux_unc_type << "/Active_TPC_Volume/numu_" << _flux_unc_type << "_Uni_" << universe_number << "_AV_TPC";
         std::string flux_name = sstm.str();

@@ -100,9 +100,17 @@ namespace DataTypes {
       h_eff_thetamup_den = new TH1D("h_eff_thetamup_den", "h_eff_thetamup_den", n_bins_muptheta, bins_muptheta);
 
       // Reco to true histograms - Single Differential (mumom)
-      h_true_reco_mom= new TH2D("h_true_reco_mom", ";Muon Momentum (Truth) [GeV]; Muon Momentum (MCS) [GeV]", n_bins_mumom, bins_mumom, n_bins_mumom, bins_mumom);
+      h_true_reco_mom= new TH2D("h_true_reco_mom", ";Muon Momentum (Truth) [GeV]; Muon Momentum [GeV]", n_bins_mumom, bins_mumom, n_bins_mumom, bins_mumom);
+
+      //h_true_reco_contained_mom= new TH2D("h_true_reco_contained_mom", ";Muon Momentum (Truth) [GeV]; Muon Momentum [GeV]", n_bins_mumom, bins_mumom, n_bins_mumom, bins_mumom);
+
+      //h_true_reco_exiting_mom= new TH2D("h_true_reco_exiting_mom", ";Muon Momentum (Truth) [GeV]; Muon Momentum [GeV]", n_bins_mumom, bins_mumom, n_bins_mumom, bins_mumom);
+
+
+
+
       h_true_reco_pmom= new TH2D("h_true_reco_pmom", ";Proton Momentum (Truth) [GeV]; Proton Momentum (Reco) [GeV]", n_bins_pmom, bins_pmom, n_bins_pmom, bins_pmom);
-      h_true_reco_thetamup = new TH2D("h_true_reco_thetamup", "#theta_{#mu,p}[Rad]", n_bins_muptheta, bins_muptheta, n_bins_muptheta, bins_muptheta);
+      h_true_reco_thetamup = new TH2D("h_true_reco_thetamup", ";#theta_{#mu,p}(Truth)[Rad];#theta_{#mu,p}(Reco)[Rad]", n_bins_muptheta, bins_muptheta, n_bins_muptheta, bins_muptheta);
 
       // Number of events per channel - Single Differential (mumom)
       hmap_trkmom["total"] = new TH1D("h_trkmom_total", "; Track momentum;", n_bins_mumom, bins_mumom);
@@ -350,10 +358,10 @@ namespace DataTypes {
 
 
       // Reco to true histograms - Single Differential (muangle)
-      h_true_reco_costheta= new TH2D("h_true_reco_costheta", ";Muon cos(#theta) (Truth) [GeV]; Muon cos(#theta) (MCS) [GeV]", n_bins_mucostheta, bins_mucostheta, n_bins_mucostheta, bins_mucostheta);
+      h_true_reco_costheta= new TH2D("h_true_reco_costheta", ";cos#theta_{#mu} (Truth); cos#theta_{#mu} (Reco)", n_bins_mucostheta, bins_mucostheta, n_bins_mucostheta, bins_mucostheta);
 
       // Reco to true histograms - Single Differential (pangle)
-      h_true_reco_pcostheta= new TH2D("h_true_reco_pcostheta", ";Muon cos(#theta) (Truth) [GeV]; Proton cos(#theta) (MCS) [GeV]", n_bins_pcostheta, bins_pcostheta, n_bins_pcostheta, bins_pcostheta);
+      h_true_reco_pcostheta= new TH2D("h_true_reco_pcostheta", ";cos#theta_{proton} (Truth); cos#theta_{proton} (Reco)", n_bins_pcostheta, bins_pcostheta, n_bins_pcostheta, bins_pcostheta);
 
 
       // Number of events per channel - Single Differential (muangle)

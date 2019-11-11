@@ -393,6 +393,10 @@ namespace Base {
     for (int bin = 1; bin < m+1; bin++) {
       eff_num_true[bin-1][0] = _h_eff_mumom_num->GetBinContent(bin);
       eff_den_true[bin-1][0] = _h_eff_mumom_den->GetBinContent(bin);
+
+      LOG_INFO()<<"the numerator of the non smeared eff in the "<<bin-1<<" th bin is "<<_h_eff_mumom_num->GetBinContent(bin)<<std::endl;
+      LOG_INFO()<<"the denomenator of the non smeared eff in the "<<bin-1<<" th bin is "<<_h_eff_mumom_den->GetBinContent(bin)<<std::endl;
+ 
     }
 
     eff_num_true[m][0] = _h_eff_mumom_num->GetBinContent(0) + _h_eff_mumom_num->GetBinContent(m+1);
@@ -409,9 +413,12 @@ namespace Base {
     TH1D* h_eff_mumom_num_smear = (TH1D*) _h_eff_mumom_num->Clone("h_eff_mumom_num_smear");
     TH1D* h_eff_mumom_den_smear = (TH1D*) _h_eff_mumom_den->Clone("h_eff_mumom_den_smear");
 
-    for (int bin = 1; bin < n+1; bin++) {
-      h_eff_mumom_num_smear->SetBinContent(bin, eff_num_smear[bin-1][0]);
+    for (int bin = 1; bin < n+1; bin++) {                                {if(isinf(eff_num_smear[bin-1][0])) eff_num_smear[bin-1][0] = 0;}
+      h_eff_mumom_num_smear->SetBinContent(bin, eff_num_smear[bin-1][0]); {if(eff_den_smear[bin-1][0]==0) eff_den_smear[bin-1][0] = 1e100;}
       h_eff_mumom_den_smear->SetBinContent(bin, eff_den_smear[bin-1][0]);
+
+      LOG_INFO()<<"the numerator of the smeared eff in the "<<bin-1<<" th bin is "<<h_eff_mumom_num_smear->GetBinContent(bin)<<std::endl;
+      LOG_INFO()<<"the denomenator of the smeared eff in the "<<bin-1<<" th bin is "<<h_eff_mumom_den_smear->GetBinContent(bin)<<std::endl;
     }
 
 
@@ -498,10 +505,8 @@ namespace Base {
 
     name = _folder +_name + "_efficiecy_reco";
     c_eff_reco->SaveAs(name + ".pdf");
-
+    c_eff_reco->SaveAs(name + ".C","C"); 
     // LOG_INFO() << "Statistic option used for efficiency calculation: " << teff_reco->GetStatisticOption() << ", check https://root.cern.ch/doc/v608/classTEfficiency.html#af27fb4e93a1b16ed7a5b593398f86312." << std::endl;
-    c_eff_reco->SaveAs(name + ".C","C");
-    LOG_INFO() << "Statistic option used for efficiency calculation: " << teff_reco->GetStatisticOption() << ", check https://root.cern.ch/doc/v608/classTEfficiency.html#af27fb4e93a1b16ed7a5b593398f86312." << std::endl;
     LOG_INFO() << "Efficiency bin 1: " << teff_reco->GetEfficiency(1) << " - " << teff_reco->GetEfficiencyErrorLow(1) << " + " << teff_reco->GetEfficiencyErrorUp(1) << std::endl;
     LOG_INFO() << "Efficiency bin 2: " << teff_reco->GetEfficiency(2) << " - " << teff_reco->GetEfficiencyErrorLow(2) << " + " << teff_reco->GetEfficiencyErrorUp(2) << std::endl;
 
@@ -560,9 +565,9 @@ namespace Base {
     // Save beam off in the MC backgrounds ...
     _hmap_bnbcosmic["beam-off"] = _h_extbnb;
 
+ 
     // ... and update the total histogram
     _hmap_bnbcosmic["total"]->Add(_h_extbnb);
-
 
     if (_dirt_is_set) {
 
@@ -716,7 +721,22 @@ namespace Base {
       }
     }
 
+    if (_h_data->GetNbinsX()> 1) {
+      for(int inc=0; inc<_h_mc->GetNbinsX(); inc++){
+           LOG_INFO() << "BinContent for mc signal"<< " at "<<inc<<" th bin is "<<": "<<_h_mc->GetBinContent(inc+1) <<std::endl;
+           LOG_INFO() << "BinContent for data"<< " at "<<inc<<" th bin is "<<": "<<_h_data->GetBinContent(inc+1) <<std::endl;
+  
+      }
 
+      for (auto name : bkg_names) {
+        for(int ind=0; ind<_h_data->GetNbinsX(); ind++) { 
+           LOG_INFO() << "Statistical uncertainty for " << name <<" at "<<ind<<" th bin is "<< ": "<< _hmap_bnbcosmic[name]->GetBinError(ind+1) << std::endl;
+           LOG_INFO() << "BinContent for "<< name << " at "<<ind<<" th bin is "<<": "<<_hmap_bnbcosmic[name]->GetBinContent(ind+1) <<std::endl;
+        }
+      }
+    }
+
+    
 
     for (auto name : bkg_names) 
     {
@@ -767,6 +787,9 @@ namespace Base {
 
     double den_data = _flux * _n_target_data * 1e-38;
     double den_mc   = _flux * _n_target_mc   * 1e-38;
+
+    LOG_INFO() << "flux * n targets of data is "<<_flux * _n_target_data * 1e-38<<std::endl;
+    LOG_INFO() << "flux * n targets of mc is "<<_flux * _n_target_data * 1e-38<<std::endl;
 
     _h_mc->Scale(1. / den_mc, "width");
     _h_data->Scale(1. / den_data, "width");
@@ -1150,8 +1173,7 @@ namespace Base {
 
     for (auto hname : histos_to_subtract) 
     {
-      LOG_INFO() << "_h_data_subtracted integral is "<<_h_data_subtracted->Integral()<<std::endl;
-      LOG_INFO() << "Going to subtract histogram " << hname << ": "<<_hmap_bnbcosmic[hname]->Integral()<<std::endl;
+      LOG_DEBUG() << "Going to subtract histogram " << hname << std::endl;
       // Need to remove from the data histogram
       _h_data_subtracted->Add(_hmap_bnbcosmic[hname], -1.);
       // But also form the total MC one, to properly propagate unc
