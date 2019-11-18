@@ -2642,14 +2642,14 @@ void Main::Maker::MakeFile()
       float ppindex=-999.0;
       float epindex=-999.0;
       for(size_t hh=0; hh<t->genie_mcpar_pdgcode.size(); hh++){
-          if(abs(t->genie_mcpar_pdgcode[hh]==2212) && t->genie_mcpar_energy[hh]>epindex) {
+	if(abs(t->genie_mcpar_pdgcode[hh]==2212) && t->genie_mcpar_energy[hh]>epindex) {
              epindex=t->genie_mcpar_energy[hh];
              ppindex=TMath::Sqrt(t->genie_mcpar_px[hh]*t->genie_mcpar_px[hh]+
                                  t->genie_mcpar_py[hh]*t->genie_mcpar_py[hh]+
                                  t->genie_mcpar_pz[hh]*t->genie_mcpar_pz[hh]);
           }
       }
-      if(t->true_muon_mom_matched >0.1 && ppindex<1.2){
+      if(t->true_muon_mom >0.1 && ppindex<1.2){
       nsignal += event_weight;
       isSignal = true;
 
@@ -2679,7 +2679,7 @@ void Main::Maker::MakeFile()
                               t->genie_mcpar_pz[mpar]*t->genie_mcpar_pz[mpar]);
                temp_pangle=t->genie_mcpar_pz[mpar]/temp_pmom;
                temp_pphi=TMath::ACos(t->genie_mcpar_px[mpar]/TMath::Sqrt(t->genie_mcpar_px[mpar]*t->genie_mcpar_px[mpar]+t->genie_mcpar_py[mpar]*t->genie_mcpar_py[mpar]));
-               temp_thetamup=getAngle(temp_pmom, TMath::ACos(temp_pangle), temp_pphi,  t->true_muon_mom_matched, TMath::ACos(t->lep_costheta), t->lep_phi); 
+               temp_thetamup=getAngle(temp_pmom, TMath::ACos(temp_pangle), temp_pphi,  t->true_muon_mom, TMath::ACos(t->lep_costheta), t->lep_phi); 
            }
       }      
       _event_histo_1d->h_eff_pmom_den->Fill(temp_pmom, event_weight);
@@ -3358,7 +3358,8 @@ void Main::Maker::MakeFile()
     
     //#1 number of tracks>=2
     if(_showerastrack){
-       if(_ana_int_type=="cc1unp_analysis" && t->num_pfp<2)  continue;
+      if(_ana_int_type=="cc1unp_analysis" && t->num_pfp<3)  continue; //This used to be a cut at 2, but that didn't take
+      //into account the fact that there is a pfparticle from the incident neutrino for the event
     } else {
        if(_ana_int_type=="cc1unp_analysis" && t->num_pfp_tracks<2)  continue;
     }
@@ -3531,7 +3532,11 @@ void Main::Maker::MakeFile()
 
     if(_ana_int_type=="cc1unp_analysis" && t->pfp_reco_Mom_proton[pind]<0.3) continue;
     if(_ana_int_type=="cc1unp_analysis" && t->pfp_reco_Mom_proton[pind]>1.2) continue;
-    if(_ana_int_type=="cc1unp_analysis" && t->pfp_reco_Mom_muon[muind]<0.1) continue;
+    if (muon_contained) {
+      if(_ana_int_type=="cc1unp_analysis" && t->pfp_reco_Mom_muon[muind]<0.1) continue;
+    } else {
+      if(_ana_int_type=="cc1unp_analysis" && t->pfp_reco_Mom_MCS[muind]<0.1) continue;
+    }
 
     
     
@@ -3643,7 +3648,7 @@ void Main::Maker::MakeFile()
                               t->genie_mcpar_pz[mpar]*t->genie_mcpar_pz[mpar]);
                temp_pangle=t->genie_mcpar_pz[mpar]/temp_pmom;
                temp_pphi=TMath::ACos(t->genie_mcpar_px[mpar]/TMath::Sqrt(t->genie_mcpar_px[mpar]*t->genie_mcpar_px[mpar]+t->genie_mcpar_py[mpar]*t->genie_mcpar_py[mpar]));
-               temp_thetamup=getAngle(temp_pmom, TMath::ACos(temp_pangle), temp_pphi,  t->true_muon_mom_matched, TMath::ACos(t->lep_costheta), t->lep_phi); 
+               temp_thetamup=getAngle(temp_pmom, TMath::ACos(temp_pangle), temp_pphi,  t->true_muon_mom, TMath::ACos(t->lep_costheta), t->lep_phi); 
             }
       }     
       //std::cout<<"TRUE MOMENTUM OF PROTON IS "<<temp_pmom<<std::endl; 
