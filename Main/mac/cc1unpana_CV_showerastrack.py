@@ -8,6 +8,7 @@ from ROOT import Main
 analyser = Main.CC1uNPAna()
 
 analyser.SetBNBCosmicFile("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Apr25/ubxsecana_output_mc_bnbcosmic_ubcodev06_26_01_22_Tune1_tot.root") # tune 1
+
 analyser.SetDirtFile ("/uboone/data/users/jiangl/ubxsec_static/v06_26_01_22_Apr25/ubxsecana_output_mc_bnbdirt_ubcodev06_26_01_22.root")
 #analyser.SetInTimeCosmicFile  ("/Users/deltutto/RealWork/CCInclusiveEventSelection/Files/Output/ubxsecana_output_bnbcosmic_mcc8.7_test6.root") # Just a placeholder
 
@@ -26,14 +27,14 @@ analyser.SetFluxCorrectionWeight(1.028)
 extra_unc = 0
 analyser.SetExtraUncertainty(extra_unc)
 
-analyser.DoGenieSystematics(False)
-analyser.ImportGenieSystematics(False)
+analyser.DoGenieSystematics(True)
+analyser.ImportGenieSystematics(True)
 
-analyser.DoFluxSystematics(False)
-analyser.ImportFluxSystematics(False)
+analyser.DoFluxSystematics(True)
+analyser.ImportFluxSystematics(True)
 
-analyser.DoExtraSystematics(False);
-analyser.ImportExtraSystematics(False);
+analyser.DoExtraSystematics(True);
+analyser.ImportExtraSystematics(True);
 
 analyser.SetExtraFluxUncertainty(0.)
 #analyser.SetTargetFluxSystematic("FluxUnisim");
@@ -42,7 +43,7 @@ analyser.SetExtraFluxUncertainty(0.)
 #analyser.SetTargetFluxSystematic("kzero_PrimaryHadronSanfordWang");
 #analyser.SetTargetFluxSystematic("piminus_PrimaryHadronSWCentral");
 #analyser.SetTargetFluxSystematic("piplus_PrimaryHadronSWCentralS");
-#analyser.SetTargetFluxSystematic("total");
+analyser.SetTargetFluxSystematic("total");
 
 analyser.DoAnalise();
 
