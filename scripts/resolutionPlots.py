@@ -2,6 +2,15 @@ import ROOT
 import math
 import array
 
+#TPaveStats *s = (TPaveStats*) gPad->GetPrimitive("stats");
+#s->SetTextSize(0.025);
+#s->SetX1NDC(0.55);
+#s-SetX2NDC(0.75); 
+#s->SetY1NDC(0.701271);
+#s->SetY2NDC(0.800847);
+
+
+
 def setBins(bins):
 #  bins["protonMom"]=[0.30, 0.36, 0.41, 0.44, 0.49, 0.53, 0.56, 0.59, 0.63, 0.73, 0.81,1.27, 1.50] # original
   bins["protonMom"]=[0.30, 0.41, 0.495, 0.56, 0.62, 0.68, 0.74, 0.80, 0.87, 0.93, 1.50]
@@ -439,6 +448,22 @@ def IsCosmic(e):
   return False
 
 
+ROOT.gStyle.SetLabelSize(0.045,"X")
+ROOT.gStyle.SetLabelFont(62,"X")
+ROOT.gStyle.SetTitleSize(0.045,"X")
+ROOT.gStyle.SetTitleFont(62,"X")
+ROOT.gStyle.SetTitleOffset(0.85,"X")
+ROOT.gStyle.SetLabelSize(0.045,"Y")
+ROOT.gStyle.SetLabelFont(62,"Y")
+ROOT.gStyle.SetTitleSize(0.045,"Y")
+ROOT.gStyle.SetTitleFont(62,"Y")
+ROOT.gStyle.SetTitleOffset(1.0,"Y")
+#ROOT.gStyle.SetTitleX(0.22)
+#ROOT.gStyle.SetTitleY(0.98)
+ROOT.gStyle.SetTitleSize(0.07,"t")
+ROOT.gStyle.SetTitleBorderSize(0)
+ROOT.gStyle.SetCanvasBorderSize(0)
+
 
 #f = ROOT.TFile("/build/kirby/cc1muNp_ubxsec_integration/ubxsec_test_ntuples/ubxsec_output_mc_bnbcosmic.root")
 #f = ROOT.TFile("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/testing_pid_larana/ubxsec_output_mc_bnbcosmic_Nov19_test_v1.root")
@@ -447,13 +472,16 @@ def IsCosmic(e):
 #f = ROOT.TFile("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/test_ntuples_Nov26/ubxsec_output_data_onbeam.root")
 #f = ROOT.TFile("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/test_ntuples_Dec20/ubxsec_output_mc_bnbcosmic.root")
 f = ROOT.TFile("/uboone/data/users/kirby/cc1muNp_ubxsec_ntuples/ntuples_Mar20_merge/ubxsec_output_mc_bnbcosmic.root")
+f_T3 = ROOT.TFile("/uboone/data/users/kirby/cc1muNp_ubxsec_ntuples/ntuples_Apr05_merge/ubxsec_output_mc_bnbcosmic_Tune3_merged.root")
 #f = ROOT.TFile("/build/kirby/cc1muNp_ubxsec_pid_integration_test_larana/test_ntuples_Dec20/ubxsec_output_mc_bnbdirt.root")
 
 ROOT.gROOT.SetBatch(1)
-ROOT.gStyle.SetOptStat(0)
+#ROOT.gStyle.SetOptStat(0)
 
 #t = f.Get("SimpleAna/cc1unptree")
-tree = f.Get("UBXSec/tree")
+tree = dict()
+tree{"MC"] = f.Get("UBXSec/tree")
+tree{"T3"] = f_T3.Get("UBXSec/tree")
 
 #tree.MakeClass("UBXSecEvent")
 #ROOT.gROOT.ProcessLine(".L /uboone/app/users/afurmans/CCNproton_ccinc/software_builds/larsoft_06_26_01_22/srcs/uboonecode/uboone/UBXSec/DataTypes/UBXSecEvent.h")
@@ -557,7 +585,7 @@ h_trueRecoMom_int = h_trueRecoMom_badOA.Clone("h_trueRecoMom_int")
 h_reso_protonMom_bwdBin = ROOT.TH1D("",";;",50,0,-1)
 h_reso_protonMom_bwdBinAndBadReco = ROOT.TH1D("",";;",50,0,-1)
 
-N_entries = tree.GetEntries()
+N_entries = tree["MC"].GetEntries()
 perc = int(N_entries/100.)
 dec = int(N_entries/10.)
 print "running over",N_entries,"events"
@@ -597,7 +625,7 @@ h_CCinc_process_goodreco = ROOT.TH1D("h_CCinc_process_goodreco","h_CCinc_process
 N_scatter = 0
 N_noscatter = 0
 
-for event in tree:
+for event in tree["MC"]:
   i+=1
   if i%perc == 0 and i>perc-10 and i < dec:
     print int(100*float(i)/N_entries),"%"
@@ -1127,13 +1155,31 @@ canv.cd()
 for var in variables:
   nbins = len(bins[var])-1
   for ibin in xrange(nbins):
+    h_trueDist[var,ibin].SetMaximum(h_trueDist[var,ibin].GetMaximum()*1.3)
     h_trueDist[var,ibin].Draw("hist")
+    s = ROOT.gPad.GetPrimitive("stats");
+    #s.SetTextSize(0.025);
+    s.SetX1NDC(0.55);
+    s.SetX2NDC(0.89); 
+    s.SetY1NDC(0.7);
+    s.SetY2NDC(0.89);
+
     lowLine[var,ibin,"true"].Draw()
     highLine[var,ibin,"true"].Draw()
     canv.SaveAs("figures/resolutions/"+var+"_trueDistribution_bin_"+str(ibin)+".eps")
     canv.SaveAs("figures/resolutions/"+var+"_trueDistribution_bin_"+str(ibin)+".png")
     
+    h_reso[var,ibin].SetMaximum(h_reso[var,ibin].GetMaximum()*1.3)
     h_reso[var,ibin].Draw("hist")
+    s = ROOT.gPad.GetPrimitive("stats");
+    #s.SetTextSize(0.025);
+    s.SetX1NDC(0.55);
+    s.SetX2NDC(0.89); 
+    s.SetY1NDC(0.7);
+    s.SetY2NDC(0.89);
+    if var=="protonAngle" and ibin>2:
+      s.SetX1NDC(0.11)
+      s.SetX2NDC(0.45)
     lowLine[var,ibin,"reso"].Draw()
     highLine[var,ibin,"reso"].Draw()
     canv.SaveAs("figures/resolutions/"+var+"_reso_bin_"+str(ibin)+".eps")
