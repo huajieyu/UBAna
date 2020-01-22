@@ -4,6 +4,25 @@ import ROOT
 import math
 import array
 
+
+ROOT.gStyle.SetLabelSize(0.045,"X")
+ROOT.gStyle.SetLabelFont(62,"X")
+ROOT.gStyle.SetTitleSize(0.045,"X")
+ROOT.gStyle.SetTitleFont(62,"X")
+ROOT.gStyle.SetTitleOffset(0.85,"X")
+ROOT.gStyle.SetLabelSize(0.045,"Y")
+ROOT.gStyle.SetLabelFont(62,"Y")
+ROOT.gStyle.SetTitleSize(0.045,"Y")
+ROOT.gStyle.SetTitleFont(62,"Y")
+ROOT.gStyle.SetTitleOffset(1.0,"Y")
+#ROOT.gStyle.SetTitleX(0.22)
+#ROOT.gStyle.SetTitleY(0.98)
+ROOT.gStyle.SetTitleSize(0.07,"t")
+ROOT.gStyle.SetTitleBorderSize(0)
+ROOT.gStyle.SetCanvasBorderSize(0)
+
+
+
 def dumpEvent(e):
   print "======== DUMPING EVENT =============="
   for i in xrange(len(e.genie_mcpar_pdgcode)):
@@ -298,6 +317,22 @@ def passMinHitsCut(e, considerShowerTracks):
     return False
   return True
 
+def countTracksLess5Hits(e, considerShowerTracks):
+  numless5hits=0
+  for i in xrange(len(e.pfp_reco_Mom_proton)):
+    if e.pfp_reco_ismuoncandidate[i]:
+      continue
+    if not e.pfp_reco_isshower[i] and not e.pfp_reco_istrack[i]:
+      continue
+    if not considerShowerTracks and e.pfp_reco_isshower[i]:
+      continue
+    #if considerShowerTracks and e.pfp_reco_numtracks!=1:
+    #  continue
+    nhits_CP = len(e.pfp_reco_dEdx[i])
+    if nhits_CP<5:
+      numless5hits+=1
+  return numless5hits
+
 def passNtracksCut(e, considerShowerTracks):
   for i in xrange(len(e.pfp_reco_chi2_proton)):
     if e.pfp_reco_ismuoncandidate[i]:
@@ -557,9 +592,12 @@ h_protonMom_fullPS = dict()
 h_protonAngle_fullPS = dict()
 h_muonMom_fullPS = dict()
 h_muonAngle_fullPS = dict()
+h_NHits = dict()
 bins=dict()
 bins["protonMom"]=array.array("d",[0.30, 0.41, 0.495, 0.56, 0.62, 0.68, 0.74, 0.80, 0.87, 0.93, 1.2])
+bins["protonMomFull"]=array.array("d",[0.0, 0.05, 0.1,0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.75])
 bins["muonMom"]=array.array("d",[0.10, 0.18, 0.30, 0.48, 0.75, 1.14, 2.50])
+bins["muonMomFull"]=array.array("d",[0.0,0.05,0.10, 0.15, 0.25, 0.35, 0.55, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.50])
 bins["protonAngle"]=array.array("d",[-1.00, -0.50, 0.00, 0.27, 0.45, 0.62, 0.76, 0.86, 0.94, 1.00])
 bins["muonAngle"]=array.array("d",[-1.00, -0.82, -0.66, -0.39, -0.16, 0.05, 0.25, 0.43, 0.59, 0.73, 0.83, 0.91, 1.00])
 bins["thetamup"]=array.array("d",[0.00, 0.8, 1.2, 1.57, 1.94, 2.34, 3.14])
@@ -572,10 +610,11 @@ for cut in xrange(5):
     h_muonMom[cut,cut2] = ROOT.TH1D("h_muonMom_cut"+str(cut)+str(cut2), "h_muonMom cut "+str(cut)+str(cut2)+";muon momentum [GeV/c];Events",len(bins["muonMom"])-1,bins["muonMom"])
     h_muonAngle[cut,cut2] = ROOT.TH1D("h_muonAngle_cut"+str(cut)+str(cut2), "h_muonAngle cut "+str(cut)+str(cut2)+";muon cos(#theta);Events",len(bins["muonAngle"])-1,bins["muonAngle"])
     h_protonMom_old[cut,cut2] = ROOT.TH1D("h_protonMom_cut_old"+str(cut)+str(cut2), "h_protonMom cut "+str(cut)+str(cut2)+";momentum [GeV/c];Events",len(bins["protonMom"])-1,bins["protonMom"])
-    h_protonMom_fullPS[cut,cut2] = ROOT.TH1D("h_protonMom_fullPS_cut"+str(cut)+str(cut2), "h_protonMom_fullPS cut "+str(cut)+str(cut2)+";proton momentum [GeV/c];Events",len(bins["protonMom"])-1,bins["protonMom"])
+    h_protonMom_fullPS[cut,cut2] = ROOT.TH1D("h_protonMom_fullPS_cut"+str(cut)+str(cut2), "h_protonMom_fullPS cut "+str(cut)+str(cut2)+";proton momentum [GeV/c];Events",len(bins["protonMomFull"])-1,bins["protonMomFull"])
     h_protonAngle_fullPS[cut,cut2] = ROOT.TH1D("h_protonAngle_fullPS_cut"+str(cut)+str(cut2), "h_protonAngle_fullPS cut "+str(cut)+str(cut2)+";proton cos(#theta);Events",len(bins["protonAngle"])-1,bins["protonAngle"])
-    h_muonMom_fullPS[cut,cut2] = ROOT.TH1D("h_muonMom_fullPS_cut"+str(cut)+str(cut2), "h_muonMom_fullPS cut "+str(cut)+str(cut2)+";muon momentum [GeV/c];Events",len(bins["muonMom"])-1,bins["muonMom"])
+    h_muonMom_fullPS[cut,cut2] = ROOT.TH1D("h_muonMom_fullPS_cut"+str(cut)+str(cut2), "h_muonMom_fullPS cut "+str(cut)+str(cut2)+";muon momentum [GeV/c];Events",len(bins["muonMomFull"])-1,bins["muonMomFull"])
     h_muonAngle_fullPS[cut,cut2] = ROOT.TH1D("h_muonAngle_fullPS_cut"+str(cut)+str(cut2), "h_muonAngle_fullPS cut "+str(cut)+str(cut2)+";muon cos(#theta);Events",len(bins["muonAngle"])-1,bins["muonAngle"])
+    h_NHits[cut,cut2] = ROOT.TH1D("h_Nhits_cut"+str(cut)+str(cut2),"h_Nhits cut"+str(cut)+str(cut2)+";number of CP hits;Events",15,0,15)
     ## 0 - all, 1, CC-inc, 2 - contained, 3 - PID
     ## cut2: 0 - event passed cuts, 1, correct particles selected
 
@@ -610,11 +649,14 @@ h_rightVsWrong_mom = ROOT.TH2D("h_rightVsWrong_mom","h_rightVsWrong_mom;leading 
 
 h_pionMom = ROOT.TH1D("h_pionMom","h_pionMom",20,0,0.5)
 h_pionAngle =  ROOT.TH1D("h_pionAngle","h_pionAngle",20,-1,1)
-h_pionMomAngle = ROOT.TH2D("h_pionMomAngle","h_pionMomAngle",20,0,0.5,20,-1,1)
+h_pionMomAngle = ROOT.TH2D("h_pionMomAngle","h_pionMomAngle",10,0,0.5,10,-1,1)
 h_pionLength = ROOT.TH1D("h_pionLength","h_pionLength",40,0,100)
 h_pionLengthZ = ROOT.TH1D("h_pionLengthZ","h_pionLengthZ",40,0,100)
 h_pionLengthMom= ROOT.TH2D("h_pionLengthMom","h_pionLengthMom",40,0,100,20,0,0.5)
 
+h_pionMom_noreco = ROOT.TH1D("h_pionMom_noreco","h_pionMom",20,0,0.5)
+h_pionAngle_noreco =  ROOT.TH1D("h_pionAngle_noreco","h_pionAngle",20,-1,1)
+h_pionMomAngle_noreco = ROOT.TH2D("h_pionMomAngle_noreco","h_pionMomAngle",10,0,0.5,10,-1,1)
 
 h_muonMomAngle_pionIsMuCand = ROOT.TH2D("h_muonMomAngle_pionIsMuCand","h_muonMomAngle_pionIsMuCand",20,0,2, 20,-1,1)
 h_pionLength_muonIsMuCand = ROOT.TH1D("h_pionLength_muonIsMuCand","h_pionLength_muonIsMuCand",40,0,100)
@@ -644,6 +686,7 @@ h_process_pionIsProtonCand.GetXaxis().SetBinLabel(1,"stopped")
 N_signal_cut=dict()
 N_signal_cut_pluscos=dict()
 N_cut=dict()
+N_selected_less5hits=0
 for thr in thresholds:
   for cut in xrange(10):
     N_signal_cut[thr,cut]=0
@@ -672,9 +715,11 @@ for event in tree["MC"]:
   if i==100000:
     print "processed 100000 events"
     
-#  if i > dec:
+#  if i > perc:
 #    break
-    
+#  if i > dec:
+#    break    
+  
   e = event.ubxsec_event_split
   #print dir(e)
   #exit()
@@ -724,14 +769,14 @@ for event in tree["MC"]:
   h_muonMom[0,1].Fill(muon_true_mom,isSignal(e,300,0) and particlesCorrect and not is_cosmic)
   h_muonAngle[0,0].Fill(muon_true_costheta,isSignal(e,300,0))# and particlesCorrect and not is_cosmic)
   h_muonAngle[0,1].Fill(muon_true_costheta,isSignal(e,300,0) and particlesCorrect and not is_cosmic)
-  h_protonMom_fullPS[0,0].Fill(proton_true_mom,isSignalOld(e,300,0))# and particlesCorrect and not is_cosmic)
-  h_protonMom_fullPS[0,1].Fill(proton_true_mom,isSignalOld(e,300,0) and particlesCorrect and not is_cosmic)
-  h_protonAngle_fullPS[0,0].Fill(proton_true_costheta,isSignalOld(e,300,0))# and particlesCorrect and not is_cosmic)
-  h_protonAngle_fullPS[0,1].Fill(proton_true_costheta,isSignalOld(e,300,0) and particlesCorrect and not is_cosmic)
-  h_muonMom_fullPS[0,0].Fill(muon_true_mom,isSignalOld(e,300,0))# and particlesCorrect and not is_cosmic)
-  h_muonMom_fullPS[0,1].Fill(muon_true_mom,isSignalOld(e,300,0) and particlesCorrect and not is_cosmic)
-  h_muonAngle_fullPS[0,0].Fill(muon_true_costheta,isSignalOld(e,300,0))# and particlesCorrect and not is_cosmic)
-  h_muonAngle_fullPS[0,1].Fill(muon_true_costheta,isSignalOld(e,300,0) and particlesCorrect and not is_cosmic)
+  h_protonMom_fullPS[0,0].Fill(proton_true_mom,isSignalOld(e,0,0))# and particlesCorrect and not is_cosmic)
+  h_protonMom_fullPS[0,1].Fill(proton_true_mom,isSignalOld(e,0,0) and particlesCorrect and not is_cosmic)
+  h_protonAngle_fullPS[0,0].Fill(proton_true_costheta,isSignalOld(e,0,0))# and particlesCorrect and not is_cosmic)
+  h_protonAngle_fullPS[0,1].Fill(proton_true_costheta,isSignalOld(e,0,0) and particlesCorrect and not is_cosmic)
+  h_muonMom_fullPS[0,0].Fill(muon_true_mom,isSignalOld(e,0,0))# and particlesCorrect and not is_cosmic)
+  h_muonMom_fullPS[0,1].Fill(muon_true_mom,isSignalOld(e,0,0) and particlesCorrect and not is_cosmic)
+  h_muonAngle_fullPS[0,0].Fill(muon_true_costheta,isSignalOld(e,0,0))# and particlesCorrect and not is_cosmic)
+  h_muonAngle_fullPS[0,1].Fill(muon_true_costheta,isSignalOld(e,0,0) and particlesCorrect and not is_cosmic)
   #print "next event"
   if e.is_selected:
     pind = getTrueProtonIndex(e)
@@ -758,16 +803,17 @@ for event in tree["MC"]:
     h_muonMom[1,1].Fill(muon_true_mom,isSignal(e,300,0) and particlesCorrect and not is_cosmic)
     h_muonAngle[1,0].Fill(muon_true_costheta,isSignal(e,300,0))
     h_muonAngle[1,1].Fill(muon_true_costheta,isSignal(e,300,0) and particlesCorrect and not is_cosmic)
-    h_protonMom_fullPS[1,0].Fill(proton_true_mom,isSignalOld(e,300,0))
-    h_protonMom_fullPS[1,1].Fill(proton_true_mom,isSignalOld(e,300,0) and particlesCorrect and not is_cosmic)
-    h_protonAngle_fullPS[1,0].Fill(proton_true_costheta,isSignalOld(e,300,0))
+    h_protonMom_fullPS[1,0].Fill(proton_true_mom,isSignalOld(e,0,0))
+    h_protonMom_fullPS[1,1].Fill(proton_true_mom,isSignalOld(e,0,0) and particlesCorrect and not is_cosmic)
+    h_protonAngle_fullPS[1,0].Fill(proton_true_costheta,isSignalOld(e,0,0))
     h_protonAngle_fullPS[1,1].Fill(proton_true_costheta,isSignalOld(e,300,0) and particlesCorrect and not is_cosmic)
-    h_muonMom_fullPS[1,0].Fill(muon_true_mom,isSignalOld(e,300,0))
-    h_muonMom_fullPS[1,1].Fill(muon_true_mom,isSignalOld(e,300,0) and particlesCorrect and not is_cosmic)
-    h_muonAngle_fullPS[1,0].Fill(muon_true_costheta,isSignalOld(e,300,0))
-    h_muonAngle_fullPS[1,1].Fill(muon_true_costheta,isSignalOld(e,300,0) and particlesCorrect and not is_cosmic)
+    h_muonMom_fullPS[1,0].Fill(muon_true_mom,isSignalOld(e,0,0))
+    h_muonMom_fullPS[1,1].Fill(muon_true_mom,isSignalOld(e,0,0) and particlesCorrect and not is_cosmic)
+    h_muonAngle_fullPS[1,0].Fill(muon_true_costheta,isSignalOld(e,0,0))
+    h_muonAngle_fullPS[1,1].Fill(muon_true_costheta,isSignalOld(e,0,0) and particlesCorrect and not is_cosmic)
     if not passNtracksCut(e, considerShowerTracks):
       continue
+    preco_ind = getRecoProtonIndex(e, considerShowerTracks)
     N_signal_cut[300,2]+=isSignal(e,300,0)*(not is_cosmic) # count selected signal at 2-tracks
     N_signal_cut_pluscos[300,2]+=isSignal(e,300,0) # count selected signal at 2-tracks
     N_cut[300,2]+=1 # count all events at 2-tracks
@@ -784,14 +830,19 @@ for event in tree["MC"]:
     h_muonMom[2,1].Fill(muon_true_mom,isSignal(e,300,0) and particlesCorrect and not is_cosmic)
     h_muonAngle[2,0].Fill(muon_true_costheta,isSignal(e,300,0))# and particlesCorrect and not is_cosmic)
     h_muonAngle[2,1].Fill(muon_true_costheta,isSignal(e,300,0) and particlesCorrect and not is_cosmic)
-    h_protonMom_fullPS[2,0].Fill(proton_true_mom,isSignalOld(e,300,0))# and particlesCorrect and not is_cosmic)
-    h_protonMom_fullPS[2,1].Fill(proton_true_mom,isSignalOld(e,300,0) and particlesCorrect and not is_cosmic)
-    h_protonAngle_fullPS[2,0].Fill(proton_true_costheta,isSignalOld(e,300,0))# and particlesCorrect and not is_cosmic)
-    h_protonAngle_fullPS[2,1].Fill(proton_true_costheta,isSignalOld(e,300,0) and particlesCorrect and not is_cosmic)
-    h_muonMom_fullPS[2,0].Fill(muon_true_mom,isSignalOld(e,300,0))# and particlesCorrect and not is_cosmic)
-    h_muonMom_fullPS[2,1].Fill(muon_true_mom,isSignalOld(e,300,0) and particlesCorrect and not is_cosmic)
-    h_muonAngle_fullPS[2,0].Fill(muon_true_costheta,isSignalOld(e,300,0))# and particlesCorrect and not is_cosmic)
-    h_muonAngle_fullPS[2,1].Fill(muon_true_costheta,isSignalOld(e,300,0) and particlesCorrect and not is_cosmic)
+    h_protonMom_fullPS[2,0].Fill(proton_true_mom,isSignalOld(e,0,0))# and particlesCorrect and not is_cosmic)
+    h_protonMom_fullPS[2,1].Fill(proton_true_mom,isSignalOld(e,0,0) and particlesCorrect and not is_cosmic)
+    h_protonAngle_fullPS[2,0].Fill(proton_true_costheta,isSignalOld(e,0,0))# and particlesCorrect and not is_cosmic)
+    h_protonAngle_fullPS[2,1].Fill(proton_true_costheta,isSignalOld(e,0,0) and particlesCorrect and not is_cosmic)
+    h_muonMom_fullPS[2,0].Fill(muon_true_mom,isSignalOld(e,0,0))# and particlesCorrect and not is_cosmic)
+    h_muonMom_fullPS[2,1].Fill(muon_true_mom,isSignalOld(e,0,0) and particlesCorrect and not is_cosmic)
+    h_muonAngle_fullPS[2,0].Fill(muon_true_costheta,isSignalOld(e,0,0))# and particlesCorrect and not is_cosmic)
+    h_muonAngle_fullPS[2,1].Fill(muon_true_costheta,isSignalOld(e,0,0) and particlesCorrect and not is_cosmic)
+    h_NHits[2,0].Fill(len(e.pfp_reco_dEdx[preco_ind]), isSignal(e,0,0)) 
+    h_NHits[2,1].Fill(len(e.pfp_reco_dEdx[preco_ind]), isSignal(e,0,0) and particlesCorrect and not is_cosmic) 
+    if passChi2Cut(e, considerShowerTracks) and e.pfp_reco_chi2_proton[preco_ind] < 88. and e.pfp_reco_chi2_proton[preco_ind]>0: ## This is just for the NHits efficiency plots
+      h_NHits[3,0].Fill(len(e.pfp_reco_dEdx[preco_ind]), isSignal(e,0,0)) 
+      h_NHits[3,1].Fill(len(e.pfp_reco_dEdx[preco_ind]), isSignal(e,0,0) and particlesCorrect and not is_cosmic) 
     if passMinHitsCut(e, considerShowerTracks):
       N_signal_cut[300,4]+=isSignal(e,300,0)*(not is_cosmic) # count selected signal at 5 hit cut
       N_signal_cut_pluscos[300,4]+=isSignal(e,300,0) # count selected signal at 5 hit cut
@@ -800,6 +851,14 @@ for event in tree["MC"]:
         N_signal_cut[300,5]+=isSignal(e,300,0)*(not is_cosmic) # count selected signal at chi2 cut
         N_signal_cut_pluscos[300,5]+=isSignal(e,300,0) # count selected signal at chi2 cut
         N_cut[300,5]+=1 # count all selected events at chi2 cut
+        h_protonMom_fullPS[3,0].Fill(proton_true_mom,isSignalOld(e,0,0))# and particlesCorrect and not is_cosmic)
+        h_protonMom_fullPS[3,1].Fill(proton_true_mom,isSignalOld(e,0,0) and particlesCorrect and not is_cosmic)
+        h_protonAngle_fullPS[3,0].Fill(proton_true_costheta,isSignalOld(e,0,0))# and particlesCorrect and not is_cosmic)
+        h_protonAngle_fullPS[3,1].Fill(proton_true_costheta,isSignalOld(e,0,0) and particlesCorrect and not is_cosmic)
+        h_muonMom_fullPS[3,0].Fill(muon_true_mom,isSignalOld(e,0,0))# and particlesCorrect and not is_cosmic)
+        h_muonMom_fullPS[3,1].Fill(muon_true_mom,isSignalOld(e,0,0) and particlesCorrect and not is_cosmic)
+        h_muonAngle_fullPS[3,0].Fill(muon_true_costheta,isSignalOld(e,0,0))# and particlesCorrect and not is_cosmic)
+        h_muonAngle_fullPS[3,1].Fill(muon_true_costheta,isSignalOld(e,0,0) and particlesCorrect and not is_cosmic)
     if passChi2Cut(e, considerShowerTracks) and passMinHitsCut(e, considerShowerTracks) and passPhaseSpaceCuts(e, considerShowerTracks):
       N_signal_cut[300,6]+=isSignal(e,300,0)*(not is_cosmic) # count selected signal at phase space cuts
       N_signal_cut_pluscos[300,6]+=isSignal(e,300,0) # count selected signal at phase space cuts
@@ -812,14 +871,8 @@ for event in tree["MC"]:
       h_muonMom[3,1].Fill(muon_true_mom,isSignal(e,300,0) and particlesCorrect and not is_cosmic)
       h_muonAngle[3,0].Fill(muon_true_costheta,isSignal(e,300,0))# and particlesCorrect and not is_cosmic)
       h_muonAngle[3,1].Fill(muon_true_costheta,isSignal(e,300,0) and particlesCorrect and not is_cosmic)
-      h_protonMom_fullPS[3,0].Fill(proton_true_mom,isSignalOld(e,300,0))# and particlesCorrect and not is_cosmic)
-      h_protonMom_fullPS[3,1].Fill(proton_true_mom,isSignalOld(e,300,0) and particlesCorrect and not is_cosmic)
-      h_protonAngle_fullPS[3,0].Fill(proton_true_costheta,isSignalOld(e,300,0))# and particlesCorrect and not is_cosmic)
-      h_protonAngle_fullPS[3,1].Fill(proton_true_costheta,isSignalOld(e,300,0) and particlesCorrect and not is_cosmic)
-      h_muonMom_fullPS[3,0].Fill(muon_true_mom,isSignalOld(e,300,0))# and particlesCorrect and not is_cosmic)
-      h_muonMom_fullPS[3,1].Fill(muon_true_mom,isSignalOld(e,300,0) and particlesCorrect and not is_cosmic)
-      h_muonAngle_fullPS[3,0].Fill(muon_true_costheta,isSignalOld(e,300,0))# and particlesCorrect and not is_cosmic)
-      h_muonAngle_fullPS[3,1].Fill(muon_true_costheta,isSignalOld(e,300,0) and particlesCorrect and not is_cosmic)
+      if (countTracksLess5Hits(e, considerShowerTracks) > 0):
+        N_selected_less5hits+=1
       # Mode variables
       if isSignal(e,300,0):
         #h_protonMom[mode,"post"].Fill(proton_true_mom,isSignal(e,300,0) and particlesCorrect and not is_cosmic)
@@ -894,6 +947,10 @@ for event in tree["MC"]:
         #    print "My code says we DID NOT reco the right particles"
           #dumpEvent(e)
         h_picount_ch_neut.Fill(0)
+        pionReco=False
+        for i_pfp in xrange(e.pfp_truth_pdg.size()):
+          if abs(e.pfp_truth_pdg[i_pfp])==211:
+            pionReco=True
         if e.ngenie_pion0s>0 and e.ngenie_pipms>0:
           h_picount_ch_neut.Fill(3)
         if e.ngenie_pion0s>0:
@@ -905,6 +962,10 @@ for event in tree["MC"]:
           h_pionMom.Fill(p_pi)
           h_pionAngle.Fill(costheta_pi)
           h_pionMomAngle.Fill(p_pi, costheta_pi)
+          if not pionReco:
+            h_pionMom_noreco.Fill(p_pi)
+            h_pionAngle_noreco.Fill(costheta_pi)
+            h_pionMomAngle_noreco.Fill(p_pi, costheta_pi)
           geant_index = getLeadingPionIndexGEANT(e)
           lengthx = math.fabs(e.geant_mcpar_startx[geant_index] - e.geant_mcpar_endx[geant_index])
           lengthy = math.fabs(e.geant_mcpar_starty[geant_index] - e.geant_mcpar_endy[geant_index])
@@ -962,10 +1023,15 @@ for event in tree["MC"]:
 canv = ROOT.TCanvas()
 
 
+h_pionMom.SetTitle(";Pion momentum [GeV/c];Selected background events")
+h_pionMom.SetLineColor(1)
 h_pionMom.Draw("e")
 canv.SaveAs("figures/h_pionMom.eps")
 h_pionAngle.Draw("e")
 canv.SaveAs("figures/h_pionAngle.eps")
+h_pionMomAngle.SetTitle(";pion momentum [GeV/c];pion cos(#theta)")
+h_pionMomAngle.GetXaxis().SetTitleSize(0.045)
+h_pionMomAngle.GetYaxis().SetTitleSize(0.045)
 h_pionMomAngle.Draw("colz")
 canv.SaveAs("figures/h_pionMomAngle.eps")
 h_pionLength.Draw("e")
@@ -974,6 +1040,40 @@ h_pionLengthZ.Draw("e")
 canv.SaveAs("figures/h_pionLengthZ.eps")
 h_pionLengthMom.Draw("colz")
 canv.SaveAs("figures/h_pionLengthMom.eps")
+
+
+h_pionMom_noreco.SetTitle(";Pion momentum [GeV/c];Selected background events")
+h_pionMom_noreco.SetLineColor(1)
+h_pionMom_noreco.Draw("e")
+canv.SaveAs("figures/h_pionMom_noreco.eps")
+h_pionMomAngle_noreco.SetTitle(";pion momentum [GeV/c];pion cos(#theta)")
+h_pionMomAngle_noreco.GetXaxis().SetTitleSize(0.045)
+h_pionMomAngle_noreco.GetYaxis().SetTitleSize(0.045)
+h_pionMomAngle_noreco.Draw("colz")
+canv.SaveAs("figures/h_pionMomAngle_noreco.eps")
+
+h_pionMom.SetLineColor(1)
+h_pionMom.SetMinimum(0)
+h_pionMom.Draw("e")
+h_pionMom_noreco.SetLineColor(2)
+h_pionMom_noreco.Draw("e same")
+leg_pi = ROOT.TLegend(0.65, 0.65, 0.89, 0.89)
+leg_pi.AddEntry(h_pionMom,"All pions","l")
+leg_pi.AddEntry(h_pionMom_noreco,"Missed pions","l")
+leg_pi.Draw()
+canv.SaveAs("figures/h_pionMom_recoVsNot.eps")
+
+h_pionAngle.SetLineColor(1)
+h_pionAngle.SetMinimum(0)
+h_pionAngle.Draw("e")
+h_pionAngle_noreco.SetLineColor(2)
+h_pionAngle_noreco.Draw("e same")
+leg_pi2 = ROOT.TLegend(0.11, 0.65, 0.35, 0.89)
+leg_pi2.AddEntry(h_pionMom,"All pions","l")
+leg_pi2.AddEntry(h_pionMom_noreco,"Missed pions","l")
+leg_pi2.Draw()
+canv.SaveAs("figures/h_pionAngle_recoVsNot.eps")
+
 
 h_mupdg.Draw("hist")
 canv.SaveAs("figures/h_muonPdg_pionInEvent.eps")
@@ -1020,6 +1120,7 @@ print "Contained -",N_signal_cut[300,3], "of total", N_cut[300,3], "and includin
 print "5 hits -",N_signal_cut[300,4], "of total", N_cut[300,4], "and including cosmics",N_signal_cut_pluscos[300,4]
 print "Chi2 -",N_signal_cut[300,5], "of total", N_cut[300,5], "and including cosmics",N_signal_cut_pluscos[300,5]
 print "Phase space -",N_signal_cut[300,6], "of total", N_cut[300,6], "and including cosmics",N_signal_cut_pluscos[300,6]
+print "for a specific calculation... there were", N_selected_less5hits, "events with an additional track with fewer than 5 hits"
 print "========================================================="
 
 for thr in thresholds:
@@ -1097,16 +1198,16 @@ legvscut.AddEntry(effpmom[0,1],"correct particles","l")
 f_Kirby = ROOT.TFile("Tune1_Tune3_eff.root")
 fout_Andy = ROOT.TFile("AndyEfficiency.root","recreate")
 
-effpmom[0,0].SetTitle(";Proton momentum [GeV/c];Efficiency")
-effpmom[0,0].Draw("A ")
+effpmom[0,1].SetTitle(";Proton momentum [GeV/c];Efficiency")
+effpmom[0,1].Draw("A ")
 ROOT.gPad.Update()
-graph = effpmom[0,0].GetPaintedGraph()
+graph = effpmom[0,1].GetPaintedGraph()
 graph.SetMinimum(0)
 graph.SetMaximum(1.4)
 
 for i in xrange(4):
   for j in xrange(2):
-    if i==0 and j==0:
+    if i==0:# and j==0:
       continue
     effpmom[i,j].Draw("e same")
 legvscut.Draw()
@@ -1136,16 +1237,16 @@ effpmom[3,1].Write()
 
 
 ## Proton cos(theta)
-effpangle[0,0].SetTitle(";Proton cos(#theta);Efficiency")
-effpangle[0,0].Draw("A")
+effpangle[0,1].SetTitle(";Proton cos(#theta);Efficiency")
+effpangle[0,1].Draw("A")
 ROOT.gPad.Update()
-graph = effpangle[0,0].GetPaintedGraph()
+graph = effpangle[0,1].GetPaintedGraph()
 graph.SetMinimum(0)
 graph.SetMaximum(1.4)
 
 for i in xrange(4):
   for j in xrange(2):
-    if i==0 and j==0:
+    if i==0:# and j==0:
       continue
     effpangle[i,j].Draw("e same")
 legvscut.Draw()
@@ -1169,16 +1270,16 @@ effpangle[3,0].Write()
 effpangle[3,1].Write()
 
 ## Muon momentum
-effmumom[0,0].SetTitle(";Muon momentum [GeV/c];Efficiency")
-effmumom[0,0].Draw("A")
+effmumom[0,1].SetTitle(";Muon momentum [GeV/c];Efficiency")
+effmumom[0,1].Draw("A")
 ROOT.gPad.Update()
-graph = effmumom[0,0].GetPaintedGraph()
+graph = effmumom[0,1].GetPaintedGraph()
 graph.SetMinimum(0)
 graph.SetMaximum(1.4)
 
 for i in xrange(4):
   for j in xrange(2):
-    if i==0 and j==0:
+    if i==0:# and j==0:
       continue
     effmumom[i,j].Draw("e same")
 legvscut.Draw()
@@ -1202,16 +1303,16 @@ effmumom[3,0].Write()
 effmumom[3,1].Write()
 
 ## Muon cos(theta)
-effmuangle[0,0].SetTitle(";Muon cos(#theta);Efficiency")
-effmuangle[0,0].Draw("A")
+effmuangle[0,1].SetTitle(";Muon cos(#theta);Efficiency")
+effmuangle[0,1].Draw("A")
 ROOT.gPad.Update()
-graph = effmuangle[0,0].GetPaintedGraph()
+graph = effmuangle[0,1].GetPaintedGraph()
 graph.SetMinimum(0)
 graph.SetMaximum(1.4)
 
 for i in xrange(4):
   for j in xrange(2):
-    if i==0 and j==0:
+    if i==0:# and j==0:
       continue
     effmuangle[i,j].Draw("e same")
 legvscut.Draw()
@@ -1235,101 +1336,113 @@ effmuangle[3,0].Write()
 effmuangle[3,1].Write()
 
 # Full-phase-space comparisons?
-effpmom_fullPS[0,0].SetTitle(";Proton momentum [GeV/c];Efficiency")
-effpmom_fullPS[0,0].Draw("A ")
+effpmom_fullPS[0,1].SetTitle(";Proton momentum [GeV/c];Efficiency")
+effpmom_fullPS[0,1].Draw("A ")
 ROOT.gPad.Update()
-graph = effpmom_fullPS[0,0].GetPaintedGraph()
+graph = effpmom_fullPS[0,1].GetPaintedGraph()
 graph.SetMinimum(0)
 graph.SetMaximum(1.4)
 
 for i in xrange(4):
   for j in xrange(2):
-    if i==0 and j==0:
+    if i==0:# and j==0:
       continue
     effpmom_fullPS[i,j].Draw("e same")
 legvscut.Draw()
-canv.SaveAs("figures/efficiency_protonMom_vsCut_fullPS.eps")
-canv.SaveAs("figures/efficiency_protonMom_vsCut_fullPS.png")
+canv.SaveAs("figures/efficiency/efficiency_protonMom_vsCut_fullPS.eps")
+canv.SaveAs("figures/efficiency/efficiency_protonMom_vsCut_fullPS.png")
 
 graph.SetMaximum(0.1)
 ROOT.gPad.Update()
-canv.SaveAs("figures/efficiency_protonMom_vsCut_zoom_fullPS.eps")
-canv.SaveAs("figures/efficiency_protonMom_vsCut_zoom_fullPS.png")
+canv.SaveAs("figures/efficiency/efficiency_protonMom_vsCut_zoom_fullPS.eps")
+canv.SaveAs("figures/efficiency/efficiency_protonMom_vsCut_zoom_fullPS.png")
 
 canv.Clear()
 effpmom_fullPS[3,1].SetTitle(";Proton momentum [GeV/c];Efficiency")
 effpmom_fullPS[3,1].Draw("A e")
-canv.SaveAs("figures/efficiency_protonMom_final_fullPS.eps")
-canv.SaveAs("figures/efficiency_protonMom_final_fullPS.png")
+canv.Update()
+effpmom_fullPS[3,1].GetPaintedGraph().GetXaxis().SetTitleSize(0.045)
+canv.Update()
+canv.SaveAs("figures/efficiency/efficiency_protonMom_final_fullPS.eps")
+canv.SaveAs("figures/efficiency/efficiency_protonMom_final_fullPS.png")
 
 ## Proton cos(theta)
-effpangle_fullPS[0,0].SetTitle(";Proton cos(#theta);Efficiency")
-effpangle_fullPS[0,0].Draw("A")
+effpangle_fullPS[0,1].SetTitle(";Proton cos(#theta);Efficiency")
+effpangle_fullPS[0,1].Draw("A")
 ROOT.gPad.Update()
-graph = effpangle_fullPS[0,0].GetPaintedGraph()
+graph = effpangle_fullPS[0,1].GetPaintedGraph()
 graph.SetMinimum(0)
 graph.SetMaximum(1.4)
 
 for i in xrange(4):
   for j in xrange(2):
-    if i==0 and j==0:
+    if i==0:# and j==0:
       continue
     effpangle_fullPS[i,j].Draw("e same")
 legvscut.Draw()
-canv.SaveAs("figures/efficiency_protonAngle_vsCut_fullPS.eps")
-canv.SaveAs("figures/efficiency_protonAngle_vsCut_fullPS.png")
+canv.SaveAs("figures/efficiency/efficiency_protonAngle_vsCut_fullPS.eps")
+canv.SaveAs("figures/efficiency/efficiency_protonAngle_vsCut_fullPS.png")
 
 canv.Clear()
 effpangle_fullPS[3,1].SetTitle(";Proton cos(#theta);Efficiency")
 effpangle_fullPS[3,1].Draw("A e")
-canv.SaveAs("figures/efficiency_protonAngle_final_fullPS.eps")
-canv.SaveAs("figures/efficiency_protonAngle_final_fullPS.png")
+canv.Update()
+effpangle_fullPS[3,1].GetPaintedGraph().GetXaxis().SetTitleSize(0.045)
+canv.Update()
+canv.SaveAs("figures/efficiency/efficiency_protonAngle_final_fullPS.eps")
+canv.SaveAs("figures/efficiency/efficiency_protonAngle_final_fullPS.png")
 
 ## Muon momentum
-effmumom_fullPS[0,0].SetTitle(";Muon momentum [GeV/c];Efficiency")
-effmumom_fullPS[0,0].Draw("A")
+effmumom_fullPS[0,1].SetTitle(";Muon momentum [GeV/c];Efficiency")
+effmumom_fullPS[0,1].Draw("A")
 ROOT.gPad.Update()
-graph = effmumom_fullPS[0,0].GetPaintedGraph()
+graph = effmumom_fullPS[0,1].GetPaintedGraph()
 graph.SetMinimum(0)
 graph.SetMaximum(1.4)
 
 for i in xrange(4):
   for j in xrange(2):
-    if i==0 and j==0:
+    if i==0:# and j==0:
       continue
     effmumom_fullPS[i,j].Draw("e same")
 legvscut.Draw()
-canv.SaveAs("figures/efficiency_muonMom_vsCut_fullPS.eps")
-canv.SaveAs("figures/efficiency_muonMom_vsCut_fullPS.png")
+canv.SaveAs("figures/efficiency/efficiency_muonMom_vsCut_fullPS.eps")
+canv.SaveAs("figures/efficiency/efficiency_muonMom_vsCut_fullPS.png")
 
 canv.Clear()
 effmumom_fullPS[3,1].SetTitle(";Muon momentum [GeV/c];Efficiency")
 effmumom_fullPS[3,1].Draw("A e")
-canv.SaveAs("figures/efficiency_muonMom_final_fullPS.eps")
-canv.SaveAs("figures/efficiency_muonMom_final_fullPS.png")
+canv.Update()
+effmumom_fullPS[3,1].GetPaintedGraph().GetXaxis().SetTitleSize(0.045)
+canv.Update()
+canv.SaveAs("figures/efficiency/efficiency_muonMom_final_fullPS.eps")
+canv.SaveAs("figures/efficiency/efficiency_muonMom_final_fullPS.png")
 
 ## Muon cos(theta)
-effmuangle_fullPS[0,0].SetTitle(";Muon cos(#theta);Efficiency")
-effmuangle_fullPS[0,0].Draw("A")
+effmuangle_fullPS[0,1].SetTitle(";Muon cos(#theta);Efficiency")
+effmuangle_fullPS[0,1].Draw("A")
 ROOT.gPad.Update()
-graph = effmuangle_fullPS[0,0].GetPaintedGraph()
+graph = effmuangle_fullPS[0,1].GetPaintedGraph()
 graph.SetMinimum(0)
 graph.SetMaximum(1.4)
 
 for i in xrange(4):
   for j in xrange(2):
-    if i==0 and j==0:
+    if i==0: # and j==0:
       continue
     effmuangle_fullPS[i,j].Draw("e same")
 legvscut.Draw()
-canv.SaveAs("figures/efficiency_muonAngle_vsCut_fullPS.eps")
-canv.SaveAs("figures/efficiency_muonAngle_vsCut_fullPS.png")
+canv.SaveAs("figures/efficiency/efficiency_muonAngle_vsCut_fullPS.eps")
+canv.SaveAs("figures/efficiency/efficiency_muonAngle_vsCut_fullPS.png")
 
 canv.Clear()
 effmuangle_fullPS[3,1].SetTitle(";Muon cos(#theta);Efficiency")
 effmuangle_fullPS[3,1].Draw("A e")
-canv.SaveAs("figures/efficiency_muonAngle_final_fullPS.eps")
-canv.SaveAs("figures/efficiency_muonAngle_final_fullPS.png")
+canv.Update()
+effmuangle_fullPS[3,1].GetPaintedGraph().GetXaxis().SetTitleSize(0.045)
+canv.Update()
+canv.SaveAs("figures/efficiency/efficiency_muonAngle_final_fullPS.eps")
+canv.SaveAs("figures/efficiency/efficiency_muonAngle_final_fullPS.png")
 
 
 # Comparisons of full and restricted phase space efficiencies
@@ -1678,4 +1791,18 @@ canv.SaveAs("figures/protonConfusion_trueMomVsSelMom.eps")
 canv.SaveAs("figures/protonConfusion_trueMomVsSelMom.pdf")
 
 
+h_NHits[2,1].Draw("e")
+h_NHits[3,1].SetLineColor(2)
+h_NHits[3,1].Draw("e same")
+canv.SaveAs("figures/NHits_distribution_beforeAfter.eps")
+canv.SaveAs("figures/NHits_distribution_beforeAfter.png")
 
+NHits_eff=ROOT.TEfficiency(h_NHits[3,1] ,h_NHits[2,1])
+NHits_eff.SetTitle(";Number of CP hits;Efficiency")
+NHits_eff.Draw("A")
+canv.Update()
+NHits_eff.GetPaintedGraph().GetXaxis().SetTitleSize(0.045)
+NHits_eff.GetPaintedGraph().GetYaxis().SetTitleSize(0.045)
+canv.Update()
+canv.SaveAs("figures/NHits_efficiency.eps")
+canv.SaveAs("figures/NHits_efficiency.png")
