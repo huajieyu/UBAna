@@ -276,7 +276,7 @@ void Main::Maker::FillBootstrap(double fill_value,
 
   for (size_t i = 0; i < fname.size(); i++) {
 
-    std::cout <<"ooops libo test"<< i << ": Fill value: " << fill_value << ", weight: " << wgts_genie.at(i) << ", name is " << fname.at(i) << std::endl;
+    //std::cout <<"ooops libo test"<< i << ": Fill value: " << fill_value << ", weight: " << wgts_genie.at(i) << ", name is " << fname.at(i) << std::endl;
 
     this_map[fname.at(i)]->Fill(fill_value, wgts_genie.at(i) * evt_wgt);
 
@@ -3917,7 +3917,24 @@ void Main::Maker::MakeFile()
 
       // // Also fill the same tree for all te universes
       // FillTrueRecoTree(tmap_mom_tree_gene_multisim_bs, _mom_true, _mom_mcs, _angle_true, _angle_reco, fname_genie_multisim, wgts_genie_multisim);
-      _event_histo_1d->h_true_reco_pmom->Fill(t->pfp_truth_mom[pind], t->pfp_reco_Mom_proton[pind], event_weight);
+      //if(t->pfp_truth_mom[pind]>0.3 && t->pfp_truth_mom[pind]<1.2){
+         //_event_histo_1d->h_true_reco_pmom->Fill(t->pfp_truth_mom[pind], t->pfp_reco_Mom_proton[pind], event_weight);
+           _event_histo_1d->h_true_reco_pmom->Fill(temp_pmom, t->pfp_reco_Mom_proton[pind], event_weight);
+      //}
+      /*else {
+
+          
+         std::cout<<"<<<<<<<foundsignalabnormal<<<<<<<<<start to print out true momentum of protons"<<std::endl;
+         for(unsigned int ig=0; ig<t->genie_mcpar_pdgcode.size(); ig++){
+               if(abs(t->genie_mcpar_pdgcode[ig])!= 2212) continue;
+               std::cout<<"the "<<i<<" th protons momentum is "<<TMath::Sqrt(t->genie_mcpar_px[ig]*t->genie_mcpar_px[ig]+ t->genie_mcpar_py[ig]*t->genie_mcpar_py[ig] + t->genie_mcpar_pz[ig]*t->genie_mcpar_pz[ig])<<std::endl;
+         }
+         std::cout<<"the selected proton candidate's true momentum is "<<t->pfp_truth_mom[pind]<<std::endl;
+         std::cout<<"PDG code of this proton candidate is "<<t->pfp_truth_pdg[pind]<<std::endl;
+         std::cout<<"the selected proton candidate's reco momentum  is"<<t->pfp_reco_Mom_proton[pind]<<std::endl;
+         std::cout<<"<<<<<<<foundsignalabnormal<<<<<<<<<start to print out true momentum of protons"<<std::endl;
+
+      }*/
       _event_histo_1d->h_true_reco_pcostheta->Fill(temp_pangle, t->pfp_reco_costheta[pind], event_weight);
       _event_histo_1d->h_true_reco_thetamup->Fill(temp_thetamup, thetamup, event_weight);
       
@@ -4271,7 +4288,7 @@ void Main::Maker::MakeFile()
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight, _event_histo_1d->hmap_trkmom_genie_pm1_bs, "signal", fname_genie_pm1, wgts_genie_pm1);
       }
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->lep_costheta, event_weight, _event_histo_1d->hmap_trktheta_genie_pm1_bs, "signal", fname_genie_pm1, wgts_genie_pm1);
-      if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pmom, event_weight, _event_histo_1d->hmap_trkpmom_genie_pm1_bs, "signal", fname_genie_pm1, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_genie_pm1_bs, "signal", fname_genie_pm1, wgts_genie_pm1);
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pangle, event_weight, _event_histo_1d->hmap_trkptheta_genie_pm1_bs, "signal", fname_genie_pm1, wgts_genie_pm1);
 
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(thetamup, event_weight, _event_histo_1d->hmap_thetamup_genie_pm1_bs, "signal", fname_genie_pm1, wgts_genie_pm1);
@@ -4419,7 +4436,7 @@ void Main::Maker::MakeFile()
       }else{
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight, _event_histo_1d->hmap_trkmom_genie_pm1_bs, "anumu", fname_genie_pm1, wgts_genie_pm1);
       }
-      if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pmom, event_weight, _event_histo_1d->hmap_trkpmom_genie_pm1_bs, "anumu", fname_genie_pm1, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_genie_pm1_bs, "anumu", fname_genie_pm1, wgts_genie_pm1);
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->lep_costheta, event_weight, _event_histo_1d->hmap_trktheta_genie_pm1_bs, "anumu", fname_genie_pm1, wgts_genie_pm1);
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pangle, event_weight, _event_histo_1d->hmap_trkptheta_genie_pm1_bs, "anumu", fname_genie_pm1, wgts_genie_pm1);
 
@@ -4536,7 +4553,7 @@ void Main::Maker::MakeFile()
       }else{   
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight, _event_histo_1d->hmap_trkmom_genie_pm1_bs, "cc_other", fname_genie_pm1, wgts_genie_pm1);
       }
-      if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pmom, event_weight, _event_histo_1d->hmap_trkpmom_genie_pm1_bs, "cc_other", fname_genie_pm1, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_genie_pm1_bs, "cc_other", fname_genie_pm1, wgts_genie_pm1);
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->lep_costheta, event_weight, _event_histo_1d->hmap_trktheta_genie_pm1_bs, "cc_other", fname_genie_pm1, wgts_genie_pm1);
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pangle, event_weight, _event_histo_1d->hmap_trkptheta_genie_pm1_bs, "cc_other", fname_genie_pm1, wgts_genie_pm1);
 
@@ -4755,7 +4772,7 @@ void Main::Maker::MakeFile()
       }else{
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight, _event_histo_1d->hmap_trkmom_genie_pm1_bs, "nue", fname_genie_pm1, wgts_genie_pm1);
       }
-      if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pmom, event_weight, _event_histo_1d->hmap_trkpmom_genie_pm1_bs, "nue", fname_genie_pm1, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_genie_pm1_bs, "nue", fname_genie_pm1, wgts_genie_pm1);
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->lep_costheta, event_weight, _event_histo_1d->hmap_trktheta_genie_pm1_bs, "nue", fname_genie_pm1, wgts_genie_pm1);
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pangle, event_weight, _event_histo_1d->hmap_trkptheta_genie_pm1_bs, "nue", fname_genie_pm1, wgts_genie_pm1);
 
@@ -4873,7 +4890,7 @@ void Main::Maker::MakeFile()
       } else{
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight, _event_histo_1d->hmap_trkmom_genie_pm1_bs, "nc", fname_genie_pm1, wgts_genie_pm1);
       }
-      if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pmom, event_weight, _event_histo_1d->hmap_trkpmom_genie_pm1_bs, "nc", fname_genie_pm1, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_genie_pm1_bs, "nc", fname_genie_pm1, wgts_genie_pm1);
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->lep_costheta, event_weight, _event_histo_1d->hmap_trktheta_genie_pm1_bs, "nc", fname_genie_pm1, wgts_genie_pm1);
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pangle, event_weight, _event_histo_1d->hmap_trkptheta_genie_pm1_bs, "nc", fname_genie_pm1, wgts_genie_pm1);
 
@@ -5037,7 +5054,7 @@ void Main::Maker::MakeFile()
       } else{
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight, _event_histo_1d->hmap_trkmom_genie_pm1_bs, "outfv", fname_genie_pm1, wgts_genie_pm1);
       }
-      if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pmom, event_weight, _event_histo_1d->hmap_trkpmom_genie_pm1_bs, "outfv", fname_genie_pm1, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_genie_pm1_bs, "outfv", fname_genie_pm1, wgts_genie_pm1);
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->lep_costheta, event_weight, _event_histo_1d->hmap_trktheta_genie_pm1_bs, "outfv", fname_genie_pm1, wgts_genie_pm1);
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pangle, event_weight, _event_histo_1d->hmap_trkptheta_genie_pm1_bs, "outfv", fname_genie_pm1, wgts_genie_pm1);
 
@@ -5185,7 +5202,7 @@ void Main::Maker::MakeFile()
       }else{
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->slc_muoncandidate_mom_mcs.at(scl_ll_max), event_weight, _event_histo_1d->hmap_trkmom_genie_pm1_bs, "cosmic", fname_genie_pm1, wgts_genie_pm1);
       }
-      if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pmom, event_weight, _event_histo_1d->hmap_trkpmom_genie_pm1_bs, "cosmic", fname_genie_pm1, wgts_genie_pm1);
+      if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->pfp_reco_Mom_proton[pind], event_weight, _event_histo_1d->hmap_trkpmom_genie_pm1_bs, "cosmic", fname_genie_pm1, wgts_genie_pm1);
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(t->lep_costheta, event_weight, _event_histo_1d->hmap_trktheta_genie_pm1_bs, "cosmic", fname_genie_pm1, wgts_genie_pm1);
       if (!isdata && _fill_bootstrap_genie) FillBootstrap(temp_pangle, event_weight, _event_histo_1d->hmap_trkptheta_genie_pm1_bs, "cosmic", fname_genie_pm1, wgts_genie_pm1);
 
