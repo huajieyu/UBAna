@@ -2678,7 +2678,11 @@ void Main::Maker::MakeFile()
                               t->genie_mcpar_py[mpar]*t->genie_mcpar_py[mpar]+
                               t->genie_mcpar_pz[mpar]*t->genie_mcpar_pz[mpar]);
                temp_pangle=t->genie_mcpar_pz[mpar]/temp_pmom;
-               temp_pphi=TMath::ACos(t->genie_mcpar_px[mpar]/TMath::Sqrt(t->genie_mcpar_px[mpar]*t->genie_mcpar_px[mpar]+t->genie_mcpar_py[mpar]*t->genie_mcpar_py[mpar]));
+
+               //temp_pphi=TMath::ACos(t->genie_mcpar_px[mpar]/TMath::Sqrt(t->genie_mcpar_px[mpar]*t->genie_mcpar_px[mpar]+t->genie_mcpar_py[mpar]*t->genie_mcpar_py[mpar]));
+               temp_pphi=TMath::ATan2(t->genie_mcpar_py[mpar], t->genie_mcpar_px[mpar]);
+
+
                temp_thetamup=getAngle(temp_pmom, TMath::ACos(temp_pangle), temp_pphi,  t->true_muon_mom, TMath::ACos(t->lep_costheta), t->lep_phi); 
            }
       }      
@@ -3647,7 +3651,8 @@ void Main::Maker::MakeFile()
                               t->genie_mcpar_py[mpar]*t->genie_mcpar_py[mpar]+
                               t->genie_mcpar_pz[mpar]*t->genie_mcpar_pz[mpar]);
                temp_pangle=t->genie_mcpar_pz[mpar]/temp_pmom;
-               temp_pphi=TMath::ACos(t->genie_mcpar_px[mpar]/TMath::Sqrt(t->genie_mcpar_px[mpar]*t->genie_mcpar_px[mpar]+t->genie_mcpar_py[mpar]*t->genie_mcpar_py[mpar]));
+               temp_pphi=TMath::ATan2(t->genie_mcpar_py[mpar],t->genie_mcpar_px[mpar]);
+               //temp_pphi=TMath::ACos(t->genie_mcpar_px[mpar]/TMath::Sqrt(t->genie_mcpar_px[mpar]*t->genie_mcpar_px[mpar]+t->genie_mcpar_py[mpar]*t->genie_mcpar_py[mpar]));
                temp_thetamup=getAngle(temp_pmom, TMath::ACos(temp_pangle), temp_pphi,  t->true_muon_mom, TMath::ACos(t->lep_costheta), t->lep_phi); 
             }
       }     
